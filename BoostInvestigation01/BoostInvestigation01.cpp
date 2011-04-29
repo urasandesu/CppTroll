@@ -33,6 +33,19 @@ BOOST_CONCEPT_REQUIRES(
 {
 }
 
+//template<class T>
+//BOOST_CONCEPT_REQUIRES(
+//                       ((boost::Convertible<T, std::vector<std::any>>)),
+//                       (void)
+//                       ) HogeHoge(void** ppObj)
+//{
+//}
+
+template<class T>
+void HogeHoge(void** ppObj)
+{
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
     using namespace std;
@@ -49,6 +62,9 @@ int _tmain(int argc, _TCHAR* argv[])
     BOOST_CONCEPT_ASSERT((Convertible<vector<int>, vector<any>>));
     BOOST_STATIC_ASSERT((is_convertible<vector<int>, vector<any>>::value));
     BOOST_STATIC_ASSERT((!is_convertible<vector<int>, vector<double>>::value));
+
+    void* pObj = NULL;
+    HogeHoge<int>(&pObj);
 
     return 0;
 }
