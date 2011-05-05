@@ -1,0 +1,26 @@
+HKCR
+{
+	Sample01.EmployeeCollection.1 = s 'EmployeeCollection Class'
+	{
+		CLSID = s '{DA02B766-1C6A-4399-902B-B6B2747528C1}'
+	}
+	Sample01.EmployeeCollection = s 'EmployeeCollection Class'
+	{
+		CLSID = s '{DA02B766-1C6A-4399-902B-B6B2747528C1}'
+		CurVer = s 'Sample01.EmployeeCollection.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {DA02B766-1C6A-4399-902B-B6B2747528C1} = s 'EmployeeCollection Class'
+		{
+			ProgID = s 'Sample01.EmployeeCollection.1'
+			VersionIndependentProgID = s 'Sample01.EmployeeCollection'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{E1D94705-9C97-4104-8B97-89A1EE53456D}'
+		}
+	}
+}

@@ -1,0 +1,62 @@
+// Sample01.idl : Sample01 の IDL ソース
+//
+
+// このファイルは、タイプ ライブラリ (Sample01.tlb) およびマーシャリング コードを
+// 作成するために MIDL ツールによって処理されます。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(49562FA4-2E88-44B2-B3BC-95E5D596ADE1),
+	dual,
+	nonextensible,
+	helpstring("IEmployee インターフェイス"),
+	pointer_default(unique)
+]
+interface IEmployee : IDispatch{
+    [propget, id(1), helpstring("プロパティ Name")] HRESULT Name([out, retval] BSTR* pVal);
+    [propput, id(1), helpstring("プロパティ Name")] HRESULT Name([in] BSTR newVal);
+    [propget, id(2), helpstring("プロパティ Id")] HRESULT Id([out, retval] LONG* pVal);
+    [propput, id(2), helpstring("プロパティ Id")] HRESULT Id([in] LONG newVal);
+};
+[
+	object,
+	uuid(45C6C575-91C4-4DB3-8B0D-74BDDDF7D3B4),
+	dual,
+	nonextensible,
+	helpstring("IEmployeeCollection インターフェイス"),
+	pointer_default(unique)
+]
+interface IEmployeeCollection : IDispatch{
+    [id(1), helpstring("メソッド Add")] HRESULT Add([in] IEmployee* pVal);
+    [propget, id(2), helpstring("プロパティ Count")] HRESULT Count([out, retval] LONG* pVal);
+    [id(DISPID_VALUE), helpstring("メソッド Item")] HRESULT Item([in] VARIANT index, [out,retval] IEmployee** ppItem);
+    [propget, id(DISPID_NEWENUM), helpstring("プロパティ _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
+};
+[
+	uuid(E1D94705-9C97-4104-8B97-89A1EE53456D),
+	version(1.0),
+	helpstring("Sample01 1.0 タイプ ライブラリ")
+]
+library Sample01Lib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(7307F922-2C35-482F-B887-96417C0580A2),
+		helpstring("Employee Class")
+	]
+	coclass Employee
+	{
+		[default] interface IEmployee;
+	};
+	[
+		uuid(DA02B766-1C6A-4399-902B-B6B2747528C1),
+		helpstring("EmployeeCollection Class")
+	]
+	coclass EmployeeCollection
+	{
+		[default] interface IEmployeeCollection;
+	};
+};
