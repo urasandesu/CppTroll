@@ -4,7 +4,9 @@
 #include "resource.h"       // ÉÅÉCÉì ÉVÉìÉ{Éã
 
 #include "Sample01_i.h"
+#include "dllmain.h"
 
+#include "Employee.h"
 #include "ComUtilities.h"
 #include "CComEnumOnRange.h"
 #include "Copies.h"
@@ -16,11 +18,10 @@
 #endif
 
 
-typedef CComQIPtr<IEmployee> EmployeePtr;
 typedef std::map<CComBSTR, EmployeePtr> EmployeeMap;
 typedef EmployeeMap::iterator EmployeeMapItr;
 typedef EmployeeMap::value_type EmployeePair;
-typedef My::MapCopy<EmployeeMap, VARIANT> CopyType;
+typedef My::MapCopy2nd<EmployeeMap, VARIANT> CopyType;
 typedef My::SinglePassCopyAnyRangeGenerator<EmployeeMap>::type EmployeeRange;
 typedef My::CComEnumOnRange<IEnumVARIANT, VARIANT, CopyType, EmployeeRange> EmployeeEnumerator;
 
@@ -51,6 +52,7 @@ END_COM_MAP()
 
 	HRESULT FinalConstruct()
 	{
+        EmployeeMap _coll;
 		return S_OK;
 	}
 

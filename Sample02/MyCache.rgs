@@ -1,0 +1,26 @@
+HKCR
+{
+	Sample02.MyCache.1 = s 'MyCache Class'
+	{
+		CLSID = s '{206584CE-D105-4FB6-9B13-E6FA6CE227B9}'
+	}
+	Sample02.MyCache = s 'MyCache Class'
+	{
+		CLSID = s '{206584CE-D105-4FB6-9B13-E6FA6CE227B9}'
+		CurVer = s 'Sample02.MyCache.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {206584CE-D105-4FB6-9B13-E6FA6CE227B9} = s 'MyCache Class'
+		{
+			ProgID = s 'Sample02.MyCache.1'
+			VersionIndependentProgID = s 'Sample02.MyCache'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{66E14A4E-F4D6-4EE3-A6CB-ECB383F236A0}'
+		}
+	}
+}

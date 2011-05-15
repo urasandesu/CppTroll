@@ -1,0 +1,26 @@
+HKCR
+{
+	Sample02.PairBStrVariant.1 = s 'PairBStrVariant Class'
+	{
+		CLSID = s '{37C6DACC-3125-4568-B6C5-0EED9373C7C2}'
+	}
+	Sample02.PairBStrVariant = s 'PairBStrVariant Class'
+	{
+		CLSID = s '{37C6DACC-3125-4568-B6C5-0EED9373C7C2}'
+		CurVer = s 'Sample02.PairBStrVariant.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {37C6DACC-3125-4568-B6C5-0EED9373C7C2} = s 'PairBStrVariant Class'
+		{
+			ProgID = s 'Sample02.PairBStrVariant.1'
+			VersionIndependentProgID = s 'Sample02.PairBStrVariant'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{66E14A4E-F4D6-4EE3-A6CB-ECB383F236A0}'
+		}
+	}
+}

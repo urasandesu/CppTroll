@@ -1,10 +1,14 @@
-// Employee.h : CEmployee の宣言
+// MyCachePrinter.h : CMyCachePrinter の宣言
 
 #pragma once
 #include "resource.h"       // メイン シンボル
 
-#include "Sample01_i.h"
+#include "Sample02_i.h"
+#include "dllmain.h"
 
+#include "MyCache.h"
+#include <boost/format.hpp>
+#include <iostream>
 
 #if defined(_WIN32_WCE) && !defined(_CE_DCOM) && !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)
 #error "DCOM の完全サポートを含んでいない Windows Mobile プラットフォームのような Windows CE プラットフォームでは、単一スレッド COM オブジェクトは正しくサポートされていません。ATL が単一スレッド COM オブジェクトの作成をサポートすること、およびその単一スレッド COM オブジェクトの実装の使用を許可することを強制するには、_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA を定義してください。ご使用の rgs ファイルのスレッド モデルは 'Free' に設定されており、DCOM Windows CE 以外のプラットフォームでサポートされる唯一のスレッド モデルと設定されていました。"
@@ -12,24 +16,23 @@
 
 
 
-// CEmployee
+// CMyCachePrinter
 
-class ATL_NO_VTABLE CEmployee :
+class ATL_NO_VTABLE CMyCachePrinter :
 	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CEmployee, &CLSID_Employee>,
-	public IDispatchImpl<IEmployee, &IID_IEmployee, &LIBID_Sample01Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+	public CComCoClass<CMyCachePrinter, &CLSID_MyCachePrinter>,
+	public IDispatchImpl<IMyCachePrinter, &IID_IMyCachePrinter, &LIBID_Sample02Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
-    CEmployee() : m_lId(0)
+	CMyCachePrinter()
 	{
 	}
 
-DECLARE_REGISTRY_RESOURCEID(IDR_EMPLOYEE)
-DECLARE_CLASSFACTORY_SINGLETON(CEmployee)
+DECLARE_REGISTRY_RESOURCEID(IDR_MYCACHEPRINTER)
 
 
-BEGIN_COM_MAP(CEmployee)
-	COM_INTERFACE_ENTRY(IEmployee)
+BEGIN_COM_MAP(CMyCachePrinter)
+	COM_INTERFACE_ENTRY(IMyCachePrinter)
 	COM_INTERFACE_ENTRY(IDispatch)
 END_COM_MAP()
 
@@ -48,16 +51,7 @@ END_COM_MAP()
 
 public:
 
-    STDMETHOD(get_Name)(BSTR* pVal);
-    STDMETHOD(put_Name)(BSTR newVal);
-    STDMETHOD(get_Id)(LONG* pVal);
-    STDMETHOD(put_Id)(LONG newVal);
-
-private:
-    CComBSTR m_name;
-    LONG m_lId;
+    STDMETHOD(Print)(void);
 };
 
-OBJECT_ENTRY_AUTO(__uuidof(Employee), CEmployee)
-typedef CComObject<CEmployee> CEmployeeObject;
-typedef CComPtr<IEmployee> EmployeePtr;
+OBJECT_ENTRY_AUTO(__uuidof(MyCachePrinter), CMyCachePrinter)

@@ -2,6 +2,7 @@
 
 #include "AddImplicitConversion.h"
 #include "CComEnumOnRange.h"
+#include "AnyRanges.h"
 
 #include <atlbase.h>
 #include <atlcom.h>

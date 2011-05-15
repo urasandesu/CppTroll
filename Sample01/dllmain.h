@@ -1,5 +1,7 @@
 // dllmain.h : モジュール クラスの宣言
 
+#pragma once
+
 class CSample01Module : public CAtlDllModuleT< CSample01Module >
 {
 public :

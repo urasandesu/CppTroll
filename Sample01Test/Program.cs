@@ -32,6 +32,8 @@ namespace Sample01Test
             {
                 Console.WriteLine(string.Format("Employee{0:d2}: {1}", _employee.Id, _employee.Name));
             }
+
+            Console.ReadLine();
         }
     }
 }

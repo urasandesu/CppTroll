@@ -83,11 +83,14 @@ STDMETHODIMP CEmployeeCollection::get__NewEnum(IUnknown** ppVal)
 
         EmployeePair operator()(const EmployeePair& pair) const
         {
-            typedef CComObject<CEmployee> Employee;
-
             HRESULT hr;
-            Employee* pEmployee = NULL;
-            hr = Employee::CreateInstance(&pEmployee);
+
+            CComPtr<IClassFactory> pCf;
+            hr = _AtlModule.DllGetClassObject(__uuidof(Employee), IID_IClassFactory, (void**)&pCf);
+            ATLASSERT(SUCCEEDED(hr));
+
+            CComPtr<IEmployee> pEmployee;
+            hr = pCf->CreateInstance(NULL, IID_IEmployee, (void**)&pEmployee);
             ATLASSERT(SUCCEEDED(hr));
 
             CComBSTR name;

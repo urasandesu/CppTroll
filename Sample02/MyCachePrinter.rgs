@@ -1,0 +1,26 @@
+HKCR
+{
+	Sample02.MyCachePrinter.1 = s 'MyCachePrinter Class'
+	{
+		CLSID = s '{E8A92313-2962-4844-8086-5120A29AD7FF}'
+	}
+	Sample02.MyCachePrinter = s 'MyCachePrinter Class'
+	{
+		CLSID = s '{E8A92313-2962-4844-8086-5120A29AD7FF}'
+		CurVer = s 'Sample02.MyCachePrinter.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {E8A92313-2962-4844-8086-5120A29AD7FF} = s 'MyCachePrinter Class'
+		{
+			ProgID = s 'Sample02.MyCachePrinter.1'
+			VersionIndependentProgID = s 'Sample02.MyCachePrinter'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{66E14A4E-F4D6-4EE3-A6CB-ECB383F236A0}'
+		}
+	}
+}
