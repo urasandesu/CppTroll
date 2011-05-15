@@ -85,12 +85,8 @@ STDMETHODIMP CEmployeeCollection::get__NewEnum(IUnknown** ppVal)
         {
             HRESULT hr;
 
-            CComPtr<IClassFactory> pCf;
-            hr = _AtlModule.DllGetClassObject(__uuidof(Employee), IID_IClassFactory, (void**)&pCf);
-            ATLASSERT(SUCCEEDED(hr));
-
-            CComPtr<IEmployee> pEmployee;
-            hr = pCf->CreateInstance(NULL, IID_IEmployee, (void**)&pEmployee);
+            CEmployeeObject* pEmployee;
+            hr = CEmployeeObject::CreateInstance(&pEmployee);
             ATLASSERT(SUCCEEDED(hr));
 
             CComBSTR name;

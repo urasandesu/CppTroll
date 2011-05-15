@@ -52,7 +52,6 @@ END_COM_MAP()
 
 	HRESULT FinalConstruct()
 	{
-        EmployeeMap _coll;
 		return S_OK;
 	}
 
