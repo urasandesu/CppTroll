@@ -12,9 +12,9 @@ namespace My
     >
     class ATL_NO_VTABLE IPairImpl : public Base
     {
-        BOOST_CONCEPT_ASSERT((PairOf<Base, FirstType, SecondType>));
-        BOOST_CONCEPT_ASSERT((ATLCopyPolicy<FirstCopy, FirstType, FirstType>));
-        BOOST_CONCEPT_ASSERT((ATLCopyPolicy<SecondCopy, SecondType, SecondType>));
+        BOOST_CONCEPT_ASSERT((ComPair<Base, FirstType, SecondType>));
+        BOOST_CONCEPT_ASSERT((ATLCopy<FirstCopy, FirstType, FirstType>));
+        BOOST_CONCEPT_ASSERT((ATLCopy<SecondCopy, SecondType, SecondType>));
 
     public:
         typedef IPairImpl<Base, FirstType, SecondType, FirstCopy, SecondCopy> type;

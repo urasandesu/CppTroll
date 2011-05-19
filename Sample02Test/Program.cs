@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Sample02Lib;
 
 namespace Sample02Test
@@ -15,7 +12,7 @@ namespace Sample02Test
             myCache.set_Item(keys[0], 1);
             myCache.set_Item(keys[1], "mogeta");
             myCache.set_Item(keys[2], new A() { Key = 10, Value = "hoge" });
-            myCache.set_Item(keys[3], DateTime.Now);
+            myCache.set_Item(keys[3], new DateTime(2011, 5, 19, 23, 56, 41));
             myCache.set_Item(keys[4], 10d);
 
             Console.WriteLine("MyCache.Count: {0}", myCache.Count);
@@ -23,18 +20,48 @@ namespace Sample02Test
             {
                 Console.WriteLine("MyCache[{0}]: {1}", keys[i], myCache.get_Item(keys[i]));
             }
+            // Display message below: 
+            // MyCache[a]: 1
+            // MyCache[i]: mogeta
+            // MyCache[u]: Sample02Test.A
+            // MyCache[e]: 2011/05/19 23:56:41
+            // MyCache[o]: 10
+            // 
             Console.WriteLine();
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine();
+            
             foreach (PairBStrVariant item in myCache)
             {
                 Console.WriteLine("MyCache[{0}]: {1}", item.First, item.Second);
             }
+            // Display message below: 
+            // MyCache[i]: mogeta
+            // MyCache[u]: Sample02Test.A
+            // MyCache[a]: 1
+            // MyCache[o]: 10
+            // MyCache[e]: 2011/05/19 23:56:41
+            // 
             Console.WriteLine();
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine();
+
+            myCache.set_Item("f", new NotImplemented());
             var printer = new MyCachePrinter();
-            printer.Print();
+            try
+            {
+                printer.Print();
+                // Display message below: 
+                // MyCache[i]:  mogeta
+                // MyCache[u]:  Sample02Test.A
+                // MyCache[a]:   1
+                // MyCache[o]:  10
+                // MyCache[e]:  2011/05/19 23:56:42
+            }
+            catch (NotImplementedException e)
+            {
+                Console.WriteLine(e.Message);   // Display message, "Error, World !!". The exception message is overwritten by MyCachePrinter.
+            }
 
             Console.ReadLine();
         }
@@ -44,5 +71,13 @@ namespace Sample02Test
     {
         public int Key { get; set; }
         public string Value { get; set; }
+    }
+
+    class NotImplemented
+    {
+        public override string ToString()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

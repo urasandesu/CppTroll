@@ -3,10 +3,24 @@
 #include "stdafx.h"
 #include "MyCachePrinter.h"
 
-
 // CMyCachePrinter
 
-HRESULT ToString(const CComVariant& value, BSTR* pStr)
+STDMETHODIMP CMyCachePrinter::InterfaceSupportsErrorInfo(REFIID riid)
+{
+	static const IID* arr[] = 
+	{
+		&IID_IMyCachePrinter
+	};
+
+	for (int i=0; i < sizeof(arr) / sizeof(arr[0]); i++)
+	{
+		if (InlineIsEqualGUID(*arr[i],riid))
+			return S_OK;
+	}
+	return S_FALSE;
+}
+
+HRESULT CMyCachePrinter::ToString(const CComVariant& value, BSTR* pStr)
 {
     HRESULT hr;
 
@@ -15,11 +29,24 @@ HRESULT ToString(const CComVariant& value, BSTR* pStr)
 	{
 	case VT_UNKNOWN:
 		{
-            CComBSTR str(L"IUnknown");
-            hr = str.CopyTo(pStr);
+            mscorlib::_ObjectPtr pObject;
+            hr = _value.punkVal->QueryInterface(__uuidof(mscorlib::_Object), (void**)&pObject);
             if (FAILED(hr))
             {
-                return hr;
+                CComBSTR str(L"IUnknown");
+                hr = str.CopyTo(pStr);
+                if (FAILED(hr))
+                {
+                    return hr;
+                }
+            }
+            else
+            {
+                hr = pObject->get_ToString(pStr);
+                if (FAILED(hr))
+                {
+                    return Error(L"Error, World !!", GUID_NULL, hr);
+                }
             }
             break;
 		}

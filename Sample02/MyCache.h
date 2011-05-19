@@ -6,10 +6,6 @@
 #include "Sample02_i.h"
 #include "dllmain.h"
 
-#include <boost/unordered_map.hpp>
-#include "ComUtilities.h"
-#include "CComEnumOnRange.h"
-#include "Copies.h"
 #include "PairBStrVariant.h"
 
 #if defined(_WIN32_WCE) && !defined(_CE_DCOM) && !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)
@@ -48,7 +44,7 @@ typedef std::pair<CAdapt<CComBSTR>, CComVariant> BStrVariantPair;
 typedef boost::unordered_map<CAdapt<CComBSTR>, CComVariant, AdaptedComBSTRHash, AdaptedComBSTREqualTo> StrVariantMap;
 typedef StrVariantMap::iterator StrVariantIterator;
 typedef StrVariantMap::const_iterator StrVariantConstIterator;
-typedef My::MapCopy<StrVariantMap, CPairBStrVariantObject> CopyType;
+typedef My::MapCopy<StrVariantMap, CPairBStrVariant> CopyType;
 typedef My::CComEnumOnRange<IEnumVARIANT, VARIANT, CopyType, StrVariantMap> StrVariantEnumerator;
 
 // CMyCache

@@ -10,11 +10,11 @@
 namespace My
 {
     template<class X, class FirstType, class SecondType>
-    struct PairOf
+    struct ComPair
     {
         BOOST_MPL_ASSERT((boost::is_base_of<IUnknown, X>));
             
-        BOOST_CONCEPT_USAGE(PairOf)
+        BOOST_CONCEPT_USAGE(ComPair)
         {
             HRESULT hr;
             X* pX1;
@@ -27,12 +27,12 @@ namespace My
             hr = pX1->get_Second(&second);
             hr = pX1->put_Second(second);
         }
-    };  // struct PairOf
+    };  // struct ComPair
 
-    template<class X, class SourceType, class DestinationType>
-    struct ATLCopyPolicy
+    template<class X, class DestinationType, class SourceType>
+    struct ATLCopy
     {
-        BOOST_CONCEPT_USAGE(ATLCopyPolicy)
+        BOOST_CONCEPT_USAGE(ATLCopy)
         {
             HRESULT hr;
             const SourceType* pFrom;
@@ -42,6 +42,6 @@ namespace My
             hr = X::copy(pTo, pFrom);
             X::destroy(pTo);
         }
-    };  // struct ATLCopyPolicy
+    };  // struct ATLCopy
 
 }   // namespace My
