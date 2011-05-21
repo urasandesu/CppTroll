@@ -52,7 +52,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\boost_1_46_1"
+				AdditionalIncludeDirectories="C:\boost_1_46_1;..\My"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -299,23 +299,31 @@
 				Name="My"
 				>
 				<File
-					RelativePath=".\AddImplicitConversion.h"
+					RelativePath="..\My\AddImplicitConversion.h"
 					>
 				</File>
 				<File
-					RelativePath=".\AnyRanges.h"
+					RelativePath="..\My\AnyRanges.h"
 					>
 				</File>
 				<File
-					RelativePath=".\CComEnumOnRange.h"
+					RelativePath="..\My\CComEnumOnRange.h"
 					>
 				</File>
 				<File
-					RelativePath=".\ComUtilities.h"
+					RelativePath="..\My\ComUtilities.h"
 					>
 				</File>
 				<File
-					RelativePath=".\Copies.h"
+					RelativePath="..\My\Concepts.h"
+					>
+				</File>
+				<File
+					RelativePath="..\My\Copies.h"
+					>
+				</File>
+				<File
+					RelativePath="..\My\Pairs.h"
 					>
 				</File>
 			</Filter>
