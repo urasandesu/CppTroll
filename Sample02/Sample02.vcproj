@@ -287,10 +287,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\PairBStrVariant.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Resource.h"
 				>
 			</File>
@@ -315,6 +311,10 @@
 				</File>
 				<File
 					RelativePath="..\My\CComEnumOnRange.h"
+					>
+				</File>
+				<File
+					RelativePath="..\My\Collections.h"
 					>
 				</File>
 				<File

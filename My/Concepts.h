@@ -44,4 +44,56 @@ namespace My
         }
     };  // struct ATLCopy
 
+    template<class X>
+    struct ComEnumerable
+    {
+        BOOST_MPL_ASSERT((boost::is_base_of<IUnknown, X>));
+            
+        BOOST_CONCEPT_USAGE(ComEnumerable)
+        {
+            HRESULT hr;
+            X* pX;
+            IUnknown* pUnk;
+
+            hr = pX->get__NewEnum(&pUnk);
+        }
+    };  // struct ComEnumerable
+
+    //template<class X, class ItemType>
+    //struct ComEnumerator
+    //{
+    //    BOOST_MPL_ASSERT((boost::is_base_of<IUnknown, X>));
+    //        
+    //    BOOST_CONCEPT_USAGE(ComEnumerator)
+    //    {
+    //        HRESULT hr;
+    //        X* pX1;
+
+    //        // Next
+    //        {
+    //            ULONG celt = 0;
+    //            ItemType* pItem;
+    //            ULONG celtFetched = 0;
+    //            hr = pX1->Next(celt, pItem, &celtFetched);
+    //        }
+
+    //        // Skip
+    //        {
+    //            ULONG celt = 0;
+    //            hr = pX1->Skip(celt);
+    //        }
+
+    //        // Reset
+    //        {
+    //            hr = pX1->Reset();
+    //        }
+
+    //        // Clone
+    //        {
+    //            X* pX2 = NULL;
+    //            hr = pX1->Clone(&pX2);
+    //        }
+    //    }
+    //};  // struct ComEnumerator
+
 }   // namespace My

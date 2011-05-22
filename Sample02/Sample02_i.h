@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0500 */
-/* at Sat May 21 11:16:34 2011
+/* at Sun May 22 17:55:35 2011
  */
 /* Compiler settings for .\Sample02.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
