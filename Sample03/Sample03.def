@@ -1,0 +1,10 @@
+; Sample03.def : モジュール パラメータを宣言します。
+
+LIBRARY      "Sample03.DLL"
+
+EXPORTS
+	DllCanUnloadNow		PRIVATE
+	DllGetClassObject	PRIVATE
+	DllRegisterServer	PRIVATE
+	DllUnregisterServer	PRIVATE
+	DllInstall		PRIVATE

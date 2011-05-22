@@ -1,0 +1,26 @@
+HKCR
+{
+	Sample03.MyEnumerable.1 = s 'MyEnumerable Class'
+	{
+		CLSID = s '{732D6B0C-651E-4D5D-A706-447DDB84C6D5}'
+	}
+	Sample03.MyEnumerable = s 'MyEnumerable Class'
+	{
+		CLSID = s '{732D6B0C-651E-4D5D-A706-447DDB84C6D5}'
+		CurVer = s 'Sample03.MyEnumerable.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {732D6B0C-651E-4D5D-A706-447DDB84C6D5} = s 'MyEnumerable Class'
+		{
+			ProgID = s 'Sample03.MyEnumerable.1'
+			VersionIndependentProgID = s 'Sample03.MyEnumerable'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF}'
+		}
+	}
+}

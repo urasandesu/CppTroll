@@ -1,0 +1,56 @@
+// Sample03.idl : Sample03 の IDL ソース
+//
+
+// このファイルは、タイプ ライブラリ (Sample03.tlb) およびマーシャリング コードを
+// 作成するために MIDL ツールによって処理されます。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(26251BAE-B229-48DC-9B3E-7C9F77BF7D17),
+	dual,
+	nonextensible,
+	helpstring("IMyEnumerable インターフェイス"),
+	pointer_default(unique)
+]
+interface IMyEnumerable : IDispatch{
+    [propget, id(DISPID_NEWENUM), helpstring("プロパティ _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
+};
+[
+	object,
+	uuid(ACA95E6E-8AD2-4F69-BC53-A7F8DC8F20E8),
+	dual,
+	nonextensible,
+	helpstring("IMyEnumerableGenerator インターフェイス"),
+	pointer_default(unique)
+]
+interface IMyEnumerableGenerator : IDispatch{
+    [id(1), helpstring("メソッド CreateInstance")] HRESULT CreateInstance([out,retval] IMyEnumerable** ppVal);
+};
+[
+	uuid(4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF),
+	version(1.0),
+	helpstring("Sample03 1.0 タイプ ライブラリ")
+]
+library Sample03Lib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(732D6B0C-651E-4D5D-A706-447DDB84C6D5),
+		helpstring("MyEnumerable Class")
+	]
+	coclass MyEnumerable
+	{
+		[default] interface IMyEnumerable;
+	};
+	[
+		uuid(F9DAF8FA-8D6F-42C7-85CF-901911821456),
+		helpstring("MyEnumerableGenerator Class")
+	]
+	coclass MyEnumerableGenerator
+	{
+		[default] interface IMyEnumerableGenerator;
+	};
+};
