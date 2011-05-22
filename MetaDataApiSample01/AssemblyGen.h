@@ -15,39 +15,39 @@
 // CAssemblyGen
 
 class ATL_NO_VTABLE CAssemblyGen :
-	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CAssemblyGen, &CLSID_AssemblyGen>,
-	public ISupportErrorInfo,
-	public IDispatchImpl<IAssemblyGen, &IID_IAssemblyGen, &LIBID_MetaDataApiSample01Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+    public CComObjectRootEx<CComSingleThreadModel>,
+    public CComCoClass<CAssemblyGen, &CLSID_AssemblyGen>,
+    public ISupportErrorInfo,
+    public IDispatchImpl<IAssemblyGen, &IID_IAssemblyGen, &LIBID_MetaDataApiSample01Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
-	CAssemblyGen()
-	{
-	}
+    CAssemblyGen()
+    {
+    }
 
 DECLARE_REGISTRY_RESOURCEID(IDR_CASSEMBLYGEN)
 
 
 BEGIN_COM_MAP(CAssemblyGen)
-	COM_INTERFACE_ENTRY(IAssemblyGen)
-	COM_INTERFACE_ENTRY(IDispatch)
-	COM_INTERFACE_ENTRY(ISupportErrorInfo)
+    COM_INTERFACE_ENTRY(IAssemblyGen)
+    COM_INTERFACE_ENTRY(IDispatch)
+    COM_INTERFACE_ENTRY(ISupportErrorInfo)
 END_COM_MAP()
 
 // ISupportsErrorInfo
-	STDMETHOD(InterfaceSupportsErrorInfo)(REFIID riid);
+    STDMETHOD(InterfaceSupportsErrorInfo)(REFIID riid);
 
 
-	DECLARE_PROTECT_FINAL_CONSTRUCT()
+    DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-	HRESULT FinalConstruct()
-	{
-		return S_OK;
-	}
+    HRESULT FinalConstruct()
+    {
+        return S_OK;
+    }
 
-	void FinalRelease()
-	{
-	}
+    void FinalRelease()
+    {
+    }
 
 public:
 

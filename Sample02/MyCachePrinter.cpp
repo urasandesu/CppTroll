@@ -7,17 +7,17 @@
 
 STDMETHODIMP CMyCachePrinter::InterfaceSupportsErrorInfo(REFIID riid)
 {
-	static const IID* arr[] = 
-	{
-		&IID_IMyCachePrinter
-	};
+    static const IID* arr[] = 
+    {
+        &IID_IMyCachePrinter
+    };
 
-	for (int i=0; i < sizeof(arr) / sizeof(arr[0]); i++)
-	{
-		if (InlineIsEqualGUID(*arr[i],riid))
-			return S_OK;
-	}
-	return S_FALSE;
+    for (int i=0; i < sizeof(arr) / sizeof(arr[0]); i++)
+    {
+        if (InlineIsEqualGUID(*arr[i],riid))
+            return S_OK;
+    }
+    return S_FALSE;
 }
 
 HRESULT CMyCachePrinter::ToString(const CComVariant& value, BSTR* pStr)
@@ -25,10 +25,10 @@ HRESULT CMyCachePrinter::ToString(const CComVariant& value, BSTR* pStr)
     HRESULT hr;
 
     CComVariant _value = value;
-	switch (_value.vt)
-	{
-	case VT_UNKNOWN:
-		{
+    switch (_value.vt)
+    {
+    case VT_UNKNOWN:
+        {
             mscorlib::_ObjectPtr pObject;
             hr = _value.punkVal->QueryInterface(__uuidof(mscorlib::_Object), (void**)&pObject);
             if (FAILED(hr))
@@ -49,9 +49,9 @@ HRESULT CMyCachePrinter::ToString(const CComVariant& value, BSTR* pStr)
                 }
             }
             break;
-		}
-	case VT_DISPATCH:
-		{
+        }
+    case VT_DISPATCH:
+        {
             CComBSTR str(L"IDispatch");
             hr = str.CopyTo(pStr);
             if (FAILED(hr))
@@ -59,7 +59,7 @@ HRESULT CMyCachePrinter::ToString(const CComVariant& value, BSTR* pStr)
                 return hr;
             }
             break;
-		}
+        }
     case VT_BSTR:
         {
             hr = _value.CopyTo(pStr);
@@ -69,22 +69,22 @@ HRESULT CMyCachePrinter::ToString(const CComVariant& value, BSTR* pStr)
             }
             break;
         }
-	case VT_UI1:
-	case VT_I1:
-	case VT_I2:
-	case VT_UI2:
-	case VT_BOOL:
-	case VT_I4:
-	case VT_UI4:
-	case VT_R4:
-	case VT_INT:
-	case VT_UINT:
-	case VT_ERROR:
-	case VT_I8:
-	case VT_UI8:
-	case VT_R8:
-	case VT_CY:
-	case VT_DATE:
+    case VT_UI1:
+    case VT_I1:
+    case VT_I2:
+    case VT_UI2:
+    case VT_BOOL:
+    case VT_I4:
+    case VT_UI4:
+    case VT_R4:
+    case VT_INT:
+    case VT_UINT:
+    case VT_ERROR:
+    case VT_I8:
+    case VT_UI8:
+    case VT_R8:
+    case VT_CY:
+    case VT_DATE:
         {
             _value.ChangeType(VT_BSTR);
             hr = _value.CopyTo(pStr);
@@ -94,9 +94,9 @@ HRESULT CMyCachePrinter::ToString(const CComVariant& value, BSTR* pStr)
             }
             break;
         }
-	default:
-		return E_INVALIDARG;
-	}   // switch (_value.vt)
+    default:
+        return E_INVALIDARG;
+    }   // switch (_value.vt)
 
     return S_OK;
 }

@@ -49,36 +49,36 @@ typedef My::CComEnumOnRange<IEnumVARIANT, VARIANT, CopyType, StrVariantMap> StrV
 // CMyCache
 
 class ATL_NO_VTABLE CMyCache :
-	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CMyCache, &CLSID_MyCache>,
-	public IDispatchImpl<IMyCache, &IID_IMyCache, &LIBID_Sample02Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+    public CComObjectRootEx<CComSingleThreadModel>,
+    public CComCoClass<CMyCache, &CLSID_MyCache>,
+    public IDispatchImpl<IMyCache, &IID_IMyCache, &LIBID_Sample02Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
-	CMyCache()
-	{
-	}
+    CMyCache()
+    {
+    }
 
 DECLARE_REGISTRY_RESOURCEID(IDR_MYCACHE)
 DECLARE_CLASSFACTORY_SINGLETON(CMyCache)
 
 
 BEGIN_COM_MAP(CMyCache)
-	COM_INTERFACE_ENTRY(IMyCache)
-	COM_INTERFACE_ENTRY(IDispatch)
+    COM_INTERFACE_ENTRY(IMyCache)
+    COM_INTERFACE_ENTRY(IDispatch)
 END_COM_MAP()
 
 
 
-	DECLARE_PROTECT_FINAL_CONSTRUCT()
+    DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-	HRESULT FinalConstruct()
-	{
-		return S_OK;
-	}
+    HRESULT FinalConstruct()
+    {
+        return S_OK;
+    }
 
-	void FinalRelease()
-	{
-	}
+    void FinalRelease()
+    {
+    }
 
 private:
     StrVariantMap m_values;

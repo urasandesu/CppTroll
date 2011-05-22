@@ -17,40 +17,40 @@
 // CMyCachePrinter
 
 class ATL_NO_VTABLE CMyCachePrinter :
-	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CMyCachePrinter, &CLSID_MyCachePrinter>,
-	public ISupportErrorInfo,
-	public IDispatchImpl<IMyCachePrinter, &IID_IMyCachePrinter, &LIBID_Sample02Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+    public CComObjectRootEx<CComSingleThreadModel>,
+    public CComCoClass<CMyCachePrinter, &CLSID_MyCachePrinter>,
+    public ISupportErrorInfo,
+    public IDispatchImpl<IMyCachePrinter, &IID_IMyCachePrinter, &LIBID_Sample02Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
-	CMyCachePrinter()
-	{
-	}
+    CMyCachePrinter()
+    {
+    }
 
 DECLARE_REGISTRY_RESOURCEID(IDR_MYCACHEPRINTER)
 
 
 BEGIN_COM_MAP(CMyCachePrinter)
-	COM_INTERFACE_ENTRY(IMyCachePrinter)
-	COM_INTERFACE_ENTRY(IDispatch)
-	COM_INTERFACE_ENTRY(ISupportErrorInfo)
+    COM_INTERFACE_ENTRY(IMyCachePrinter)
+    COM_INTERFACE_ENTRY(IDispatch)
+    COM_INTERFACE_ENTRY(ISupportErrorInfo)
 END_COM_MAP()
 
 // ISupportsErrorInfo
-	STDMETHOD(InterfaceSupportsErrorInfo)(REFIID riid);
+    STDMETHOD(InterfaceSupportsErrorInfo)(REFIID riid);
 
 
 
-	DECLARE_PROTECT_FINAL_CONSTRUCT()
+    DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-	HRESULT FinalConstruct()
-	{
-		return S_OK;
-	}
+    HRESULT FinalConstruct()
+    {
+        return S_OK;
+    }
 
-	void FinalRelease()
-	{
-	}
+    void FinalRelease()
+    {
+    }
 
     STDMETHOD(ToString)(const CComVariant& value, BSTR* pStr);
 

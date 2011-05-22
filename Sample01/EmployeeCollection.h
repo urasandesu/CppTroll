@@ -29,35 +29,35 @@ typedef My::CComEnumOnRange<IEnumVARIANT, VARIANT, CopyType, EmployeeRange> Empl
 // CEmployeeCollection
 
 class ATL_NO_VTABLE CEmployeeCollection :
-	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CEmployeeCollection, &CLSID_EmployeeCollection>,
-	public IDispatchImpl<IEmployeeCollection, &IID_IEmployeeCollection, &LIBID_Sample01Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+    public CComObjectRootEx<CComSingleThreadModel>,
+    public CComCoClass<CEmployeeCollection, &CLSID_EmployeeCollection>,
+    public IDispatchImpl<IEmployeeCollection, &IID_IEmployeeCollection, &LIBID_Sample01Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
-	CEmployeeCollection()
-	{
-	}
+    CEmployeeCollection()
+    {
+    }
 
 DECLARE_REGISTRY_RESOURCEID(IDR_EMPLOYEECOLLECTION)
 
 
 BEGIN_COM_MAP(CEmployeeCollection)
-	COM_INTERFACE_ENTRY(IEmployeeCollection)
-	COM_INTERFACE_ENTRY(IDispatch)
+    COM_INTERFACE_ENTRY(IEmployeeCollection)
+    COM_INTERFACE_ENTRY(IDispatch)
 END_COM_MAP()
 
 
 
-	DECLARE_PROTECT_FINAL_CONSTRUCT()
+    DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-	HRESULT FinalConstruct()
-	{
-		return S_OK;
-	}
+    HRESULT FinalConstruct()
+    {
+        return S_OK;
+    }
 
-	void FinalRelease()
-	{
-	}
+    void FinalRelease()
+    {
+    }
 
 public:
 

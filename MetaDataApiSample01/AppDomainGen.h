@@ -15,39 +15,39 @@
 // CAppDomainGen
 
 class ATL_NO_VTABLE CAppDomainGen :
-	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CAppDomainGen, &CLSID_AppDomainGen>,
-	public ISupportErrorInfo,
-	public IDispatchImpl<IAppDomainGen, &IID_IAppDomainGen, &LIBID_MetaDataApiSample01Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+    public CComObjectRootEx<CComSingleThreadModel>,
+    public CComCoClass<CAppDomainGen, &CLSID_AppDomainGen>,
+    public ISupportErrorInfo,
+    public IDispatchImpl<IAppDomainGen, &IID_IAppDomainGen, &LIBID_MetaDataApiSample01Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
-	CAppDomainGen()
-	{
-	}
+    CAppDomainGen()
+    {
+    }
 
 DECLARE_REGISTRY_RESOURCEID(IDR_CAPPDOMAINGEN)
 
 
 BEGIN_COM_MAP(CAppDomainGen)
-	COM_INTERFACE_ENTRY(IAppDomainGen)
-	COM_INTERFACE_ENTRY(IDispatch)
-	COM_INTERFACE_ENTRY(ISupportErrorInfo)
+    COM_INTERFACE_ENTRY(IAppDomainGen)
+    COM_INTERFACE_ENTRY(IDispatch)
+    COM_INTERFACE_ENTRY(ISupportErrorInfo)
 END_COM_MAP()
 
 // ISupportsErrorInfo
-	STDMETHOD(InterfaceSupportsErrorInfo)(REFIID riid);
+    STDMETHOD(InterfaceSupportsErrorInfo)(REFIID riid);
 
 
-	DECLARE_PROTECT_FINAL_CONSTRUCT()
+    DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-	HRESULT FinalConstruct()
-	{
-		return S_OK;
-	}
+    HRESULT FinalConstruct()
+    {
+        return S_OK;
+    }
 
-	void FinalRelease()
-	{
-	}
+    void FinalRelease()
+    {
+    }
 
 public:
 

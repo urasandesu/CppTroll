@@ -10,18 +10,18 @@ namespace My
         typedef DestinationType destination_type;
         typedef SourceType source_type;
 
-	    static void init(destination_type* p)
-	    {
-		    _Copy<destination_type>::init(p);
-	    }
-	    static void destroy(destination_type* p)
-	    {
-		    _Copy<destination_type>::destroy(p);
-	    }
-	    static HRESULT copy(destination_type* pTo, const source_type* pFrom)
-	    {
-		    return _Copy<destination_type>::copy(pTo, const_cast<source_type*>(pFrom));
-	    }
+        static void init(destination_type* p)
+        {
+            _Copy<destination_type>::init(p);
+        }
+        static void destroy(destination_type* p)
+        {
+            _Copy<destination_type>::destroy(p);
+        }
+        static HRESULT copy(destination_type* pTo, const source_type* pFrom)
+        {
+            return _Copy<destination_type>::copy(pTo, const_cast<source_type*>(pFrom));
+        }
     }; // struct GenericCopy
 
     template<class SourceType>
@@ -30,38 +30,38 @@ namespace My
         typedef VARIANT destination_type;
         typedef SourceType source_type;
 
-	    static void init(destination_type* p)
-	    {
-		    _Copy<destination_type>::init(p);
-	    }
-	    static void destroy(destination_type* p)
-	    {
-		    _Copy<destination_type>::destroy(p);
-	    }
-	    static HRESULT copy(destination_type* pTo, const source_type* pFrom)
-	    {
-		    return CComVariant(*&*pFrom).Detach(pTo);
-	    }
+        static void init(destination_type* p)
+        {
+            _Copy<destination_type>::init(p);
+        }
+        static void destroy(destination_type* p)
+        {
+            _Copy<destination_type>::destroy(p);
+        }
+        static HRESULT copy(destination_type* pTo, const source_type* pFrom)
+        {
+            return CComVariant(*&*pFrom).Detach(pTo);
+        }
     }; // struct GenericCopy<VARIANT, SourceType>
 
     template<class SourceType>
     struct GenericCopy<BSTR, SourceType>
     {
- 	    typedef BSTR destination_type;
-	    typedef SourceType source_type;
+         typedef BSTR destination_type;
+        typedef SourceType source_type;
 
-	    static void init(destination_type* p)
-	    {
+        static void init(destination_type* p)
+        {
             *p = NULL;
-	    }
-	    static void destroy(destination_type* p)
-	    {
+        }
+        static void destroy(destination_type* p)
+        {
             CComBSTR().Attach(*p);
-	    }
-	    static HRESULT copy(destination_type* pTo, const source_type* pFrom)
-	    {
+        }
+        static HRESULT copy(destination_type* pTo, const source_type* pFrom)
+        {
             return CComBSTR(*&*pFrom).CopyTo(pTo);
-	    }
+        }
 
     }; // struct GenericCopy<BSTR, BSTR>
 
@@ -85,22 +85,22 @@ namespace My
         typedef SecondCopy second_copy;
 
         typedef VARIANT destination_type;
-	    typedef typename map_type::value_type source_type;
+        typedef typename map_type::value_type source_type;
 
         BOOST_CONCEPT_ASSERT((ComPair<pair_type, pair_first_type, pair_second_type>));
         BOOST_CONCEPT_ASSERT((ATLCopy<first_copy, pair_first_type, map_first_type>));
         BOOST_CONCEPT_ASSERT((ATLCopy<second_copy, pair_second_type, map_second_type>));
 
         static void init(destination_type* p)
-	    {
-		    GenericCopy<destination_type, source_type>::init(p);
-	    }
-	    static void destroy(destination_type* p)
-	    {
-		    GenericCopy<destination_type, source_type>::destroy(p);
-	    }
-	    static HRESULT copy(destination_type* pTo, const source_type* pFrom)
-	    {
+        {
+            GenericCopy<destination_type, source_type>::init(p);
+        }
+        static void destroy(destination_type* p)
+        {
+            GenericCopy<destination_type, source_type>::destroy(p);
+        }
+        static HRESULT copy(destination_type* pTo, const source_type* pFrom)
+        {
             HRESULT hr;
             CComObject<pair_type>* p;
             hr = CComObject<pair_type>::CreateInstance(&p);
@@ -148,31 +148,31 @@ namespace My
 RETURN_FAILED:
             p->Release();
             return hr;
-	    }
+        }
 
     }; // struct MapCopy
 
     template<class MapType, class DestinationType = MapType::mapped_type>
     struct MapCopy2nd
     {
-	    typedef MapType map_type;
-	    typedef typename map_type::mapped_type map_second_type;
+        typedef MapType map_type;
+        typedef typename map_type::mapped_type map_second_type;
 
-	    typedef DestinationType destination_type;
-	    typedef typename map_type::value_type source_type;
-    	
-	    static void init(destination_type* p)
-	    {
-		    GenericCopy<destination_type, map_second_type>::init(p);
-	    }
-	    static void destroy(destination_type* p)
-	    {
-		    GenericCopy<destination_type, map_second_type>::destroy(p);
-	    }
-	    static HRESULT copy(destination_type* pTo, const source_type* pFrom)
-	    {
-		    return GenericCopy<destination_type, map_second_type>::copy(pTo, &(pFrom->second));
-	    }
+        typedef DestinationType destination_type;
+        typedef typename map_type::value_type source_type;
+        
+        static void init(destination_type* p)
+        {
+            GenericCopy<destination_type, map_second_type>::init(p);
+        }
+        static void destroy(destination_type* p)
+        {
+            GenericCopy<destination_type, map_second_type>::destroy(p);
+        }
+        static HRESULT copy(destination_type* pTo, const source_type* pFrom)
+        {
+            return GenericCopy<destination_type, map_second_type>::copy(pTo, &(pFrom->second));
+        }
 
     }; // struct MapCopy2nd
 }   // namespace My

@@ -14,7 +14,7 @@ namespace std
     };
 
     template<>
-	class vector<any>
+    class vector<any>
     {
     public:
         template<class T>

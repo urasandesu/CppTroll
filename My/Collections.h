@@ -34,16 +34,16 @@ namespace My
         class ThreadModel = CComObjectThreadModel
     >
     class ATL_NO_VTABLE CComEnumerable :
-	    public CComObjectRootEx<ThreadModel>,
+        public CComObjectRootEx<ThreadModel>,
         public IDispatchImpl<IEnumerableImpl<Base, EnumType, RangeType>, &__uuidof(Base), plibid, wMajor, wMinor, tihclass>
     {
     public:
-	    typedef CComEnumerable<Base, EnumType, RangeType, plibid, wMajor, wMinor, tihclass, ThreadModel> _CComEnumerable;
-	    typedef IEnumerableImpl<Base, EnumType, RangeType> _CComEnumerableBase;
-	    BEGIN_COM_MAP(_CComEnumerable)
-		    COM_INTERFACE_ENTRY_IID(__uuidof(Base), _CComEnumerableBase)
-        	COM_INTERFACE_ENTRY(IDispatch)
-	    END_COM_MAP()
+        typedef CComEnumerable<Base, EnumType, RangeType, plibid, wMajor, wMinor, tihclass, ThreadModel> _CComEnumerable;
+        typedef IEnumerableImpl<Base, EnumType, RangeType> _CComEnumerableBase;
+        BEGIN_COM_MAP(_CComEnumerable)
+            COM_INTERFACE_ENTRY_IID(__uuidof(Base), _CComEnumerableBase)
+            COM_INTERFACE_ENTRY(IDispatch)
+        END_COM_MAP()
     };  // class ATL_NO_VTABLE CComEnumerable
 
     //template<
