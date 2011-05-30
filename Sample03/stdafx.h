@@ -19,9 +19,10 @@
 #include <atlbase.h>
 #include <atlcom.h>
 #include <atlctl.h>
+#include <atlsafe.h>
 
 using namespace ATL;
 
-#include "ComUtilities.h"
-#include "CComEnumOnRange.h"
+#include "Collections.h"
 #include "Copies.h"
+#include <vector>

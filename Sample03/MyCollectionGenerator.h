@@ -1,4 +1,4 @@
-// MyEnumerableGenerator.h : CMyEnumerableGenerator ÇÃêÈåæ
+// MyCollectionGenerator.h : CMyCollectionGenerator ÇÃêÈåæ
 
 #pragma once
 #include "resource.h"       // ÉÅÉCÉì ÉVÉìÉ{Éã
@@ -11,28 +11,27 @@
 
 
 typedef std::vector<CAdapt<CComBSTR>> StrVector;
-typedef My::GenericCopy<VARIANT, CAdapt<CComBSTR>> CopyType;
-typedef My::CComEnumerator<IEnumVARIANT, VARIANT, CopyType, StrVector> StrEnumerator;
-typedef My::CComEnumerable<IMyEnumerable, StrEnumerator, StrVector> CMyEnumerable;
-typedef CComObject<CMyEnumerable> CMyEnumerableObject;
+typedef My::CComEnumerator<IEnumVARIANT, VARIANT, My::GenericCopy<VARIANT, CAdapt<CComBSTR>>, StrVector> StrEnumerator;
+typedef My::CComCollection<IStrVectorCollection, BSTR, StrEnumerator, StrVector, My::GenericCopy<BSTR, BSTR>> CStrVectorCollection;
+typedef CComObject<CStrVectorCollection> CStrVectorCollectionObject;
 
-// CMyEnumerableGenerator
+// CMyCollectionGenerator
 
-class ATL_NO_VTABLE CMyEnumerableGenerator :
+class ATL_NO_VTABLE CMyCollectionGenerator :
     public CComObjectRootEx<CComSingleThreadModel>,
-    public CComCoClass<CMyEnumerableGenerator, &CLSID_MyEnumerableGenerator>,
-    public IDispatchImpl<IMyEnumerableGenerator, &IID_IMyEnumerableGenerator, &LIBID_Sample03Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+    public CComCoClass<CMyCollectionGenerator, &CLSID_MyCollectionGenerator>,
+    public IDispatchImpl<IMyCollectionGenerator, &IID_IMyCollectionGenerator, &LIBID_Sample03Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
-    CMyEnumerableGenerator()
+    CMyCollectionGenerator()
     {
     }
 
-DECLARE_REGISTRY_RESOURCEID(IDR_MYENUMERABLEGENERATOR)
+DECLARE_REGISTRY_RESOURCEID(IDR_MYCOLLECTIONGENERATOR)
 
 
-BEGIN_COM_MAP(CMyEnumerableGenerator)
-    COM_INTERFACE_ENTRY(IMyEnumerableGenerator)
+BEGIN_COM_MAP(CMyCollectionGenerator)
+    COM_INTERFACE_ENTRY(IMyCollectionGenerator)
     COM_INTERFACE_ENTRY(IDispatch)
 END_COM_MAP()
 
@@ -51,7 +50,7 @@ END_COM_MAP()
 
 public:
 
-    STDMETHOD(CreateInstance)(IMyEnumerable** ppVal);
+    STDMETHOD(CreateStrVectorCollection)(IStrVectorCollection** ppVal);
 };
 
-OBJECT_ENTRY_AUTO(__uuidof(MyEnumerableGenerator), CMyEnumerableGenerator)
+OBJECT_ENTRY_AUTO(__uuidof(MyCollectionGenerator), CMyCollectionGenerator)

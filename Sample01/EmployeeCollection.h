@@ -7,11 +7,6 @@
 #include "dllmain.h"
 
 #include "Employee.h"
-#include "ComUtilities.h"
-#include "CComEnumOnRange.h"
-#include "Copies.h"
-#include "AnyRanges.h"
-#include <map>
 
 #if defined(_WIN32_WCE) && !defined(_CE_DCOM) && !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)
 #error "DCOM の完全サポートを含んでいない Windows Mobile プラットフォームのような Windows CE プラットフォームでは、単一スレッド COM オブジェクトは正しくサポートされていません。ATL が単一スレッド COM オブジェクトの作成をサポートすること、およびその単一スレッド COM オブジェクトの実装の使用を許可することを強制するには、_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA を定義してください。ご使用の rgs ファイルのスレッド モデルは 'Free' に設定されており、DCOM Windows CE 以外のプラットフォームでサポートされる唯一のスレッド モデルと設定されていました。"
@@ -23,7 +18,7 @@ typedef EmployeeMap::iterator EmployeeMapItr;
 typedef EmployeeMap::value_type EmployeePair;
 typedef My::MapCopy2nd<EmployeeMap, VARIANT> CopyType;
 typedef My::SinglePassCopyAnyRangeGenerator<EmployeeMap>::type EmployeeRange;
-typedef My::CComEnumOnRange<IEnumVARIANT, VARIANT, CopyType, EmployeeRange> EmployeeEnumerator;
+typedef My::CComEnumerator<IEnumVARIANT, VARIANT, CopyType, EmployeeRange> EmployeeEnumerator;
 
 
 // CEmployeeCollection

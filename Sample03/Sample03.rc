@@ -100,6 +100,8 @@ END
 IDR_SAMPLE03            REGISTRY                "Sample03.rgs"
 IDR_MYENUMERABLE        REGISTRY                "MyEnumerable.rgs"
 IDR_MYENUMERABLEGENERATOR REGISTRY                "MyEnumerableGenerator.rgs"
+IDR_MYCOLLECTIONGENERATOR REGISTRY                "MyCollectionGenerator.rgs"
+IDR_STRVECTORCOLLECTION REGISTRY                "StrVectorCollection.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //

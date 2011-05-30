@@ -23,8 +23,7 @@
 using namespace ATL;
 
 #include <boost/unordered_map.hpp>
-#include "ComUtilities.h"
-#include "CComEnumOnRange.h"
+#include "Collections.h"
 #include "Copies.h"
 #include <boost/format.hpp>
 #include <iostream>

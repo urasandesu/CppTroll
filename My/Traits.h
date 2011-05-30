@@ -4,11 +4,27 @@
 namespace My
 {
     template<class T>
+    struct BeforeAdapt
+    {
+        typedef T type;
+    };  // struct BeforeAdapt
+
+    template<class T>
+    struct BeforeAdapt<CAdapt<T>>
+    {
+        typedef T type;
+    };  // struct BeforeAdapt<CAdapt<T>>
+
+
+
+
+
+    template<class T>
     struct AddImplicitConversion
     {
         AddImplicitConversion(T& other) { }
         AddImplicitConversion& operator=(T& other) { return *this; }
-    };
+    };  // struct AddImplicitConversion
 
     #define SIZE 11
 
@@ -37,4 +53,5 @@ namespace My
     #undef ADD_IMPLICIT_CONVERSION
     
     #undef SIZE
+
 }   // namespace My

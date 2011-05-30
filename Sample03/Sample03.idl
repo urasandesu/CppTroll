@@ -30,6 +30,37 @@ interface IMyEnumerableGenerator : IDispatch{
     [id(1), helpstring("メソッド CreateInstance")] HRESULT CreateInstance([out,retval] IMyEnumerable** ppVal);
 };
 [
+	object,
+	uuid(5EC980D6-C48E-4840-B31D-3BB5121326F7),
+	dual,
+	nonextensible,
+	helpstring("IStrVectorCollection インターフェイス"),
+	pointer_default(unique)
+]
+interface IStrVectorCollection : IDispatch{
+    [id(1), helpstring("メソッド Add")] HRESULT Add([in] BSTR item);
+    [propget, id(DISPID_NEWENUM), helpstring("プロパティ _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
+    [id(2), helpstring("メソッド Clear")] HRESULT Clear(void);
+    [id(3), helpstring("メソッド Contains")] HRESULT Contains([in] BSTR item, [out,retval] VARIANT_BOOL* exists);
+    [id(4), helpstring("メソッド CopyTo")] HRESULT CopyTo([in, out] SAFEARRAY(BSTR) pArray, [in] LONG index);
+    [id(5), helpstring("メソッド Remove")] HRESULT Remove([in] BSTR item);
+    [propget, id(6), helpstring("プロパティ Count")] HRESULT Count([out, retval] LONG* pVal);
+    [propget, id(7), helpstring("プロパティ IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
+    [propget, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [out, retval] BSTR* pVal);
+    [propput, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [in] BSTR newVal);
+};
+[
+	object,
+	uuid(8AE32A92-4B5C-4A78-8867-4CAF1E8D0905),
+	dual,
+	nonextensible,
+	helpstring("IMyCollectionGenerator インターフェイス"),
+	pointer_default(unique)
+]
+interface IMyCollectionGenerator : IDispatch{
+    [id(1), helpstring("メソッド CreateStrVectorCollection")] HRESULT CreateStrVectorCollection([out,retval] IStrVectorCollection** ppVal);
+};
+[
 	uuid(4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF),
 	version(1.0),
 	helpstring("Sample03 1.0 タイプ ライブラリ")
@@ -52,5 +83,21 @@ library Sample03Lib
 	coclass MyEnumerableGenerator
 	{
 		[default] interface IMyEnumerableGenerator;
+	};
+	[
+		uuid(5613C9D4-136F-408D-A419-15B524CF54E8),
+		helpstring("MyCollectionGenerator Class")
+	]
+	coclass MyCollectionGenerator
+	{
+		[default] interface IMyCollectionGenerator;
+	};
+	[
+		uuid(7B1523A2-0795-4678-9E43-B51E51A375BB),
+		helpstring("StrVectorCollection Class")
+	]
+	coclass StrVectorCollection
+	{
+		[default] interface IStrVectorCollection;
 	};
 };

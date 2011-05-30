@@ -31,25 +31,23 @@ STDMETHODIMP CEmployeeCollection::Item(VARIANT index, IEmployee** ppItem)
 {
     if (index.vt == VT_I4)
     {
-        if (index.lVal <= m_coll.size() && 0 < index.lVal)
+        if (index.lVal < 0 || m_coll.size() <= static_cast<size_t>(index.lVal))
         {
-            INT n = 0;
-            EmployeeMapItr i = m_coll.begin(), i_end = m_coll.end();
-            for ( ; i != i_end; ++i, ++n)
+            return E_INVALIDARG;
+        }
+
+        INT n = 0;
+        EmployeeMapItr i = m_coll.begin(), i_end = m_coll.end();
+        for ( ; i != i_end; ++i, ++n)
+        {
+            if (n == index.llVal)
             {
-                if (n == index.llVal)
-                {
-                    CComQIPtr<IEmployee> pEmployee((*i).second);
-                    *ppItem = pEmployee;
-                    return S_OK;
-                }
+                CComQIPtr<IEmployee> pEmployee((*i).second);
+                *ppItem = pEmployee;
+                return S_OK;
             }
-            return E_INVALIDARG;
         }
-        else
-        {
-            return E_INVALIDARG;
-        }
+        return E_INVALIDARG;
     }
     else if (index.vt == VT_BSTR)
     {

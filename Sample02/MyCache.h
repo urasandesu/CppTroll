@@ -44,7 +44,7 @@ typedef StrVariantMap::iterator StrVariantIterator;
 typedef StrVariantMap::const_iterator StrVariantConstIterator;
 typedef My::CComPair<IPairBStrVariant, BSTR, VARIANT, My::GenericCopy<BSTR, BSTR>> CPairBStrVariant;
 typedef My::MapCopy<StrVariantMap, CPairBStrVariant> CopyType;
-typedef My::CComEnumOnRange<IEnumVARIANT, VARIANT, CopyType, StrVariantMap> StrVariantEnumerator;
+typedef My::CComEnumerator<IEnumVARIANT, VARIANT, CopyType, StrVariantMap> StrVariantEnumerator;
 
 // CMyCache
 

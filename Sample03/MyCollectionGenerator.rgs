@@ -1,0 +1,26 @@
+HKCR
+{
+	Sample03.MyCollectionGenerator.1 = s 'MyCollectionGenerator Class'
+	{
+		CLSID = s '{5613C9D4-136F-408D-A419-15B524CF54E8}'
+	}
+	Sample03.MyCollectionGenerator = s 'MyCollectionGenerator Class'
+	{
+		CLSID = s '{5613C9D4-136F-408D-A419-15B524CF54E8}'
+		CurVer = s 'Sample03.MyCollectionGenerator.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {5613C9D4-136F-408D-A419-15B524CF54E8} = s 'MyCollectionGenerator Class'
+		{
+			ProgID = s 'Sample03.MyCollectionGenerator.1'
+			VersionIndependentProgID = s 'Sample03.MyCollectionGenerator'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF}'
+		}
+	}
+}

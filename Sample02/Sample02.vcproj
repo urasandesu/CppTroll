@@ -302,23 +302,11 @@
 				Name="My"
 				>
 				<File
-					RelativePath="..\My\AddImplicitConversion.h"
-					>
-				</File>
-				<File
 					RelativePath="..\My\AnyRanges.h"
 					>
 				</File>
 				<File
-					RelativePath="..\My\CComEnumOnRange.h"
-					>
-				</File>
-				<File
 					RelativePath="..\My\Collections.h"
-					>
-				</File>
-				<File
-					RelativePath="..\My\ComUtilities.h"
 					>
 				</File>
 				<File

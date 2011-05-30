@@ -47,7 +47,7 @@ namespace My
     template<class SourceType>
     struct GenericCopy<BSTR, SourceType>
     {
-         typedef BSTR destination_type;
+        typedef BSTR destination_type;
         typedef SourceType source_type;
 
         static void init(destination_type* p)

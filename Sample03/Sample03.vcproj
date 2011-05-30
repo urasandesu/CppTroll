@@ -226,6 +226,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\MyCollectionGenerator.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MyEnumerableGenerator.cpp"
 				>
 			</File>
@@ -272,6 +276,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MyCollectionGenerator.h"
+				>
+			</File>
+			<File
 				RelativePath=".\MyEnumerableGenerator.h"
 				>
 			</File>
@@ -291,23 +299,11 @@
 				Name="My"
 				>
 				<File
-					RelativePath="..\My\AddImplicitConversion.h"
-					>
-				</File>
-				<File
 					RelativePath="..\My\AnyRanges.h"
 					>
 				</File>
 				<File
-					RelativePath="..\My\CComEnumOnRange.h"
-					>
-				</File>
-				<File
 					RelativePath="..\My\Collections.h"
-					>
-				</File>
-				<File
-					RelativePath="..\My\ComUtilities.h"
 					>
 				</File>
 				<File
@@ -322,6 +318,10 @@
 					RelativePath="..\My\Pairs.h"
 					>
 				</File>
+				<File
+					RelativePath="..\My\Traits.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -329,6 +329,10 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\MyCollectionGenerator.rgs"
+				>
+			</File>
 			<File
 				RelativePath=".\MyEnumerable.rgs"
 				>
@@ -343,6 +347,10 @@
 			</File>
 			<File
 				RelativePath=".\Sample03.rgs"
+				>
+			</File>
+			<File
+				RelativePath=".\StrVectorCollection.rgs"
 				>
 			</File>
 		</Filter>

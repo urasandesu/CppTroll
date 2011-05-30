@@ -38,9 +38,9 @@ namespace My
             const SourceType* pFrom;
             DestinationType* pTo;
 
-            X::init(pTo);
-            hr = X::copy(pTo, pFrom);
-            X::destroy(pTo);
+            X::init(&*pTo);
+            hr = X::copy(&*pTo, &*pFrom);
+            X::destroy(&*pTo);
         }
     };  // struct ATLCopy
 
@@ -95,5 +95,68 @@ namespace My
     //        }
     //    }
     //};  // struct ComEnumerator
+
+    template<class X, class ItemType>
+    struct ComCollection
+    {
+        BOOST_CONCEPT_ASSERT((ComEnumerable<X>));
+        
+        BOOST_CONCEPT_USAGE(ComCollection)
+        {
+            HRESULT hr;
+            X* pX;
+
+            // Add
+            {
+                ItemType* pItem;
+                hr = pX->Add(*pItem);
+            }
+
+            // Clear
+            {
+                hr = pX->Clear();
+            }
+
+            // Contains
+            {
+                ItemType* pItem;
+                VARIANT_BOOL exists = VARIANT_FALSE;
+                hr = pX->Contains(*pItem, &exists);
+            }
+
+            // CopyTo 
+            {
+                SAFEARRAY* pArray;
+                LONG index = 0;
+                hr = pX->CopyTo(pArray, index);
+            }
+
+            // Remove
+            {
+                ItemType* pItem;
+                hr = pX->Remove(*pItem);
+            }
+
+            // Count
+            {
+                LONG count = 0;
+                hr = pX->get_Count(&count);
+            }
+
+            // IsReadOnly
+            {
+                VARIANT_BOOL isReadOnly = VARIANT_FALSE;
+                hr = pX->get_IsReadOnly(&isReadOnly);
+            }
+
+            // Item
+            {
+                LONG index = 0;
+                ItemType* pItem;
+                hr = pX->get_Item(index, pItem);
+                hr = pX->put_Item(index, *pItem);
+            }
+        }
+    };  // struct ComCollection
 
 }   // namespace My

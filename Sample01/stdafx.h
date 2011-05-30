@@ -21,3 +21,8 @@
 #include <atlctl.h>
 
 using namespace ATL;
+
+#include "Collections.h"
+#include "Copies.h"
+#include "AnyRanges.h"
+#include <map>
