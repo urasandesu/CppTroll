@@ -101,12 +101,12 @@ namespace My
         public IEnumerableImpl<Base, EnumType, CollectionType>
     {
         BOOST_CONCEPT_ASSERT((ComCollection<Base, ItemType>));
-        BOOST_CONCEPT_ASSERT((boost::RandomAccessContainer<CollectionType>));
+        BOOST_CONCEPT_ASSERT((boost::Mutable_RandomAccessContainer<CollectionType>));
         BOOST_CONCEPT_ASSERT((boost::Sequence<CollectionType>));
-        BOOST_CONCEPT_ASSERT((ATLCopy<ItemCopy, typename BeforeAdapt<typename CollectionType::value_type>::type, ItemType>));
+        BOOST_CONCEPT_ASSERT((ATLCopy<ItemCopy, typename WithoutAdapt<typename CollectionType::value_type>::type, ItemType>));
 
     public:
-        typedef typename BeforeAdapt<typename CollectionType::value_type>::type range_value_type;
+        typedef typename WithoutAdapt<typename CollectionType::value_type>::type range_value_type;
         typedef typename CollectionType::iterator range_iterator;
 
         STDMETHOD(Add)(ItemType item)

@@ -4,16 +4,16 @@
 namespace My
 {
     template<class T>
-    struct BeforeAdapt
+    struct WithoutAdapt
     {
         typedef T type;
-    };  // struct BeforeAdapt
+    };  // struct WithoutAdapt
 
     template<class T>
-    struct BeforeAdapt<CAdapt<T>>
+    struct WithoutAdapt<CAdapt<T>>
     {
         typedef T type;
-    };  // struct BeforeAdapt<CAdapt<T>>
+    };  // struct WithoutAdapt<CAdapt<T>>
 
 
 
