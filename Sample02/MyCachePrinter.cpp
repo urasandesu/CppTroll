@@ -128,6 +128,7 @@ STDMETHODIMP CMyCachePrinter::Print(void)
         return hr;
     }
 
+    static int i = 0;
     ULONG celt = 1;
     CComVariant rgVar;
     ULONG celtFetched = 0;

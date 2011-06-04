@@ -18,9 +18,9 @@ STDMETHODIMP CMyEnumerableGenerator::CreateInstance(IMyEnumerable** ppVal)
     }
     CComPtr<IMyEnumerable> pMyEnumerable = pObj;
 
-    pObj->m_coll.push_back(CComBSTR(L"aiueo"));
-    pObj->m_coll.push_back(CComBSTR(L"kakikukeko"));
-    pObj->m_coll.push_back(CComBSTR(L"sasisuseso"));
+    pObj->m_container.push_back(CComBSTR(L"aiueo"));
+    pObj->m_container.push_back(CComBSTR(L"kakikukeko"));
+    pObj->m_container.push_back(CComBSTR(L"sasisuseso"));
 
     return pMyEnumerable.CopyTo(ppVal);
 }

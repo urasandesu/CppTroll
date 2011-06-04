@@ -105,5 +105,5 @@ STDMETHODIMP CEmployeeCollection::get__NewEnum(IUnknown** ppVal)
 
     static EmployeeRange result;
     result = m_coll | transformed(AddIDPlus(1));
-    return My::CreateRangeEnumerator<EmployeeEnumerator>(ppVal, this, result);
+    return My::CreateRangeEnumerator<EmployeeEnumerator>(this, result, ppVal);
 }

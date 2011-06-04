@@ -1,0 +1,26 @@
+HKCR
+{
+	Sample03.IntDequeCollection.1 = s 'IntDequeCollection Class'
+	{
+		CLSID = s '{A1E12DEC-117D-4E6B-AB0D-DFF71B404945}'
+	}
+	Sample03.IntDequeCollection = s 'IntDequeCollection Class'
+	{
+		CLSID = s '{A1E12DEC-117D-4E6B-AB0D-DFF71B404945}'
+		CurVer = s 'Sample03.IntDequeCollection.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {A1E12DEC-117D-4E6B-AB0D-DFF71B404945} = s 'IntDequeCollection Class'
+		{
+			ProgID = s 'Sample03.IntDequeCollection.1'
+			VersionIndependentProgID = s 'Sample03.IntDequeCollection'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF}'
+		}
+	}
+}

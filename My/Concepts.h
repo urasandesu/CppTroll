@@ -59,42 +59,42 @@ namespace My
         }
     };  // struct ComEnumerable
 
-    //template<class X, class ItemType>
-    //struct ComEnumerator
-    //{
-    //    BOOST_MPL_ASSERT((boost::is_base_of<IUnknown, X>));
-    //        
-    //    BOOST_CONCEPT_USAGE(ComEnumerator)
-    //    {
-    //        HRESULT hr;
-    //        X* pX1;
+    template<class X, class ItemType>
+    struct ComEnumerator
+    {
+        BOOST_MPL_ASSERT((boost::is_base_of<IUnknown, X>));
+            
+        BOOST_CONCEPT_USAGE(ComEnumerator)
+        {
+            HRESULT hr;
+            X* pX1;
 
-    //        // Next
-    //        {
-    //            ULONG celt = 0;
-    //            ItemType* pItem;
-    //            ULONG celtFetched = 0;
-    //            hr = pX1->Next(celt, pItem, &celtFetched);
-    //        }
+            // Next
+            {
+                ULONG celt = 0;
+                ItemType* rgelt;
+                ULONG celtFetched = 0;
+                hr = pX1->Next(celt, rgelt, &celtFetched);
+            }
 
-    //        // Skip
-    //        {
-    //            ULONG celt = 0;
-    //            hr = pX1->Skip(celt);
-    //        }
+            // Skip
+            {
+                ULONG celt = 0;
+                hr = pX1->Skip(celt);
+            }
 
-    //        // Reset
-    //        {
-    //            hr = pX1->Reset();
-    //        }
+            // Reset
+            {
+                hr = pX1->Reset();
+            }
 
-    //        // Clone
-    //        {
-    //            X* pX2 = NULL;
-    //            hr = pX1->Clone(&pX2);
-    //        }
-    //    }
-    //};  // struct ComEnumerator
+            // Clone
+            {
+                X* pX2 = NULL;
+                hr = pX1->Clone(&pX2);
+            }
+        }
+    };  // struct ComEnumerator
 
     template<class X, class ItemType>
     struct ComCollection

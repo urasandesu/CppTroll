@@ -11,9 +11,14 @@
 
 
 typedef std::vector<CAdapt<CComBSTR>> StrVector;
-typedef My::CComEnumerator<IEnumVARIANT, VARIANT, My::GenericCopy<VARIANT, CAdapt<CComBSTR>>, StrVector> StrEnumerator;
-typedef My::CComCollection<IStrVectorCollection, BSTR, StrEnumerator, StrVector, My::GenericCopy<BSTR, BSTR>> CStrVectorCollection;
+typedef My::CComEnumerator<IEnumVARIANT, VARIANT, StrVector> StrEnumerator;
+typedef My::CComCollection<IStrVectorCollection, BSTR, StrEnumerator, StrVector> CStrVectorCollection;
 typedef CComObject<CStrVectorCollection> CStrVectorCollectionObject;
+
+typedef std::deque<INT> IntDeque;
+typedef My::CComEnumerator<IEnumVARIANT, VARIANT, IntDeque> IntEnumerator;
+typedef My::CComCollection<IIntDequeCollection, INT, IntEnumerator, IntDeque> CIntDequeCollection;
+typedef CComObject<CIntDequeCollection> CIntDequeCollectionObject;
 
 // CMyCollectionGenerator
 
@@ -51,6 +56,7 @@ END_COM_MAP()
 public:
 
     STDMETHOD(CreateStrVectorCollection)(IStrVectorCollection** ppVal);
+    STDMETHOD(CreateIntDequeCollection)(IIntDequeCollection** ppVal);
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(MyCollectionGenerator), CMyCollectionGenerator)

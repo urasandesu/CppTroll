@@ -17,8 +17,6 @@ namespace My
 
 
 
-
-
     template<class T>
     struct AddImplicitConversion
     {

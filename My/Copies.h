@@ -44,6 +44,31 @@ namespace My
         }
     }; // struct GenericCopy<VARIANT, SourceType>
 
+    template<>
+    struct GenericCopy<VARIANT, CComBSTR>
+    {
+        typedef VARIANT destination_type;
+        typedef BSTR source_type;
+        typedef CComBSTR actual_source_type;
+
+        static void init(destination_type* p)
+        {
+            _Copy<destination_type>::init(p);
+        }
+        static void destroy(destination_type* p)
+        {
+            _Copy<destination_type>::destroy(p);
+        }
+        static HRESULT copy(destination_type* pTo, const source_type* pFrom)
+        {
+            return CComVariant(*pFrom).Detach(pTo);
+        }
+        static HRESULT copy(destination_type* pTo, const actual_source_type* pFrom)
+        {
+            return CComVariant(*pFrom).Detach(pTo);
+        }
+    }; // struct GenericCopy<VARIANT, CComBSTR>
+
     template<class SourceType>
     struct GenericCopy<BSTR, SourceType>
     {
@@ -63,7 +88,54 @@ namespace My
             return CComBSTR(*&*pFrom).CopyTo(pTo);
         }
 
-    }; // struct GenericCopy<BSTR, BSTR>
+    }; // struct GenericCopy<BSTR, SourceType>
+
+    template<>
+    struct GenericCopy<BSTR, CComBSTR>
+    {
+        typedef BSTR destination_type;
+        typedef BSTR source_type;
+        typedef CComBSTR actual_source_type;
+
+        static void init(destination_type* p)
+        {
+            *p = NULL;
+        }
+        static void destroy(destination_type* p)
+        {
+            CComBSTR().Attach(*p);
+        }
+        static HRESULT copy(destination_type* pTo, const source_type* pFrom)
+        {
+            return CComBSTR(*pFrom).CopyTo(pTo);
+        }
+        static HRESULT copy(destination_type* pTo, const actual_source_type* pFrom)
+        {
+            return CComBSTR(*pFrom).CopyTo(pTo);
+        }
+
+    }; // struct GenericCopy<BSTR, CComBSTR>
+
+    template<class SourceType>
+    struct GenericCopy<CComBSTR, SourceType>
+    {
+        typedef BSTR destination_type;
+        typedef SourceType source_type;
+
+        static void init(destination_type* p)
+        {
+            *p = NULL;
+        }
+        static void destroy(destination_type* p)
+        {
+            CComBSTR().Attach(*p);
+        }
+        static HRESULT copy(destination_type* pTo, const source_type* pFrom)
+        {
+            return CComBSTR(*&*pFrom).CopyTo(pTo);
+        }
+
+    }; // struct GenericCopy<CComBSTR, SourceType>
 
     template<
         class MapType, 
@@ -102,8 +174,8 @@ namespace My
         static HRESULT copy(destination_type* pTo, const source_type* pFrom)
         {
             HRESULT hr;
-            CComObject<pair_type>* p;
-            hr = CComObject<pair_type>::CreateInstance(&p);
+            CComObject<pair_type>* pPair;   // pPair is not released here because it will be released by the caller.
+            hr = CComObject<pair_type>::CreateInstance(&pPair);
             if (FAILED(hr))
             {
                 return hr;
@@ -114,13 +186,13 @@ namespace My
             hr = first_copy::copy(&first, &pFrom->first);
             if (FAILED(hr))
             {
-                goto RETURN_FAILED;
+                goto RETURN_WITH_RELEASE;
             }
 
-            hr = p->put_First(first);
+            hr = pPair->put_First(first);
             if (FAILED(hr))
             {
-                goto RETURN_FAILED;
+                goto RETURN_WITH_RELEASE;
             }
 
             pair_second_type second;
@@ -128,25 +200,25 @@ namespace My
             hr = second_copy::copy(&second, &pFrom->second);
             if (FAILED(hr))
             {
-                goto RETURN_FAILED;
+                goto RETURN_WITH_RELEASE;
             }
 
-            hr = p->put_Second(second);
+            hr = pPair->put_Second(second);
             if (FAILED(hr))
             {
-                goto RETURN_FAILED;
+                goto RETURN_WITH_RELEASE;
             }
 
-            hr = CComVariant(p).Detach(pTo);
+            hr = CComVariant(pPair).Detach(pTo);
             if (FAILED(hr))
             {
-                goto RETURN_FAILED;
+                goto RETURN_WITH_RELEASE;
             }
 
             return S_OK;
 
-RETURN_FAILED:
-            p->Release();
+RETURN_WITH_RELEASE:
+            pPair->Release();
             return hr;
         }
 

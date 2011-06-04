@@ -62,11 +62,37 @@ namespace My
     >
     class ATL_NO_VTABLE CComPair :
         public CComObjectRootEx<ThreadModel>,
-        public IDispatchImpl<IPairImpl<Base, FirstType, SecondType, FirstCopy, SecondCopy>, &__uuidof(Base), plibid, wMajor, wMinor, tihclass>
+        public IDispatchImpl<
+            IPairImpl<
+                Base, 
+                FirstType, 
+                SecondType, 
+                FirstCopy, 
+                SecondCopy
+            >, 
+            &__uuidof(Base), 
+            plibid, 
+            wMajor, 
+            wMinor, 
+            tihclass
+        >
     {
     public:
-        typedef CComPair<Base, FirstType, SecondType, FirstCopy, SecondCopy, plibid, wMajor, wMinor, tihclass, ThreadModel> _CComPair;
+        typedef CComPair<
+            Base, 
+            FirstType, 
+            SecondType, 
+            FirstCopy, 
+            SecondCopy, 
+            plibid, 
+            wMajor, 
+            wMinor, 
+            tihclass, 
+            ThreadModel
+        > _CComPair;
+        
         typedef IPairImpl<Base, FirstType, SecondType, FirstCopy, SecondCopy> _CComPairBase;
+        
         BEGIN_COM_MAP(_CComPair)
             COM_INTERFACE_ENTRY_IID(__uuidof(Base), _CComPairBase)
             COM_INTERFACE_ENTRY(IDispatch)

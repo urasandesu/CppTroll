@@ -51,6 +51,26 @@ interface IStrVectorCollection : IDispatch{
 };
 [
 	object,
+	uuid(F995DE07-5AEC-49B5-A021-66327255A80D),
+	dual,
+	nonextensible,
+	helpstring("IIntDequeCollection インターフェイス"),
+	pointer_default(unique)
+]
+interface IIntDequeCollection : IDispatch{
+    [id(1), helpstring("メソッド Add")] HRESULT Add([in] INT item);
+    [propget, id(DISPID_NEWENUM), helpstring("プロパティ _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
+    [id(2), helpstring("メソッド Clear")] HRESULT Clear(void);
+    [id(3), helpstring("メソッド Contains")] HRESULT Contains([in] INT item, [out,retval] VARIANT_BOOL* exists);
+    [id(4), helpstring("メソッド CopyTo")] HRESULT CopyTo([in, out] SAFEARRAY(INT) pArray, [in] LONG index);
+    [id(5), helpstring("メソッド Remove")] HRESULT Remove([in] INT item);
+    [propget, id(6), helpstring("プロパティ Count")] HRESULT Count([out, retval] LONG* pVal);
+    [propget, id(7), helpstring("プロパティ IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
+    [propget, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [out, retval] INT* pVal);
+    [propput, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [in] INT newVal);
+};
+[
+	object,
 	uuid(8AE32A92-4B5C-4A78-8867-4CAF1E8D0905),
 	dual,
 	nonextensible,
@@ -59,6 +79,7 @@ interface IStrVectorCollection : IDispatch{
 ]
 interface IMyCollectionGenerator : IDispatch{
     [id(1), helpstring("メソッド CreateStrVectorCollection")] HRESULT CreateStrVectorCollection([out,retval] IStrVectorCollection** ppVal);
+    [id(2), helpstring("メソッド CreateIntDequeCollection")] HRESULT CreateIntDequeCollection([out,retval] IIntDequeCollection** ppVal);
 };
 [
 	uuid(4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF),
@@ -99,5 +120,13 @@ library Sample03Lib
 	coclass StrVectorCollection
 	{
 		[default] interface IStrVectorCollection;
+	};
+	[
+		uuid(A1E12DEC-117D-4E6B-AB0D-DFF71B404945),
+		helpstring("IntDequeCollection Class")
+	]
+	coclass IntDequeCollection
+	{
+		[default] interface IIntDequeCollection;
 	};
 };

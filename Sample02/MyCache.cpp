@@ -44,5 +44,5 @@ STDMETHODIMP CMyCache::put_Item(BSTR key, VARIANT newVal)
 
 STDMETHODIMP CMyCache::get__NewEnum(IUnknown** ppVal)
 {
-    return My::CreateRangeEnumerator<StrVariantEnumerator>(ppVal, this, m_values);
+    return My::CreateRangeEnumerator<StrVariantEnumerator>(this, m_values, ppVal);
 }

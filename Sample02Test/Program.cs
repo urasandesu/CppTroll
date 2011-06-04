@@ -20,7 +20,7 @@ namespace Sample02Test
             {
                 Console.WriteLine("MyCache[{0}]: {1}", keys[i], myCache.get_Item(keys[i]));
             }
-            // Display message below: 
+            // Messages will display as below: 
             // MyCache[a]: 1
             // MyCache[i]: mogeta
             // MyCache[u]: Sample02Test.A
@@ -30,12 +30,12 @@ namespace Sample02Test
             Console.WriteLine();
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine();
-            
+
             foreach (PairBStrVariant item in myCache)
             {
                 Console.WriteLine("MyCache[{0}]: {1}", item.First, item.Second);
             }
-            // Display message below: 
+            // Messages will display as below: 
             // MyCache[i]: mogeta
             // MyCache[u]: Sample02Test.A
             // MyCache[a]: 1
@@ -51,7 +51,7 @@ namespace Sample02Test
             try
             {
                 printer.Print();
-                // Display message below: 
+                // Messages will display as below: 
                 // MyCache[i]:  mogeta
                 // MyCache[u]:  Sample02Test.A
                 // MyCache[a]:   1
@@ -60,7 +60,7 @@ namespace Sample02Test
             }
             catch (NotImplementedException e)
             {
-                Console.WriteLine(e.Message);   // Display message, "Error, World !!". The exception message is overwritten by MyCachePrinter.
+                Console.WriteLine(e.Message);   // Message will display as "Error, World !!". It is overwritten by MyCachePrinter.
             }
 
             Console.ReadLine();
