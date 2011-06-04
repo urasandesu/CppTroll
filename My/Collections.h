@@ -53,7 +53,7 @@ namespace My
         {
         }
 
-	    HRESULT Init(IUnknown* pSource, RangeType& range)
+        HRESULT Init(IUnknown* pSource, RangeType& range)
         {
             m_pSource = pSource;
             m_pRange = &range;
@@ -62,7 +62,7 @@ namespace My
             return S_OK;
         }
 
-	    STDMETHOD(Next)(ULONG celt, ItemType* rgelt, ULONG* pceltFetched)
+        STDMETHOD(Next)(ULONG celt, ItemType* rgelt, ULONG* pceltFetched)
         {
             if (m_pRange == NULL) return E_FAIL;
             if (rgelt == NULL || (celt != 1 && pceltFetched == NULL)) return E_POINTER;
@@ -90,7 +90,7 @@ namespace My
             return celtFetched == 0 ? S_FALSE : S_OK;
         }
 
-	    STDMETHOD(Skip)(ULONG celt)
+        STDMETHOD(Skip)(ULONG celt)
         {
             if (m_pRange == NULL) return E_FAIL;
 
@@ -100,16 +100,16 @@ namespace My
             return celtFetched == 0 ? S_FALSE : S_OK;
         }
 
-	    STDMETHOD(Reset)(void)
-	    {
+        STDMETHOD(Reset)(void)
+        {
             if (m_pRange == NULL) return E_FAIL;
 
             m_i = m_pRange->begin();
             m_i_end = m_pRange->end();
             return S_OK;
-	    }
+        }
 
-	    STDMETHOD(Clone)(Base** ppVal)
+        STDMETHOD(Clone)(Base** ppVal)
         {
             if (m_pRange == NULL) return E_FAIL;
             if (ppVal == NULL) return E_POINTER;
@@ -120,7 +120,7 @@ namespace My
             CComEnumeratorObject* pEnumerator = NULL;
 
             *ppVal = NULL;
-	        hr = CComEnumeratorObject::CreateInstance(&pEnumerator);
+            hr = CComEnumeratorObject::CreateInstance(&pEnumerator);
             if (FAILED(hr))
             {
                 goto RETURN_WITH_RELEASE;
