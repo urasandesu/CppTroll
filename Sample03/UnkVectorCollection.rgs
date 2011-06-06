@@ -1,0 +1,26 @@
+HKCR
+{
+	Sample03.UnkListCollection.1 = s 'UnkListCollection Class'
+	{
+		CLSID = s '{B69821E4-3032-4169-B6A6-4F3C01464B2B}'
+	}
+	Sample03.UnkListCollection = s 'UnkListCollection Class'
+	{
+		CLSID = s '{B69821E4-3032-4169-B6A6-4F3C01464B2B}'
+		CurVer = s 'Sample03.UnkListCollection.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {B69821E4-3032-4169-B6A6-4F3C01464B2B} = s 'UnkListCollection Class'
+		{
+			ProgID = s 'Sample03.UnkListCollection.1'
+			VersionIndependentProgID = s 'Sample03.UnkListCollection'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF}'
+		}
+	}
+}

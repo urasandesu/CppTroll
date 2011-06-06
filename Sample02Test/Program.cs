@@ -60,7 +60,7 @@ namespace Sample02Test
             }
             catch (NotImplementedException e)
             {
-                Console.WriteLine(e.Message);   // Message will display as "Error, World !!". It is overwritten by MyCachePrinter.
+                Console.WriteLine(e.Message);   // Message will display as "Error, World !!".
             }
 
             Console.ReadLine();
@@ -77,6 +77,7 @@ namespace Sample02Test
     {
         public override string ToString()
         {
+            // This exception's message will be overwritten by MyCachePrinter.
             throw new NotImplementedException();
         }
     }

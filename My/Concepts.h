@@ -38,11 +38,34 @@ namespace My
             const SourceType* pFrom;
             DestinationType* pTo;
 
-            X::init(&*pTo);
-            hr = X::copy(&*pTo, &*pFrom);
-            X::destroy(&*pTo);
+            // For normal type.
+            {
+                X::init(pTo);
+                hr = X::copy(pTo, pFrom);
+                X::destroy(pTo);
+            }
+
+            // For specialized type that overloads operator&.
+            {
+                X::init(&*pTo);
+                hr = X::copy(&*pTo, &*pFrom);
+                X::destroy(&*pTo);
+            }
         }
     };  // struct ATLCopy
+
+    template<class X>
+    struct Extractor
+    {
+        BOOST_CONCEPT_USAGE(Extractor)
+        {
+            typedef X::source_type source_type;
+            typedef X::result_type result_type;
+
+            source_type source;
+            result_type result = X::Apply(source);
+        }
+    };  // struct Extractor
 
     template<class X>
     struct ComEnumerable

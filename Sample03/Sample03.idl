@@ -71,6 +71,26 @@ interface IIntDequeCollection : IDispatch{
 };
 [
 	object,
+	uuid(996683EC-CF57-47B5-84E6-A96333757668),
+	dual,
+	nonextensible,
+	helpstring("IUnkVectorCollection インターフェイス"),
+	pointer_default(unique)
+]
+interface IUnkVectorCollection : IDispatch{
+    [id(1), helpstring("メソッド Add")] HRESULT Add([in] IUnknown* item);
+    [propget, id(DISPID_NEWENUM), helpstring("プロパティ _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
+    [id(2), helpstring("メソッド Clear")] HRESULT Clear(void);
+    [id(3), helpstring("メソッド Contains")] HRESULT Contains([in] IUnknown* item, [out,retval] VARIANT_BOOL* exists);
+    [id(4), helpstring("メソッド CopyTo")] HRESULT CopyTo([in, out] SAFEARRAY(IUnknown*) pArray, [in] LONG index);
+    [id(5), helpstring("メソッド Remove")] HRESULT Remove([in] IUnknown* item);
+    [propget, id(6), helpstring("プロパティ Count")] HRESULT Count([out, retval] LONG* pVal);
+    [propget, id(7), helpstring("プロパティ IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
+    [propget, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [out, retval] IUnknown** pVal);
+    [propput, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [in] IUnknown* newVal);
+};
+[
+	object,
 	uuid(8AE32A92-4B5C-4A78-8867-4CAF1E8D0905),
 	dual,
 	nonextensible,
@@ -80,6 +100,7 @@ interface IIntDequeCollection : IDispatch{
 interface IMyCollectionGenerator : IDispatch{
     [id(1), helpstring("メソッド CreateStrVectorCollection")] HRESULT CreateStrVectorCollection([out,retval] IStrVectorCollection** ppVal);
     [id(2), helpstring("メソッド CreateIntDequeCollection")] HRESULT CreateIntDequeCollection([out,retval] IIntDequeCollection** ppVal);
+    [id(3), helpstring("メソッド CreateUnkVectorCollection")] HRESULT CreateUnkVectorCollection([out,retval] IUnkVectorCollection** ppVal);
 };
 [
 	uuid(4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF),
@@ -128,5 +149,13 @@ library Sample03Lib
 	coclass IntDequeCollection
 	{
 		[default] interface IIntDequeCollection;
+	};
+	[
+		uuid(B69821E4-3032-4169-B6A6-4F3C01464B2B),
+		helpstring("UnkVectorCollection Class")
+	]
+	coclass UnkVectorCollection
+	{
+		[default] interface IUnkVectorCollection;
 	};
 };

@@ -103,6 +103,7 @@ IDR_MYENUMERABLEGENERATOR REGISTRY                "MyEnumerableGenerator.rgs"
 IDR_MYCOLLECTIONGENERATOR REGISTRY                "MyCollectionGenerator.rgs"
 IDR_STRVECTORCOLLECTION REGISTRY                "StrVectorCollection.rgs"
 IDR_INTDEQUECOLLECTION  REGISTRY                "IntDequeCollection.rgs"
+IDR_UNKLISTCOLLECTION   REGISTRY                "UnkVectorCollection.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //

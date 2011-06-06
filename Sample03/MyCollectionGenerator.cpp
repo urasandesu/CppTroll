@@ -32,3 +32,17 @@ STDMETHODIMP CMyCollectionGenerator::CreateIntDequeCollection(IIntDequeCollectio
 
     return pIntDequeCollection.CopyTo(ppVal);
 }
+
+STDMETHODIMP CMyCollectionGenerator::CreateUnkVectorCollection(IUnkVectorCollection** ppVal)
+{
+    HRESULT hr;
+    CUnkVectorCollectionObject* pObj;
+    hr = CUnkVectorCollectionObject::CreateInstance(&pObj);
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+    CComPtr<IUnkVectorCollection> pUnkVectorCollection = pObj;
+
+    return pUnkVectorCollection.CopyTo(ppVal);
+}

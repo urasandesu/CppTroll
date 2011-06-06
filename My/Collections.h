@@ -44,6 +44,10 @@ namespace My
                               >));
 
     public:
+        typedef Base base_type;
+        typedef IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, ThreadModel> type;
+        typedef Base interface_type;
+
         typedef typename WithoutAdapt<
                     typename boost::range_value<RangeType>::type
                 >::type range_value_type;
@@ -71,7 +75,7 @@ namespace My
             for (ItemType* pelt = rgelt; m_i != m_i_end && celtFetched < celt; ++m_i, ++celtFetched, ++pelt)
             {
                 range_value_type& _i = *m_i;
-                HRESULT hr = CopyItemFromRange::copy(pelt, &_i);
+                HRESULT hr = CopyItemFromRange::copy(pelt, AddressExtractor<range_value_type>::Apply(_i));
                 if (FAILED(hr))
                 {
                     if (pceltFetched != NULL)
@@ -121,29 +125,22 @@ namespace My
 
             *ppVal = NULL;
             hr = CComEnumeratorObject::CreateInstance(&pEnumerator);
-            if (FAILED(hr))
-            {
-                goto RETURN_WITH_RELEASE;
-            }
+            if (FAILED(hr)) return hr;
+
+            CComPtr<IUnknown> pUnkForRelease;
+            pUnkForRelease.Attach(pEnumerator); 
 
             hr = pEnumerator->Init(m_pSource, *m_pRange);
-            if (FAILED(hr))
-            {
-                goto RETURN_WITH_RELEASE;
-            }
+            if (FAILED(hr)) goto RETURN_WITH_RELEASE;
 
             pEnumerator->m_i = m_i;
             hr = pEnumerator->QueryInterface(__uuidof(Base), (void**)ppVal);
-            if (FAILED(hr))
-            {
-                goto RETURN_WITH_RELEASE;
-            }
+            if (FAILED(hr)) goto RETURN_WITH_RELEASE;
 
+            pUnkForRelease.Detach();
             return S_OK;
 
 RETURN_WITH_RELEASE:
-            if (pEnumerator != NULL)
-                pEnumerator->Release();
             return hr;
         }
 
@@ -175,10 +172,12 @@ RETURN_WITH_RELEASE:
         public CComObjectRootEx<ThreadModel>
     {
     public:
-        typedef CComEnumerator<Base, ItemType, RangeType, CopyItemFromRange, ThreadModel> _CComEnumerator;
-        typedef IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, ThreadModel> _CComEnumeratorBase;
-        BEGIN_COM_MAP(_CComEnumerator)
-            COM_INTERFACE_ENTRY_IID(__uuidof(Base), _CComEnumeratorBase)
+        typedef CComEnumerator<Base, ItemType, RangeType, CopyItemFromRange, ThreadModel> type;
+        typedef IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, ThreadModel> base_type;
+        typedef typename base_type::interface_type interface_type;
+
+        BEGIN_COM_MAP(type)
+            COM_INTERFACE_ENTRY_IID(__uuidof(Base), base_type)
         END_COM_MAP()
     };  // class ATL_NO_VTABLE CComEnumerator
 
@@ -193,25 +192,28 @@ RETURN_WITH_RELEASE:
         BOOST_MPL_ASSERT((boost::is_convertible<EnumeratorType, AddImplicitConversion<IgnoreParam5<CComEnumerator>>>));
         BOOST_CONCEPT_ASSERT((boost::SinglePassRangeConcept<RangeType>));
 
-        if (ppResult == NULL)
-            return E_POINTER;
+        if (ppResult == NULL) return E_POINTER;
+
         *ppResult = NULL;
 
         typedef CComObject<EnumeratorType> EnumeratorObject;
         EnumeratorObject* pEnumerator = NULL;
         HRESULT hr = EnumeratorObject::CreateInstance(&pEnumerator);
+        if (FAILED(hr)) return hr;
 
-        if (FAILED(hr))
-            return hr;
+        CComPtr<IUnknown> pUnkForRelease;
+        pUnkForRelease.Attach(pEnumerator);
 
         hr = pEnumerator->Init(pSource, range);
+        if (FAILED(hr)) goto RETURN_WITH_RELEASE;
 
-        if (SUCCEEDED(hr))
-            hr = pEnumerator->QueryInterface(ppResult);
+        hr = pEnumerator->QueryInterface(ppResult);
+        if (FAILED(hr)) goto RETURN_WITH_RELEASE;
 
-        if (FAILED(hr))
-            pEnumerator->Release();
+        pUnkForRelease.Detach();
+        return S_OK;
 
+RETURN_WITH_RELEASE:
         return hr;
     } // HRESULT CreateRangeEnumerator(IUnknown* pSource, RangeType& range, IUnknown** ppResult)
 
@@ -233,6 +235,10 @@ RETURN_WITH_RELEASE:
         BOOST_CONCEPT_ASSERT((boost::SinglePassRangeConcept<RangeType>));
 
     public:
+        typedef IEnumerableImpl<Base, EnumeratorType, RangeType> type;
+        typedef Base base_type;
+        typedef Base interface_type;
+
         STDMETHOD(get__NewEnum)(IUnknown** ppVal)
         {
             return CreateRangeEnumerator<EnumeratorType>(this, m_container, ppVal);
@@ -277,12 +283,13 @@ RETURN_WITH_RELEASE:
             wMinor, 
             tihclass, 
             ThreadModel
-        > _CComEnumerable;
+        > type;
         
-        typedef IEnumerableImpl<Base, EnumeratorType, RangeType> _CComEnumerableBase;
+        typedef IEnumerableImpl<Base, EnumeratorType, RangeType> base_type;
+        typedef typename base_type::interface_type interface_type;
         
-        BEGIN_COM_MAP(_CComEnumerable)
-            COM_INTERFACE_ENTRY_IID(__uuidof(Base), _CComEnumerableBase)
+        BEGIN_COM_MAP(type)
+            COM_INTERFACE_ENTRY_IID(__uuidof(Base), base_type)
             COM_INTERFACE_ENTRY(IDispatch)
         END_COM_MAP()
     };  // class ATL_NO_VTABLE CComEnumerable
@@ -332,6 +339,10 @@ RETURN_WITH_RELEASE:
                               >));
 
     public:
+        typedef IEnumerableImpl<Base, EnumeratorType, CollectionType> base_type;
+        typedef ICollectionImpl<Base, ItemType, EnumeratorType, CollectionType, CopyItemFromCollection, CopyCollectionFromItem> type;
+        typedef typename base_type::interface_type interface_type;
+
         typedef typename WithoutAdapt<typename CollectionType::value_type>::type collection_value_type;
         typedef typename CollectionType::iterator collection_iterator;
 
@@ -341,10 +352,8 @@ RETURN_WITH_RELEASE:
             collection_value_type value;
             CopyCollectionFromItem::init(&value);
             hr = CopyCollectionFromItem::copy(&value, &item);
-            if (FAILED(hr))
-            {
-                return hr;
-            }
+            if (FAILED(hr)) return hr;
+
             m_container.insert(m_container.end(), value);
             return S_OK;
         }
@@ -379,10 +388,7 @@ RETURN_WITH_RELEASE:
             CComSafeArray<ItemType> arr;    // I could not use CComSafeArray<T, _vartype>::Attach(const SAFEARRAY*) because it is too sensitive.
             arr.m_psa = pArray;             // The method prohibits even the diferrence between VT_I4 and VT_INT.
             hr = SafeArrayLock(arr.m_psa);
-            if (FAILED(hr))
-            {
-                return hr;
-            }
+            if (FAILED(hr)) return hr;
 
             for (collection_iterator i = m_container.begin(), i_end = m_container.end(); i != i_end; ++i, ++index)
             {
@@ -390,16 +396,10 @@ RETURN_WITH_RELEASE:
                 ItemType item;
                 CopyItemFromCollection::init(&item);
                 hr = CopyItemFromCollection::copy(&item, &_i);
-                if (FAILED(hr))
-                {
-                    return hr;
-                }
+                if (FAILED(hr)) return hr;
 
                 hr = arr.SetAt(index, item);
-                if (FAILED(hr))
-                {
-                    return hr;
-                }
+                if (FAILED(hr)) return hr;
             }
 
             arr.Detach();
@@ -432,10 +432,7 @@ RETURN_WITH_RELEASE:
 
         STDMETHOD(get_Item)(LONG index, ItemType* pVal)
         {
-            if (index < 0 || m_container.size() <= static_cast<ULONG>(index))
-            {
-                return E_INVALIDARG;
-            }
+            if (index < 0 || m_container.size() <= static_cast<ULONG>(index)) return E_INVALIDARG;
 
             collection_value_type& item = m_container[index];
             return CopyItemFromCollection::copy(pVal, &item);
@@ -443,19 +440,14 @@ RETURN_WITH_RELEASE:
 
         STDMETHOD(put_Item)(LONG index, ItemType newVal)
         {
-            if (index < 0 || m_container.size() <= static_cast<ULONG>(index))
-            {
-                return E_INVALIDARG;
-            }
+            if (index < 0 || m_container.size() <= static_cast<ULONG>(index)) return E_INVALIDARG;
 
             HRESULT hr = E_FAIL;
             collection_value_type value;
             CopyCollectionFromItem::init(&value);
             hr = CopyCollectionFromItem::copy(&value, &newVal);
-            if (FAILED(hr))
-            {
-                return hr;
-            }
+            if (FAILED(hr)) return hr;
+
             m_container[index] = value;
             return S_OK;
         }
@@ -521,7 +513,7 @@ RETURN_WITH_RELEASE:
                     wMinor, 
                     tihclass, 
                     ThreadModel
-        > _CComCollection;
+        > type;
         
         typedef ICollectionImpl<
                     Base, 
@@ -530,10 +522,12 @@ RETURN_WITH_RELEASE:
                     CollectionType, 
                     CopyItemFromCollection, 
                     CopyCollectionFromItem
-        > _CComCollectionBase;
+        > base_type;
+
+        typedef typename base_type::interface_type interface_type;
         
-        BEGIN_COM_MAP(_CComCollection)
-            COM_INTERFACE_ENTRY_IID(__uuidof(Base), _CComCollectionBase)
+        BEGIN_COM_MAP(type)
+            COM_INTERFACE_ENTRY_IID(__uuidof(Base), base_type)
             COM_INTERFACE_ENTRY(IDispatch)
         END_COM_MAP()
     };  // class ATL_NO_VTABLE CComCollection

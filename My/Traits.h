@@ -17,6 +17,44 @@ namespace My
 
 
 
+
+
+    template<class T>
+    struct AddressExtractor
+    {
+        typedef T source_type;
+        typedef T* result_type;
+        static result_type Apply(T& val)
+        {
+            return &val;
+        }
+    };  // struct AddressExtractor
+
+    template<>
+    struct AddressExtractor<CComBSTR>
+    {
+        typedef CComBSTR source_type;
+        typedef BSTR* result_type;
+        static result_type Apply(CComBSTR& val)
+        {
+            return &val;
+        }
+    };  // struct AddressExtractor<CComBSTR>
+
+    template<class T>
+    struct AddressExtractor<CComPtr<T>>
+    {
+        typedef CComPtr<T> source_type;
+        typedef T* result_type;
+        static result_type Apply(CComPtr<T>& val)
+        {
+            return val.p;
+        }
+    };  // struct AddressExtractor<CComPtr<T>>
+
+
+
+
     template<class T>
     struct AddImplicitConversion
     {

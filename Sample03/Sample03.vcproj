@@ -357,6 +357,10 @@
 				RelativePath=".\StrVectorCollection.rgs"
 				>
 			</File>
+			<File
+				RelativePath=".\UnkVectorCollection.rgs"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="¶¬‚³‚ê‚½ƒtƒ@ƒCƒ‹"

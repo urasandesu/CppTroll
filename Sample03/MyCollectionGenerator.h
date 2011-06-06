@@ -20,6 +20,13 @@ typedef My::CComEnumerator<IEnumVARIANT, VARIANT, IntDeque> IntEnumerator;
 typedef My::CComCollection<IIntDequeCollection, INT, IntEnumerator, IntDeque> CIntDequeCollection;
 typedef CComObject<CIntDequeCollection> CIntDequeCollectionObject;
 
+typedef CComPtr<IUnknown> UnkPtr;
+typedef CAdapt<UnkPtr> AdaptedUnkPtr;
+typedef std::vector<AdaptedUnkPtr> UnkVector;
+typedef My::CComEnumerator<IEnumVARIANT, VARIANT, UnkVector> UnkEnumerator;
+typedef My::CComCollection<IUnkVectorCollection, IUnknown*, UnkEnumerator, UnkVector> CUnkVectorCollection;
+typedef CComObject<CUnkVectorCollection> CUnkVectorCollectionObject;
+
 // CMyCollectionGenerator
 
 class ATL_NO_VTABLE CMyCollectionGenerator :
@@ -57,6 +64,7 @@ public:
 
     STDMETHOD(CreateStrVectorCollection)(IStrVectorCollection** ppVal);
     STDMETHOD(CreateIntDequeCollection)(IIntDequeCollection** ppVal);
+    STDMETHOD(CreateUnkVectorCollection)(IUnkVectorCollection** ppVal);
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(MyCollectionGenerator), CMyCollectionGenerator)

@@ -223,5 +223,112 @@ namespace Sample03Test
             {
             }
         }
+
+        [Test]
+        public void CreateUnkVectorCollectionTest()
+        {
+            var mcg = new MyCollectionGenerator();
+            var idc = mcg.CreateUnkVectorCollection();
+            idc.Add(2);
+            idc.Add(3);
+            idc.Add(1);
+            {
+                var i = 0;
+                foreach (var item in idc)
+                {
+                    switch (i++)
+                    {
+                        case 0:
+                            Assert.AreEqual(2, item);
+                            break;
+                        case 1:
+                            Assert.AreEqual(3, item);
+                            break;
+                        case 2:
+                            Assert.AreEqual(1, item);
+                            break;
+                        default:
+                            Assert.Fail("The collection's count is expected 3 but it was exceeded.");
+                            break;
+                    }
+                }
+            }
+
+            idc.Clear();
+            {
+                var i = 0;
+                foreach (var item in idc)
+                {
+                    switch (i++)
+                    {
+                        default:
+                            Assert.Fail("The collection's count is expected 0 but it was exceeded.");
+                            break;
+                    }
+                }
+            }
+
+            idc.Add(5);
+            idc.Add(4);
+            idc.Add(6);
+            {
+                var item = 4;
+                Assert.IsTrue(idc.Contains(item));
+            }
+            {
+                var item = 1;
+                Assert.IsFalse(idc.Contains(item));
+            }
+
+            var array = new int[4];
+            idc.CopyTo(array, 1);
+            Assert.AreEqual(0, array[0]);
+            Assert.AreEqual(5, array[1]);
+            Assert.AreEqual(4, array[2]);
+            Assert.AreEqual(6, array[3]);
+
+            idc.Remove(4);
+            {
+                var i = 0;
+                foreach (var item in idc)
+                {
+                    switch (i++)
+                    {
+                        case 0:
+                            Assert.AreEqual(5, item);
+                            break;
+                        case 1:
+                            Assert.AreEqual(6, item);
+                            break;
+                        default:
+                            Assert.Fail("The collection's count is expected 2 but it was exceeded.");
+                            break;
+                    }
+                }
+            }
+
+            Assert.AreEqual(2, idc.Count);
+            Assert.IsFalse(idc.IsReadOnly);
+            Assert.AreEqual(6, idc[1]);
+            try
+            {
+                Console.WriteLine("Item[2]: {0}", idc[2]);
+                Assert.Fail("The throwing an exception is expected but it was not.");
+            }
+            catch (ArgumentException)
+            {
+            }
+
+            idc[1] = 10;
+            Assert.AreEqual(10, idc[1]);
+            try
+            {
+                idc[2] = 20;
+                Assert.Fail("The throwing an exception is expected but it was not.");
+            }
+            catch (ArgumentException)
+            {
+            }
+        }
     }
 }
