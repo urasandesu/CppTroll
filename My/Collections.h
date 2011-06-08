@@ -10,6 +10,7 @@ namespace My
         class ItemType, 
         class RangeType, 
         class CopyItemFromRange,
+        class RangeExtractor,
         class ThreadModel
     >
     class ATL_NO_VTABLE CComEnumerator;
@@ -28,6 +29,11 @@ namespace My
                                         typename boost::range_value<RangeType>::type
                                     >::type
                                   >,
+        class RangeExtractor = AddressExtractor<
+                                    typename WithoutAdapt<
+                                        typename boost::range_value<RangeType>::type
+                                    >::type
+                               >,
         class ThreadModel = CComObjectThreadModel
     >
     class ATL_NO_VTABLE IEnumeratorImpl : 
@@ -42,10 +48,11 @@ namespace My
                                     typename boost::range_value<RangeType>::type
                                 >::type
                               >));
+        BOOST_CONCEPT_ASSERT((Extractor<RangeExtractor>));
 
     public:
         typedef Base base_type;
-        typedef IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, ThreadModel> type;
+        typedef IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, RangeExtractor, ThreadModel> type;
         typedef Base interface_type;
 
         typedef typename WithoutAdapt<
@@ -75,7 +82,7 @@ namespace My
             for (ItemType* pelt = rgelt; m_i != m_i_end && celtFetched < celt; ++m_i, ++celtFetched, ++pelt)
             {
                 range_value_type& _i = *m_i;
-                HRESULT hr = CopyItemFromRange::copy(pelt, AddressExtractor<range_value_type>::Apply(_i));
+                HRESULT hr = CopyItemFromRange::copy(pelt, RangeExtractor::Apply(_i));
                 if (FAILED(hr))
                 {
                     if (pceltFetched != NULL)
@@ -118,7 +125,7 @@ namespace My
             if (m_pRange == NULL) return E_FAIL;
             if (ppVal == NULL) return E_POINTER;
 
-            typedef CComObject<CComEnumerator<Base, ItemType, RangeType, CopyItemFromRange, ThreadModel>> CComEnumeratorObject;
+            typedef CComObject<CComEnumerator<Base, ItemType, RangeType, CopyItemFromRange, RangeExtractor, ThreadModel>> CComEnumeratorObject;
 
             HRESULT hr = S_OK;
             CComEnumeratorObject* pEnumerator = NULL;
@@ -165,15 +172,20 @@ RETURN_WITH_RELEASE:
                                         typename boost::range_value<RangeType>::type
                                     >::type
                                   >,
+        class RangeExtractor = AddressExtractor<
+                                    typename WithoutAdapt<
+                                        typename boost::range_value<RangeType>::type
+                                    >::type
+                               >,
         class ThreadModel = CComObjectThreadModel
     >
     class ATL_NO_VTABLE CComEnumerator :
-        public IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, ThreadModel>,
+        public IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, RangeExtractor, ThreadModel>,
         public CComObjectRootEx<ThreadModel>
     {
     public:
-        typedef CComEnumerator<Base, ItemType, RangeType, CopyItemFromRange, ThreadModel> type;
-        typedef IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, ThreadModel> base_type;
+        typedef CComEnumerator<Base, ItemType, RangeType, CopyItemFromRange, RangeExtractor, ThreadModel> type;
+        typedef IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, RangeExtractor, ThreadModel> base_type;
         typedef typename base_type::interface_type interface_type;
 
         BEGIN_COM_MAP(type)
@@ -189,7 +201,7 @@ RETURN_WITH_RELEASE:
     template <class EnumeratorType, class RangeType>
     HRESULT CreateRangeEnumerator(IUnknown* pSource, RangeType& range, IUnknown** ppResult)
     {
-        BOOST_MPL_ASSERT((boost::is_convertible<EnumeratorType, AddImplicitConversion<IgnoreParam5<CComEnumerator>>>));
+        BOOST_MPL_ASSERT((boost::is_convertible<EnumeratorType, AddImplicitConversion<IgnoreParam6<CComEnumerator>>>));
         BOOST_CONCEPT_ASSERT((boost::SinglePassRangeConcept<RangeType>));
 
         if (ppResult == NULL) return E_POINTER;
@@ -231,7 +243,7 @@ RETURN_WITH_RELEASE:
         public Base
     {
         BOOST_CONCEPT_ASSERT((ComEnumerable<Base>));
-        BOOST_MPL_ASSERT((boost::is_convertible<EnumeratorType, AddImplicitConversion<IgnoreParam5<CComEnumerator>>>));
+        BOOST_MPL_ASSERT((boost::is_convertible<EnumeratorType, AddImplicitConversion<IgnoreParam6<CComEnumerator>>>));
         BOOST_CONCEPT_ASSERT((boost::SinglePassRangeConcept<RangeType>));
 
     public:
@@ -310,12 +322,18 @@ RETURN_WITH_RELEASE:
                                                 typename CollectionType::value_type
                                             >::type
                                        >, 
+        class ItemExtractor = AddressExtractor<ItemType>,
         class CopyCollectionFromItem = GenericCopy<
                                             typename WithoutAdapt<
                                                 typename CollectionType::value_type
                                             >::type, 
                                             ItemType
-                                       >
+                                       >,
+        class CollectionExtractor = AddressExtractor<
+                                        typename WithoutAdapt<
+                                            typename CollectionType::value_type
+                                        >::type
+                                    >
     >
     class ATL_NO_VTABLE ICollectionImpl : 
         public IEnumerableImpl<Base, EnumeratorType, CollectionType>
@@ -330,6 +348,7 @@ RETURN_WITH_RELEASE:
                                     typename CollectionType::value_type
                                 >::type
                               >));
+        BOOST_CONCEPT_ASSERT((Extractor<ItemExtractor>));
         BOOST_CONCEPT_ASSERT((ATLCopy<
                                 CopyCollectionFromItem, 
                                 typename WithoutAdapt<
@@ -337,10 +356,19 @@ RETURN_WITH_RELEASE:
                                 >::type, 
                                 ItemType
                               >));
+        BOOST_CONCEPT_ASSERT((Extractor<CollectionExtractor>));
 
     public:
         typedef IEnumerableImpl<Base, EnumeratorType, CollectionType> base_type;
-        typedef ICollectionImpl<Base, ItemType, EnumeratorType, CollectionType, CopyItemFromCollection, CopyCollectionFromItem> type;
+        typedef ICollectionImpl<
+            Base, 
+            ItemType, 
+            EnumeratorType, 
+            CollectionType, 
+            CopyItemFromCollection, 
+            ItemExtractor, 
+            CopyCollectionFromItem, 
+            CollectionExtractor> type;
         typedef typename base_type::interface_type interface_type;
 
         typedef typename WithoutAdapt<typename CollectionType::value_type>::type collection_value_type;
@@ -350,8 +378,8 @@ RETURN_WITH_RELEASE:
         {
             HRESULT hr = E_FAIL;
             collection_value_type value;
-            CopyCollectionFromItem::init(&value);
-            hr = CopyCollectionFromItem::copy(&value, &item);
+            CopyCollectionFromItem::init(CollectionExtractor::Apply(value));
+            hr = CopyCollectionFromItem::copy(CollectionExtractor::Apply(value), ItemExtractor::Apply(item));
             if (FAILED(hr)) return hr;
 
             m_container.insert(m_container.end(), value);
@@ -366,6 +394,8 @@ RETURN_WITH_RELEASE:
 
         STDMETHOD(Contains)(ItemType item, VARIANT_BOOL* exists)
         {
+            if (exists == NULL) return E_POINTER;
+
             collection_iterator i = m_container.begin(), i_end = m_container.end();
             collection_iterator result = find(i, i_end, item);
             if (result != i_end)
@@ -394,8 +424,8 @@ RETURN_WITH_RELEASE:
             {
                 collection_value_type& _i = *i;
                 ItemType item;
-                CopyItemFromCollection::init(&item);
-                hr = CopyItemFromCollection::copy(&item, &_i);
+                CopyItemFromCollection::init(ItemExtractor::Apply(item));
+                hr = CopyItemFromCollection::copy(ItemExtractor::Apply(item), CollectionExtractor::Apply(_i));
                 if (FAILED(hr)) return hr;
 
                 hr = arr.SetAt(index, item);
@@ -420,12 +450,16 @@ RETURN_WITH_RELEASE:
 
         STDMETHOD(get_Count)(LONG* pVal)
         {
+            if (pVal == NULL) return E_POINTER;
+
             *pVal = m_container.size();
             return S_OK;
         }
 
         STDMETHOD(get_IsReadOnly)(VARIANT_BOOL* pVal)
         {
+            if (pVal == NULL) return E_POINTER;
+
             *pVal = VARIANT_FALSE;
             return S_OK;
         }
@@ -434,8 +468,8 @@ RETURN_WITH_RELEASE:
         {
             if (index < 0 || m_container.size() <= static_cast<ULONG>(index)) return E_INVALIDARG;
 
-            collection_value_type& item = m_container[index];
-            return CopyItemFromCollection::copy(pVal, &item);
+            collection_value_type& value = m_container[index];
+            return CopyItemFromCollection::copy(pVal, CollectionExtractor::Apply(value));
         }
 
         STDMETHOD(put_Item)(LONG index, ItemType newVal)
@@ -444,8 +478,8 @@ RETURN_WITH_RELEASE:
 
             HRESULT hr = E_FAIL;
             collection_value_type value;
-            CopyCollectionFromItem::init(&value);
-            hr = CopyCollectionFromItem::copy(&value, &newVal);
+            CopyCollectionFromItem::init(CollectionExtractor::Apply(value));
+            hr = CopyCollectionFromItem::copy(CollectionExtractor::Apply(value), ItemExtractor::Apply(newVal));
             if (FAILED(hr)) return hr;
 
             m_container[index] = value;
@@ -470,12 +504,18 @@ RETURN_WITH_RELEASE:
                                                 typename CollectionType::value_type
                                             >::type
                                        >,
+        class ItemExtractor = AddressExtractor<ItemType>,
         class CopyCollectionFromItem = GenericCopy<
                                             typename WithoutAdapt<
                                                 typename CollectionType::value_type
                                             >::type, 
                                             ItemType
                                        >,
+        class CollectionExtractor = AddressExtractor<
+                                        typename WithoutAdapt<
+                                            typename CollectionType::value_type
+                                        >::type
+                                    >,
         const GUID* plibid = &CAtlModule::m_libid,
         WORD wMajor = 1,
         WORD wMinor = 0, 
@@ -491,7 +531,9 @@ RETURN_WITH_RELEASE:
                         EnumeratorType, 
                         CollectionType, 
                         CopyItemFromCollection, 
-                        CopyCollectionFromItem
+                        ItemExtractor,
+                        CopyCollectionFromItem,
+                        CollectionExtractor
                     >, 
                     &__uuidof(Base), 
                     plibid, 
@@ -507,7 +549,9 @@ RETURN_WITH_RELEASE:
                     EnumeratorType, 
                     CollectionType, 
                     CopyItemFromCollection, 
-                    CopyCollectionFromItem, 
+                    ItemExtractor,
+                    CopyCollectionFromItem,
+                    CollectionExtractor,
                     plibid, 
                     wMajor, 
                     wMinor, 
@@ -520,8 +564,10 @@ RETURN_WITH_RELEASE:
                     ItemType, 
                     EnumeratorType, 
                     CollectionType, 
-                    CopyItemFromCollection, 
-                    CopyCollectionFromItem
+                    CopyItemFromCollection,
+                    ItemExtractor,
+                    CopyCollectionFromItem,
+                    CollectionExtractor
         > base_type;
 
         typedef typename base_type::interface_type interface_type;

@@ -76,7 +76,7 @@ namespace My
     struct GenericCopy<VARIANT, CComPtr<SourceType>>
     {
         typedef VARIANT destination_type;
-        typedef SourceType source_type;
+        typedef SourceType* source_type;
         typedef CComPtr<SourceType> actual_source_type;
 
         static void init(destination_type* p)
@@ -90,7 +90,7 @@ namespace My
         static HRESULT copy(destination_type* pTo, const source_type* pFrom)
         {
             if (pFrom == NULL) return E_POINTER;
-            return _Copy<destination_type>::copy(pTo, &CComVariant(const_cast<source_type*>(pFrom)));
+            return _Copy<destination_type>::copy(pTo, &CComVariant(*pFrom));
         }
         static HRESULT copy(destination_type* pTo, const actual_source_type* pFrom)
         {

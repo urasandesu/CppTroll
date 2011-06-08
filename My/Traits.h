@@ -45,10 +45,10 @@ namespace My
     struct AddressExtractor<CComPtr<T>>
     {
         typedef CComPtr<T> source_type;
-        typedef T* result_type;
+        typedef T** result_type;
         static result_type Apply(CComPtr<T>& val)
         {
-            return val.p;
+            return &val.p;
         }
     };  // struct AddressExtractor<CComPtr<T>>
 

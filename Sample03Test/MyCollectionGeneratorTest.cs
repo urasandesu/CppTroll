@@ -229,9 +229,9 @@ namespace Sample03Test
         {
             var mcg = new MyCollectionGenerator();
             var idc = mcg.CreateUnkVectorCollection();
-            idc.Add(2);
-            idc.Add(3);
-            idc.Add(1);
+            idc.Add(new A() { Value = 2 });
+            idc.Add(new A() { Value = 3 });
+            idc.Add(new A() { Value = 1 });
             {
                 var i = 0;
                 foreach (var item in idc)
@@ -239,13 +239,13 @@ namespace Sample03Test
                     switch (i++)
                     {
                         case 0:
-                            Assert.AreEqual(2, item);
+                            Assert.AreEqual("2", item.ToString());
                             break;
                         case 1:
-                            Assert.AreEqual(3, item);
+                            Assert.AreEqual("3", item.ToString());
                             break;
                         case 2:
-                            Assert.AreEqual(1, item);
+                            Assert.AreEqual("1", item.ToString());
                             break;
                         default:
                             Assert.Fail("The collection's count is expected 3 but it was exceeded.");
@@ -268,11 +268,12 @@ namespace Sample03Test
                 }
             }
 
-            idc.Add(5);
-            idc.Add(4);
-            idc.Add(6);
+            idc.Add(new A() { Value = 5 });
+            var four = new A() { Value = 4 }; 
+            idc.Add(four);
+            idc.Add(new A() { Value = 6 });
             {
-                var item = 4;
+                var item = four;
                 Assert.IsTrue(idc.Contains(item));
             }
             {
@@ -280,14 +281,14 @@ namespace Sample03Test
                 Assert.IsFalse(idc.Contains(item));
             }
 
-            var array = new int[4];
+            var array = new A[4];
             idc.CopyTo(array, 1);
-            Assert.AreEqual(0, array[0]);
-            Assert.AreEqual(5, array[1]);
-            Assert.AreEqual(4, array[2]);
-            Assert.AreEqual(6, array[3]);
+            Assert.AreEqual(null, array[0]);
+            Assert.AreEqual("5", array[1].ToString());
+            Assert.AreEqual("4", array[2].ToString());
+            Assert.AreEqual("6", array[3].ToString());
 
-            idc.Remove(4);
+            idc.Remove(four);
             {
                 var i = 0;
                 foreach (var item in idc)
@@ -295,10 +296,10 @@ namespace Sample03Test
                     switch (i++)
                     {
                         case 0:
-                            Assert.AreEqual(5, item);
+                            Assert.AreEqual("5", item.ToString());
                             break;
                         case 1:
-                            Assert.AreEqual(6, item);
+                            Assert.AreEqual("6", item.ToString());
                             break;
                         default:
                             Assert.Fail("The collection's count is expected 2 but it was exceeded.");
@@ -309,7 +310,7 @@ namespace Sample03Test
 
             Assert.AreEqual(2, idc.Count);
             Assert.IsFalse(idc.IsReadOnly);
-            Assert.AreEqual(6, idc[1]);
+            Assert.AreEqual("6", idc[1].ToString());
             try
             {
                 Console.WriteLine("Item[2]: {0}", idc[2]);
@@ -319,15 +320,24 @@ namespace Sample03Test
             {
             }
 
-            idc[1] = 10;
-            Assert.AreEqual(10, idc[1]);
+            idc[1] = new A() { Value = 10 };
+            Assert.AreEqual("10", idc[1].ToString());
             try
             {
-                idc[2] = 20;
+                idc[2] = new A() { Value = 20 };
                 Assert.Fail("The throwing an exception is expected but it was not.");
             }
             catch (ArgumentException)
             {
+            }
+        }
+
+        class A
+        {
+            public int Value { get; set; }
+            public override string ToString()
+            {
+                return Value.ToString();
             }
         }
     }
