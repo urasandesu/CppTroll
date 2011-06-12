@@ -1,0 +1,26 @@
+HKCR
+{
+	Sample03.StrEqualityComparer.1 = s 'StrEqualityComparer Class'
+	{
+		CLSID = s '{DAB8CE6B-CADC-409E-BE4F-FC7E752D1D01}'
+	}
+	Sample03.StrEqualityComparer = s 'StrEqualityComparer Class'
+	{
+		CLSID = s '{DAB8CE6B-CADC-409E-BE4F-FC7E752D1D01}'
+		CurVer = s 'Sample03.StrEqualityComparer.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {DAB8CE6B-CADC-409E-BE4F-FC7E752D1D01} = s 'StrEqualityComparer Class'
+		{
+			ProgID = s 'Sample03.StrEqualityComparer.1'
+			VersionIndependentProgID = s 'Sample03.StrEqualityComparer'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF}'
+		}
+	}
+}

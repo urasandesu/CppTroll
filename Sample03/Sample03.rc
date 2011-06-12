@@ -104,6 +104,10 @@ IDR_MYCOLLECTIONGENERATOR REGISTRY                "MyCollectionGenerator.rgs"
 IDR_STRVECTORCOLLECTION REGISTRY                "StrVectorCollection.rgs"
 IDR_INTDEQUECOLLECTION  REGISTRY                "IntDequeCollection.rgs"
 IDR_UNKLISTCOLLECTION   REGISTRY                "UnkVectorCollection.rgs"
+IDR_STRVECTORLIST       REGISTRY                "StrVectorList.rgs"
+IDR_STREQUALITYCOMPARER REGISTRY                "StrEqualityComparer.rgs"
+IDR_UNKEQUALITYCOMPARER REGISTRY                "UnkEqualityComparer.rgs"
+IDR_VARIANTEQUALITYCOMPARER REGISTRY                "VariantEqualityComparer.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //

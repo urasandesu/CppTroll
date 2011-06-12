@@ -1,12 +1,9 @@
 // stdafx.h : 標準のシステム インクルード ファイルのインクルード ファイル、または
 // 参照回数が多く、かつあまり変更されない、プロジェクト専用のインクルード ファイル
 // を記述します。
+//
 
 #pragma once
-
-#ifndef STRICT
-#define STRICT
-#endif
 
 #include "targetver.h"
 
@@ -14,16 +11,21 @@
 #define _ATL_NO_AUTOMATIC_NAMESPACE
 
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS    // 一部の CString コンストラクタは明示的です。
- 
-#include "resource.h"
+
 #include <atlbase.h>
 #include <atlcom.h>
 #include <atlctl.h>
-#include <atlsafe.h>
 
 using namespace ATL;
 
-#include "My.h"
+#include "MyDependsOn.h"
+#include <memory>
 
-#include <vector>
-#include <deque>
+
+// TODO: プログラムに必要な追加ヘッダーをここで参照してください。
+#import "libid:4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF" version("1.0") no_namespace // Sample03 1.0 タイプ ライブラリ
+
+#include <stdlib.h>
+#include <iostream> 
+#include <boost/timer.hpp>
+

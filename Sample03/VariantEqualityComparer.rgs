@@ -1,0 +1,26 @@
+HKCR
+{
+	Sample03.VariantEqualityComparer.1 = s 'VariantEqualityComparer Class'
+	{
+		CLSID = s '{786C43AF-E345-4673-8F0B-CF330D3EFCBC}'
+	}
+	Sample03.VariantEqualityComparer = s 'VariantEqualityComparer Class'
+	{
+		CLSID = s '{786C43AF-E345-4673-8F0B-CF330D3EFCBC}'
+		CurVer = s 'Sample03.VariantEqualityComparer.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {786C43AF-E345-4673-8F0B-CF330D3EFCBC} = s 'VariantEqualityComparer Class'
+		{
+			ProgID = s 'Sample03.VariantEqualityComparer.1'
+			VersionIndependentProgID = s 'Sample03.VariantEqualityComparer'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF}'
+		}
+	}
+}

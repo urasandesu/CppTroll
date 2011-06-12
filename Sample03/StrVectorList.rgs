@@ -1,0 +1,26 @@
+HKCR
+{
+	Sample03.StrVectorList.1 = s 'StrVectorList Class'
+	{
+		CLSID = s '{0C8AFE2C-C408-4196-8349-B6DD2AAB3604}'
+	}
+	Sample03.StrVectorList = s 'StrVectorList Class'
+	{
+		CLSID = s '{0C8AFE2C-C408-4196-8349-B6DD2AAB3604}'
+		CurVer = s 'Sample03.StrVectorList.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {0C8AFE2C-C408-4196-8349-B6DD2AAB3604} = s 'StrVectorList Class'
+		{
+			ProgID = s 'Sample03.StrVectorList.1'
+			VersionIndependentProgID = s 'Sample03.StrVectorList'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF}'
+		}
+	}
+}

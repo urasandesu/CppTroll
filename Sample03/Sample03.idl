@@ -103,6 +103,65 @@ interface IMyCollectionGenerator : IDispatch{
     [id(3), helpstring("メソッド CreateUnkVectorCollection")] HRESULT CreateUnkVectorCollection([out,retval] IUnkVectorCollection** ppVal);
 };
 [
+	object,
+	uuid(AA62153A-ADB7-41B3-9176-2CC5D6FC5DA0),
+	dual,
+	nonextensible,
+	helpstring("IStrVectorList インターフェイス"),
+	pointer_default(unique)
+]
+interface IStrVectorList : IDispatch{
+    [id(1), helpstring("メソッド Add")] HRESULT Add([in] BSTR item);
+    [propget, id(DISPID_NEWENUM), helpstring("プロパティ _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
+    [id(2), helpstring("メソッド Clear")] HRESULT Clear(void);
+    [id(3), helpstring("メソッド Contains")] HRESULT Contains([in] BSTR item, [out,retval] VARIANT_BOOL* exists);
+    [id(4), helpstring("メソッド CopyTo")] HRESULT CopyTo([in, out] SAFEARRAY(BSTR) pArray, [in] LONG index);
+    [id(5), helpstring("メソッド Remove")] HRESULT Remove([in] BSTR item);
+    [propget, id(6), helpstring("プロパティ Count")] HRESULT Count([out, retval] LONG* pVal);
+    [propget, id(7), helpstring("プロパティ IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
+    [id(8), helpstring("メソッド IndexOf")] HRESULT IndexOf([in] BSTR item, [out, retval] LONG* index);
+    [id(9), helpstring("メソッド Insert")] HRESULT Insert([in] LONG index, [in] BSTR item);
+    [id(10), helpstring("メソッド RemoveAt")] HRESULT RemoveAt([in] LONG index);
+    [propget, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [out, retval] BSTR* pVal);
+    [propput, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [in] BSTR newVal);
+};
+[
+	object,
+	uuid(360B5AFA-7B03-42DE-9F61-D732C9A6FBE6),
+	dual,
+	nonextensible,
+	helpstring("IStrEqualityComparer インターフェイス"),
+	pointer_default(unique)
+]
+interface IStrEqualityComparer : IDispatch{
+    [id(1), helpstring("メソッド Equals")] HRESULT Equals([in] BSTR value1, [in] BSTR value2, [out, retval] VARIANT_BOOL* equals);
+    [id(2), helpstring("メソッド GetHashCode")] HRESULT GetHashCode([in] BSTR value, [out, retval] LONG* hashCode);
+};
+[
+	object,
+	uuid(D0B97DCC-B8E2-46F2-BFDC-2B9B024DAD35),
+	dual,
+	nonextensible,
+	helpstring("IUnkEqualityComparer インターフェイス"),
+	pointer_default(unique)
+]
+interface IUnkEqualityComparer : IDispatch{
+    [id(1), helpstring("メソッド Equals")] HRESULT Equals([in] IUnknown* value1, [in] IUnknown* value2, [out, retval] VARIANT_BOOL* equals);
+    [id(2), helpstring("メソッド GetHashCode")] HRESULT GetHashCode([in] IUnknown* value, [out, retval] LONG* hashCode);
+};
+[
+	object,
+	uuid(AAFA8026-35F4-410F-B10C-079089EDCC68),
+	dual,
+	nonextensible,
+	helpstring("IVariantEqualityComparer インターフェイス"),
+	pointer_default(unique)
+]
+interface IVariantEqualityComparer : IDispatch{
+    [id(1), helpstring("メソッド Equals")] HRESULT Equals([in] VARIANT value1, [in] VARIANT value2, [out, retval] VARIANT_BOOL* equals);
+    [id(2), helpstring("メソッド GetHashCode")] HRESULT GetHashCode([in] VARIANT value, [out, retval] LONG* hashCode);
+};
+[
 	uuid(4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF),
 	version(1.0),
 	helpstring("Sample03 1.0 タイプ ライブラリ")
@@ -157,5 +216,37 @@ library Sample03Lib
 	coclass UnkVectorCollection
 	{
 		[default] interface IUnkVectorCollection;
+	};
+	[
+		uuid(0C8AFE2C-C408-4196-8349-B6DD2AAB3604),
+		helpstring("StrVectorList Class")
+	]
+	coclass StrVectorList
+	{
+		[default] interface IStrVectorList;
+	};
+	[
+		uuid(DAB8CE6B-CADC-409E-BE4F-FC7E752D1D01),
+		helpstring("StrEqualityComparer Class")
+	]
+	coclass StrEqualityComparer
+	{
+		[default] interface IStrEqualityComparer;
+	};
+	[
+		uuid(B8893058-D458-4356-8C0E-0783F7FCBB37),
+		helpstring("UnkEqualityComparer Class")
+	]
+	coclass UnkEqualityComparer
+	{
+		[default] interface IUnkEqualityComparer;
+	};
+	[
+		uuid(786C43AF-E345-4673-8F0B-CF330D3EFCBC),
+		helpstring("VariantEqualityComparer Class")
+	]
+	coclass VariantEqualityComparer
+	{
+		[default] interface IVariantEqualityComparer;
 	};
 };

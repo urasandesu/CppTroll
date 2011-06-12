@@ -48,6 +48,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MetaDataApiSample01", "Meta
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MetaDataApiSample01PS", "MetaDataApiSample01\MetaDataApiSample01PS.vcproj", "{E36023B3-5EB9-465D-B475-159891679E56}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample03Test2", "Sample03Test2\Sample03Test2.vcproj", "{452E6B85-3B8A-4AE4-8AD2-41FF2BD93AC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -178,6 +180,16 @@ Global
 		{E36023B3-5EB9-465D-B475-159891679E56}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{E36023B3-5EB9-465D-B475-159891679E56}.Release|Win32.ActiveCfg = Release|Win32
 		{E36023B3-5EB9-465D-B475-159891679E56}.Release|Win32.Build.0 = Release|Win32
+		{452E6B85-3B8A-4AE4-8AD2-41FF2BD93AC9}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{452E6B85-3B8A-4AE4-8AD2-41FF2BD93AC9}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{452E6B85-3B8A-4AE4-8AD2-41FF2BD93AC9}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{452E6B85-3B8A-4AE4-8AD2-41FF2BD93AC9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{452E6B85-3B8A-4AE4-8AD2-41FF2BD93AC9}.Debug|Win32.Build.0 = Debug|Win32
+		{452E6B85-3B8A-4AE4-8AD2-41FF2BD93AC9}.Release|Any CPU.ActiveCfg = Release|Win32
+		{452E6B85-3B8A-4AE4-8AD2-41FF2BD93AC9}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{452E6B85-3B8A-4AE4-8AD2-41FF2BD93AC9}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{452E6B85-3B8A-4AE4-8AD2-41FF2BD93AC9}.Release|Win32.ActiveCfg = Release|Win32
+		{452E6B85-3B8A-4AE4-8AD2-41FF2BD93AC9}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

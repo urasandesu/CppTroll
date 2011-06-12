@@ -22,7 +22,6 @@
 
 using namespace ATL;
 
-#include "Collections.h"
-#include "Copies.h"
-#include "AnyRanges.h"
+#include "My.h"
+
 #include <map>

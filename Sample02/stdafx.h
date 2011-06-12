@@ -22,11 +22,9 @@
 
 using namespace ATL;
 
-#include <boost/unordered_map.hpp>
-#include "Collections.h"
-#include "Copies.h"
+#include "My.h"
+
 #include <boost/format.hpp>
 #include <iostream>
-#include "Pairs.h"
 
 #import "libid:BED7F4EA-1A96-11D2-8F08-00A0C9A6186D" version("2.0") // mscorlib.dll

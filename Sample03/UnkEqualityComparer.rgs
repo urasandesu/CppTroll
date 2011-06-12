@@ -1,0 +1,26 @@
+HKCR
+{
+	Sample03.UnkEqualityComparer.1 = s 'UnkEqualityComparer Class'
+	{
+		CLSID = s '{B8893058-D458-4356-8C0E-0783F7FCBB37}'
+	}
+	Sample03.UnkEqualityComparer = s 'UnkEqualityComparer Class'
+	{
+		CLSID = s '{B8893058-D458-4356-8C0E-0783F7FCBB37}'
+		CurVer = s 'Sample03.UnkEqualityComparer.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {B8893058-D458-4356-8C0E-0783F7FCBB37} = s 'UnkEqualityComparer Class'
+		{
+			ProgID = s 'Sample03.UnkEqualityComparer.1'
+			VersionIndependentProgID = s 'Sample03.UnkEqualityComparer'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF}'
+		}
+	}
+}
