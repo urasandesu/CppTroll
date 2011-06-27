@@ -10,7 +10,7 @@ namespace My
 {
     template<
         class Base, 
-        class EnumeratorType, 
+        class ComEnumeratorObject, 
         class RangeType,
         const GUID* plibid = &CAtlModule::m_libid,
         WORD wMajor = 1,
@@ -21,7 +21,7 @@ namespace My
     class ATL_NO_VTABLE CComEnumerable :
         public CComObjectRootEx<ThreadModel>,
         public IDispatchImpl<
-            IEnumerableImpl<Base, EnumeratorType, RangeType>, 
+            IEnumerableImpl<Base, RangeType, ComEnumeratorObject>, 
             &__uuidof(Base), 
             plibid, 
             wMajor, 
@@ -32,7 +32,7 @@ namespace My
     public:
         typedef CComEnumerable<
             Base, 
-            EnumeratorType, 
+            ComEnumeratorObject, 
             RangeType, 
             plibid, 
             wMajor, 
@@ -41,7 +41,7 @@ namespace My
             ThreadModel
         > type;
         
-        typedef IEnumerableImpl<Base, EnumeratorType, RangeType> base_type;
+        typedef IEnumerableImpl<Base, RangeType, ComEnumeratorObject> base_type;
         typedef typename base_type::interface_type interface_type;
         
         BEGIN_COM_MAP(type)

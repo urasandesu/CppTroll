@@ -2,6 +2,10 @@
 #ifndef INCLUDED_COMCOLLECTION_H
 #define INCLUDED_COMCOLLECTION_H
 
+#ifndef INCLUDED_COMENUMERABLE_H
+#include "ComEnumerable.h"
+#endif
+
 namespace My
 {
     template<class X, class ItemType>

@@ -14,70 +14,68 @@
 #include "Extractor.h"
 #endif
 
+#ifndef INCLUDED_WITHOUTADAPT_H
+#include "WithoutAdapt.h"
+#endif
+
+#ifndef INCLUDED_GENERICCOPY_H
+#include "GenericCopy.h"
+#endif
+
+#ifndef INCLUDED_ADDRESSEXTRACTOR_H
+#include "AddressExtractor.h"
+#endif
+
+#ifndef INCLUDED_COMOBJECTWITHINSTANTIATION_H
+#include "ComObjectWithInstantiation.h"
+#endif
+
+#ifndef INCLUDED_REPLACE_H
+#include "Replace.h"
+#endif
+
 namespace My
 {
-    template <
-        class Base, 
-        class ItemType, 
-        class RangeType, 
-        class CopyItemFromRange,
-        class RangeAddresser,
-        class ThreadModel
-    >
-    class ATL_NO_VTABLE CComEnumerator;
-
-
-
-
-
     template <
         class Base,
         class ItemType, 
         class RangeType, 
-        class CopyItemFromRange = GenericCopy<
-                                    ItemType, 
-                                    typename WithoutAdapt<
-                                        typename range_value<RangeType>::type
-                                    >::type
-                                  >,
-        class RangeAddresser = AddressExtractor<
-                                    typename WithoutAdapt<
-                                        typename range_value<RangeType>::type
-                                    >::type
-                               >,
-        class ThreadModel = CComObjectThreadModel
+        class CopyItemFromRange = use_default,
+        class RangeAddresser = use_default
     >
     class ATL_NO_VTABLE IEnumeratorImpl : 
         public Base
     {
-        BOOST_CONCEPT_ASSERT((ComEnumerator<Base, ItemType>));
+    private:
         BOOST_CONCEPT_ASSERT((SinglePassRangeConcept<RangeType>));
-        BOOST_CONCEPT_ASSERT((ATLCopy<
-                                CopyItemFromRange, 
-                                ItemType, 
-                                typename WithoutAdapt<
-                                    typename range_value<RangeType>::type
-                                >::type
-                              >));
-        BOOST_CONCEPT_ASSERT((Extractor<RangeAddresser>));
+        
+    public:
+        typedef typename RangeValueWithoutAdapt<RangeType>::type range_value_type;
+        typedef GenericCopy<ItemType, range_value_type> default_copy_item_from_range;
+        typedef typename Replace<CopyItemFromRange, use_default, default_copy_item_from_range>::type copy_item_from_range;
+        typedef AddressExtractor<range_value_type> default_address_extractor;
+        typedef typename Replace<RangeAddresser, use_default, default_address_extractor>::type range_addresser;
+
+    private:
+        BOOST_CONCEPT_ASSERT((ComEnumerator<Base, ItemType>));
+        BOOST_CONCEPT_ASSERT((ATLCopy<copy_item_from_range, ItemType, range_value_type>));
+        BOOST_CONCEPT_ASSERT((Extractor<range_addresser>));
 
     public:
         typedef Base base_type;
-        typedef IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, RangeAddresser, ThreadModel> type;
+        typedef IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, RangeAddresser> type;
         typedef Base interface_type;
 
-        typedef typename WithoutAdapt<
-                    typename range_value<RangeType>::type
-                >::type range_value_type;
+        typedef ItemType item_type;
         typedef typename range_iterator<RangeType>::type range_iterator;
 
         IEnumeratorImpl() : m_pRange(NULL)
         {
         }
 
-        HRESULT Init(IUnknown* pSource, RangeType& range)
+        HRESULT Init(IUnknown* pUnkForRelease, RangeType& range)
         {
-            m_pSource = pSource;
+            m_pUnkForRelease = pUnkForRelease;
             m_pRange = &range;
             m_i = range.begin();
             m_i_end = range.end();
@@ -93,14 +91,14 @@ namespace My
             for (ItemType* pelt = rgelt; m_i != m_i_end && celtFetched < celt; ++m_i, ++celtFetched, ++pelt)
             {
                 range_value_type& _i = *m_i;
-                HRESULT hr = CopyItemFromRange::copy(pelt, RangeAddresser::Apply(_i));
+                HRESULT hr = copy_item_from_range::copy(pelt, range_addresser::Apply(_i));
                 if (FAILED(hr))
                 {
                     if (pceltFetched != NULL)
                         *pceltFetched = 0;
 
                     for ( ; rgelt < pelt; ++rgelt)
-                        CopyItemFromRange::destroy(rgelt);
+                        copy_item_from_range::destroy(rgelt);
 
                     return hr;
                 }
@@ -131,39 +129,58 @@ namespace My
             return S_OK;
         }
 
-        STDMETHOD(Clone)(Base** ppVal)
+        template<class ComEnumeratorObject>
+        HRESULT Clone(Base** ppVal)
         {
             if (m_pRange == NULL) return E_FAIL;
             if (ppVal == NULL) return E_POINTER;
-
-            typedef CComObject<CComEnumerator<Base, ItemType, RangeType, CopyItemFromRange, RangeAddresser, ThreadModel>> CComEnumeratorObject;
+            *ppVal = NULL;
 
             HRESULT hr = S_OK;
-            CComEnumeratorObject* pEnumerator = NULL;
+            ComEnumeratorObject* pEnumerator = NULL;
 
-            *ppVal = NULL;
-            hr = CComEnumeratorObject::CreateInstance(&pEnumerator);
+            hr = ComEnumeratorObject::CreateInstance(&pEnumerator);
             if (FAILED(hr)) return hr;
 
-            CComPtr<IUnknown> pUnkForRelease;
-            pUnkForRelease.Attach(pEnumerator); 
+            CComPtr<IUnknown> pUnkForRelease(pEnumerator);
 
-            hr = pEnumerator->Init(m_pSource, *m_pRange);
-            if (FAILED(hr)) goto RETURN_WITH_RELEASE;
+            hr = pEnumerator->Init(m_pUnkForRelease, *m_pRange);
+            if (FAILED(hr)) return hr;
 
             pEnumerator->m_i = m_i;
-            hr = pEnumerator->QueryInterface(__uuidof(Base), (void**)ppVal);
-            if (FAILED(hr)) goto RETURN_WITH_RELEASE;
+            hr = pEnumerator->QueryInterface(__uuidof(Base), reinterpret_cast<void**>(ppVal));
+            if (FAILED(hr)) return hr;
 
-            pUnkForRelease.Detach();
             return S_OK;
+        }
+        
+        template<class ComEnumeratorObject>
+        static HRESULT New(IUnknown* pUnkForRelease, RangeType& range, IUnknown** ppResult)
+        {
+            BOOST_CONCEPT_ASSERT((ComObjectWithInstantiation<ComEnumeratorObject>));
 
-RETURN_WITH_RELEASE:
-            return hr;
+            if (ppResult == NULL) return E_POINTER;
+            *ppResult = NULL;
+
+            HRESULT hr = E_FAIL;
+            ComEnumeratorObject* pEnumerator = NULL;
+
+            hr = ComEnumeratorObject::CreateInstance(&pEnumerator);
+            if (FAILED(hr)) return hr;
+
+            CComPtr<IUnknown> pUnkForRelease_(pEnumerator);
+
+            hr = pEnumerator->Init(pUnkForRelease, range);
+            if (FAILED(hr)) return hr;
+
+            hr = pEnumerator->QueryInterface(__uuidof(Base), reinterpret_cast<void**>(ppResult));
+            if (FAILED(hr)) return hr;
+
+            return S_OK;
         }
 
     private:
-        CComPtr<IUnknown> m_pSource;
+        CComPtr<IUnknown> m_pUnkForRelease;
         RangeType* m_pRange;
         range_iterator m_i, m_i_end;
     };  // class ATL_NO_VTABLE IEnumeratorImpl

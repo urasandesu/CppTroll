@@ -2,6 +2,10 @@
 #ifndef INCLUDED_COMLIST_H
 #define INCLUDED_COMLIST_H
 
+#ifndef INCLUDED_COMCOLLECTION_H
+#include "ComCollection.h"
+#endif
+
 namespace My
 {
     template<class X, class ItemType>

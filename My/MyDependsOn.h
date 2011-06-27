@@ -14,10 +14,10 @@
 #include <boost/functional/hash/hash.hpp>
 #include <boost/unordered_map.hpp>
 #include <comip.h>
+#include <memory>
 
 namespace My
 {
-
     using boost::add_lvalue_reference;
     using boost::any_range_type_generator;
     using boost::call_traits;
@@ -27,6 +27,7 @@ namespace My
     using boost::is_lvalue_reference;
     using boost::is_object;
     using boost::is_pointer;
+    using boost::is_same;
     using boost::is_union;
     using boost::mpl::eval_if;
     using boost::mpl::false_;
@@ -35,6 +36,7 @@ namespace My
     using boost::mpl::not_;
     using boost::mpl::or_;
     using boost::mpl::true_;
+    using boost::mpl::void_;
     using boost::Mutable_RandomAccessContainer;
     using boost::range_iterator;
     using boost::range_value;
@@ -42,6 +44,9 @@ namespace My
     using boost::single_pass_traversal_tag;
     using boost::SinglePassRangeConcept;
     using boost::use_default;
+    using std::auto_ptr;
+    
+    template<class> struct use_default1;
 }   // namespace My
 
 #endif  // #ifndef INCLUDED_MYDEPENDSON_H

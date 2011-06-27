@@ -15,6 +15,13 @@ namespace My
     {
         typedef T type;
     };  // struct WithoutAdapt<CAdapt<T>>
+    
+    template<class T>
+    struct RangeValueWithoutAdapt : 
+        public WithoutAdapt<typename range_value<T>::type>
+    {
+    };
+    
 }   // namespace My
 
 #endif  // #ifndef INCLUDED_WITHOUTADAPT_H

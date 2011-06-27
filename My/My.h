@@ -42,10 +42,6 @@
 #include "CComPair.h"
 #endif
 
-#ifndef INCLUDED_COLLECTIONS_H
-#include "Collections.h"
-#endif
-
 #ifndef INCLUDED_COMCOLLECTION_H
 #include "ComCollection.h"
 #endif
@@ -148,6 +144,10 @@
 
 #ifndef INCLUDED_WITHOUTADAPT_H
 #include "WithoutAdapt.h"
+#endif
+
+#ifndef INCLUDED_REPLACE_H
+#include "Replace.h"
 #endif
 
 

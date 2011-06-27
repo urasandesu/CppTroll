@@ -204,7 +204,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ComListTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\HasConstTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IEnumerableImplTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IEnumeratorImplTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IListImplTest.cpp"
 				>
 			</File>
 			<File
@@ -297,11 +313,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\My\CComPair.h"
+					RelativePath="..\My\CComObjectSlim.h"
 					>
 				</File>
 				<File
-					RelativePath="..\My\Collections.h"
+					RelativePath="..\My\CComPair.h"
 					>
 				</File>
 				<File
@@ -322,6 +338,10 @@
 				</File>
 				<File
 					RelativePath="..\My\ComList.h"
+					>
+				</File>
+				<File
+					RelativePath="..\My\ComObjectWithInstantiation.h"
 					>
 				</File>
 				<File
@@ -386,6 +406,10 @@
 				</File>
 				<File
 					RelativePath="..\My\MyDependsOn.h"
+					>
+				</File>
+				<File
+					RelativePath="..\My\Replace.h"
 					>
 				</File>
 				<File

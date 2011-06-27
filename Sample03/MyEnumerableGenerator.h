@@ -12,7 +12,8 @@
 
 typedef std::vector<CAdapt<CComBSTR>> StrVector;
 typedef My::CComEnumerator<IEnumVARIANT, VARIANT, StrVector> StrEnumerator;
-typedef My::CComEnumerable<IMyEnumerable, StrEnumerator, StrVector> CMyEnumerable;
+typedef CComObject<StrEnumerator> StrEnumeratorObject;
+typedef My::CComEnumerable<IMyEnumerable, StrEnumeratorObject, StrVector> CMyEnumerable;
 typedef CComObject<CMyEnumerable> CMyEnumerableObject;
 
 // CMyEnumerableGenerator

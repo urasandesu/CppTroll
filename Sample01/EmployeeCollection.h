@@ -19,6 +19,7 @@ typedef EmployeeMap::value_type EmployeePair;
 typedef My::MapCopy2nd<EmployeeMap, VARIANT> CopyType;
 typedef My::SinglePassCopyAnyRangeGenerator<EmployeeMap>::type EmployeeRange;
 typedef My::CComEnumerator<IEnumVARIANT, VARIANT, EmployeeRange, CopyType> EmployeeEnumerator;
+typedef CComObject<EmployeeEnumerator> EmployeeEnumeratorObject;
 
 
 // CEmployeeCollection

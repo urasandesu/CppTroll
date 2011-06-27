@@ -19,7 +19,6 @@
 using namespace ATL;
 
 #include "MyDependsOn.h"
-#include <memory>
 
 
 // TODO: プログラムに必要な追加ヘッダーをここで参照してください。
@@ -28,4 +27,5 @@ using namespace ATL;
 #include <stdlib.h>
 #include <iostream> 
 #include <boost/timer.hpp>
-
+#include <boost/assign/std/vector.hpp>
+#include <boost/assert.hpp>

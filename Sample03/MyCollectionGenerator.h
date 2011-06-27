@@ -12,19 +12,22 @@
 
 typedef std::vector<CAdapt<CComBSTR>> StrVector;
 typedef My::CComEnumerator<IEnumVARIANT, VARIANT, StrVector> StrEnumerator;
-typedef My::CComCollection<IStrVectorCollection, BSTR, StrEnumerator, StrVector> CStrVectorCollection;
+typedef CComObject<StrEnumerator> StrEnumeratorObject;
+typedef My::CComCollection<IStrVectorCollection, BSTR, StrEnumeratorObject, StrVector> CStrVectorCollection;
 typedef CComObject<CStrVectorCollection> CStrVectorCollectionObject;
 
 typedef std::deque<INT> IntDeque;
 typedef My::CComEnumerator<IEnumVARIANT, VARIANT, IntDeque> IntEnumerator;
-typedef My::CComCollection<IIntDequeCollection, INT, IntEnumerator, IntDeque> CIntDequeCollection;
+typedef CComObject<IntEnumerator> IntEnumeratorObject;
+typedef My::CComCollection<IIntDequeCollection, INT, IntEnumeratorObject, IntDeque> CIntDequeCollection;
 typedef CComObject<CIntDequeCollection> CIntDequeCollectionObject;
 
 typedef CComPtr<IUnknown> UnkPtr;
 typedef CAdapt<UnkPtr> AdaptedUnkPtr;
 typedef std::vector<AdaptedUnkPtr> UnkVector;
 typedef My::CComEnumerator<IEnumVARIANT, VARIANT, UnkVector> UnkEnumerator;
-typedef My::CComCollection<IUnkVectorCollection, IUnknown*, UnkEnumerator, UnkVector> CUnkVectorCollection;
+typedef CComObject<UnkEnumerator> UnkEnumeratorObject;
+typedef My::CComCollection<IUnkVectorCollection, IUnknown*, UnkEnumeratorObject, UnkVector> CUnkVectorCollection;
 typedef CComObject<CUnkVectorCollection> CUnkVectorCollectionObject;
 
 // CMyCollectionGenerator

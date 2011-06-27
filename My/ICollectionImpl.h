@@ -19,7 +19,7 @@ namespace My
     template<
         class Base,
         class ItemType,
-        class EnumeratorType, 
+        class ComEnumeratorObject, 
         class CollectionType,
         //class ItemEqualityComparer,
         class CopyItemFromCollection = GenericCopy<
@@ -42,7 +42,7 @@ namespace My
                                     >
     >
     class ATL_NO_VTABLE ICollectionImpl : 
-        public IEnumerableImpl<Base, EnumeratorType, CollectionType>
+        public IEnumerableImpl<Base, CollectionType, ComEnumeratorObject>
     {
         BOOST_CONCEPT_ASSERT((ComCollection<Base, ItemType>));
         BOOST_CONCEPT_ASSERT((Mutable_RandomAccessContainer<CollectionType>));
@@ -65,11 +65,11 @@ namespace My
         BOOST_CONCEPT_ASSERT((Extractor<CollectionAddresser>));
 
     public:
-        typedef IEnumerableImpl<Base, EnumeratorType, CollectionType> base_type;
+        typedef IEnumerableImpl<Base, CollectionType, ComEnumeratorObject> base_type;
         typedef ICollectionImpl<
             Base, 
             ItemType, 
-            EnumeratorType, 
+            ComEnumeratorObject, 
             CollectionType, 
             CopyItemFromCollection, 
             ItemAddresser, 
