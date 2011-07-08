@@ -1,8 +1,8 @@
 
 #include "stdafx.h"
 
-#ifndef INCLUDED_INSERTCONST_H
-#include "InsertConst.h"
+#ifndef URASANDESU_NANONYM_TRAITS_INSERTCONST_H
+#include "Urasandesu/NAnonym/Traits/InsertConst.h"
 #endif
 
 #define BOOST_TEST_NO_LIB
@@ -10,7 +10,7 @@
 
 namespace
 {
-    using My::InsertConst;
+    using Urasandesu::NAnonym::Traits::InsertConst;
     using boost::is_same;
 
     struct MyClass { };

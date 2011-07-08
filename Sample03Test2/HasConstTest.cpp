@@ -1,8 +1,8 @@
 
 #include "stdafx.h"
 
-#ifndef INCLUDED_HASCONST_H
-#include "HasConst.h"
+#ifndef URASANDESU_NANONYM_TRAITS_HASCONST_H
+#include "Urasandesu/NAnonym/Traits/HasConst.h"
 #endif
 
 #define BOOST_TEST_NO_LIB
@@ -10,7 +10,7 @@
 
 namespace
 {
-    using My::HasConst;
+    using Urasandesu::NAnonym::Traits::HasConst;
     using boost::mpl::not_;
 
     struct MyClass { };

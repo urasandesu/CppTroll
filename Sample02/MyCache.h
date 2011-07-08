@@ -42,9 +42,9 @@ typedef std::pair<CAdapt<CComBSTR>, CComVariant> BStrVariantPair;
 typedef boost::unordered_map<CAdapt<CComBSTR>, CComVariant, AdaptedComBSTRHash, AdaptedComBSTREqualTo> StrVariantMap;
 typedef StrVariantMap::iterator StrVariantIterator;
 typedef StrVariantMap::const_iterator StrVariantConstIterator;
-typedef My::CComPair<IPairBStrVariant, BSTR, VARIANT, My::GenericCopy<BSTR, BSTR>> CPairBStrVariant;
-typedef My::MapCopy<StrVariantMap, CPairBStrVariant> CopyType;
-typedef My::CComEnumerator<IEnumVARIANT, VARIANT, StrVariantMap, CopyType> StrVariantEnumerator;
+typedef Urasandesu::NAnonym::Utilities::CComPair<IPairBStrVariant, BSTR, VARIANT, Urasandesu::NAnonym::Utilities::GenericCopy<BSTR, BSTR>> CPairBStrVariant;
+typedef Urasandesu::NAnonym::Utilities::MapCopy<StrVariantMap, CPairBStrVariant> CopyType;
+typedef Urasandesu::NAnonym::Collections::CComEnumerator<IEnumVARIANT, VARIANT, StrVariantMap, CopyType> StrVariantEnumerator;
 typedef CComObject<StrVariantEnumerator> StrVariantEnumeratorObject;
 
 // CMyCache

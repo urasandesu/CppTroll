@@ -4,21 +4,21 @@
 #define BOOST_TEST_NO_LIB
 #include <boost/test/unit_test.hpp>
 
-#ifndef INCLUDED_UTILITIES_H
-#include "Utilities.h"
+#ifndef URASANDESU_NANONYM_UTILITIES_UTILITIES_H
+#include "Urasandesu/NAnonym/Utilities/Utilities.h"
 #endif
 
 namespace
 {
-    using My::I_VT_INT;
-    using My::I_VT_BYREF;
-    using My::I_VT_BSTR;
-    using My::I_VT_VARIANT;
-    using My::I_VT_INT_REF;
-    using My::I_VT_PTR;
-    using My::I_VT_R4;
-    using My::VariantEquals;
-    using My::VariantGetHashCode;
+    using Urasandesu::NAnonym::Utilities::I_VT_INT;
+    using Urasandesu::NAnonym::Utilities::I_VT_BYREF;
+    using Urasandesu::NAnonym::Utilities::I_VT_BSTR;
+    using Urasandesu::NAnonym::Utilities::I_VT_VARIANT;
+    using Urasandesu::NAnonym::Utilities::I_VT_INT_REF;
+    using Urasandesu::NAnonym::Utilities::I_VT_PTR;
+    using Urasandesu::NAnonym::Utilities::I_VT_R4;
+    using Urasandesu::NAnonym::Utilities::VariantEquals;
+    using Urasandesu::NAnonym::Utilities::VariantGetHashCode;
     
     struct MyClass { };
     

@@ -6,25 +6,25 @@
 
 #include <vector>
 
-#ifndef INCLUDED_CCOMENUMERATOR_H
-#include "CComEnumerator.h"
+#ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMENUMERATOR_H
+#include "Urasandesu/NAnonym/Collections/CComEnumerator.h"
 #endif
 
-#ifndef INCLUDED_CCOMENUMERABLE_H
-#include "CComEnumerable.h"
+#ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMENUMERABLE_H
+#include "Urasandesu/NAnonym/Collections/CComEnumerable.h"
 #endif
 
-#ifndef INCLUDED_CCOMOBJECTSLIM_H
-#include "CComObjectSlim.h"
+#ifndef URASANDESU_NANONYM_UTILITIES_CCOMOBJECTSLIM_H
+#include "Urasandesu/NAnonym/Utilities/CComObjectSlim.h"
 #endif
 
 namespace
 {
     using std::vector;
     using boost::use_default;
-    using My::CComEnumerator;
-    using My::CComObjectSlim;
-    using My::CComEnumerable;
+    using Urasandesu::NAnonym::Collections::CComEnumerator;
+    using Urasandesu::NAnonym::Utilities::CComObjectSlim;
+    using Urasandesu::NAnonym::Collections::CComEnumerable;
     
     // NOTE: Give a interface declaration IN COM SERVER to CComEnumerable.
     //       In the following case, IMyEnumerable declared in the client happens to be same interface declared in the server.

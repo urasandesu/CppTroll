@@ -1,8 +1,8 @@
 
 #include "stdafx.h"
 
-#ifndef INCLUDED_ADDIMPLICITCONVERSION_H
-#include "AddImplicitConversion.h"
+#ifndef URASANDESU_NANONYM_TRAITS_ADDIMPLICITCONVERSION_H
+#include "Urasandesu/NAnonym/Traits/AddImplicitConversion.h"
 #endif
 
 #define BOOST_TEST_NO_LIB
@@ -15,8 +15,8 @@ namespace
     using boost::is_convertible;
     using boost::mpl::not_;
     using std::string;
-    using My::AddImplicitConversion;
-    using My::IgnoreParam1;
+    using Urasandesu::NAnonym::Traits::AddImplicitConversion;
+    using Urasandesu::NAnonym::Traits::IgnoreParam1;
 
     template<class T>
     struct MyClass1 { };

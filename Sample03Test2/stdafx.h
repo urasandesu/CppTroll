@@ -18,7 +18,25 @@
 
 using namespace ATL;
 
-#include "MyDependsOn.h"
+#ifndef URASANDESU_NANONYM_NANONYMDEPENDSON_H
+#include "Urasandesu/NAnonym/NAnonymDependsOn.h"
+#endif
+
+#ifndef URASANDESU_NANONYM_COLLECTIONS_COLLECTIONSDEPENDSON_H
+#include "Urasandesu/NAnonym/Collections/CollectionsDependsOn.h"
+#endif
+
+#ifndef URASANDESU_NANONYM_CONCEPTS_CONCEPTSDEPENDSON_H
+#include "Urasandesu/NAnonym/Concepts/ConceptsDependsOn.h"
+#endif
+
+#ifndef URASANDESU_NANONYM_TRAITS_TRAITSDEPENDSON_H
+#include "Urasandesu/NAnonym/Traits/TraitsDependsOn.h"
+#endif
+
+#ifndef URASANDESU_NANONYM_UTILITIES_UTILITIESDEPENDSON_H
+#include "Urasandesu/NAnonym/Utilities/UtilitiesDependsOn.h"
+#endif
 
 
 // TODO: プログラムに必要な追加ヘッダーをここで参照してください。

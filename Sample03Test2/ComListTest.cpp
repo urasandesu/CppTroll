@@ -1,8 +1,8 @@
 
 #include "stdafx.h"
 
-#ifndef INCLUDED_COMLIST_H
-#include "ComList.h"
+#ifndef URASANDESU_NANONYM_CONCEPTS_COMLIST_H
+#include "Urasandesu/NAnonym/Concepts/ComList.h"
 #endif
 
 #define BOOST_TEST_NO_LIB
@@ -10,7 +10,7 @@
 
 namespace
 {
-    using My::ComList;
+    using Urasandesu::NAnonym::Concepts::ComList;
     
     struct StrList : public IDispatch
     {

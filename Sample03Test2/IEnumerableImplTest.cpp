@@ -6,25 +6,25 @@
 
 #include <vector>
 
-#ifndef INCLUDED_CCOMENUMERATOR_H
-#include "CComEnumerator.h"
+#ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMENUMERATOR_H
+#include "Urasandesu/NAnonym/Collections/CComEnumerator.h"
 #endif
 
-#ifndef INCLUDED_IENUMERABLEIMPL_H
-#include "IEnumerableImpl.h"
+#ifndef URASANDESU_NANONYM_COLLECTIONS_IENUMERABLEIMPL_H
+#include "Urasandesu/NAnonym/Collections/IEnumerableImpl.h"
 #endif
 
-#ifndef INCLUDED_CCOMOBJECTSLIM_H
-#include "CComObjectSlim.h"
+#ifndef URASANDESU_NANONYM_UTILITIES_CCOMOBJECTSLIM_H
+#include "Urasandesu/NAnonym/Utilities/CComObjectSlim.h"
 #endif
 
 namespace
 {
     using std::vector;
     using boost::use_default;
-    using My::CComEnumerator;
-    using My::CComObjectSlim;
-    using My::IEnumerableImpl;
+    using Urasandesu::NAnonym::Collections::CComEnumerator;
+    using Urasandesu::NAnonym::Utilities::CComObjectSlim;
+    using Urasandesu::NAnonym::Collections::IEnumerableImpl;
 
     typedef vector<INT> IntVector;
     typedef CComEnumerator<IEnumVARIANT, VARIANT, IntVector, use_default, use_default, use_default, CComObjectSlim> IntVectorEnumerator;

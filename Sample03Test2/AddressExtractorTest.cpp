@@ -1,8 +1,8 @@
 
 #include "stdafx.h"
 
-#ifndef INCLUDED_ADDRESSEXTRACTOR_H
-#include "AddressExtractor.h"
+#ifndef URASANDESU_NANONYM_TRAITS_ADDRESSEXTRACTOR_H
+#include "Urasandesu/NAnonym/Traits/AddressExtractor.h"
 #endif
 
 #define BOOST_TEST_NO_LIB
@@ -11,7 +11,7 @@
 namespace
 {
     using boost::is_same;
-    using My::AddressExtractor;
+    using Urasandesu::NAnonym::Traits::AddressExtractor;
 
     struct MyClass 
     { 

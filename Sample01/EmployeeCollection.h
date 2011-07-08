@@ -16,9 +16,9 @@
 typedef std::map<CComBSTR, EmployeePtr> EmployeeMap;
 typedef EmployeeMap::iterator EmployeeMapItr;
 typedef EmployeeMap::value_type EmployeePair;
-typedef My::MapCopy2nd<EmployeeMap, VARIANT> CopyType;
-typedef My::SinglePassCopyAnyRangeGenerator<EmployeeMap>::type EmployeeRange;
-typedef My::CComEnumerator<IEnumVARIANT, VARIANT, EmployeeRange, CopyType> EmployeeEnumerator;
+typedef Urasandesu::NAnonym::Utilities::MapCopy2nd<EmployeeMap, VARIANT> CopyType;
+typedef Urasandesu::NAnonym::Collections::SinglePassCopyAnyRangeGenerator<EmployeeMap>::type EmployeeRange;
+typedef Urasandesu::NAnonym::Collections::CComEnumerator<IEnumVARIANT, VARIANT, EmployeeRange, CopyType> EmployeeEnumerator;
 typedef CComObject<EmployeeEnumerator> EmployeeEnumeratorObject;
 
 

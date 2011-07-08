@@ -35,9 +35,11 @@ STDMETHODIMP CMyCollectionGenerator::CreateIntDequeCollection(IIntDequeCollectio
 
 STDMETHODIMP CMyCollectionGenerator::CreateUnkVectorCollection(IUnkVectorCollection** ppVal)
 {
+    using Urasandesu::NAnonym::Collections::CComEqualityComparer;
+
     // BSTR
     {
-        typedef My::CComEqualityComparer<IStrEqualityComparer, BSTR> CStrEqualityComparer;
+        typedef CComEqualityComparer<IStrEqualityComparer, BSTR> CStrEqualityComparer;
         typedef CComObject<CStrEqualityComparer> CStrEqualityComparerObject;
 
         HRESULT hr = S_OK;
@@ -64,7 +66,7 @@ STDMETHODIMP CMyCollectionGenerator::CreateUnkVectorCollection(IUnkVectorCollect
 
     // IUnknown*
     {
-        typedef My::CComEqualityComparer<IUnkEqualityComparer, IUnknown*> CUnkEqualityComparer;
+        typedef CComEqualityComparer<IUnkEqualityComparer, IUnknown*> CUnkEqualityComparer;
         typedef CComObject<CUnkEqualityComparer> CUnkEqualityComparerObject;
 
         HRESULT hr = S_OK;
@@ -91,7 +93,7 @@ STDMETHODIMP CMyCollectionGenerator::CreateUnkVectorCollection(IUnkVectorCollect
 
     // VARIANT
     {
-        typedef My::CComEqualityComparer<IVariantEqualityComparer, VARIANT> CVariantEqualityComparer;
+        typedef CComEqualityComparer<IVariantEqualityComparer, VARIANT> CVariantEqualityComparer;
         typedef CComObject<CVariantEqualityComparer> CVariantEqualityComparerObject;
 
         HRESULT hr = S_OK;

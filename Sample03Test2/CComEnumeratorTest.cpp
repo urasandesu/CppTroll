@@ -6,12 +6,12 @@
 
 #include <vector>
 
-#ifndef INCLUDED_CCOMENUMERATOR_H
-#include "CComEnumerator.h"
+#ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMENUMERATOR_H
+#include "Urasandesu/NAnonym/Collections/CComEnumerator.h"
 #endif
 
-#ifndef INCLUDED_CCOMOBJECTSLIM_H
-#include "CComObjectSlim.h"
+#ifndef URASANDESU_NANONYM_UTILITIES_CCOMOBJECTSLIM_H
+#include "Urasandesu/NAnonym/Utilities/CComObjectSlim.h"
 #endif
 
 namespace
@@ -19,9 +19,9 @@ namespace
     using std::vector;
     using boost::is_same;
     using boost::use_default;
-    using My::IEnumeratorImpl;
-    using My::CComEnumerator;
-    using My::CComObjectSlim;
+    using Urasandesu::NAnonym::Collections::IEnumeratorImpl;
+    using Urasandesu::NAnonym::Collections::CComEnumerator;
+    using Urasandesu::NAnonym::Utilities::CComObjectSlim;
     
     // NOTE: Give a interface declaration IN COM SERVER to CComEnumerator.
     //       In the following case, IEnumVARIANT declared in the client happens to be same interface declared in the server.

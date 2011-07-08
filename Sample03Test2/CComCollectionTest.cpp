@@ -4,11 +4,11 @@
 #define BOOST_TEST_NO_LIB
 #include <boost/test/unit_test.hpp>
 
-//#ifndef INCLUDED_CCOMENUMERATOR_H
-//#include "CComEnumerator.h"
+//#ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMENUMERATOR_H
+//#include "Urasandesu/NAnonym/Collections/CComEnumerator.h"
 //#endif
 //
-//#ifndef INCLUDED_CCOMCOLLECTION_H
+//#ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMCOLLECTION_H
 //#include "CComCollection.h"
 //#endif
 //

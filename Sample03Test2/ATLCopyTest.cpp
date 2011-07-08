@@ -1,8 +1,8 @@
 
 #include "stdafx.h"
 
-#ifndef INCLUDED_ATLCOPY_H
-#include "ATLCopy.h"
+#ifndef URASANDESU_NANONYM_CONCEPTS_ATLCOPY_H
+#include "Urasandesu/NAnonym/Concepts/ATLCopy.h"
 #endif
 
 #define BOOST_TEST_NO_LIB
@@ -10,7 +10,7 @@
 
 namespace
 {
-    using My::ATLCopy;
+    using Urasandesu::NAnonym::Concepts::ATLCopy;
 
     template<class DestinationType, class SourceType>
     struct MyCopy

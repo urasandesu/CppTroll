@@ -3,7 +3,9 @@
 
 struct MyClass { };
 
-#include "GenericEqualityComparer.h"
+#ifndef URASANDESU_NANONYM_UTILITIES_GENERICEQUALITYCOMPARER_H
+#include "Urasandesu/NAnonym/Utilities/GenericEqualityComparer.h"
+#endif
 
 #define BOOST_TEST_NO_LIB
 #include <boost/test/unit_test.hpp>
@@ -22,10 +24,10 @@ BOOST_AUTO_TEST_CASE(IntTest)
 {
     CComVariant v;
 
-    Hoge(My::I_VT_UNKNOWN_TRAITS::Val(v));
+    Hoge(Urasandesu::NAnonym::Utilities::I_VT_UNKNOWN_TRAITS::Val(v));
 
     const VARIANT* p_v = &v;
-    Hoge(My::I_VT_UNKNOWN_TRAITS::Val(*p_v));
+    Hoge(Urasandesu::NAnonym::Utilities::I_VT_UNKNOWN_TRAITS::Val(*p_v));
 
     int i = 10;
     const int& iii = i;
@@ -45,17 +47,17 @@ BOOST_AUTO_TEST_CASE(IntTest)
         INT value2 = 10;
 
         VARIANT_BOOL equals = VARIANT_FALSE;
-        hr = My::GenericEqualityComparer<INT>::Equals(value1, value2, &equals);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<INT>::Equals(value1, value2, &equals);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(equals == VARIANT_TRUE);
 
         LONG hashCode1 = 0;
-        hr = My::GenericEqualityComparer<INT>::GetHashCode(value1, &hashCode1);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<INT>::GetHashCode(value1, &hashCode1);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode1 == 10);
 
         LONG hashCode2 = 0;
-        hr = My::GenericEqualityComparer<INT>::GetHashCode(value2, &hashCode2);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<INT>::GetHashCode(value2, &hashCode2);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode2 == 10);
     }
@@ -68,17 +70,17 @@ BOOST_AUTO_TEST_CASE(IntTest)
         INT value2 = 20;
 
         VARIANT_BOOL equals = VARIANT_FALSE;
-        hr = My::GenericEqualityComparer<INT>::Equals(value1, value2, &equals);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<INT>::Equals(value1, value2, &equals);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(equals == VARIANT_FALSE);
 
         LONG hashCode1 = 0;
-        hr = My::GenericEqualityComparer<INT>::GetHashCode(value1, &hashCode1);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<INT>::GetHashCode(value1, &hashCode1);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode1 == 10);
 
         LONG hashCode2 = 0;
-        hr = My::GenericEqualityComparer<INT>::GetHashCode(value2, &hashCode2);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<INT>::GetHashCode(value2, &hashCode2);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode2 == 20);
     }
@@ -96,17 +98,17 @@ BOOST_AUTO_TEST_CASE(MyClassTest)
         MyClass* pValue2 = pValue1.get();
 
         VARIANT_BOOL equals = VARIANT_FALSE;
-        hr = My::GenericEqualityComparer<MyClass>::Equals(*pValue1, *pValue2, &equals);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<MyClass>::Equals(*pValue1, *pValue2, &equals);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(equals == VARIANT_TRUE);
 
         LONG hashCode1 = 0;
-        hr = My::GenericEqualityComparer<MyClass>::GetHashCode(*pValue1, &hashCode1);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<MyClass>::GetHashCode(*pValue1, &hashCode1);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode1 == reinterpret_cast<LONG>(&*pValue1));
 
         LONG hashCode2 = 0;
-        hr = My::GenericEqualityComparer<MyClass>::GetHashCode(*pValue2, &hashCode2);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<MyClass>::GetHashCode(*pValue2, &hashCode2);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode2 == reinterpret_cast<LONG>(&*pValue2));
     }
@@ -119,17 +121,17 @@ BOOST_AUTO_TEST_CASE(MyClassTest)
         std::auto_ptr<MyClass> pValue2(new MyClass());
 
         VARIANT_BOOL equals = VARIANT_FALSE;
-        hr = My::GenericEqualityComparer<MyClass>::Equals(*pValue1, *pValue2, &equals);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<MyClass>::Equals(*pValue1, *pValue2, &equals);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(equals == VARIANT_FALSE);
 
         LONG hashCode1 = 0;
-        hr = My::GenericEqualityComparer<MyClass>::GetHashCode(*pValue1, &hashCode1);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<MyClass>::GetHashCode(*pValue1, &hashCode1);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode1 == reinterpret_cast<LONG>(&*pValue1));
 
         LONG hashCode2 = 0;
-        hr = My::GenericEqualityComparer<MyClass>::GetHashCode(*pValue2, &hashCode2);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<MyClass>::GetHashCode(*pValue2, &hashCode2);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode2 == reinterpret_cast<LONG>(&*pValue2));
     }
@@ -145,17 +147,17 @@ BOOST_AUTO_TEST_CASE(BSTRTest)
         CComBSTR value2 = L"aiueo";
 
         VARIANT_BOOL equals = VARIANT_FALSE;
-        hr = My::GenericEqualityComparer<BSTR>::Equals(value1, value2, &equals);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<BSTR>::Equals(value1, value2, &equals);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(equals == VARIANT_TRUE);
 
         LONG hashCode1 = 0;
-        hr = My::GenericEqualityComparer<BSTR>::GetHashCode(value1, &hashCode1);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<BSTR>::GetHashCode(value1, &hashCode1);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode1 == 2122807606);
 
         LONG hashCode2 = 0;
-        hr = My::GenericEqualityComparer<BSTR>::GetHashCode(value2, &hashCode2);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<BSTR>::GetHashCode(value2, &hashCode2);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode2 == 2122807606);
     }
@@ -168,17 +170,17 @@ BOOST_AUTO_TEST_CASE(BSTRTest)
         CComBSTR value2 = L"kakikukeko";
 
         VARIANT_BOOL equals = VARIANT_FALSE;
-        hr = My::GenericEqualityComparer<BSTR>::Equals(value1, value2, &equals);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<BSTR>::Equals(value1, value2, &equals);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(equals == VARIANT_FALSE);
 
         LONG hashCode1 = 0;
-        hr = My::GenericEqualityComparer<BSTR>::GetHashCode(value1, &hashCode1);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<BSTR>::GetHashCode(value1, &hashCode1);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode1 == 2122807606);
 
         LONG hashCode2 = 0;
-        hr = My::GenericEqualityComparer<BSTR>::GetHashCode(value2, &hashCode2);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<BSTR>::GetHashCode(value2, &hashCode2);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode2 == -1284133397);
     }
@@ -196,17 +198,17 @@ BOOST_AUTO_TEST_CASE(IUnknownPtrTest)
         IMyEnumerableGeneratorPtr pValue2 = pValue1;
 
         VARIANT_BOOL equals = VARIANT_FALSE;
-        hr = My::GenericEqualityComparer<IUnknown*>::Equals(pValue1, pValue2, &equals);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<IUnknown*>::Equals(pValue1, pValue2, &equals);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(equals == VARIANT_TRUE);
 
         LONG hashCode1 = 0;
-        hr = My::GenericEqualityComparer<IUnknown*>::GetHashCode(pValue1, &hashCode1);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<IUnknown*>::GetHashCode(pValue1, &hashCode1);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode1 == reinterpret_cast<LONG>(pValue1.GetInterfacePtr()));
 
         LONG hashCode2 = 0;
-        hr = My::GenericEqualityComparer<IUnknown*>::GetHashCode(pValue2, &hashCode2);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<IUnknown*>::GetHashCode(pValue2, &hashCode2);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode2 == reinterpret_cast<LONG>(pValue2.GetInterfacePtr()));
     }
@@ -223,17 +225,17 @@ BOOST_AUTO_TEST_CASE(IUnknownPtrTest)
         BOOST_REQUIRE(SUCCEEDED(hr));
 
         VARIANT_BOOL equals = VARIANT_FALSE;
-        hr = My::GenericEqualityComparer<IUnknown*>::Equals(pValue1, pValue2, &equals);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<IUnknown*>::Equals(pValue1, pValue2, &equals);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(equals == VARIANT_FALSE);
 
         LONG hashCode1 = 0;
-        hr = My::GenericEqualityComparer<IUnknown*>::GetHashCode(pValue1, &hashCode1);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<IUnknown*>::GetHashCode(pValue1, &hashCode1);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode1 == reinterpret_cast<LONG>(pValue1.GetInterfacePtr()));
 
         LONG hashCode2 = 0;
-        hr = My::GenericEqualityComparer<IUnknown*>::GetHashCode(pValue2, &hashCode2);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<IUnknown*>::GetHashCode(pValue2, &hashCode2);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode2 == reinterpret_cast<LONG>(pValue2.GetInterfacePtr()));
     }
@@ -262,7 +264,7 @@ BOOST_AUTO_TEST_CASE(VARIANTTest)
         value3.SetByRef(&n1);
 
         //LONG hashCode3 = 0;
-        //hr = My::GenericEqualityComparer<VARIANT>::GetHashCode(value3, &hashCode3);
+        //hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<VARIANT>::GetHashCode(value3, &hashCode3);
         //BOOST_REQUIRE(SUCCEEDED(hr));
         //BOOST_REQUIRE(hashCode3 == reinterpret_cast<LONG>(value3.pintVal));
         //BOOST_REQUIRE(hashCode3 == reinterpret_cast<LONG>(&n1));
@@ -288,17 +290,17 @@ BOOST_AUTO_TEST_CASE(VARIANTTest)
 
 
         VARIANT_BOOL equals = VARIANT_FALSE;
-        hr = My::GenericEqualityComparer<VARIANT>::Equals(value1, value2, &equals);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<VARIANT>::Equals(value1, value2, &equals);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(equals == VARIANT_TRUE);
 
         LONG hashCode1 = 0;
-        hr = My::GenericEqualityComparer<VARIANT>::GetHashCode(value1, &hashCode1);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<VARIANT>::GetHashCode(value1, &hashCode1);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode1 == value1.intVal);
 
         LONG hashCode2 = 0;
-        hr = My::GenericEqualityComparer<VARIANT>::GetHashCode(value2, &hashCode2);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<VARIANT>::GetHashCode(value2, &hashCode2);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode2 == value2.intVal);
 
@@ -316,17 +318,17 @@ BOOST_AUTO_TEST_CASE(VARIANTTest)
         BOOST_REQUIRE(SUCCEEDED(hr));
 
         VARIANT_BOOL equals = VARIANT_FALSE;
-        hr = My::GenericEqualityComparer<IUnknown*>::Equals(pValue1, pValue2, &equals);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<IUnknown*>::Equals(pValue1, pValue2, &equals);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(equals == VARIANT_FALSE);
 
         LONG hashCode1 = 0;
-        hr = My::GenericEqualityComparer<IUnknown*>::GetHashCode(pValue1, &hashCode1);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<IUnknown*>::GetHashCode(pValue1, &hashCode1);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode1 == reinterpret_cast<LONG>(pValue1.GetInterfacePtr()));
 
         LONG hashCode2 = 0;
-        hr = My::GenericEqualityComparer<IUnknown*>::GetHashCode(pValue2, &hashCode2);
+        hr = Urasandesu::NAnonym::Utilities::GenericEqualityComparer<IUnknown*>::GetHashCode(pValue2, &hashCode2);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(hashCode2 == reinterpret_cast<LONG>(pValue2.GetInterfacePtr()));
     }

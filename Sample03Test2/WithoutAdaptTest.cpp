@@ -1,8 +1,8 @@
 
 #include "stdafx.h"
 
-#ifndef INCLUDED_WITHOUTADAPT_H
-#include "WithoutAdapt.h"
+#ifndef URASANDESU_NANONYM_TRAITS_WITHOUTADAPT_H
+#include "Urasandesu/NAnonym/Traits/WithoutAdapt.h"
 #endif
 
 #define BOOST_TEST_NO_LIB
@@ -11,7 +11,7 @@
 namespace
 {
     using boost::is_same;
-    using My::WithoutAdapt;
+    using Urasandesu::NAnonym::Traits::WithoutAdapt;
 
     BOOST_AUTO_TEST_SUITE(WithoutAdaptTestSuite)
 

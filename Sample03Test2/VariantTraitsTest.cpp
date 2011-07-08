@@ -1,8 +1,8 @@
 
 #include "stdafx.h"
 
-#ifndef INCLUDED_VARIANTTRAITS_H
-#include "VariantTraits.h"
+#ifndef URASANDESU_NANONYM_TRAITS_VARIANTTRAITS_H
+#include "Urasandesu/NAnonym/Traits/VariantTraits.h"
 #endif
 
 #define BOOST_TEST_NO_LIB
@@ -11,7 +11,7 @@
 namespace
 {
     using boost::is_same;
-    using My::VariantTraits;
+    using Urasandesu::NAnonym::Traits::VariantTraits;
 
     struct MyClass { };
 

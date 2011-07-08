@@ -22,6 +22,8 @@
 
 using namespace ATL;
 
-#include "My.h"
+#ifndef URASANDESU_NANONYM_NANONYM_H
+#include "Urasandesu/NAnonym/NAnonym.h"
+#endif
 
 #include <map>

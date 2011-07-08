@@ -1,8 +1,8 @@
 
 #include "stdafx.h"
 
-#ifndef INCLUDED_ATLEQUALITYCOMPARER_H
-#include "ATLEqualityComparer.h"
+#ifndef URASANDESU_NANONYM_CONCEPTS_ATLEQUALITYCOMPARER_H
+#include "Urasandesu/NAnonym/Concepts/ATLEqualityComparer.h"
 #endif
 
 #define BOOST_TEST_NO_LIB
@@ -10,7 +10,7 @@
 
 namespace
 {
-    using My::ATLEqualityComparer;
+    using Urasandesu::NAnonym::Concepts::ATLEqualityComparer;
     using boost::is_same;
     using boost::mpl::not_;
 

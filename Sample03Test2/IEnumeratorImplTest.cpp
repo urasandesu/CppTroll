@@ -6,20 +6,20 @@
 
 #include <vector>
 
-#ifndef INCLUDED_IENUMERATORIMPL_H
-#include "IEnumeratorImpl.h"
+#ifndef URASANDESU_NANONYM_COLLECTIONS_IENUMERATORIMPL_H
+#include "Urasandesu/NAnonym/Collections/IEnumeratorImpl.h"
 #endif
 
-#ifndef INCLUDED_CCOMOBJECTSLIM_H
-#include "CComObjectSlim.h"
+#ifndef URASANDESU_NANONYM_UTILITIES_CCOMOBJECTSLIM_H
+#include "Urasandesu/NAnonym/Utilities/CComObjectSlim.h"
 #endif
 
 namespace
 {
     using std::vector;
     using boost::is_same;
-    using My::IEnumeratorImpl;
-    using My::CComObjectSlim;
+    using Urasandesu::NAnonym::Collections::IEnumeratorImpl;
+    using Urasandesu::NAnonym::Utilities::CComObjectSlim;
     using boost::assign::operator +=;
     using boost::is_convertible;
 
