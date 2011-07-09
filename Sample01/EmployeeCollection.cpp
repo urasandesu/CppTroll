@@ -1,4 +1,4 @@
-// EmployeeCollection.cpp : CEmployeeCollection ‚ÌÀ‘•
+ï»¿// EmployeeCollection.cpp : CEmployeeCollection ã®å®Ÿè£…
 
 #include "stdafx.h"
 #include "EmployeeCollection.h"

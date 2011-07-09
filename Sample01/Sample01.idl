@@ -1,8 +1,8 @@
-// Sample01.idl : Sample01 ‚Ì IDL ƒ\[ƒX
+ï»¿// Sample01.idl : Sample01 ã® IDL ã‚½ãƒ¼ã‚¹
 //
 
-// ‚±‚Ìƒtƒ@ƒCƒ‹‚ÍAƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ (Sample01.tlb) ‚¨‚æ‚Ñƒ}[ƒVƒƒƒŠƒ“ƒO ƒR[ƒh‚ğ
-// ì¬‚·‚é‚½‚ß‚É MIDL ƒc[ƒ‹‚É‚æ‚Á‚Äˆ—‚³‚ê‚Ü‚·B
+// ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª (Sample01.tlb) ãŠã‚ˆã³ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚° ã‚³ãƒ¼ãƒ‰ã‚’
+// ä½œæˆã™ã‚‹ãŸã‚ã« MIDL ãƒ„ãƒ¼ãƒ«ã«ã‚ˆã£ã¦å‡¦ç†ã•ã‚Œã¾ã™ã€‚
 
 import "oaidl.idl";
 import "ocidl.idl";
@@ -12,33 +12,33 @@ import "ocidl.idl";
 	uuid(49562FA4-2E88-44B2-B3BC-95E5D596ADE1),
 	dual,
 	nonextensible,
-	helpstring("IEmployee ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IEmployee ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IEmployee : IDispatch{
-    [propget, id(1), helpstring("ƒvƒƒpƒeƒB Name")] HRESULT Name([out, retval] BSTR* pVal);
-    [propput, id(1), helpstring("ƒvƒƒpƒeƒB Name")] HRESULT Name([in] BSTR newVal);
-    [propget, id(2), helpstring("ƒvƒƒpƒeƒB Id")] HRESULT Id([out, retval] LONG* pVal);
-    [propput, id(2), helpstring("ƒvƒƒpƒeƒB Id")] HRESULT Id([in] LONG newVal);
+    [propget, id(1), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Name")] HRESULT Name([out, retval] BSTR* pVal);
+    [propput, id(1), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Name")] HRESULT Name([in] BSTR newVal);
+    [propget, id(2), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Id")] HRESULT Id([out, retval] LONG* pVal);
+    [propput, id(2), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Id")] HRESULT Id([in] LONG newVal);
 };
 [
 	object,
 	uuid(45C6C575-91C4-4DB3-8B0D-74BDDDF7D3B4),
 	dual,
 	nonextensible,
-	helpstring("IEmployeeCollection ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IEmployeeCollection ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IEmployeeCollection : IDispatch{
-    [id(1), helpstring("ƒƒ\ƒbƒh Add")] HRESULT Add([in] IEmployee* pVal);
-    [propget, id(2), helpstring("ƒvƒƒpƒeƒB Count")] HRESULT Count([out, retval] LONG* pVal);
-    [id(DISPID_VALUE), helpstring("ƒƒ\ƒbƒh Item")] HRESULT Item([in] VARIANT index, [out,retval] IEmployee** ppItem);
-    [propget, id(DISPID_NEWENUM), helpstring("ƒvƒƒpƒeƒB _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
+    [id(1), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Add")] HRESULT Add([in] IEmployee* pVal);
+    [propget, id(2), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Count")] HRESULT Count([out, retval] LONG* pVal);
+    [id(DISPID_VALUE), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Item")] HRESULT Item([in] VARIANT index, [out,retval] IEmployee** ppItem);
+    [propget, id(DISPID_NEWENUM), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
 };
 [
 	uuid(E1D94705-9C97-4104-8B97-89A1EE53456D),
 	version(1.0),
-	helpstring("Sample01 1.0 ƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ")
+	helpstring("Sample01 1.0 ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª")
 ]
 library Sample01Lib
 {

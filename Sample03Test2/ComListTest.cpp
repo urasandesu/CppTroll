@@ -1,4 +1,4 @@
-
+﻿
 #include "stdafx.h"
 
 #ifndef URASANDESU_NANONYM_CONCEPTS_COMLIST_H

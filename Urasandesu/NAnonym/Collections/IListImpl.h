@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef URASANDESU_NANONYM_COLLECTIONS_ILISTIMPL_H
 #define URASANDESU_NANONYM_COLLECTIONS_ILISTIMPL_H
 
@@ -79,11 +79,11 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
         {
             if (index == NULL) return E_POINTER;
 
-            // •¶š—ñŒü‚¯‚Ì“Á‰»”Åì‚ê‚é‚æ‚¤‚ÉAContains ‚Æ“¯—lASTL ‚ğ—˜—p‚·‚éB
-            // find_if ‚É‚ÍŠÖ”ƒIƒuƒWƒFƒNƒg‚ª“n‚¹‚é‚Ì‚ÅA‚»‚±‚ÅŒÄ‚Ño‚µ‰ñ”‚ğÏZB
+            // æ–‡å­—åˆ—å‘ã‘ã®ç‰¹åŒ–ç‰ˆä½œã‚Œã‚‹ã‚ˆã†ã«ã€Contains ã¨åŒæ§˜ã€STL ã‚’åˆ©ç”¨ã™ã‚‹ã€‚
+            // find_if ã«ã¯é–¢æ•°ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒæ¸¡ã›ã‚‹ã®ã§ã€ãã“ã§å‘¼ã³å‡ºã—å›æ•°ã‚’ç©ç®—ã€‚
 
             struct Finder : 
-                public std::unary_function<int, bool>   // Argument ‚Ì type ‚Í call_traits ‚ ‚½‚è‚ğg‚¤‚Æ—Ç‚³‚°B
+                public std::unary_function<int, bool>   // Argument ã® type ã¯ call_traits ã‚ãŸã‚Šã‚’ä½¿ã†ã¨è‰¯ã•ã’ã€‚
             {
             };
 

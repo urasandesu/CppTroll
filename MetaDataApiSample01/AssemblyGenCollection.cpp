@@ -1,4 +1,4 @@
-// AssemblyGenCollection.cpp : CAssemblyGenCollection ‚ÌÀ‘•
+ï»¿// AssemblyGenCollection.cpp : CAssemblyGenCollection ã®å®Ÿè£…
 
 #include "stdafx.h"
 #include "AssemblyGenCollection.h"

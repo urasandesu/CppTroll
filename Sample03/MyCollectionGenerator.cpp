@@ -1,4 +1,4 @@
-// MyCollectionGenerator.cpp : CMyCollectionGenerator ‚ÌÀ‘•
+ï»¿// MyCollectionGenerator.cpp : CMyCollectionGenerator ã®å®Ÿè£…
 
 #include "stdafx.h"
 #include "MyCollectionGenerator.h"

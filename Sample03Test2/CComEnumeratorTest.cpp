@@ -1,4 +1,4 @@
-
+ï»¿
 #include "stdafx.h"
 
 #define BOOST_TEST_NO_LIB
@@ -27,7 +27,7 @@ namespace
     //       In the following case, IEnumVARIANT declared in the client happens to be same interface declared in the server.
     typedef vector<INT> IntVector;
     typedef IEnumeratorImpl<IEnumVARIANT, VARIANT, IntVector> IntVectorEnumeratorImpl;
-    typedef CComEnumerator<IEnumVARIANT, VARIANT, IntVector, use_default, use_default, use_default, CComObjectSlim> IntVectorEnumerator;   // ‰¼‘zƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^—p‚Ì CComObject.* ‚ÍAƒeƒ“ƒvƒŒ[ƒg‚ÌÅŒã‚Ì‚Ù‚¤‚ª‚¢‚¢‚æ‚ËB
+    typedef CComEnumerator<IEnumVARIANT, VARIANT, IntVector, use_default, use_default, use_default, CComObjectSlim> IntVectorEnumerator;   // ä»®æƒ³ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ç”¨ã® CComObject.* ã¯ã€ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®æœ€å¾Œã®ã»ã†ãŒã„ã„ã‚ˆã­ã€‚
     typedef CComObjectSlim<IntVectorEnumerator> IntVectorEnumeratorObject;
 
     BOOST_AUTO_TEST_SUITE(CComEnumeratorTestSuite)

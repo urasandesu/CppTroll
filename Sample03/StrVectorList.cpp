@@ -1,4 +1,4 @@
-// StrVectorList.cpp : CStrVectorList ‚ÌÀ‘•
+ï»¿// StrVectorList.cpp : CStrVectorList ã®å®Ÿè£…
 
 #include "stdafx.h"
 //#include "StrVectorList.h"

@@ -1,6 +1,6 @@
-// stdafx.h : •W€‚ÌƒVƒXƒeƒ€ ƒCƒ“ƒNƒ‹[ƒh ƒtƒ@ƒCƒ‹‚ÌƒCƒ“ƒNƒ‹[ƒh ƒtƒ@ƒCƒ‹A‚Ü‚½‚Í
-// ŽQÆ‰ñ”‚ª‘½‚­A‚©‚Â‚ ‚Ü‚è•ÏX‚³‚ê‚È‚¢AƒvƒƒWƒFƒNƒgê—p‚ÌƒCƒ“ƒNƒ‹[ƒh ƒtƒ@ƒCƒ‹
-// ‚ð‹Lq‚µ‚Ü‚·B
+ï»¿// stdafx.h : æ¨™æº–ã®ã‚·ã‚¹ãƒ†ãƒ  ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ ãƒ•ã‚¡ã‚¤ãƒ«ã€ã¾ãŸã¯
+// å‚ç…§å›žæ•°ãŒå¤šãã€ã‹ã¤ã‚ã¾ã‚Šå¤‰æ›´ã•ã‚Œãªã„ã€ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå°‚ç”¨ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ ãƒ•ã‚¡ã‚¤ãƒ«
+// ã‚’è¨˜è¿°ã—ã¾ã™ã€‚
 
 #pragma once
 
@@ -13,7 +13,7 @@
 #define _ATL_APARTMENT_THREADED
 #define _ATL_NO_AUTOMATIC_NAMESPACE
 
-#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS    // ˆê•”‚Ì CString ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Í–¾Ž¦“I‚Å‚·B
+#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS    // ä¸€éƒ¨ã® CString ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯æ˜Žç¤ºçš„ã§ã™ã€‚
  
 #include "resource.h"
 #include <atlbase.h>

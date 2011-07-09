@@ -1,4 +1,4 @@
-
+﻿
 #include "stdafx.h"
 
 #ifndef URASANDESU_NANONYM_TRAITS_WITHOUTADAPT_H

@@ -1,4 +1,4 @@
-// MyEnumerableGenerator.cpp : CMyEnumerableGenerator ‚ÌÀ‘•
+ï»¿// MyEnumerableGenerator.cpp : CMyEnumerableGenerator ã®å®Ÿè£…
 
 #include "stdafx.h"
 #include "MyEnumerableGenerator.h"

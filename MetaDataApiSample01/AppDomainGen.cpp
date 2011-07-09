@@ -1,4 +1,4 @@
-// AppDomainGen.cpp : CAppDomainGen ‚ÌÀ‘•
+ï»¿// AppDomainGen.cpp : CAppDomainGen ã®å®Ÿè£…
 
 #include "stdafx.h"
 #include "AppDomainGen.h"

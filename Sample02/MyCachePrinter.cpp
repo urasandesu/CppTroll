@@ -1,4 +1,4 @@
-// MyCachePrinter.cpp : CMyCachePrinter ‚ÌÀ‘•
+ï»¿// MyCachePrinter.cpp : CMyCachePrinter ã®å®Ÿè£…
 
 #include "stdafx.h"
 #include "MyCachePrinter.h"

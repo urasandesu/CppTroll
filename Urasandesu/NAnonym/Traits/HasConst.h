@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef URASANDESU_NANONYM_TRAITS_HASCONST_H
 #define URASANDESU_NANONYM_TRAITS_HASCONST_H
 

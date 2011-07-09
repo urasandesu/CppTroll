@@ -1,8 +1,8 @@
-// Sample02.idl : Sample02 ‚Ì IDL ƒ\[ƒX
+ï»¿// Sample02.idl : Sample02 ã® IDL ã‚½ãƒ¼ã‚¹
 //
 
-// ‚±‚Ìƒtƒ@ƒCƒ‹‚ÍAƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ (Sample02.tlb) ‚¨‚æ‚Ñƒ}[ƒVƒƒƒŠƒ“ƒO ƒR[ƒh‚ğ
-// ì¬‚·‚é‚½‚ß‚É MIDL ƒc[ƒ‹‚É‚æ‚Á‚Äˆ—‚³‚ê‚Ü‚·B
+// ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª (Sample02.tlb) ãŠã‚ˆã³ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚° ã‚³ãƒ¼ãƒ‰ã‚’
+// ä½œæˆã™ã‚‹ãŸã‚ã« MIDL ãƒ„ãƒ¼ãƒ«ã«ã‚ˆã£ã¦å‡¦ç†ã•ã‚Œã¾ã™ã€‚
 
 import "oaidl.idl";
 import "ocidl.idl";
@@ -12,44 +12,44 @@ import "ocidl.idl";
 	uuid(324FA781-2E07-415E-B60B-93D2A535DD90),
 	dual,
 	nonextensible,
-	helpstring("IMyCache ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IMyCache ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IMyCache : IDispatch{
-    [propget, id(2), helpstring("ƒvƒƒpƒeƒB Count")] HRESULT Count([out, retval] LONG* pVal);
-    [propget, id(3), helpstring("ƒvƒƒpƒeƒB Item")] HRESULT Item([in] BSTR key, [out, retval] VARIANT* pVal);
-    [propput, id(3), helpstring("ƒvƒƒpƒeƒB Item")] HRESULT Item([in] BSTR key, [in] VARIANT newVal);
-    [propget, id(DISPID_NEWENUM), helpstring("ƒvƒƒpƒeƒB _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
+    [propget, id(2), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Count")] HRESULT Count([out, retval] LONG* pVal);
+    [propget, id(3), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Item")] HRESULT Item([in] BSTR key, [out, retval] VARIANT* pVal);
+    [propput, id(3), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Item")] HRESULT Item([in] BSTR key, [in] VARIANT newVal);
+    [propget, id(DISPID_NEWENUM), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
 };
 [
 	object,
 	uuid(4C29DB1F-A3FA-47C9-9874-B7FF64864EF6),
 	dual,
 	nonextensible,
-	helpstring("IPairBStrVariant ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IPairBStrVariant ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IPairBStrVariant : IDispatch{
-    [propget, id(1), helpstring("ƒvƒƒpƒeƒB First")] HRESULT First([out, retval] BSTR* pVal);
-    [propput, id(1), helpstring("ƒvƒƒpƒeƒB First")] HRESULT First([in] BSTR newVal);
-    [propget, id(2), helpstring("ƒvƒƒpƒeƒB Second")] HRESULT Second([out, retval] VARIANT* pVal);
-    [propput, id(2), helpstring("ƒvƒƒpƒeƒB Second")] HRESULT Second([in] VARIANT newVal);
+    [propget, id(1), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ First")] HRESULT First([out, retval] BSTR* pVal);
+    [propput, id(1), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ First")] HRESULT First([in] BSTR newVal);
+    [propget, id(2), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Second")] HRESULT Second([out, retval] VARIANT* pVal);
+    [propput, id(2), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Second")] HRESULT Second([in] VARIANT newVal);
 };
 [
 	object,
 	uuid(F794302C-AD7E-4DA9-A000-794FDC32AF49),
 	dual,
 	nonextensible,
-	helpstring("IMyCachePrinter ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IMyCachePrinter ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IMyCachePrinter : IDispatch{
-    [id(1), helpstring("ƒƒ\ƒbƒh Print")] HRESULT Print(void);
+    [id(1), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Print")] HRESULT Print(void);
 };
 [
 	uuid(66E14A4E-F4D6-4EE3-A6CB-ECB383F236A0),
 	version(1.0),
-	helpstring("Sample02 1.0 ƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ")
+	helpstring("Sample02 1.0 ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª")
 ]
 library Sample02Lib
 {

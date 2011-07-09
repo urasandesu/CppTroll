@@ -1,4 +1,4 @@
-// dllmain.h : ���W���[�� �N���X�̐錾
+﻿// dllmain.h : モジュール クラスの宣言
 
 #pragma once
 

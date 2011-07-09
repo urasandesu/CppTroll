@@ -1,4 +1,4 @@
-// MyCache.cpp : CMyCache ‚ÌÀ‘•
+ï»¿// MyCache.cpp : CMyCache ã®å®Ÿè£…
 
 #include "stdafx.h"
 #include "MyCache.h"

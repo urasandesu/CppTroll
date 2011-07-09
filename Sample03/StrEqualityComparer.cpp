@@ -1,4 +1,4 @@
-//// StrEqualityComparer.cpp : CStrEqualityComparer ‚ÌÀ‘•
+ï»¿//// StrEqualityComparer.cpp : CStrEqualityComparer ã®å®Ÿè£…
 //
 #include "stdafx.h"
 //#include "StrEqualityComparer.h"

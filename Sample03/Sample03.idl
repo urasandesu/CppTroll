@@ -1,8 +1,8 @@
-// Sample03.idl : Sample03 ‚Ì IDL ƒ\[ƒX
+ï»¿// Sample03.idl : Sample03 ã® IDL ã‚½ãƒ¼ã‚¹
 //
 
-// ‚±‚Ìƒtƒ@ƒCƒ‹‚ÍAƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ (Sample03.tlb) ‚¨‚æ‚Ñƒ}[ƒVƒƒƒŠƒ“ƒO ƒR[ƒh‚ğ
-// ì¬‚·‚é‚½‚ß‚É MIDL ƒc[ƒ‹‚É‚æ‚Á‚Äˆ—‚³‚ê‚Ü‚·B
+// ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª (Sample03.tlb) ãŠã‚ˆã³ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚° ã‚³ãƒ¼ãƒ‰ã‚’
+// ä½œæˆã™ã‚‹ãŸã‚ã« MIDL ãƒ„ãƒ¼ãƒ«ã«ã‚ˆã£ã¦å‡¦ç†ã•ã‚Œã¾ã™ã€‚
 
 import "oaidl.idl";
 import "ocidl.idl";
@@ -12,159 +12,159 @@ import "ocidl.idl";
 	uuid(26251BAE-B229-48DC-9B3E-7C9F77BF7D17),
 	dual,
 	nonextensible,
-	helpstring("IMyEnumerable ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IMyEnumerable ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IMyEnumerable : IDispatch{
-    [propget, id(DISPID_NEWENUM), helpstring("ƒvƒƒpƒeƒB _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
+    [propget, id(DISPID_NEWENUM), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
 };
 [
 	object,
 	uuid(ACA95E6E-8AD2-4F69-BC53-A7F8DC8F20E8),
 	dual,
 	nonextensible,
-	helpstring("IMyEnumerableGenerator ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IMyEnumerableGenerator ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IMyEnumerableGenerator : IDispatch{
-    [id(1), helpstring("ƒƒ\ƒbƒh CreateInstance")] HRESULT CreateInstance([out,retval] IMyEnumerable** ppVal);
+    [id(1), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ CreateInstance")] HRESULT CreateInstance([out,retval] IMyEnumerable** ppVal);
 };
 [
 	object,
 	uuid(5EC980D6-C48E-4840-B31D-3BB5121326F7),
 	dual,
 	nonextensible,
-	helpstring("IStrVectorCollection ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IStrVectorCollection ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IStrVectorCollection : IDispatch{
-    [id(1), helpstring("ƒƒ\ƒbƒh Add")] HRESULT Add([in] BSTR item);
-    [propget, id(DISPID_NEWENUM), helpstring("ƒvƒƒpƒeƒB _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
-    [id(2), helpstring("ƒƒ\ƒbƒh Clear")] HRESULT Clear(void);
-    [id(3), helpstring("ƒƒ\ƒbƒh Contains")] HRESULT Contains([in] BSTR item, [out,retval] VARIANT_BOOL* exists);
-    [id(4), helpstring("ƒƒ\ƒbƒh CopyTo")] HRESULT CopyTo([in, out] SAFEARRAY(BSTR) pArray, [in] LONG index);
-    [id(5), helpstring("ƒƒ\ƒbƒh Remove")] HRESULT Remove([in] BSTR item);
-    [propget, id(6), helpstring("ƒvƒƒpƒeƒB Count")] HRESULT Count([out, retval] LONG* pVal);
-    [propget, id(7), helpstring("ƒvƒƒpƒeƒB IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
-    [propget, id(DISPID_VALUE), helpstring("ƒvƒƒpƒeƒB Item")] HRESULT Item([in] LONG index, [out, retval] BSTR* pVal);
-    [propput, id(DISPID_VALUE), helpstring("ƒvƒƒpƒeƒB Item")] HRESULT Item([in] LONG index, [in] BSTR newVal);
+    [id(1), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Add")] HRESULT Add([in] BSTR item);
+    [propget, id(DISPID_NEWENUM), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
+    [id(2), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Clear")] HRESULT Clear(void);
+    [id(3), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Contains")] HRESULT Contains([in] BSTR item, [out,retval] VARIANT_BOOL* exists);
+    [id(4), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ CopyTo")] HRESULT CopyTo([in, out] SAFEARRAY(BSTR) pArray, [in] LONG index);
+    [id(5), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Remove")] HRESULT Remove([in] BSTR item);
+    [propget, id(6), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Count")] HRESULT Count([out, retval] LONG* pVal);
+    [propget, id(7), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
+    [propget, id(DISPID_VALUE), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Item")] HRESULT Item([in] LONG index, [out, retval] BSTR* pVal);
+    [propput, id(DISPID_VALUE), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Item")] HRESULT Item([in] LONG index, [in] BSTR newVal);
 };
 [
 	object,
 	uuid(F995DE07-5AEC-49B5-A021-66327255A80D),
 	dual,
 	nonextensible,
-	helpstring("IIntDequeCollection ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IIntDequeCollection ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IIntDequeCollection : IDispatch{
-    [id(1), helpstring("ƒƒ\ƒbƒh Add")] HRESULT Add([in] INT item);
-    [propget, id(DISPID_NEWENUM), helpstring("ƒvƒƒpƒeƒB _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
-    [id(2), helpstring("ƒƒ\ƒbƒh Clear")] HRESULT Clear(void);
-    [id(3), helpstring("ƒƒ\ƒbƒh Contains")] HRESULT Contains([in] INT item, [out,retval] VARIANT_BOOL* exists);
-    [id(4), helpstring("ƒƒ\ƒbƒh CopyTo")] HRESULT CopyTo([in, out] SAFEARRAY(INT) pArray, [in] LONG index);
-    [id(5), helpstring("ƒƒ\ƒbƒh Remove")] HRESULT Remove([in] INT item);
-    [propget, id(6), helpstring("ƒvƒƒpƒeƒB Count")] HRESULT Count([out, retval] LONG* pVal);
-    [propget, id(7), helpstring("ƒvƒƒpƒeƒB IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
-    [propget, id(DISPID_VALUE), helpstring("ƒvƒƒpƒeƒB Item")] HRESULT Item([in] LONG index, [out, retval] INT* pVal);
-    [propput, id(DISPID_VALUE), helpstring("ƒvƒƒpƒeƒB Item")] HRESULT Item([in] LONG index, [in] INT newVal);
+    [id(1), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Add")] HRESULT Add([in] INT item);
+    [propget, id(DISPID_NEWENUM), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
+    [id(2), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Clear")] HRESULT Clear(void);
+    [id(3), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Contains")] HRESULT Contains([in] INT item, [out,retval] VARIANT_BOOL* exists);
+    [id(4), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ CopyTo")] HRESULT CopyTo([in, out] SAFEARRAY(INT) pArray, [in] LONG index);
+    [id(5), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Remove")] HRESULT Remove([in] INT item);
+    [propget, id(6), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Count")] HRESULT Count([out, retval] LONG* pVal);
+    [propget, id(7), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
+    [propget, id(DISPID_VALUE), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Item")] HRESULT Item([in] LONG index, [out, retval] INT* pVal);
+    [propput, id(DISPID_VALUE), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Item")] HRESULT Item([in] LONG index, [in] INT newVal);
 };
 [
 	object,
 	uuid(996683EC-CF57-47B5-84E6-A96333757668),
 	dual,
 	nonextensible,
-	helpstring("IUnkVectorCollection ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IUnkVectorCollection ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IUnkVectorCollection : IDispatch{
-    [id(1), helpstring("ƒƒ\ƒbƒh Add")] HRESULT Add([in] IUnknown* item);
-    [propget, id(DISPID_NEWENUM), helpstring("ƒvƒƒpƒeƒB _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
-    [id(2), helpstring("ƒƒ\ƒbƒh Clear")] HRESULT Clear(void);
-    [id(3), helpstring("ƒƒ\ƒbƒh Contains")] HRESULT Contains([in] IUnknown* item, [out,retval] VARIANT_BOOL* exists);
-    [id(4), helpstring("ƒƒ\ƒbƒh CopyTo")] HRESULT CopyTo([in, out] SAFEARRAY(IUnknown*) pArray, [in] LONG index);
-    [id(5), helpstring("ƒƒ\ƒbƒh Remove")] HRESULT Remove([in] IUnknown* item);
-    [propget, id(6), helpstring("ƒvƒƒpƒeƒB Count")] HRESULT Count([out, retval] LONG* pVal);
-    [propget, id(7), helpstring("ƒvƒƒpƒeƒB IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
-    [propget, id(DISPID_VALUE), helpstring("ƒvƒƒpƒeƒB Item")] HRESULT Item([in] LONG index, [out, retval] IUnknown** pVal);
-    [propput, id(DISPID_VALUE), helpstring("ƒvƒƒpƒeƒB Item")] HRESULT Item([in] LONG index, [in] IUnknown* newVal);
+    [id(1), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Add")] HRESULT Add([in] IUnknown* item);
+    [propget, id(DISPID_NEWENUM), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
+    [id(2), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Clear")] HRESULT Clear(void);
+    [id(3), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Contains")] HRESULT Contains([in] IUnknown* item, [out,retval] VARIANT_BOOL* exists);
+    [id(4), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ CopyTo")] HRESULT CopyTo([in, out] SAFEARRAY(IUnknown*) pArray, [in] LONG index);
+    [id(5), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Remove")] HRESULT Remove([in] IUnknown* item);
+    [propget, id(6), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Count")] HRESULT Count([out, retval] LONG* pVal);
+    [propget, id(7), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
+    [propget, id(DISPID_VALUE), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Item")] HRESULT Item([in] LONG index, [out, retval] IUnknown** pVal);
+    [propput, id(DISPID_VALUE), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Item")] HRESULT Item([in] LONG index, [in] IUnknown* newVal);
 };
 [
 	object,
 	uuid(8AE32A92-4B5C-4A78-8867-4CAF1E8D0905),
 	dual,
 	nonextensible,
-	helpstring("IMyCollectionGenerator ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IMyCollectionGenerator ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IMyCollectionGenerator : IDispatch{
-    [id(1), helpstring("ƒƒ\ƒbƒh CreateStrVectorCollection")] HRESULT CreateStrVectorCollection([out,retval] IStrVectorCollection** ppVal);
-    [id(2), helpstring("ƒƒ\ƒbƒh CreateIntDequeCollection")] HRESULT CreateIntDequeCollection([out,retval] IIntDequeCollection** ppVal);
-    [id(3), helpstring("ƒƒ\ƒbƒh CreateUnkVectorCollection")] HRESULT CreateUnkVectorCollection([out,retval] IUnkVectorCollection** ppVal);
+    [id(1), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ CreateStrVectorCollection")] HRESULT CreateStrVectorCollection([out,retval] IStrVectorCollection** ppVal);
+    [id(2), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ CreateIntDequeCollection")] HRESULT CreateIntDequeCollection([out,retval] IIntDequeCollection** ppVal);
+    [id(3), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ CreateUnkVectorCollection")] HRESULT CreateUnkVectorCollection([out,retval] IUnkVectorCollection** ppVal);
 };
 [
 	object,
 	uuid(AA62153A-ADB7-41B3-9176-2CC5D6FC5DA0),
 	dual,
 	nonextensible,
-	helpstring("IStrVectorList ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IStrVectorList ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IStrVectorList : IDispatch{
-    [id(1), helpstring("ƒƒ\ƒbƒh Add")] HRESULT Add([in] BSTR item);
-    [propget, id(DISPID_NEWENUM), helpstring("ƒvƒƒpƒeƒB _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
-    [id(2), helpstring("ƒƒ\ƒbƒh Clear")] HRESULT Clear(void);
-    [id(3), helpstring("ƒƒ\ƒbƒh Contains")] HRESULT Contains([in] BSTR item, [out,retval] VARIANT_BOOL* exists);
-    [id(4), helpstring("ƒƒ\ƒbƒh CopyTo")] HRESULT CopyTo([in, out] SAFEARRAY(BSTR) pArray, [in] LONG index);
-    [id(5), helpstring("ƒƒ\ƒbƒh Remove")] HRESULT Remove([in] BSTR item);
-    [propget, id(6), helpstring("ƒvƒƒpƒeƒB Count")] HRESULT Count([out, retval] LONG* pVal);
-    [propget, id(7), helpstring("ƒvƒƒpƒeƒB IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
-    [id(8), helpstring("ƒƒ\ƒbƒh IndexOf")] HRESULT IndexOf([in] BSTR item, [out, retval] LONG* index);
-    [id(9), helpstring("ƒƒ\ƒbƒh Insert")] HRESULT Insert([in] LONG index, [in] BSTR item);
-    [id(10), helpstring("ƒƒ\ƒbƒh RemoveAt")] HRESULT RemoveAt([in] LONG index);
-    [propget, id(DISPID_VALUE), helpstring("ƒvƒƒpƒeƒB Item")] HRESULT Item([in] LONG index, [out, retval] BSTR* pVal);
-    [propput, id(DISPID_VALUE), helpstring("ƒvƒƒpƒeƒB Item")] HRESULT Item([in] LONG index, [in] BSTR newVal);
+    [id(1), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Add")] HRESULT Add([in] BSTR item);
+    [propget, id(DISPID_NEWENUM), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ _NewEnum"), restricted] HRESULT _NewEnum([out, retval] IUnknown** ppVal);
+    [id(2), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Clear")] HRESULT Clear(void);
+    [id(3), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Contains")] HRESULT Contains([in] BSTR item, [out,retval] VARIANT_BOOL* exists);
+    [id(4), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ CopyTo")] HRESULT CopyTo([in, out] SAFEARRAY(BSTR) pArray, [in] LONG index);
+    [id(5), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Remove")] HRESULT Remove([in] BSTR item);
+    [propget, id(6), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Count")] HRESULT Count([out, retval] LONG* pVal);
+    [propget, id(7), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
+    [id(8), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ IndexOf")] HRESULT IndexOf([in] BSTR item, [out, retval] LONG* index);
+    [id(9), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Insert")] HRESULT Insert([in] LONG index, [in] BSTR item);
+    [id(10), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ RemoveAt")] HRESULT RemoveAt([in] LONG index);
+    [propget, id(DISPID_VALUE), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Item")] HRESULT Item([in] LONG index, [out, retval] BSTR* pVal);
+    [propput, id(DISPID_VALUE), helpstring("ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ Item")] HRESULT Item([in] LONG index, [in] BSTR newVal);
 };
 [
 	object,
 	uuid(360B5AFA-7B03-42DE-9F61-D732C9A6FBE6),
 	dual,
 	nonextensible,
-	helpstring("IStrEqualityComparer ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IStrEqualityComparer ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IStrEqualityComparer : IDispatch{
-    [id(1), helpstring("ƒƒ\ƒbƒh Equals")] HRESULT Equals([in] BSTR value1, [in] BSTR value2, [out, retval] VARIANT_BOOL* equals);
-    [id(2), helpstring("ƒƒ\ƒbƒh GetHashCode")] HRESULT GetHashCode([in] BSTR value, [out, retval] LONG* hashCode);
+    [id(1), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Equals")] HRESULT Equals([in] BSTR value1, [in] BSTR value2, [out, retval] VARIANT_BOOL* equals);
+    [id(2), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ GetHashCode")] HRESULT GetHashCode([in] BSTR value, [out, retval] LONG* hashCode);
 };
 [
 	object,
 	uuid(D0B97DCC-B8E2-46F2-BFDC-2B9B024DAD35),
 	dual,
 	nonextensible,
-	helpstring("IUnkEqualityComparer ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IUnkEqualityComparer ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IUnkEqualityComparer : IDispatch{
-    [id(1), helpstring("ƒƒ\ƒbƒh Equals")] HRESULT Equals([in] IUnknown* value1, [in] IUnknown* value2, [out, retval] VARIANT_BOOL* equals);
-    [id(2), helpstring("ƒƒ\ƒbƒh GetHashCode")] HRESULT GetHashCode([in] IUnknown* value, [out, retval] LONG* hashCode);
+    [id(1), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Equals")] HRESULT Equals([in] IUnknown* value1, [in] IUnknown* value2, [out, retval] VARIANT_BOOL* equals);
+    [id(2), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ GetHashCode")] HRESULT GetHashCode([in] IUnknown* value, [out, retval] LONG* hashCode);
 };
 [
 	object,
 	uuid(AAFA8026-35F4-410F-B10C-079089EDCC68),
 	dual,
 	nonextensible,
-	helpstring("IVariantEqualityComparer ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IVariantEqualityComparer ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IVariantEqualityComparer : IDispatch{
-    [id(1), helpstring("ƒƒ\ƒbƒh Equals")] HRESULT Equals([in] VARIANT value1, [in] VARIANT value2, [out, retval] VARIANT_BOOL* equals);
-    [id(2), helpstring("ƒƒ\ƒbƒh GetHashCode")] HRESULT GetHashCode([in] VARIANT value, [out, retval] LONG* hashCode);
+    [id(1), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Equals")] HRESULT Equals([in] VARIANT value1, [in] VARIANT value2, [out, retval] VARIANT_BOOL* equals);
+    [id(2), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ GetHashCode")] HRESULT GetHashCode([in] VARIANT value, [out, retval] LONG* hashCode);
 };
 [
 	uuid(4F3639A6-BF3E-4D50-BEF2-A1AFF6C094DF),
 	version(1.0),
-	helpstring("Sample03 1.0 ƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ")
+	helpstring("Sample03 1.0 ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª")
 ]
 library Sample03Lib
 {

@@ -1,4 +1,4 @@
-//// VariantEqualityComparer.cpp : CVariantEqualityComparer ‚ÌÀ‘•
+ï»¿//// VariantEqualityComparer.cpp : CVariantEqualityComparer ã®å®Ÿè£…
 //
 #include "stdafx.h"
 //#include "VariantEqualityComparer.h"

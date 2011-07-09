@@ -1,4 +1,4 @@
-//// UnkEqualityComparer.cpp : CUnkEqualityComparer ‚ÌÀ‘•
+ï»¿//// UnkEqualityComparer.cpp : CUnkEqualityComparer ã®å®Ÿè£…
 //
 #include "stdafx.h"
 //#include "UnkEqualityComparer.h"

@@ -1,4 +1,4 @@
-
+Ôªø
 #include "stdafx.h"
 
 struct MyClass { };
@@ -278,7 +278,7 @@ BOOST_AUTO_TEST_CASE(VARIANTTest)
         ATLTRACE("*pp_v: %d\n", *pp_v);
         ATLTRACE("value3.pintVal: %d\n", value3.pintVal);
 
-        // ::memcpy_s égÇ¡ÇΩÇŸÇ§Ç™ÇÌÇ©ÇËÇ‚Ç∑Ç≠ÇÀÅH
+        // ::memcpy_s ‰Ωø„Å£„Åü„Åª„ÅÜ„Åå„Çè„Åã„Çä„ÇÑ„Åô„Åè„Å≠Ôºü
         const size_t OFFSET = sizeof(VARTYPE) + sizeof(WORD) * 3;
         const size_t LENGTH = sizeof(VARIANT) - OFFSET;
         BYTE b[LENGTH];

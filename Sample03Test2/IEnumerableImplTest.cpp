@@ -1,4 +1,4 @@
-
+﻿
 #include "stdafx.h"
 
 #define BOOST_TEST_NO_LIB

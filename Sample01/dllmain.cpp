@@ -1,4 +1,4 @@
-// dllmain.cpp : DllMain ‚ÌÀ‘•
+ï»¿// dllmain.cpp : DllMain ã®å®Ÿè£…
 
 #include "stdafx.h"
 #include "resource.h"
@@ -7,7 +7,7 @@
 
 CSample01Module _AtlModule;
 
-// DLL ƒGƒ“ƒgƒŠ ƒ|ƒCƒ“ƒg
+// DLL ã‚¨ãƒ³ãƒˆãƒª ãƒã‚¤ãƒ³ãƒˆ
 extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);

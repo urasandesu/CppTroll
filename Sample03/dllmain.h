@@ -1,4 +1,4 @@
-// dllmain.h : ƒ‚ƒWƒ…[ƒ‹ ƒNƒ‰ƒX‚ÌéŒ¾
+ï»¿// dllmain.h : ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ« ã‚¯ãƒ©ã‚¹ã®å®£è¨€
 
 class CSample03Module : public CAtlDllModuleT< CSample03Module >
 {

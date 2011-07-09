@@ -1,4 +1,4 @@
-// BoostInvestigation01.cpp : ƒRƒ“ƒ\[ƒ‹ ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ÌƒGƒ“ƒgƒŠ ƒ|ƒCƒ“ƒg‚ğ’è‹`‚µ‚Ü‚·B
+ï»¿// BoostInvestigation01.cpp : ã‚³ãƒ³ã‚½ãƒ¼ãƒ« ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¨ãƒ³ãƒˆãƒª ãƒã‚¤ãƒ³ãƒˆã‚’å®šç¾©ã—ã¾ã™ã€‚
 //
 
 #include "stdafx.h"
@@ -56,9 +56,9 @@ int _tmain(int argc, _TCHAR* argv[])
     vector<double> v2;
     Hoge(v2);
     int i = 0;
-    //Hoge(i);      // ƒRƒ“ƒpƒCƒ‹ƒGƒ‰[
+    //Hoge(i);      // ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã‚¨ãƒ©ãƒ¼
     struct Piyo { } piyo;
-    //Hoge(piyo);   // ƒRƒ“ƒpƒCƒ‹ƒGƒ‰[
+    //Hoge(piyo);   // ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã‚¨ãƒ©ãƒ¼
     BOOST_CONCEPT_ASSERT((Convertible<vector<int>, vector<any>>));
     BOOST_STATIC_ASSERT((is_convertible<vector<int>, vector<any>>::value));
     BOOST_STATIC_ASSERT((!is_convertible<vector<int>, vector<double>>::value));

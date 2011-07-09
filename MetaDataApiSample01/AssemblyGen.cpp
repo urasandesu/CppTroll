@@ -1,4 +1,4 @@
-// AssemblyGen.cpp : CAssemblyGen ‚ÌÀ‘•
+ï»¿// AssemblyGen.cpp : CAssemblyGen ã®å®Ÿè£…
 
 #include "stdafx.h"
 #include "AssemblyGen.h"

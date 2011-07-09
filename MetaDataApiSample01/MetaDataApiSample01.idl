@@ -1,8 +1,8 @@
-// MetaDataApiSample01.idl : MetaDataApiSample01 ‚Ì IDL ƒ\[ƒX
+ï»¿// MetaDataApiSample01.idl : MetaDataApiSample01 ã® IDL ã‚½ãƒ¼ã‚¹
 //
 
-// ‚±‚Ìƒtƒ@ƒCƒ‹‚ÍAƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ (MetaDataApiSample01.tlb) ‚¨‚æ‚Ñƒ}[ƒVƒƒƒŠƒ“ƒO ƒR[ƒh‚ğ
-// ì¬‚·‚é‚½‚ß‚É MIDL ƒc[ƒ‹‚É‚æ‚Á‚Äˆ—‚³‚ê‚Ü‚·B
+// ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª (MetaDataApiSample01.tlb) ãŠã‚ˆã³ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚° ã‚³ãƒ¼ãƒ‰ã‚’
+// ä½œæˆã™ã‚‹ãŸã‚ã« MIDL ãƒ„ãƒ¼ãƒ«ã«ã‚ˆã£ã¦å‡¦ç†ã•ã‚Œã¾ã™ã€‚
 
 import "oaidl.idl";
 import "ocidl.idl";
@@ -12,7 +12,7 @@ import "ocidl.idl";
 	uuid(CB372775-EF3B-4D44-B033-CC6638C3AB55),
 	dual,
 	nonextensible,
-	helpstring("IAppDomainGen ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IAppDomainGen ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IAppDomainGen : IDispatch{
@@ -22,7 +22,7 @@ interface IAppDomainGen : IDispatch{
 	uuid(940B2252-DB28-414D-A615-49F7E7B1EFD0),
 	dual,
 	nonextensible,
-	helpstring("IAssemblyGen ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IAssemblyGen ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IAssemblyGen : IDispatch{
@@ -32,7 +32,7 @@ interface IAssemblyGen : IDispatch{
 	uuid(8DC18C9B-60C7-415C-AD30-2B09E56654DB),
 	dual,
 	nonextensible,
-	helpstring("IAssemblyGenCollection ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IAssemblyGenCollection ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IAssemblyGenCollection : IDispatch{
@@ -40,7 +40,7 @@ interface IAssemblyGenCollection : IDispatch{
 [
 	uuid(300EAE93-937E-4B29-A02A-29FB75328EC4),
 	version(1.0),
-	helpstring("MetaDataApiSample01 1.0 ƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ")
+	helpstring("MetaDataApiSample01 1.0 ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª")
 ]
 library MetaDataApiSample01Lib
 {

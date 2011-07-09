@@ -1,4 +1,4 @@
-// Employee.cpp : CEmployee ‚ÌÀ‘•
+ï»¿// Employee.cpp : CEmployee ã®å®Ÿè£…
 
 #include "stdafx.h"
 #include "Employee.h"
