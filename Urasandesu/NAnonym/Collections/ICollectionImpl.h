@@ -14,32 +14,32 @@
 #include "Urasandesu/NAnonym/Traits/WithoutAdapt.h"
 #endif
 
+#ifndef URASANDESU_NANONYM_UTILITIES_GENERICCOPY_H
+#include "Urasandesu/NAnonym/Utilities/GenericCopy.h"
+#endif
+
+#ifndef URASANDESU_NANONYM_TRAITS_REPLACE_H
+#include "Urasandesu/NAnonym/Traits/Replace.h"
+#endif
+
+#ifndef URASANDESU_NANONYM_TRAITS_ADDRESSEXTRACTOR_H
+#include "Urasandesu/NAnonym/Traits/AddressExtractor.h"
+#endif
+
 namespace Urasandesu { namespace NAnonym { namespace Collections {
+
+    using namespace Urasandesu::NAnonym::Utilities;
+    using namespace Urasandesu::NAnonym::Traits;
 
     template<
         class Base,
         class ItemType,
-        class ComEnumeratorObject, 
         class CollectionType,
-        //class ItemEqualityComparer,
-        class CopyItemFromCollection = GenericCopy<
-                                            ItemType, 
-                                            typename WithoutAdapt<
-                                                typename CollectionType::value_type
-                                            >::type
-                                       >, 
-        class ItemAddresser = AddressExtractor<ItemType>,
-        class CopyCollectionFromItem = GenericCopy<
-                                            typename WithoutAdapt<
-                                                typename CollectionType::value_type
-                                            >::type, 
-                                            ItemType
-                                       >,
-        class CollectionAddresser = AddressExtractor<
-                                        typename WithoutAdapt<
-                                            typename CollectionType::value_type
-                                        >::type
-                                    >
+        class ComEnumeratorObject, 
+        class CopyItemFromCollection = use_default, 
+        class ItemAddresser = use_default,
+        class CopyCollectionFromItem = use_default,
+        class CollectionAddresser = use_default
     >
     class ATL_NO_VTABLE ICollectionImpl : 
         public IEnumerableImpl<Base, CollectionType, ComEnumeratorObject>
@@ -47,45 +47,46 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
         BOOST_CONCEPT_ASSERT((ComCollection<Base, ItemType>));
         BOOST_CONCEPT_ASSERT((Mutable_RandomAccessContainer<CollectionType>));
         BOOST_CONCEPT_ASSERT((Sequence<CollectionType>));
-        BOOST_CONCEPT_ASSERT((ATLCopy<
-                                CopyItemFromCollection, 
-                                ItemType, 
-                                typename WithoutAdapt<
-                                    typename CollectionType::value_type
-                                >::type
-                              >));
-        BOOST_CONCEPT_ASSERT((Extractor<ItemAddresser>));
-        BOOST_CONCEPT_ASSERT((ATLCopy<
-                                CopyCollectionFromItem, 
-                                typename WithoutAdapt<
-                                    typename CollectionType::value_type
-                                >::type, 
-                                ItemType
-                              >));
-        BOOST_CONCEPT_ASSERT((Extractor<CollectionAddresser>));
+        
+    public:
+        typedef typename WithoutAdapt<typename CollectionType::value_type>::type collection_value_type;
+        typedef GenericCopy<ItemType, collection_value_type> default_copy_item_from_collection;
+        typedef typename Replace<CopyItemFromCollection, use_default, default_copy_item_from_collection>::type copy_item_from_collection;
+        typedef AddressExtractor<ItemType> default_item_addresser;
+        typedef typename Replace<ItemAddresser, use_default, default_item_addresser>::type item_addresser;
+        typedef GenericCopy<collection_value_type, ItemType> default_copy_collection_from_item;
+        typedef typename Replace<CopyCollectionFromItem, use_default, default_copy_collection_from_item>::type copy_collection_from_item;
+        typedef AddressExtractor<collection_value_type> default_collection_addresser;
+        typedef typename Replace<CollectionAddresser, use_default, default_collection_addresser>::type collection_addresser;
+    
+    private:
+        BOOST_CONCEPT_ASSERT((ATLCopy<copy_item_from_collection, ItemType, collection_value_type>));
+        BOOST_CONCEPT_ASSERT((Extractor<item_addresser>));
+        BOOST_CONCEPT_ASSERT((ATLCopy<copy_collection_from_item, collection_value_type, ItemType>));
+        BOOST_CONCEPT_ASSERT((Extractor<collection_addresser>));
 
     public:
         typedef IEnumerableImpl<Base, CollectionType, ComEnumeratorObject> base_type;
         typedef ICollectionImpl<
             Base, 
             ItemType, 
-            ComEnumeratorObject, 
             CollectionType, 
+            ComEnumeratorObject, 
             CopyItemFromCollection, 
             ItemAddresser, 
             CopyCollectionFromItem, 
             CollectionAddresser> type;
         typedef typename base_type::interface_type interface_type;
 
-        typedef typename WithoutAdapt<typename CollectionType::value_type>::type collection_value_type;
+        //typedef typename WithoutAdapt<typename CollectionType::value_type>::type collection_value_type;
         typedef typename CollectionType::iterator collection_iterator;
 
         STDMETHOD(Add)(ItemType item)
         {
             HRESULT hr = E_FAIL;
             collection_value_type value;
-            CopyCollectionFromItem::init(CollectionAddresser::Apply(value));
-            hr = CopyCollectionFromItem::copy(CollectionAddresser::Apply(value), ItemAddresser::Apply(item));
+            copy_collection_from_item::init(collection_addresser::Apply(value));
+            hr = copy_collection_from_item::copy(collection_addresser::Apply(value), item_addresser::Apply(item));
             if (FAILED(hr)) return hr;
 
             m_container.insert(m_container.end(), value);
@@ -130,8 +131,8 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
             {
                 collection_value_type& _i = *i;
                 ItemType item;
-                CopyItemFromCollection::init(ItemAddresser::Apply(item));
-                hr = CopyItemFromCollection::copy(ItemAddresser::Apply(item), CollectionAddresser::Apply(_i));
+                copy_item_from_collection::init(item_addresser::Apply(item));
+                hr = copy_item_from_collection::copy(item_addresser::Apply(item), collection_addresser::Apply(_i));
                 if (FAILED(hr)) return hr;
 
                 hr = arr.SetAt(index, item);
@@ -175,7 +176,7 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
             if (index < 0 || m_container.size() <= static_cast<ULONG>(index)) return E_INVALIDARG;
 
             collection_value_type& value = m_container[index];
-            return CopyItemFromCollection::copy(pVal, CollectionAddresser::Apply(value));
+            return copy_item_from_collection::copy(pVal, collection_addresser::Apply(value));
         }
 
         STDMETHOD(put_Item)(LONG index, ItemType newVal)
@@ -184,8 +185,8 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
 
             HRESULT hr = E_FAIL;
             collection_value_type value;
-            CopyCollectionFromItem::init(CollectionAddresser::Apply(value));
-            hr = CopyCollectionFromItem::copy(CollectionAddresser::Apply(value), ItemAddresser::Apply(newVal));
+            copy_collection_from_item::init(collection_addresser::Apply(value));
+            hr = copy_collection_from_item::copy(collection_addresser::Apply(value), item_addresser::Apply(newVal));
             if (FAILED(hr)) return hr;
 
             m_container[index] = value;

@@ -58,11 +58,6 @@ namespace
 
         HRESULT FinalConstruct() { return S_OK; }
         void FinalRelease() { }
-
-        //STDMETHOD(get__NewEnum)(IUnknown** ppVal)
-        //{
-        //    return IntVectorEnumerableImpl::get__NewEnum<IntVectorEnumeratorObject>(ppVal);
-        //}
     };
 
     BOOST_AUTO_TEST_SUITE(IEnumerableImplTestSuite)

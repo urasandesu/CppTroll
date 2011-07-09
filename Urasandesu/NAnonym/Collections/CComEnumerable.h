@@ -15,18 +15,18 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
         const GUID* plibid = &CAtlModule::m_libid,
         WORD wMajor = 1,
         WORD wMinor = 0, 
-        class tihclass = CComTypeInfoHolder,
-        class ThreadModel = CComObjectThreadModel
+        class tihclass = use_default,
+        class ThreadModel = use_default
     >
     class ATL_NO_VTABLE CComEnumerable :
-        public CComObjectRootEx<ThreadModel>,
+        public CComObjectRootEx<typename Replace<ThreadModel, use_default, CComObjectThreadModel>::type>,
         public IDispatchImpl<
             IEnumerableImpl<Base, RangeType, ComEnumeratorObject>, 
             &__uuidof(Base), 
             plibid, 
             wMajor, 
             wMinor, 
-            tihclass
+            typename Replace<tihclass, use_default, CComTypeInfoHolder>::type
         >
     {
     public:

@@ -43,8 +43,8 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
                     ICollectionImpl<
                         Base, 
                         ItemType, 
-                        EnumeratorType, 
                         CollectionType, 
+                        EnumeratorType, 
                         CopyItemFromCollection, 
                         ItemAddresser,
                         CopyCollectionFromItem,
@@ -77,8 +77,8 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
         typedef ICollectionImpl<
                     Base, 
                     ItemType, 
-                    EnumeratorType, 
                     CollectionType, 
+                    EnumeratorType, 
                     CopyItemFromCollection,
                     ItemAddresser,
                     CopyCollectionFromItem,
