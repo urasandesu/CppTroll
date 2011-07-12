@@ -99,7 +99,7 @@ END
 
 IDR_SAMPLE02            REGISTRY                "Sample02.rgs"
 IDR_MYCACHE             REGISTRY                "MyCache.rgs"
-IDR_PAIRBSTRVARIANT     REGISTRY                "PairBStrVariant.rgs"
+IDR_PAIRBSTRVARIANT     REGISTRY                "PairStrVariant.rgs"
 IDR_MYCACHEPRINTER      REGISTRY                "MyCachePrinter.rgs"
 
 /////////////////////////////////////////////////////////////////////////////

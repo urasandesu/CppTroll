@@ -10,9 +10,7 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
         class EnumeratorType, 
         class CollectionType,
         class CopyItemFromCollection, 
-        class ItemAddresser,
-        class CopyCollectionFromItem,
-        class CollectionAddresser
+        class CopyCollectionFromItem
     >
     class ATL_NO_VTABLE ICollectionImpl;
 
@@ -31,21 +29,15 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
                                         typename ListType::value_type
                                     >::type
                                  >, 
-        class ItemAddresser = AddressExtractor<ItemType>,
         class CopyListFromItem = GenericCopy<
                                     typename WithoutAdapt<
                                         typename ListType::value_type
                                     >::type, 
                                     ItemType
-                                 >,
-        class ListAddresser = AddressExtractor<
-                                typename WithoutAdapt<
-                                    typename ListType::value_type
-                                >::type
-                              >
+                                 >
     >
     class ATL_NO_VTABLE IListImpl : 
-        public ICollectionImpl<Base, ItemType, EnumeratorType, ListType, CopyItemFromList, ItemAddresser, CopyListFromItem, ListAddresser>
+        public ICollectionImpl<Base, ItemType, EnumeratorType, ListType, CopyItemFromList, CopyListFromItem>
     {
         BOOST_CONCEPT_ASSERT((ComList<Base, ItemType>));
         BOOST_CONCEPT_ASSERT((Mutable_RandomAccessContainer<ListType>));
@@ -58,18 +50,14 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
             EnumeratorType, 
             ListType, 
             CopyItemFromList, 
-            ItemAddresser, 
-            CopyListFromItem, 
-            ListAddresser> base_type;
+            CopyListFromItem> base_type;
         typedef IListImpl<
             Base, 
             ItemType, 
             EnumeratorType, 
             ListType, 
             CopyItemFromList, 
-            ItemAddresser, 
-            CopyListFromItem, 
-            ListAddresser> type;
+            CopyListFromItem> type;
         typedef typename base_type::interface_type interface_type;
 
         typedef typename WithoutAdapt<typename ListType::value_type>::type list_value_type;

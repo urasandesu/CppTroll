@@ -31,7 +31,7 @@ namespace Sample02Test
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine();
 
-            foreach (PairBStrVariant item in myCache)
+            foreach (PairStrVariant item in myCache)
             {
                 Console.WriteLine("MyCache[{0}]: {1}", item.First, item.Second);
             }

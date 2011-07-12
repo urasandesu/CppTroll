@@ -27,7 +27,7 @@ namespace
     using Urasandesu::NAnonym::Collections::IEnumerableImpl;
 
     typedef vector<INT> IntVector;
-    typedef CComEnumerator<IEnumVARIANT, VARIANT, IntVector, use_default, use_default, use_default, CComObjectSlim> IntVectorEnumerator;
+    typedef CComEnumerator<IEnumVARIANT, VARIANT, IntVector, use_default, use_default, CComObjectSlim> IntVectorEnumerator;
     typedef CComObjectSlim<IntVectorEnumerator> IntVectorEnumeratorObject;
     
     MIDL_INTERFACE("26251BAE-B229-48DC-9B3E-7C9F77BF7D19")

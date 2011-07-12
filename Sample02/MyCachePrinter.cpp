@@ -139,7 +139,7 @@ STDMETHODIMP CMyCachePrinter::Print(void)
             return hr;
         }
 
-        CComQIPtr<IPairBStrVariant> pair = rgVar.punkVal;
+        CComQIPtr<IPairStrVariant> pair = rgVar.punkVal;
         CComBSTR first;
         hr = pair->get_First(&first);
         if (FAILED(hr))

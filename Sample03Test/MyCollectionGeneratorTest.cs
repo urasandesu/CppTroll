@@ -225,6 +225,7 @@ namespace Sample03Test
         }
 
         [Test]
+        [Ignore]
         public void CreateUnkVectorCollectionTest()
         {
             var mcg = new MyCollectionGenerator();

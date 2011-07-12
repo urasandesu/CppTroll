@@ -29,7 +29,7 @@ namespace
     // NOTE: Give a interface declaration IN COM SERVER to CComEnumerable.
     //       In the following case, IMyEnumerable declared in the client happens to be same interface declared in the server.
     typedef vector<CAdapt<CComBSTR>> StrVector;
-    typedef CComEnumerator<IEnumVARIANT, VARIANT, StrVector, use_default, use_default, use_default, CComObjectSlim> StrVectorEnumerator;
+    typedef CComEnumerator<IEnumVARIANT, VARIANT, StrVector, use_default, use_default, CComObjectSlim> StrVectorEnumerator;
     typedef CComObjectSlim<StrVectorEnumerator> StrVectorEnumeratorObject;
     typedef CComEnumerable<IMyEnumerable, StrVectorEnumeratorObject, StrVector> MyEnumerable;
     typedef CComObjectSlim<MyEnumerable> MyEnumerableObject;

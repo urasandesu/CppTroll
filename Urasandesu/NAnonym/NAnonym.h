@@ -102,16 +102,8 @@
 #include "Urasandesu/NAnonym/Concepts/ComPair.h"
 #endif
 
-#ifndef URASANDESU_NANONYM_CONCEPTS_EXTRACTOR_H
-#include "Urasandesu/NAnonym/Concepts/Extractor.h"
-#endif
-
 #ifndef URASANDESU_NANONYM_TRAITS_ADDIMPLICITCONVERSION_H
 #include "Urasandesu/NAnonym/Traits/AddImplicitConversion.h"
-#endif
-
-#ifndef URASANDESU_NANONYM_TRAITS_ADDRESSEXTRACTOR_H
-#include "Urasandesu/NAnonym/Traits/AddressExtractor.h"
 #endif
 
 #ifndef URASANDESU_NANONYM_TRAITS_HASCONST_H

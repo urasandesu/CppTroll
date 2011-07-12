@@ -26,10 +26,10 @@ interface IMyCache : IDispatch{
 	uuid(4C29DB1F-A3FA-47C9-9874-B7FF64864EF6),
 	dual,
 	nonextensible,
-	helpstring("IPairBStrVariant インターフェイス"),
+	helpstring("IPairStrVariant インターフェイス"),
 	pointer_default(unique)
 ]
-interface IPairBStrVariant : IDispatch{
+interface IPairStrVariant : IDispatch{
     [propget, id(1), helpstring("プロパティ First")] HRESULT First([out, retval] BSTR* pVal);
     [propput, id(1), helpstring("プロパティ First")] HRESULT First([in] BSTR newVal);
     [propget, id(2), helpstring("プロパティ Second")] HRESULT Second([out, retval] VARIANT* pVal);
@@ -64,11 +64,11 @@ library Sample02Lib
 	};
 	[
 		uuid(37C6DACC-3125-4568-B6C5-0EED9373C7C2),
-		helpstring("PairBStrVariant Class")
+		helpstring("PairStrVariant Class")
 	]
-	coclass PairBStrVariant
+	coclass PairStrVariant
 	{
-		[default] interface IPairBStrVariant;
+		[default] interface IPairStrVariant;
 	};
 	[
 		uuid(E8A92313-2962-4844-8086-5120A29AD7FF),

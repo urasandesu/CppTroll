@@ -180,10 +180,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\AddressExtractorTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\ATLCopyTest.cpp"
 				>
 			</File>
@@ -205,6 +201,10 @@
 			</File>
 			<File
 				RelativePath=".\ComListTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\GenericCopyTest.cpp"
 				>
 			</File>
 			<File
@@ -390,20 +390,12 @@
 							RelativePath="..\Urasandesu\NAnonym\Concepts\ConceptsDependsOn.h"
 							>
 						</File>
-						<File
-							RelativePath="..\Urasandesu\NAnonym\Concepts\Extractor.h"
-							>
-						</File>
 					</Filter>
 					<Filter
 						Name="Traits"
 						>
 						<File
 							RelativePath="..\Urasandesu\NAnonym\Traits\AddImplicitConversion.h"
-							>
-						</File>
-						<File
-							RelativePath="..\Urasandesu\NAnonym\Traits\AddressExtractor.h"
 							>
 						</File>
 						<File

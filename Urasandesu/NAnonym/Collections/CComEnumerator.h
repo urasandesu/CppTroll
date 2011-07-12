@@ -10,10 +10,6 @@
 #include "Urasandesu/NAnonym/Traits/WithoutAdapt.h"
 #endif
 
-#ifndef URASANDESU_NANONYM_TRAITS_ADDRESSEXTRACTOR_H
-#include "Urasandesu/NAnonym/Traits/AddressExtractor.h"
-#endif
-
 #ifndef URASANDESU_NANONYM_COLLECTIONS_IENUMERATORIMPL_H
 #include "Urasandesu/NAnonym/Collections/IEnumeratorImpl.h"
 #endif
@@ -29,17 +25,16 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
         class ItemType, 
         class RangeType, 
         class CopyItemFromRange = use_default,
-        class RangeAddresser = use_default,
         class ThreadModel = use_default,
         template<class> class CComObject_ = use_default1
     >
     class ATL_NO_VTABLE CComEnumerator :
-        public IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, RangeAddresser>,
+        public IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange>,
         public CComObjectRootEx<typename Replace<ThreadModel, use_default, CComObjectThreadModel>::type>
     {
     public:
-        typedef IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, RangeAddresser> base_type;
-        typedef CComEnumerator<Base, ItemType, RangeType, CopyItemFromRange, RangeAddresser, ThreadModel, CComObject_> type;
+        typedef IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange> base_type;
+        typedef CComEnumerator<Base, ItemType, RangeType, CopyItemFromRange, ThreadModel, CComObject_> type;
         typedef typename Replace<CComObject_<type>, use_default1<type>, CComObject<type>>::type com_object_type;
         typedef typename base_type::interface_type interface_type;
 

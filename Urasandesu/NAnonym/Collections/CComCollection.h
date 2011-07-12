@@ -19,18 +19,12 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
                                                 typename CollectionType::value_type
                                             >::type
                                        >,
-        class ItemAddresser = AddressExtractor<ItemType>,
         class CopyCollectionFromItem = GenericCopy<
                                             typename WithoutAdapt<
                                                 typename CollectionType::value_type
                                             >::type, 
                                             ItemType
                                        >,
-        class CollectionAddresser = AddressExtractor<
-                                        typename WithoutAdapt<
-                                            typename CollectionType::value_type
-                                        >::type
-                                    >,
         const GUID* plibid = &CAtlModule::m_libid,
         WORD wMajor = 1,
         WORD wMinor = 0, 
@@ -46,9 +40,7 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
                         CollectionType, 
                         EnumeratorType, 
                         CopyItemFromCollection, 
-                        ItemAddresser,
-                        CopyCollectionFromItem,
-                        CollectionAddresser
+                        CopyCollectionFromItem
                     >, 
                     &__uuidof(Base), 
                     plibid, 
@@ -64,9 +56,7 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
                     EnumeratorType, 
                     CollectionType, 
                     CopyItemFromCollection, 
-                    ItemAddresser,
                     CopyCollectionFromItem,
-                    CollectionAddresser,
                     plibid, 
                     wMajor, 
                     wMinor, 
@@ -80,9 +70,7 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
                     CollectionType, 
                     EnumeratorType, 
                     CopyItemFromCollection,
-                    ItemAddresser,
-                    CopyCollectionFromItem,
-                    CollectionAddresser
+                    CopyCollectionFromItem
         > base_type;
 
         typedef typename base_type::interface_type interface_type;

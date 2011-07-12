@@ -12,8 +12,6 @@
 
 namespace Urasandesu { namespace NAnonym { namespace Concepts {
 
-    using boost::is_base_of;
-
 }}}   // namespace Urasandesu { namespace NAnonym { namespace Collections {
 
 #endif  // #ifndef URASANDESU_NANONYM_CONCEPTS_CONCEPTSDEPENDSON_H

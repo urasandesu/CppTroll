@@ -26,7 +26,7 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
         BOOST_CONCEPT_ASSERT((ComEnumerable<Base>));
         BOOST_CONCEPT_ASSERT((SinglePassRangeConcept<RangeType>));
         BOOST_CONCEPT_ASSERT((ComObjectWithInstantiation<ComEnumeratorObject>));
-        BOOST_MPL_ASSERT((is_convertible<ComEnumeratorObject, AddImplicitConversion<IgnoreParam5<IEnumeratorImpl>>>));
+        BOOST_MPL_ASSERT((is_convertible<ComEnumeratorObject, AddImplicitConversion<IgnoreParam4<IEnumeratorImpl>>>));
 
     public:
         typedef IEnumerableImpl<Base, RangeType, ComEnumeratorObject> type;

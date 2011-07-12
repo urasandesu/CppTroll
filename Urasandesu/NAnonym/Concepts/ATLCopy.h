@@ -4,30 +4,25 @@
 
 namespace Urasandesu { namespace NAnonym { namespace Concepts {
 
+    using boost::addressof;
+
     template<class X, class DestinationType, class SourceType>
-    struct ATLCopy
+    class ATLCopy
     {
+    public:
         BOOST_CONCEPT_USAGE(ATLCopy)
         {
             HRESULT hr;
-            SourceType* pFrom;
-            DestinationType* pTo;
 
-            // For normal type.
-            {
-                X::init(pTo);
-                hr = X::copy(pTo, pFrom);
-                X::destroy(pTo);
-            }
-
-            // For specialized type overloading operator&.
-            {
-                X::init(&*pTo);
-                hr = X::copy(&*pTo, &*pFrom);
-                X::destroy(&*pTo);
-            }
+            X::init(addressof(to));
+            hr = X::copy(addressof(to), addressof(from));
+            X::destroy(addressof(to));
         }
-    };  // struct ATLCopy
+        
+    private:
+        SourceType from;
+        DestinationType to;
+    };
 
 }}}   // namespace Urasandesu { namespace NAnonym { namespace Concepts {
 

@@ -10,20 +10,12 @@
 #include "Urasandesu/NAnonym/Concepts/ATLCopy.h"
 #endif
 
-#ifndef URASANDESU_NANONYM_CONCEPTS_EXTRACTOR_H
-#include "Urasandesu/NAnonym/Concepts/Extractor.h"
-#endif
-
 #ifndef URASANDESU_NANONYM_TRAITS_WITHOUTADAPT_H
 #include "Urasandesu/NAnonym/Traits/WithoutAdapt.h"
 #endif
 
 #ifndef URASANDESU_NANONYM_UTILITIES_GENERICCOPY_H
 #include "Urasandesu/NAnonym/Utilities/GenericCopy.h"
-#endif
-
-#ifndef URASANDESU_NANONYM_TRAITS_ADDRESSEXTRACTOR_H
-#include "Urasandesu/NAnonym/Traits/AddressExtractor.h"
 #endif
 
 #ifndef URASANDESU_NANONYM_CONCEPTS_COMOBJECTWITHINSTANTIATION_H
@@ -44,8 +36,7 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
         class Base,
         class ItemType, 
         class RangeType, 
-        class CopyItemFromRange = use_default,
-        class RangeAddresser = use_default
+        class CopyItemFromRange = use_default
     >
     class ATL_NO_VTABLE IEnumeratorImpl : 
         public Base
@@ -57,17 +48,14 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
         typedef typename RangeValueWithoutAdapt<RangeType>::type range_value_type;
         typedef GenericCopy<ItemType, range_value_type> default_copy_item_from_range;
         typedef typename Replace<CopyItemFromRange, use_default, default_copy_item_from_range>::type copy_item_from_range;
-        typedef AddressExtractor<range_value_type> default_address_extractor;
-        typedef typename Replace<RangeAddresser, use_default, default_address_extractor>::type range_addresser;
 
     private:
         BOOST_CONCEPT_ASSERT((ComEnumerator<Base, ItemType>));
         BOOST_CONCEPT_ASSERT((ATLCopy<copy_item_from_range, ItemType, range_value_type>));
-        BOOST_CONCEPT_ASSERT((Extractor<range_addresser>));
 
     public:
         typedef Base base_type;
-        typedef IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange, RangeAddresser> type;
+        typedef IEnumeratorImpl<Base, ItemType, RangeType, CopyItemFromRange> type;
         typedef Base interface_type;
 
         typedef ItemType item_type;
@@ -95,7 +83,7 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
             for (ItemType* pelt = rgelt; m_i != m_i_end && celtFetched < celt; ++m_i, ++celtFetched, ++pelt)
             {
                 range_value_type& _i = *m_i;
-                HRESULT hr = copy_item_from_range::copy(pelt, range_addresser::Apply(_i));
+                HRESULT hr = copy_item_from_range::copy(pelt, addressof(_i));
                 if (FAILED(hr))
                 {
                     if (pceltFetched != NULL)

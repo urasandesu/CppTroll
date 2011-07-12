@@ -7,29 +7,34 @@ namespace Urasandesu { namespace NAnonym { namespace Utilities {
     template<
         class MapType, 
         class PairType,
-        class FirstCopy = GenericCopy<typename PairType::first_type, typename MapType::key_type>, 
-        class SecondCopy = GenericCopy<typename PairType::second_type, typename MapType::mapped_type>
+        class FirstCopy = use_default,
+        class SecondCopy = use_default
     >
-    struct MapCopy
+    class MapCopy
     {
+    public:
         typedef MapType map_type;
-        typedef typename map_type::key_type map_first_type;
-        typedef typename map_type::mapped_type map_second_type;
+        typedef typename WithoutAdapt<typename map_type::key_type>::type map_first_type;
+        typedef typename WithoutAdapt<typename map_type::mapped_type>::type map_second_type;
 
         typedef PairType pair_type;
-        typedef typename pair_type::first_type pair_first_type;
-        typedef typename pair_type::second_type pair_second_type;
+        typedef typename WithoutAdapt<typename pair_type::first_type>::type pair_first_type;
+        typedef typename WithoutAdapt<typename pair_type::second_type>::type pair_second_type;
 
-        typedef FirstCopy first_copy;
-        typedef SecondCopy second_copy;
+        typedef GenericCopy<pair_first_type, map_first_type> default_first_copy;
+        typedef typename Replace<FirstCopy, use_default, default_first_copy>::type first_copy;
+        typedef GenericCopy<pair_second_type, map_second_type> default_second_copy;
+        typedef typename Replace<SecondCopy, use_default, default_second_copy>::type second_copy;
 
         typedef VARIANT destination_type;
         typedef typename map_type::value_type source_type;
 
+    private:
         BOOST_CONCEPT_ASSERT((ComPair<pair_type, pair_first_type, pair_second_type>));
         BOOST_CONCEPT_ASSERT((ATLCopy<first_copy, pair_first_type, map_first_type>));
         BOOST_CONCEPT_ASSERT((ATLCopy<second_copy, pair_second_type, map_second_type>));
 
+    public:
         static void init(destination_type* p)
         {
             GenericCopy<destination_type, source_type>::init(p);
@@ -40,6 +45,8 @@ namespace Urasandesu { namespace NAnonym { namespace Utilities {
         }
         static HRESULT copy(destination_type* pTo, const source_type* pFrom)
         {
+            if (pFrom == NULL) return E_POINTER;
+            
             HRESULT hr;
             CComObject<pair_type>* pPair = NULL;
             hr = CComObject<pair_type>::CreateInstance(&pPair);
@@ -47,20 +54,22 @@ namespace Urasandesu { namespace NAnonym { namespace Utilities {
 
             CComPtr<IUnknown> pUnkForRelease(pPair);
 
-            pair_first_type first;
-            first_copy::init(&first);
-            hr = first_copy::copy(&first, &pFrom->first);
+            pair_first_type pair_first;
+            first_copy::init(addressof(pair_first));
+            const map_first_type& map_first = const_cast<source_type*>(pFrom)->first;
+            hr = first_copy::copy(addressof(pair_first), addressof(map_first));
             if (FAILED(hr)) return hr;
 
-            hr = pPair->put_First(first);
+            hr = pPair->put_First(pair_first);
             if (FAILED(hr)) return hr;
 
-            pair_second_type second;
-            second_copy::init(&second);
-            hr = second_copy::copy(&second, &pFrom->second);
+            pair_second_type pair_second;
+            second_copy::init(addressof(pair_second));
+            map_second_type& map_second = const_cast<source_type*>(pFrom)->second;
+            hr = second_copy::copy(addressof(pair_second), addressof(map_second));
             if (FAILED(hr)) return hr;
 
-            hr = pPair->put_Second(second);
+            hr = pPair->put_Second(pair_second);
             if (FAILED(hr)) return hr;
 
             hr = CComVariant(pPair).Detach(pTo);    // Shallow copy. Relegating the memory management(the ref count, too).

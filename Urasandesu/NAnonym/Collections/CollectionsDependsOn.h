@@ -19,7 +19,6 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
     using boost::Sequence;
     using boost::SinglePassRangeConcept;
     using boost::single_pass_traversal_tag;
-    using boost::use_default;
     template<class> struct use_default1;
 
 }}}   // namespace Urasandesu { namespace NAnonym { namespace Collections {

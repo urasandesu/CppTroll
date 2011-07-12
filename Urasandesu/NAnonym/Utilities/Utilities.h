@@ -163,11 +163,8 @@ namespace Urasandesu { namespace NAnonym { namespace Utilities {
     template<class ParamType> \
     inline static LONG VariantGetHashCode(ParamType value, const var_type_traits_##::var_type&) \
     { \
-        const size_t OFFSET = sizeof(VARTYPE) + sizeof(WORD) * 3; \
-        const size_t LENGTH = sizeof(VARIANT) - OFFSET; \
-        BYTE pb[LENGTH]; \
-        ::memcpy_s(pb, LENGTH, reinterpret_cast<BYTE*>(const_cast<var_type_traits_##::param_type>(value)) + OFFSET, LENGTH);  \
-        return reinterpret_cast<LONG>(*reinterpret_cast<VOID**>(&pb)); \
+        BOOST_MPL_ASSERT((is_pointer<ParamType>)); \
+        return reinterpret_cast<LONG>(value); \
     }
     
     DECLARE_VARIANT_GET_HASH_CODE_FOR_REF(I_VT_VARIANT_REF_TRAITS);

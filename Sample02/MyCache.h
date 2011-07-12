@@ -10,41 +10,53 @@
 #error "DCOM の完全サポートを含んでいない Windows Mobile プラットフォームのような Windows CE プラットフォームでは、単一スレッド COM オブジェクトは正しくサポートされていません。ATL が単一スレッド COM オブジェクトの作成をサポートすること、およびその単一スレッド COM オブジェクトの実装の使用を許可することを強制するには、_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA を定義してください。ご使用の rgs ファイルのスレッド モデルは 'Free' に設定されており、DCOM Windows CE 以外のプラットフォームでサポートされる唯一のスレッド モデルと設定されていました。"
 #endif
 
+using std::binary_function;
+using std::unary_function;
+using std::pair;
+using std::size_t;
+using boost::unordered_map;
+using Urasandesu::NAnonym::Utilities::CComPair;
+using Urasandesu::NAnonym::Utilities::GenericCopy;
+using Urasandesu::NAnonym::Utilities::MapCopy;
+using Urasandesu::NAnonym::Collections::CComEnumerator;
 
-struct AdaptedComBSTREqualTo
-    : std::binary_function<CAdapt<CComBSTR>, CAdapt<CComBSTR>, bool>
+typedef CAdapt<CComBSTR> AdaptedStr;
+
+struct AdaptedStrEqualTo
+    : binary_function<AdaptedStr, AdaptedStr, bool>
 {
-    bool operator()(CAdapt<CComBSTR> const& x, CAdapt<CComBSTR> const& y) const
+    bool operator()(AdaptedStr const& x, AdaptedStr const& y) const
     {
-        return (CComBSTR&)x == (CComBSTR&)y;
+        const CComBSTR& _x = x;
+        const CComBSTR& _y = y;
+        return _x == _y;
     }
 };
 
-struct AdaptedComBSTRHash
-    : std::unary_function<CAdapt<CComBSTR>, std::size_t>
+struct AdaptedStrHash
+    : unary_function<AdaptedStr, size_t>
 {
-    std::size_t operator()(CAdapt<CComBSTR> const& x) const
+    size_t operator()(AdaptedStr const& x) const
     {
         using namespace boost;
 
-        std::size_t seed = 0;
-        CComBSTR& _x = (CComBSTR&)x;
-        for (BSTR itr = _x, end = _x + _x.Length(); itr != end; ++itr)
+        size_t seed = 0;
+        const CComBSTR& _x = x;
+        for (BSTR i = _x, i_end = _x + _x.Length(); i != i_end; ++i)
         {
-            hash_combine(seed, *itr);
+            hash_combine(seed, *i);
         }
 
         return seed;
     }
 };
 
-typedef std::pair<CAdapt<CComBSTR>, CComVariant> BStrVariantPair;
-typedef boost::unordered_map<CAdapt<CComBSTR>, CComVariant, AdaptedComBSTRHash, AdaptedComBSTREqualTo> StrVariantMap;
+typedef unordered_map<AdaptedStr, CComVariant, AdaptedStrHash, AdaptedStrEqualTo> StrVariantMap;
 typedef StrVariantMap::iterator StrVariantIterator;
 typedef StrVariantMap::const_iterator StrVariantConstIterator;
-typedef Urasandesu::NAnonym::Utilities::CComPair<IPairBStrVariant, BSTR, VARIANT, Urasandesu::NAnonym::Utilities::GenericCopy<BSTR, BSTR>> CPairBStrVariant;
-typedef Urasandesu::NAnonym::Utilities::MapCopy<StrVariantMap, CPairBStrVariant> CopyType;
-typedef Urasandesu::NAnonym::Collections::CComEnumerator<IEnumVARIANT, VARIANT, StrVariantMap, CopyType> StrVariantEnumerator;
+typedef CComPair<IPairStrVariant, BSTR, VARIANT, GenericCopy<BSTR, BSTR>> StrVariantPair;
+typedef MapCopy<StrVariantMap, StrVariantPair> StrVariantMapCopy;
+typedef CComEnumerator<IEnumVARIANT, VARIANT, StrVariantMap, StrVariantMapCopy> StrVariantEnumerator;
 typedef CComObject<StrVariantEnumerator> StrVariantEnumeratorObject;
 
 // CMyCache

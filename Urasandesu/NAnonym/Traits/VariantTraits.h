@@ -127,11 +127,11 @@ namespace Urasandesu { namespace NAnonym { namespace Traits {
                          >::type const_return_type;
     };  // struct VariantTraits
 
-#define DECLARE_VARIANT_TRAITS(var_type_, return_type_, param_type_, member) \
+#define DECLARE_VAR_TYPE_VARIANT_TRAITS(var_type_, type_, member) \
     template<> \
     struct VariantTraits<var_type_> \
     { \
-        typedef param_type_ param_type; \
+        typedef type_ param_type; \
         typedef eval_if< \
                     or_< \
                         is_pointer<param_type>, \
@@ -141,7 +141,7 @@ namespace Urasandesu { namespace NAnonym { namespace Traits {
                     identity<param_type> \
                 >::type const_param_type; \
         typedef var_type_ var_type; \
-        typedef return_type_ return_type; \
+        typedef type_ return_type; \
         typedef eval_if< \
                     or_< \
                         is_pointer<return_type>, \
@@ -162,49 +162,49 @@ namespace Urasandesu { namespace NAnonym { namespace Traits {
     }; \
     typedef VariantTraits<var_type_> var_type_##_TRAITS; 
 
-    DECLARE_VARIANT_TRAITS(I_VT_I8, LONGLONG, LONGLONG, llVal);
-    DECLARE_VARIANT_TRAITS(I_VT_I4, LONG, LONG, lVal);
-    DECLARE_VARIANT_TRAITS(I_VT_UI1, BYTE, BYTE, bVal);
-    DECLARE_VARIANT_TRAITS(I_VT_I2, SHORT, SHORT, iVal);
-    DECLARE_VARIANT_TRAITS(I_VT_R4, FLOAT, FLOAT, fltVal);
-    DECLARE_VARIANT_TRAITS(I_VT_R8, DOUBLE, DOUBLE, dblVal);
-    DECLARE_VARIANT_TRAITS(I_VT_BOOL, VARIANT_BOOL, VARIANT_BOOL, boolVal);
-    DECLARE_VARIANT_TRAITS(I_VT_ERROR, SCODE, SCODE, scode);
-    DECLARE_VARIANT_TRAITS(I_VT_CY, CY&, CY&, cyVal);
-    DECLARE_VARIANT_TRAITS(I_VT_DATE, DATE, DATE, date);
-    DECLARE_VARIANT_TRAITS(I_VT_BSTR, BSTR, BSTR, bstrVal);
-    DECLARE_VARIANT_TRAITS(I_VT_UNKNOWN, IUnknown*, IUnknown*, punkVal);
-    DECLARE_VARIANT_TRAITS(I_VT_DISPATCH, IDispatch*, IDispatch*, pdispVal);
-    DECLARE_VARIANT_TRAITS(I_VT_I1, CHAR, CHAR, cVal);
-    DECLARE_VARIANT_TRAITS(I_VT_UI2, USHORT, USHORT, uiVal);
-    DECLARE_VARIANT_TRAITS(I_VT_UI4, ULONG, ULONG, ulVal);
-    DECLARE_VARIANT_TRAITS(I_VT_UI8, ULONGLONG, ULONGLONG, ullVal);
-    DECLARE_VARIANT_TRAITS(I_VT_INT, INT, INT, intVal);
-    DECLARE_VARIANT_TRAITS(I_VT_UINT, UINT, UINT, uintVal);
-    DECLARE_VARIANT_TRAITS(I_VT_DECIMAL, DECIMAL&, DECIMAL&, decVal);
-    DECLARE_VARIANT_TRAITS(I_VT_VARIANT_REF, VARIANT*, VARIANT*, pvarVal);
-    DECLARE_VARIANT_TRAITS(I_VT_UNKNOWN_REF, IUnknown**, IUnknown**, ppunkVal);
-    DECLARE_VARIANT_TRAITS(I_VT_UINT_REF, UINT*, UINT*, puintVal);
-    DECLARE_VARIANT_TRAITS(I_VT_UI8_REF, ULONGLONG*, ULONGLONG*, pullVal);
-    DECLARE_VARIANT_TRAITS(I_VT_UI4_REF, ULONG*, ULONG*, pulVal);
-    DECLARE_VARIANT_TRAITS(I_VT_UI2_REF, USHORT*, USHORT*, puiVal);
-    DECLARE_VARIANT_TRAITS(I_VT_UI1_REF, BYTE*, BYTE*, pbVal);
-    DECLARE_VARIANT_TRAITS(I_VT_R8_REF, DOUBLE*, DOUBLE*, pdblVal);
-    DECLARE_VARIANT_TRAITS(I_VT_R4_REF, FLOAT*, FLOAT*, pfltVal);
-    DECLARE_VARIANT_TRAITS(I_VT_INT_REF, INT*, INT*, pintVal);
-    DECLARE_VARIANT_TRAITS(I_VT_I8_REF, LONGLONG*, LONGLONG*, pllVal);
-    DECLARE_VARIANT_TRAITS(I_VT_I4_REF, LONG*, LONG*, plVal);
-    DECLARE_VARIANT_TRAITS(I_VT_I2_REF, SHORT*, SHORT*, piVal);
-    DECLARE_VARIANT_TRAITS(I_VT_I1_REF, CHAR*, CHAR*, pcVal);
-    DECLARE_VARIANT_TRAITS(I_VT_ERROR_REF, SCODE*, SCODE*, pscode);
-    DECLARE_VARIANT_TRAITS(I_VT_DISPATCH_REF, IDispatch**, IDispatch**, ppdispVal);
-    DECLARE_VARIANT_TRAITS(I_VT_DECIMAL_REF, DECIMAL*, DECIMAL*, pdecVal);
-    DECLARE_VARIANT_TRAITS(I_VT_DATE_REF, DATE*, DATE*, pdate);
-    DECLARE_VARIANT_TRAITS(I_VT_CY_REF, CY*, CY*, pcyVal);
-    DECLARE_VARIANT_TRAITS(I_VT_BSTR_REF, BSTR*, BSTR*, pbstrVal);
-    DECLARE_VARIANT_TRAITS(I_VT_BOOL_REF, VARIANT_BOOL*, VARIANT_BOOL*, pboolVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_I8, LONGLONG, llVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_I4, LONG, lVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_UI1, BYTE, bVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_I2, SHORT, iVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_R4, FLOAT, fltVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_R8, DOUBLE, dblVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_BOOL, VARIANT_BOOL, boolVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_ERROR, SCODE, scode);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_CY, CY&, cyVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_DATE, DATE, date);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_BSTR, BSTR, bstrVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_UNKNOWN, IUnknown*, punkVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_DISPATCH, IDispatch*, pdispVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_I1, CHAR, cVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_UI2, USHORT, uiVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_UI4, ULONG, ulVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_UI8, ULONGLONG, ullVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_INT, INT, intVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_UINT, UINT, uintVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_DECIMAL, DECIMAL&, decVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_VARIANT_REF, VARIANT*, pvarVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_UNKNOWN_REF, IUnknown**, ppunkVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_UINT_REF, UINT*, puintVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_UI8_REF, ULONGLONG*, pullVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_UI4_REF, ULONG*, pulVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_UI2_REF, USHORT*, puiVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_UI1_REF, BYTE*, pbVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_R8_REF, DOUBLE*, pdblVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_R4_REF, FLOAT*, pfltVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_INT_REF, INT*, pintVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_I8_REF, LONGLONG*, pllVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_I4_REF, LONG*, plVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_I2_REF, SHORT*, piVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_I1_REF, CHAR*, pcVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_ERROR_REF, SCODE*, pscode);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_DISPATCH_REF, IDispatch**, ppdispVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_DECIMAL_REF, DECIMAL*, pdecVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_DATE_REF, DATE*, pdate);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_CY_REF, CY*, pcyVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_BSTR_REF, BSTR*, pbstrVal);
+    DECLARE_VAR_TYPE_VARIANT_TRAITS(I_VT_BOOL_REF, VARIANT_BOOL*, pboolVal);
     
-#undef DECLARE_VARIANT_TRAITS
+#undef DECLARE_VAR_TYPE_VARIANT_TRAITS
 
     template<>
     struct VariantTraits<I_VT_VARIANT>
@@ -225,6 +225,85 @@ namespace Urasandesu { namespace NAnonym { namespace Traits {
         } 
     };  // struct VariantTraits<I_VT_VARIANT>
     typedef VariantTraits<I_VT_VARIANT> I_VT_VARIANT_TRAITS; 
+
+#define DECLARE_TYPE_VARIANT_TRAITS(name, var_type_, type_, member) \
+    template<> \
+    struct VariantTraits<type_> \
+    { \
+        typedef type_ param_type; \
+        typedef eval_if< \
+                    or_< \
+                        is_pointer<param_type>, \
+                        is_lvalue_reference<param_type> \
+                    >, \
+                    InsertConst<param_type>, \
+                    identity<param_type> \
+                >::type const_param_type; \
+        typedef var_type_ var_type; \
+        typedef type_ return_type; \
+        typedef eval_if< \
+                    or_< \
+                        is_pointer<return_type>, \
+                        is_lvalue_reference<return_type> \
+                    >, \
+                    InsertConst<return_type>, \
+                    identity<return_type> \
+                >::type const_return_type; \
+        inline static return_type Val(VARIANT& source) \
+        { \
+            return source.##member; \
+        } \
+        \
+        inline static const_return_type Val(const VARIANT& source) \
+        { \
+            return source.##member; \
+        } \
+    }; \
+    typedef VariantTraits<type_> name##_TRAITS; 
+    
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_I8, I_VT_I8, LONGLONG, llVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_I4, I_VT_I4, LONG, lVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_UI1, I_VT_UI1, BYTE, bVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_I2, I_VT_I2, SHORT, iVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_R4, I_VT_R4, FLOAT, fltVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_R8, I_VT_R8, DOUBLE, dblVal);
+    //DECLARE_TYPE_VARIANT_TRAITS(I_T_BOOL, I_VT_BOOL, VARIANT_BOOL, boolVal);
+    //DECLARE_TYPE_VARIANT_TRAITS(I_T_ERROR, I_VT_ERROR, SCODE, scode);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_CY, I_VT_CY, CY&, cyVal);
+    //DECLARE_TYPE_VARIANT_TRAITS(I_T_DATE, I_VT_DATE, DATE, date);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_BSTR, I_VT_BSTR, BSTR, bstrVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_UNKNOWN, I_VT_UNKNOWN, IUnknown*, punkVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_DISPATCH, I_VT_DISPATCH, IDispatch*, pdispVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_I1, I_VT_I1, CHAR, cVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_UI2, I_VT_UI2, USHORT, uiVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_UI4, I_VT_UI4, ULONG, ulVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_UI8, I_VT_UI8, ULONGLONG, ullVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_INT, I_VT_INT, INT, intVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_UINT, I_VT_UINT, UINT, uintVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_DECIMAL, I_VT_DECIMAL, DECIMAL&, decVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_VARIANT_REF, I_VT_VARIANT_REF, VARIANT*, pvarVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_UNKNOWN_REF, I_VT_UNKNOWN_REF, IUnknown**, ppunkVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_UINT_REF, I_VT_UINT_REF, UINT*, puintVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_UI8_REF, I_VT_UI8_REF, ULONGLONG*, pullVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_UI4_REF, I_VT_UI4_REF, ULONG*, pulVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_UI2_REF, I_VT_UI2_REF, USHORT*, puiVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_UI1_REF, I_VT_UI1_REF, BYTE*, pbVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_R8_REF, I_VT_R8_REF, DOUBLE*, pdblVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_R4_REF, I_VT_R4_REF, FLOAT*, pfltVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_INT_REF, I_VT_INT_REF, INT*, pintVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_I8_REF, I_VT_I8_REF, LONGLONG*, pllVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_I4_REF, I_VT_I4_REF, LONG*, plVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_I2_REF, I_VT_I2_REF, SHORT*, piVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_I1_REF, I_VT_I1_REF, CHAR*, pcVal);
+    //DECLARE_TYPE_VARIANT_TRAITS(I_T_ERROR_REF, I_VT_ERROR_REF, SCODE*, pscode);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_DISPATCH_REF, I_VT_DISPATCH_REF, IDispatch**, ppdispVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_DECIMAL_REF, I_VT_DECIMAL_REF, DECIMAL*, pdecVal);
+    //DECLARE_TYPE_VARIANT_TRAITS(I_T_DATE_REF, I_VT_DATE_REF, DATE*, pdate);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_CY_REF, I_VT_CY_REF, CY*, pcyVal);
+    DECLARE_TYPE_VARIANT_TRAITS(I_T_BSTR_REF, I_VT_BSTR_REF, BSTR*, pbstrVal);
+    //DECLARE_TYPE_VARIANT_TRAITS(I_T_BOOL_REF, I_VT_BOOL_REF, VARIANT_BOOL*, pboolVal);
+
+#undef DECLARE_TYPE_VARIANT_TRAITS
 
 }}}   // namespace Urasandesu { namespace NAnonym { namespace Traits {
 
