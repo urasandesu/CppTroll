@@ -25,7 +25,8 @@ namespace
     using Urasandesu::NAnonym::Utilities::CComObjectSlim;
     using Urasandesu::NAnonym::Collections::ICollectionImpl;
     
-    typedef vector<CAdapt<CComBSTR>> StrVector;
+    typedef CAdapt<CComBSTR> AdaptedStr;
+    typedef vector<AdaptedStr> StrVector;
     typedef CComEnumerator<IEnumVARIANT, VARIANT, StrVector> StrVectorEnumerator;
     typedef CComObjectSlim<StrVectorEnumerator> StrVectorEnumeratorObject;
     
