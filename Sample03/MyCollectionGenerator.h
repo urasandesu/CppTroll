@@ -15,13 +15,13 @@ using Urasandesu::NAnonym::Collections::CComCollection;
 typedef std::vector<CAdapt<CComBSTR>> StrVector;
 typedef CComEnumerator<IEnumVARIANT, VARIANT, StrVector> StrEnumerator;
 typedef CComObject<StrEnumerator> StrEnumeratorObject;
-typedef CComCollection<IStrVectorCollection, BSTR, StrEnumeratorObject, StrVector> CStrVectorCollection;
+typedef CComCollection<IStrVectorCollection, BSTR, StrVector, StrEnumeratorObject> CStrVectorCollection;
 typedef CComObject<CStrVectorCollection> CStrVectorCollectionObject;
 
 typedef std::deque<INT> IntDeque;
 typedef CComEnumerator<IEnumVARIANT, VARIANT, IntDeque> IntEnumerator;
 typedef CComObject<IntEnumerator> IntEnumeratorObject;
-typedef CComCollection<IIntDequeCollection, INT, IntEnumeratorObject, IntDeque> CIntDequeCollection;
+typedef CComCollection<IIntDequeCollection, INT, IntDeque, IntEnumeratorObject> CIntDequeCollection;
 typedef CComObject<CIntDequeCollection> CIntDequeCollectionObject;
 
 typedef CComPtr<IUnknown> UnkPtr;
@@ -29,7 +29,7 @@ typedef CAdapt<UnkPtr> AdaptedUnkPtr;
 typedef std::vector<AdaptedUnkPtr> UnkVector;
 typedef CComEnumerator<IEnumVARIANT, VARIANT, UnkVector> UnkEnumerator;
 typedef CComObject<UnkEnumerator> UnkEnumeratorObject;
-typedef CComCollection<IUnkVectorCollection, IUnknown*, UnkEnumeratorObject, UnkVector> CUnkVectorCollection;
+typedef CComCollection<IUnkVectorCollection, IUnknown*, UnkVector, UnkEnumeratorObject> CUnkVectorCollection;
 typedef CComObject<CUnkVectorCollection> CUnkVectorCollectionObject;
 
 // CMyCollectionGenerator

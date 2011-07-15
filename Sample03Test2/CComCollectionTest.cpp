@@ -4,24 +4,35 @@
 #define BOOST_TEST_NO_LIB
 #include <boost/test/unit_test.hpp>
 
-//#ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMENUMERATOR_H
-//#include "Urasandesu/NAnonym/Collections/CComEnumerator.h"
-//#endif
-//
-//#ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMCOLLECTION_H
-//#include "CComCollection.h"
-//#endif
-//
-//#include <vector>
+#include <vector>
+
+#ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMENUMERATOR_H
+#include "Urasandesu/NAnonym/Collections/CComEnumerator.h"
+#endif
+
+#ifndef URASANDESU_NANONYM_UTILITIES_CCOMOBJECTSLIM_H
+#include "Urasandesu/NAnonym/Utilities/CComObjectSlim.h"
+#endif
+
+#ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMCOLLECTION_H
+#include "Urasandesu/NAnonym/Collections/CComCollection.h"
+#endif
 
 namespace
 {
-    //using std::vector;
-    //using My::CComEnumerator;
-    //using My::CComCollection;
+    using std::vector;
+    using boost::use_default;
+    using Urasandesu::NAnonym::Collections::CComEnumerator;
+    using Urasandesu::NAnonym::Collections::CComCollection;
+    using Urasandesu::NAnonym::Utilities::CComObjectSlim;
+
+    typedef CAdapt<CComBSTR> AdaptedStr;
+    typedef vector<AdaptedStr> StrVector;
+    typedef CComEnumerator<IEnumVARIANT, VARIANT, StrVector, use_default, use_default, CComObjectSlim> StrVectorEnumerator;
+    typedef CComObjectSlim<StrVectorEnumerator> StrVectorEnumeratorObject;
 
     // NOTE: Give a interface declaration IN COM SERVER to CComCollection. 
-    MIDL_INTERFACE("5EC980D6-C48E-4840-B31D-3BB5121326F7")
+    MIDL_INTERFACE("5EC980D6-C48E-4840-B31D-3BB5121326F9")
     IStrVectorCollection : public IDispatch
     {
     public:
@@ -60,21 +71,19 @@ namespace
         
     };
 
-    //typedef vector<CAdapt<CComBSTR>> StrVector;
-    //typedef CComEnumerator<IEnumVARIANT, VARIANT, StrVector> StrEnumerator;
-    //typedef CComCollection<IStrVectorCollection, BSTR, StrEnumerator, StrVector> CStrVectorCollection;
-    //typedef CComObjectCached<CStrVectorCollection> CStrVectorCollectionObject;  // NOTE: CComObjectCached does not need the pointer to AtlModule, but CComObject needs it.
+    typedef CComCollection<IStrVectorCollection, BSTR, StrVector, StrVectorEnumeratorObject> StrVectorCollection;
+    typedef CComObjectSlim<StrVectorCollection> StrVectorCollectionObject;
 
     BOOST_AUTO_TEST_SUITE(CComCollectionTestSuite)
 
     BOOST_AUTO_TEST_CASE(CComCollectionTest)
     {
-        //HRESULT hr = E_FAIL;
-        //CStrVectorCollectionObject* pStrVectorCollection = NULL;
-        //hr = CStrVectorCollectionObject::CreateInstance(&pStrVectorCollection);
-        //BOOST_REQUIRE(SUCCEEDED(hr));
-        //
-        //CComPtr<IUnknown> pUnkForRelease(pStrVectorCollection);
+        HRESULT hr = E_FAIL;
+        StrVectorCollectionObject* pStrVectorCollection = NULL;
+        hr = StrVectorCollectionObject::CreateInstance(&pStrVectorCollection);
+        BOOST_REQUIRE(SUCCEEDED(hr));
+
+        CComPtr<IUnknown> pUnkForRelease(pStrVectorCollection);
     }
 
     BOOST_AUTO_TEST_SUITE_END()

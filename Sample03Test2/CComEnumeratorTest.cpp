@@ -27,7 +27,7 @@ namespace
     //       In the following case, IEnumVARIANT declared in the client happens to be same interface declared in the server.
     typedef vector<INT> IntVector;
     typedef IEnumeratorImpl<IEnumVARIANT, VARIANT, IntVector> IntVectorEnumeratorImpl;
-    typedef CComEnumerator<IEnumVARIANT, VARIANT, IntVector, use_default, use_default, CComObjectSlim> IntVectorEnumerator;   // 仮想コピーコンストラクタ用の CComObject.* は、テンプレートの最後のほうがいいよね。
+    typedef CComEnumerator<IEnumVARIANT, VARIANT, IntVector, use_default, use_default, CComObjectSlim> IntVectorEnumerator;
     typedef CComObjectSlim<IntVectorEnumerator> IntVectorEnumeratorObject;
 
     BOOST_AUTO_TEST_SUITE(CComEnumeratorTestSuite)

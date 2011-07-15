@@ -11,34 +11,24 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
     template<
         class Base, 
         class ItemType,
-        class EnumeratorType, 
         class CollectionType,
-        class CopyItemFromCollection = GenericCopy<
-                                            ItemType, 
-                                            typename WithoutAdapt<
-                                                typename CollectionType::value_type
-                                            >::type
-                                       >,
-        class CopyCollectionFromItem = GenericCopy<
-                                            typename WithoutAdapt<
-                                                typename CollectionType::value_type
-                                            >::type, 
-                                            ItemType
-                                       >,
+        class ComEnumeratorObject, 
+        class CopyItemFromCollection = use_default,
+        class CopyCollectionFromItem = use_default,
         const GUID* plibid = &CAtlModule::m_libid,
         WORD wMajor = 1,
         WORD wMinor = 0, 
-        class tihclass = CComTypeInfoHolder,
-        class ThreadModel = CComObjectThreadModel
+        class tihclass = use_default,
+        class ThreadModel = use_default
     >
     class ATL_NO_VTABLE CComCollection :
-        public CComObjectRootEx<ThreadModel>,
+        public CComObjectRootEx<typename Replace<ThreadModel, use_default, CComObjectThreadModel>::type>,
         public IDispatchImpl<
                     ICollectionImpl<
                         Base, 
                         ItemType, 
                         CollectionType, 
-                        EnumeratorType, 
+                        ComEnumeratorObject, 
                         CopyItemFromCollection, 
                         CopyCollectionFromItem
                     >, 
@@ -46,15 +36,15 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
                     plibid, 
                     wMajor, 
                     wMinor, 
-                    tihclass
+                    typename Replace<tihclass, use_default, CComTypeInfoHolder>::type
         >
     {
     public:
         typedef CComCollection<
                     Base, 
                     ItemType, 
-                    EnumeratorType, 
                     CollectionType, 
+                    ComEnumeratorObject, 
                     CopyItemFromCollection, 
                     CopyCollectionFromItem,
                     plibid, 
@@ -68,7 +58,7 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
                     Base, 
                     ItemType, 
                     CollectionType, 
-                    EnumeratorType, 
+                    ComEnumeratorObject, 
                     CopyItemFromCollection,
                     CopyCollectionFromItem
         > base_type;

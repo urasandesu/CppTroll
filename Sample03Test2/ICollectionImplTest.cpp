@@ -27,6 +27,7 @@ namespace
     using Urasandesu::NAnonym::Utilities::CComObjectSlim;
     using Urasandesu::NAnonym::Collections::ICollectionImpl;
     using Urasandesu::NAnonym::Collections::IEnumerableImpl;
+    using Urasandesu::NAnonym::Utilities::GenericCopy;
     
     typedef CAdapt<CComBSTR> AdaptedStr;
     typedef vector<AdaptedStr> StrVector;
@@ -101,6 +102,13 @@ namespace
         BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::base_type, StrVectorEnumerableImpl>));
         BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::type, StrVectorCollectionImpl>));
         BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::interface_type, IStrVectorCollection>));
+        BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::collection_value_type, CComBSTR>));
+        typedef GenericCopy<BSTR, CComBSTR> DefaultCopyItemFromCollection;
+        BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::default_copy_item_from_collection, DefaultCopyItemFromCollection>));
+        BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::copy_item_from_collection, DefaultCopyItemFromCollection>));
+        typedef GenericCopy<CComBSTR, BSTR> DefaultCopyCollectionFromItem;
+        BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::default_copy_collection_from_item, DefaultCopyCollectionFromItem>));
+        BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::copy_collection_from_item, DefaultCopyCollectionFromItem>));
     }
 
     BOOST_AUTO_TEST_CASE(AddTest)
