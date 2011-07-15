@@ -46,6 +46,10 @@
 #include "Urasandesu/NAnonym/Collections/ICollectionImpl.h"
 #endif
 
+#ifndef URASANDESU_NANONYM_COLLECTIONS_IDICTIONARYIMPL_H
+#include "Urasandesu/NAnonym/Collections/IDictionaryImpl.h"
+#endif
+
 #ifndef URASANDESU_NANONYM_COLLECTIONS_IENUMERABLEIMPL_H
 #include "Urasandesu/NAnonym/Collections/IEnumerableImpl.h"
 #endif
@@ -80,6 +84,10 @@
 
 #ifndef URASANDESU_NANONYM_CONCEPTS_COMCOLLECTION_H
 #include "Urasandesu/NAnonym/Concepts/ComCollection.h"
+#endif
+
+#ifndef URASANDESU_NANONYM_CONCEPTS_COMDICTIONARY_H
+#include "Urasandesu/NAnonym/Concepts/ComDictionary.h"
 #endif
 
 #ifndef URASANDESU_NANONYM_CONCEPTS_COMENUMERABLE_H

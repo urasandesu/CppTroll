@@ -4,8 +4,6 @@
 #define BOOST_TEST_NO_LIB
 #include <boost/test/unit_test.hpp>
 
-#include <vector>
-
 #ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMENUMERATOR_H
 #include "Urasandesu/NAnonym/Collections/CComEnumerator.h"
 #endif

@@ -44,6 +44,8 @@ using namespace ATL;
 
 #include <stdlib.h>
 #include <iostream> 
+#include <vector>
+#include <map>
 #include <boost/timer.hpp>
 #include <boost/assign/std/vector.hpp>
 #include <boost/assert.hpp>

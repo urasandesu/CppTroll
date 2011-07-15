@@ -2,6 +2,10 @@
 #ifndef URASANDESU_NANONYM_UTILITIES_IPAIRIMPL_H
 #define URASANDESU_NANONYM_UTILITIES_IPAIRIMPL_H
 
+#ifndef URASANDESU_NANONYM_CONCEPTS_COMPAIR_H
+#include "Urasandesu/NAnonym/Concepts/ComPair.h"
+#endif
+
 #ifndef URASANDESU_NANONYM_TRAITS_WITHOUTADAPT_H
 #include "Urasandesu/NAnonym/Traits/WithoutAdapt.h"
 #endif

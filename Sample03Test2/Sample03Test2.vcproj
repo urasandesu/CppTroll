@@ -204,6 +204,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ComDictionaryTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ComListTest.cpp"
 				>
 			</File>
@@ -217,6 +221,10 @@
 			</File>
 			<File
 				RelativePath=".\ICollectionImplTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IDictionaryImplTest.cpp"
 				>
 			</File>
 			<File
@@ -331,6 +339,10 @@
 							>
 						</File>
 						<File
+							RelativePath="..\Urasandesu\NAnonym\Collections\IDictionaryImpl.h"
+							>
+						</File>
+						<File
 							RelativePath="..\Urasandesu\NAnonym\Collections\IEnumerableImpl.h"
 							>
 						</File>
@@ -368,6 +380,10 @@
 						</File>
 						<File
 							RelativePath="..\Urasandesu\NAnonym\Concepts\ComCollection.h"
+							>
+						</File>
+						<File
+							RelativePath="..\Urasandesu\NAnonym\Concepts\ComDictionary.h"
 							>
 						</File>
 						<File

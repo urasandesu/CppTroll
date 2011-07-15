@@ -48,7 +48,6 @@ namespace Urasandesu { namespace NAnonym { namespace Concepts {
         }
     };  // struct ComCollection
 
-
 }}}   // namespace Urasandesu { namespace NAnonym { namespace Concepts {
 
 #endif // #ifndef URASANDESU_NANONYM_CONCEPTS_COMLIST_H
