@@ -48,8 +48,9 @@ namespace Urasandesu { namespace NAnonym { namespace Utilities {
             if (pFrom == NULL) return E_POINTER;
             
             HRESULT hr;
-            CComObject<pair_type>* pPair = NULL;
-            hr = CComObject<pair_type>::CreateInstance(&pPair);
+            typedef CComObject<pair_type> PairObject;
+            PairObject* pPair = NULL;
+            hr = PairObject::CreateInstance(&pPair);
             if (FAILED(hr)) return hr;
 
             CComPtr<IUnknown> pUnkForRelease(pPair);

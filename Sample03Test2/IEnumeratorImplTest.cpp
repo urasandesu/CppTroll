@@ -179,7 +179,7 @@ namespace
         BOOST_REQUIRE(SUCCEEDED(hr));
         
         IEnumVARIANT* pIntVectorEnumerator2 = NULL;
-        hr = pIntVectorEnumerator->Clone(&pIntVectorEnumerator2);   // Clone has already called AddRef() when returned from it.
+        hr = pIntVectorEnumerator->Clone(&pIntVectorEnumerator2);
         BOOST_REQUIRE(SUCCEEDED(hr));
 
         CComPtr<IUnknown> pUnkForRelease2;
