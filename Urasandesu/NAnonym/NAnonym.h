@@ -38,6 +38,10 @@
 #include "Urasandesu/NAnonym/Collections/CComEqualityComparer.h"
 #endif
 
+#ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMLIST_H
+#include "Urasandesu/NAnonym/Collections/CComList.h"
+#endif
+
 #ifndef URASANDESU_NANONYM_COLLECTIONS_ICOLLECTIONIMPL_H
 #include "Urasandesu/NAnonym/Collections/ICollectionImpl.h"
 #endif
