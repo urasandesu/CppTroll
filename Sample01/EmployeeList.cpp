@@ -1,15 +1,15 @@
-﻿// EmployeeCollection.cpp : CEmployeeCollection の実装
+﻿// EmployeeList.cpp : CEmployeeList の実装
 
 #include "stdafx.h"
-#include "EmployeeCollection.h"
+#include "EmployeeList.h"
 
 #include "Employee.h"
 #include <boost/range/adaptor/transformed.hpp>
 
-// CEmployeeCollection
+// CEmployeeList
 
 
-STDMETHODIMP CEmployeeCollection::Add(IEmployee* pVal)
+STDMETHODIMP CEmployeeList::Add(IEmployee* pVal)
 {
     HRESULT hr;
     CComQIPtr<IEmployee> pEmployee(pVal);
@@ -21,13 +21,13 @@ STDMETHODIMP CEmployeeCollection::Add(IEmployee* pVal)
     return S_OK;
 }
 
-STDMETHODIMP CEmployeeCollection::get_Count(LONG* pVal)
+STDMETHODIMP CEmployeeList::get_Count(LONG* pVal)
 {
     *pVal = m_coll.size();
     return S_OK;
 }
 
-STDMETHODIMP CEmployeeCollection::Item(VARIANT index, IEmployee** ppItem)
+STDMETHODIMP CEmployeeList::Item(VARIANT index, IEmployee** ppItem)
 {
     if (index.vt == VT_I4)
     {
@@ -68,7 +68,7 @@ STDMETHODIMP CEmployeeCollection::Item(VARIANT index, IEmployee** ppItem)
     }
 }
 
-STDMETHODIMP CEmployeeCollection::get__NewEnum(IUnknown** ppVal)
+STDMETHODIMP CEmployeeList::get__NewEnum(IUnknown** ppVal)
 {
     // Let's make a version becoming the employee's ID to +1.
     using namespace std;

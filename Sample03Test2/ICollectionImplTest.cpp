@@ -4,7 +4,7 @@
 #define BOOST_TEST_NO_LIB
 #include <boost/test/unit_test.hpp>
 
-#include <vector>
+#include <list>
 
 #ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMENUMERATOR_H
 #include "Urasandesu/NAnonym/Collections/CComEnumerator.h"
@@ -20,7 +20,7 @@
 
 namespace
 {
-    using std::vector;
+    using std::list;
     using boost::is_same;
     using boost::use_default;
     using Urasandesu::NAnonym::Collections::CComEnumerator;
@@ -30,12 +30,12 @@ namespace
     using Urasandesu::NAnonym::Utilities::GenericCopy;
     
     typedef CAdapt<CComBSTR> AdaptedStr;
-    typedef vector<AdaptedStr> StrVector;
-    typedef CComEnumerator<IEnumVARIANT, VARIANT, StrVector, use_default, use_default, CComObjectSlim> StrVectorEnumerator;
-    typedef CComObjectSlim<StrVectorEnumerator> StrVectorEnumeratorObject;
+    typedef list<AdaptedStr> StrList;
+    typedef CComEnumerator<IEnumVARIANT, VARIANT, StrList, use_default, use_default, CComObjectSlim> StrListEnumerator;
+    typedef CComObjectSlim<StrListEnumerator> StrListEnumeratorObject;
     
     MIDL_INTERFACE("5EC980D6-C48E-4840-B31D-3BB5121326F8")
-    IStrVectorCollection : public IUnknown
+    IStrListCollection : public IUnknown
     {
     public:
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Add( 
@@ -63,29 +63,21 @@ namespace
         virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_IsReadOnly( 
             /* [retval][out] */ VARIANT_BOOL *pVal) = 0;
         
-        virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_Item( 
-            /* [in] */ LONG index,
-            /* [retval][out] */ BSTR *pVal) = 0;
-        
-        virtual /* [helpstring][id][propput] */ HRESULT STDMETHODCALLTYPE put_Item( 
-            /* [in] */ LONG index,
-            /* [in] */ BSTR newVal) = 0;
-        
     };
     
-    typedef ICollectionImpl<IStrVectorCollection, BSTR, StrVector, StrVectorEnumeratorObject> StrVectorCollectionImpl;
-    class ATL_NO_VTABLE CStrVectorCollection;
-    typedef CComObjectSlim<CStrVectorCollection> StrVectorCollectionObject;
+    typedef ICollectionImpl<IStrListCollection, BSTR, StrList, StrListEnumeratorObject> StrListCollectionImpl;
+    class ATL_NO_VTABLE CStrListCollection;
+    typedef CComObjectSlim<CStrListCollection> StrListCollectionObject;
 
-    class ATL_NO_VTABLE CStrVectorCollection : 
+    class ATL_NO_VTABLE CStrListCollection : 
         public CComObjectRootEx<CComSingleThreadModel>,
-        public StrVectorCollectionImpl
+        public StrListCollectionImpl
     {
     public:
-        CStrVectorCollection() { }
+        CStrListCollection() { }
 
-    BEGIN_COM_MAP(CStrVectorCollection)
-        COM_INTERFACE_ENTRY(IStrVectorCollection)
+    BEGIN_COM_MAP(CStrListCollection)
+        COM_INTERFACE_ENTRY(IStrListCollection)
     END_COM_MAP()
 
         DECLARE_PROTECT_FINAL_CONSTRUCT()
@@ -98,49 +90,49 @@ namespace
 
     BOOST_AUTO_TEST_CASE(TypedefTest)
     {
-        typedef IEnumerableImpl<IStrVectorCollection, StrVector, StrVectorEnumeratorObject> StrVectorEnumerableImpl;
-        BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::base_type, StrVectorEnumerableImpl>));
-        BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::type, StrVectorCollectionImpl>));
-        BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::interface_type, IStrVectorCollection>));
-        BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::collection_value_type, CComBSTR>));
+        typedef IEnumerableImpl<IStrListCollection, StrList, StrListEnumeratorObject> StrListEnumerableImpl;
+        BOOST_MPL_ASSERT((is_same<StrListCollectionObject::base_type, StrListEnumerableImpl>));
+        BOOST_MPL_ASSERT((is_same<StrListCollectionObject::type, StrListCollectionImpl>));
+        BOOST_MPL_ASSERT((is_same<StrListCollectionObject::interface_type, IStrListCollection>));
+        BOOST_MPL_ASSERT((is_same<StrListCollectionObject::collection_value_type, CComBSTR>));
         typedef GenericCopy<BSTR, CComBSTR> DefaultCopyItemFromCollection;
-        BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::default_copy_item_from_collection, DefaultCopyItemFromCollection>));
-        BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::copy_item_from_collection, DefaultCopyItemFromCollection>));
+        BOOST_MPL_ASSERT((is_same<StrListCollectionObject::default_copy_item_from_collection, DefaultCopyItemFromCollection>));
+        BOOST_MPL_ASSERT((is_same<StrListCollectionObject::copy_item_from_collection, DefaultCopyItemFromCollection>));
         typedef GenericCopy<CComBSTR, BSTR> DefaultCopyCollectionFromItem;
-        BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::default_copy_collection_from_item, DefaultCopyCollectionFromItem>));
-        BOOST_MPL_ASSERT((is_same<StrVectorCollectionObject::copy_collection_from_item, DefaultCopyCollectionFromItem>));
+        BOOST_MPL_ASSERT((is_same<StrListCollectionObject::default_copy_collection_from_item, DefaultCopyCollectionFromItem>));
+        BOOST_MPL_ASSERT((is_same<StrListCollectionObject::copy_collection_from_item, DefaultCopyCollectionFromItem>));
     }
 
     BOOST_AUTO_TEST_CASE(AddTest)
     {
         HRESULT hr = E_FAIL;
-        StrVectorCollectionObject* pStrVectorCollection = NULL;
-        hr = StrVectorCollectionObject::CreateInstance(&pStrVectorCollection);
+        StrListCollectionObject* pStrListCollection = NULL;
+        hr = StrListCollectionObject::CreateInstance(&pStrListCollection);
         BOOST_REQUIRE(SUCCEEDED(hr));
 
-        CComPtr<IUnknown> pUnkForRelease(pStrVectorCollection);
+        CComPtr<IUnknown> pUnkForRelease(pStrListCollection);
         
-        hr = pStrVectorCollection->Add(L"aiueo");
+        hr = pStrListCollection->Add(L"aiueo");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Add(L"kakikukeko");
+        hr = pStrListCollection->Add(L"kakikukeko");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Add(L"sasisuseso");
+        hr = pStrListCollection->Add(L"sasisuseso");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        StrVectorEnumeratorObject* pStrVectorEnumerator = NULL;
-        hr = pStrVectorCollection->get__NewEnum(reinterpret_cast<IUnknown**>(&pStrVectorEnumerator));
+        StrListEnumeratorObject* pStrListEnumerator = NULL;
+        hr = pStrListCollection->get__NewEnum(reinterpret_cast<IUnknown**>(&pStrListEnumerator));
         BOOST_REQUIRE(SUCCEEDED(hr));
 
         CComPtr<IUnknown> pUnkForRelease2;
-        pUnkForRelease2.Attach(pStrVectorEnumerator);
+        pUnkForRelease2.Attach(pStrListEnumerator);
         
         ULONG celt = 1;
         CComVariant rgelt;
         ULONG celtFetched = 0;
         LONG n = 0;
-        while ((hr = pStrVectorEnumerator->Next(celt, &rgelt, &celtFetched)) == S_OK)
+        while ((hr = pStrListEnumerator->Next(celt, &rgelt, &celtFetched)) == S_OK)
         {
             switch (n++)
             {
@@ -164,36 +156,36 @@ namespace
     BOOST_AUTO_TEST_CASE(ClearTest)
     {
         HRESULT hr = E_FAIL;
-        StrVectorCollectionObject* pStrVectorCollection = NULL;
-        hr = StrVectorCollectionObject::CreateInstance(&pStrVectorCollection);
+        StrListCollectionObject* pStrListCollection = NULL;
+        hr = StrListCollectionObject::CreateInstance(&pStrListCollection);
         BOOST_REQUIRE(SUCCEEDED(hr));
 
-        CComPtr<IUnknown> pUnkForRelease(pStrVectorCollection);
+        CComPtr<IUnknown> pUnkForRelease(pStrListCollection);
         
-        hr = pStrVectorCollection->Add(L"aiueo");
+        hr = pStrListCollection->Add(L"aiueo");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Add(L"kakikukeko");
+        hr = pStrListCollection->Add(L"kakikukeko");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Add(L"sasisuseso");
+        hr = pStrListCollection->Add(L"sasisuseso");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Clear();
+        hr = pStrListCollection->Clear();
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        StrVectorEnumeratorObject* pStrVectorEnumerator = NULL;
-        hr = pStrVectorCollection->get__NewEnum(reinterpret_cast<IUnknown**>(&pStrVectorEnumerator));
+        StrListEnumeratorObject* pStrListEnumerator = NULL;
+        hr = pStrListCollection->get__NewEnum(reinterpret_cast<IUnknown**>(&pStrListEnumerator));
         BOOST_REQUIRE(SUCCEEDED(hr));
 
         CComPtr<IUnknown> pUnkForRelease2;
-        pUnkForRelease2.Attach(pStrVectorEnumerator);
+        pUnkForRelease2.Attach(pStrListEnumerator);
         
         ULONG celt = 1;
         CComVariant rgelt;
         ULONG celtFetched = 0;
         LONG n = 0;
-        while ((hr = pStrVectorEnumerator->Next(celt, &rgelt, &celtFetched)) == S_OK)
+        while ((hr = pStrListEnumerator->Next(celt, &rgelt, &celtFetched)) == S_OK)
         {
             BOOST_REQUIRE(false);
         }
@@ -203,27 +195,27 @@ namespace
     BOOST_AUTO_TEST_CASE(ContainsTest)
     {
         HRESULT hr = E_FAIL;
-        StrVectorCollectionObject* pStrVectorCollection = NULL;
-        hr = StrVectorCollectionObject::CreateInstance(&pStrVectorCollection);
+        StrListCollectionObject* pStrListCollection = NULL;
+        hr = StrListCollectionObject::CreateInstance(&pStrListCollection);
         BOOST_REQUIRE(SUCCEEDED(hr));
 
-        CComPtr<IUnknown> pUnkForRelease(pStrVectorCollection);
+        CComPtr<IUnknown> pUnkForRelease(pStrListCollection);
         
-        hr = pStrVectorCollection->Add(L"aiueo");
+        hr = pStrListCollection->Add(L"aiueo");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Add(L"kakikukeko");
+        hr = pStrListCollection->Add(L"kakikukeko");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Add(L"sasisuseso");
+        hr = pStrListCollection->Add(L"sasisuseso");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
         VARIANT_BOOL exists = VARIANT_FALSE;
-        hr = pStrVectorCollection->Contains(L"kakikukeko", &exists);
+        hr = pStrListCollection->Contains(L"kakikukeko", &exists);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(exists == VARIANT_TRUE);
         
-        hr = pStrVectorCollection->Contains(L"tatituteto", &exists);
+        hr = pStrListCollection->Contains(L"tatituteto", &exists);
         BOOST_REQUIRE(SUCCEEDED(hr));
         BOOST_REQUIRE(exists == VARIANT_FALSE);
     }
@@ -231,23 +223,23 @@ namespace
     BOOST_AUTO_TEST_CASE(CopyToTest)
     {
         HRESULT hr = E_FAIL;
-        StrVectorCollectionObject* pStrVectorCollection = NULL;
-        hr = StrVectorCollectionObject::CreateInstance(&pStrVectorCollection);
+        StrListCollectionObject* pStrListCollection = NULL;
+        hr = StrListCollectionObject::CreateInstance(&pStrListCollection);
         BOOST_REQUIRE(SUCCEEDED(hr));
 
-        CComPtr<IUnknown> pUnkForRelease(pStrVectorCollection);
+        CComPtr<IUnknown> pUnkForRelease(pStrListCollection);
         
-        hr = pStrVectorCollection->Add(L"aiueo");
+        hr = pStrListCollection->Add(L"aiueo");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Add(L"kakikukeko");
+        hr = pStrListCollection->Add(L"kakikukeko");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Add(L"sasisuseso");
+        hr = pStrListCollection->Add(L"sasisuseso");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
         CComSafeArray<BSTR> arr(4);
-        hr = pStrVectorCollection->CopyTo(arr.m_psa, 1);
+        hr = pStrListCollection->CopyTo(arr.m_psa, 1);
         BOOST_REQUIRE(SUCCEEDED(hr));
         
         BOOST_REQUIRE(CComBSTR(arr[0]) == NULL);
@@ -259,36 +251,36 @@ namespace
     BOOST_AUTO_TEST_CASE(RemoveTest)
     {
         HRESULT hr = E_FAIL;
-        StrVectorCollectionObject* pStrVectorCollection = NULL;
-        hr = StrVectorCollectionObject::CreateInstance(&pStrVectorCollection);
+        StrListCollectionObject* pStrListCollection = NULL;
+        hr = StrListCollectionObject::CreateInstance(&pStrListCollection);
         BOOST_REQUIRE(SUCCEEDED(hr));
 
-        CComPtr<IUnknown> pUnkForRelease(pStrVectorCollection);
+        CComPtr<IUnknown> pUnkForRelease(pStrListCollection);
         
-        hr = pStrVectorCollection->Add(L"aiueo");
+        hr = pStrListCollection->Add(L"aiueo");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Add(L"kakikukeko");
+        hr = pStrListCollection->Add(L"kakikukeko");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Add(L"sasisuseso");
+        hr = pStrListCollection->Add(L"sasisuseso");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Remove(L"kakikukeko");
+        hr = pStrListCollection->Remove(L"kakikukeko");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        StrVectorEnumeratorObject* pStrVectorEnumerator = NULL;
-        hr = pStrVectorCollection->get__NewEnum(reinterpret_cast<IUnknown**>(&pStrVectorEnumerator));
+        StrListEnumeratorObject* pStrListEnumerator = NULL;
+        hr = pStrListCollection->get__NewEnum(reinterpret_cast<IUnknown**>(&pStrListEnumerator));
         BOOST_REQUIRE(SUCCEEDED(hr));
 
         CComPtr<IUnknown> pUnkForRelease2;
-        pUnkForRelease2.Attach(pStrVectorEnumerator);
+        pUnkForRelease2.Attach(pStrListEnumerator);
         
         ULONG celt = 1;
         CComVariant rgelt;
         ULONG celtFetched = 0;
         LONG n = 0;
-        while ((hr = pStrVectorEnumerator->Next(celt, &rgelt, &celtFetched)) == S_OK)
+        while ((hr = pStrListEnumerator->Next(celt, &rgelt, &celtFetched)) == S_OK)
         {
             switch (n++)
             {
@@ -309,23 +301,23 @@ namespace
     BOOST_AUTO_TEST_CASE(CountTest)
     {
         HRESULT hr = E_FAIL;
-        StrVectorCollectionObject* pStrVectorCollection = NULL;
-        hr = StrVectorCollectionObject::CreateInstance(&pStrVectorCollection);
+        StrListCollectionObject* pStrListCollection = NULL;
+        hr = StrListCollectionObject::CreateInstance(&pStrListCollection);
         BOOST_REQUIRE(SUCCEEDED(hr));
 
-        CComPtr<IUnknown> pUnkForRelease(pStrVectorCollection);
+        CComPtr<IUnknown> pUnkForRelease(pStrListCollection);
         
-        hr = pStrVectorCollection->Add(L"aiueo");
+        hr = pStrListCollection->Add(L"aiueo");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Add(L"kakikukeko");
+        hr = pStrListCollection->Add(L"kakikukeko");
         BOOST_REQUIRE(SUCCEEDED(hr));
         
-        hr = pStrVectorCollection->Add(L"sasisuseso");
+        hr = pStrListCollection->Add(L"sasisuseso");
         BOOST_REQUIRE(SUCCEEDED(hr));
 
         LONG count = 0;
-        hr = pStrVectorCollection->get_Count(&count);        
+        hr = pStrListCollection->get_Count(&count);        
         BOOST_REQUIRE(SUCCEEDED(hr));
 
         BOOST_REQUIRE(count == 3);
@@ -334,14 +326,14 @@ namespace
     BOOST_AUTO_TEST_CASE(IsReadOnlyTest)
     {
         HRESULT hr = E_FAIL;
-        StrVectorCollectionObject* pStrVectorCollection = NULL;
-        hr = StrVectorCollectionObject::CreateInstance(&pStrVectorCollection);
+        StrListCollectionObject* pStrListCollection = NULL;
+        hr = StrListCollectionObject::CreateInstance(&pStrListCollection);
         BOOST_REQUIRE(SUCCEEDED(hr));
 
-        CComPtr<IUnknown> pUnkForRelease(pStrVectorCollection);
+        CComPtr<IUnknown> pUnkForRelease(pStrListCollection);
 
         VARIANT_BOOL isReadOnly = VARIANT_FALSE;
-        hr = pStrVectorCollection->get_IsReadOnly(&isReadOnly);
+        hr = pStrListCollection->get_IsReadOnly(&isReadOnly);
         BOOST_REQUIRE(SUCCEEDED(hr));
         
         BOOST_REQUIRE(isReadOnly == VARIANT_FALSE);

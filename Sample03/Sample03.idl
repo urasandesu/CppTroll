@@ -46,8 +46,6 @@ interface IStrVectorCollection : IDispatch{
     [id(5), helpstring("メソッド Remove")] HRESULT Remove([in] BSTR item);
     [propget, id(6), helpstring("プロパティ Count")] HRESULT Count([out, retval] LONG* pVal);
     [propget, id(7), helpstring("プロパティ IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
-    [propget, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [out, retval] BSTR* pVal);
-    [propput, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [in] BSTR newVal);
 };
 [
 	object,
@@ -66,8 +64,6 @@ interface IIntDequeCollection : IDispatch{
     [id(5), helpstring("メソッド Remove")] HRESULT Remove([in] INT item);
     [propget, id(6), helpstring("プロパティ Count")] HRESULT Count([out, retval] LONG* pVal);
     [propget, id(7), helpstring("プロパティ IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
-    [propget, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [out, retval] INT* pVal);
-    [propput, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [in] INT newVal);
 };
 [
 	object,
@@ -86,8 +82,6 @@ interface IUnkVectorCollection : IDispatch{
     [id(5), helpstring("メソッド Remove")] HRESULT Remove([in] IUnknown* item);
     [propget, id(6), helpstring("プロパティ Count")] HRESULT Count([out, retval] LONG* pVal);
     [propget, id(7), helpstring("プロパティ IsReadOnly")] HRESULT IsReadOnly([out, retval] VARIANT_BOOL* pVal);
-    [propget, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [out, retval] IUnknown** pVal);
-    [propput, id(DISPID_VALUE), helpstring("プロパティ Item")] HRESULT Item([in] LONG index, [in] IUnknown* newVal);
 };
 [
 	object,

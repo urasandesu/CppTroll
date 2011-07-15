@@ -26,10 +26,10 @@ interface IEmployee : IDispatch{
 	uuid(45C6C575-91C4-4DB3-8B0D-74BDDDF7D3B4),
 	dual,
 	nonextensible,
-	helpstring("IEmployeeCollection インターフェイス"),
+	helpstring("IEmployeeList インターフェイス"),
 	pointer_default(unique)
 ]
-interface IEmployeeCollection : IDispatch{
+interface IEmployeeList : IDispatch{
     [id(1), helpstring("メソッド Add")] HRESULT Add([in] IEmployee* pVal);
     [propget, id(2), helpstring("プロパティ Count")] HRESULT Count([out, retval] LONG* pVal);
     [id(DISPID_VALUE), helpstring("メソッド Item")] HRESULT Item([in] VARIANT index, [out,retval] IEmployee** ppItem);
@@ -53,10 +53,10 @@ library Sample01Lib
 	};
 	[
 		uuid(DA02B766-1C6A-4399-902B-B6B2747528C1),
-		helpstring("EmployeeCollection Class")
+		helpstring("EmployeeList Class")
 	]
-	coclass EmployeeCollection
+	coclass EmployeeList
 	{
-		[default] interface IEmployeeCollection;
+		[default] interface IEmployeeList;
 	};
 };

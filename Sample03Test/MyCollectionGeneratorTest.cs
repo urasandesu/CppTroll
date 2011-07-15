@@ -95,26 +95,6 @@ namespace Sample03Test
 
             Assert.AreEqual(2, svc.Count);
             Assert.IsFalse(svc.IsReadOnly);
-            Assert.AreEqual("rarirurero", svc[1]);
-            try
-            {
-                Console.WriteLine("Item[2]: {0}", svc[2]);
-                Assert.Fail("The throwing an exception is expected but it was not.");
-            }
-            catch (ArgumentException)
-            {
-            }
-
-            svc[1] = "gagigugego";
-            Assert.AreEqual("gagigugego", svc[1]);
-            try
-            {
-                svc[2] = "naninuneno";
-                Assert.Fail("The throwing an exception is expected but it was not.");
-            }
-            catch (ArgumentException)
-            {
-            }
         }
 
         [Test]
@@ -202,26 +182,6 @@ namespace Sample03Test
 
             Assert.AreEqual(2, idc.Count);
             Assert.IsFalse(idc.IsReadOnly);
-            Assert.AreEqual(6, idc[1]);
-            try
-            {
-                Console.WriteLine("Item[2]: {0}", idc[2]);
-                Assert.Fail("The throwing an exception is expected but it was not.");
-            }
-            catch (ArgumentException)
-            {
-            }
-
-            idc[1] = 10;
-            Assert.AreEqual(10, idc[1]);
-            try
-            {
-                idc[2] = 20;
-                Assert.Fail("The throwing an exception is expected but it was not.");
-            }
-            catch (ArgumentException)
-            {
-            }
         }
 
         [Test]
@@ -311,26 +271,6 @@ namespace Sample03Test
 
             Assert.AreEqual(2, idc.Count);
             Assert.IsFalse(idc.IsReadOnly);
-            Assert.AreEqual("6", idc[1].ToString());
-            try
-            {
-                Console.WriteLine("Item[2]: {0}", idc[2]);
-                Assert.Fail("The throwing an exception is expected but it was not.");
-            }
-            catch (ArgumentException)
-            {
-            }
-
-            idc[1] = new A() { Value = 10 };
-            Assert.AreEqual("10", idc[1].ToString());
-            try
-            {
-                idc[2] = new A() { Value = 20 };
-                Assert.Fail("The throwing an exception is expected but it was not.");
-            }
-            catch (ArgumentException)
-            {
-            }
         }
 
         class A

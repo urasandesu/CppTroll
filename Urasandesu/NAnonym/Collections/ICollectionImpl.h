@@ -39,7 +39,7 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
         public IEnumerableImpl<Base, CollectionType, ComEnumeratorObject>
     {
         BOOST_CONCEPT_ASSERT((ComCollection<Base, ItemType>));
-        BOOST_CONCEPT_ASSERT((Mutable_RandomAccessContainer<CollectionType>));
+        BOOST_CONCEPT_ASSERT((Mutable_ForwardContainer<CollectionType>));
         BOOST_CONCEPT_ASSERT((Sequence<CollectionType>));
         
     public:
@@ -155,32 +155,6 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
             *pVal = VARIANT_FALSE;
             return S_OK;
         }
-
-        STDMETHOD(get_Item)(LONG index, ItemType* pVal)
-        {
-            if (index < 0 || m_container.size() <= static_cast<ULONG>(index)) return E_INVALIDARG;
-
-            collection_value_type& value = m_container[index];
-            return copy_item_from_collection::copy(pVal, addressof(value));
-        }
-
-        STDMETHOD(put_Item)(LONG index, ItemType newVal)
-        {
-            if (index < 0 || m_container.size() <= static_cast<ULONG>(index)) return E_INVALIDARG;
-
-            HRESULT hr = E_FAIL;
-            collection_value_type value;
-            copy_collection_from_item::init(addressof(value));
-            hr = copy_collection_from_item::copy(addressof(value), addressof(newVal));
-            if (FAILED(hr)) return hr;
-
-            m_container[index] = value;
-            return S_OK;
-        }
-
-    private:
-
-
     };  // class ATL_NO_VTABLE ICollectionImpl
 
 }}}   // namespace Urasandesu { namespace NAnonym { namespace Collections {

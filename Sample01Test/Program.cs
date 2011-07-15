@@ -10,7 +10,7 @@ namespace Sample01Test
     {
         static void Main(string[] args)
         {
-            var employees = new EmployeeCollection();
+            var employees = new EmployeeList();
 
             var employee = default(Employee);
             employee = new Employee();

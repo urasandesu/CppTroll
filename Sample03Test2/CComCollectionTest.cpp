@@ -4,7 +4,7 @@
 #define BOOST_TEST_NO_LIB
 #include <boost/test/unit_test.hpp>
 
-#include <vector>
+#include <list>
 
 #ifndef URASANDESU_NANONYM_COLLECTIONS_CCOMENUMERATOR_H
 #include "Urasandesu/NAnonym/Collections/CComEnumerator.h"
@@ -20,20 +20,20 @@
 
 namespace
 {
-    using std::vector;
+    using std::list;
     using boost::use_default;
     using Urasandesu::NAnonym::Collections::CComEnumerator;
     using Urasandesu::NAnonym::Collections::CComCollection;
     using Urasandesu::NAnonym::Utilities::CComObjectSlim;
 
     typedef CAdapt<CComBSTR> AdaptedStr;
-    typedef vector<AdaptedStr> StrVector;
-    typedef CComEnumerator<IEnumVARIANT, VARIANT, StrVector, use_default, use_default, CComObjectSlim> StrVectorEnumerator;
-    typedef CComObjectSlim<StrVectorEnumerator> StrVectorEnumeratorObject;
+    typedef list<AdaptedStr> StrList;
+    typedef CComEnumerator<IEnumVARIANT, VARIANT, StrList, use_default, use_default, CComObjectSlim> StrListEnumerator;
+    typedef CComObjectSlim<StrListEnumerator> StrListEnumeratorObject;
 
     // NOTE: Give a interface declaration IN COM SERVER to CComCollection. 
     MIDL_INTERFACE("5EC980D6-C48E-4840-B31D-3BB5121326F9")
-    IStrVectorCollection : public IDispatch
+    IStrListCollection : public IDispatch
     {
     public:
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Add( 
@@ -59,31 +59,22 @@ namespace
             /* [retval][out] */ LONG *pVal) = 0;
         
         virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_IsReadOnly( 
-            /* [retval][out] */ VARIANT_BOOL *pVal) = 0;
-        
-        virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_Item( 
-            /* [in] */ LONG index,
-            /* [retval][out] */ BSTR *pVal) = 0;
-        
-        virtual /* [helpstring][id][propput] */ HRESULT STDMETHODCALLTYPE put_Item( 
-            /* [in] */ LONG index,
-            /* [in] */ BSTR newVal) = 0;
-        
+            /* [retval][out] */ VARIANT_BOOL *pVal) = 0;        
     };
 
-    typedef CComCollection<IStrVectorCollection, BSTR, StrVector, StrVectorEnumeratorObject> StrVectorCollection;
-    typedef CComObjectSlim<StrVectorCollection> StrVectorCollectionObject;
+    typedef CComCollection<IStrListCollection, BSTR, StrList, StrListEnumeratorObject> StrListCollection;
+    typedef CComObjectSlim<StrListCollection> StrListCollectionObject;
 
     BOOST_AUTO_TEST_SUITE(CComCollectionTestSuite)
 
     BOOST_AUTO_TEST_CASE(CComCollectionTest)
     {
         HRESULT hr = E_FAIL;
-        StrVectorCollectionObject* pStrVectorCollection = NULL;
-        hr = StrVectorCollectionObject::CreateInstance(&pStrVectorCollection);
+        StrListCollectionObject* pStrListCollection = NULL;
+        hr = StrListCollectionObject::CreateInstance(&pStrListCollection);
         BOOST_REQUIRE(SUCCEEDED(hr));
 
-        CComPtr<IUnknown> pUnkForRelease(pStrVectorCollection);
+        CComPtr<IUnknown> pUnkForRelease(pStrListCollection);
     }
 
     BOOST_AUTO_TEST_SUITE_END()

@@ -14,6 +14,7 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
 
     using boost::any_range_type_generator;
     using boost::is_convertible;
+    using boost::Mutable_ForwardContainer;
     using boost::Mutable_RandomAccessContainer;
     using boost::range_iterator;
     using boost::Sequence;

@@ -99,7 +99,7 @@ END
 
 IDR_SAMPLE01            REGISTRY                "Sample01.rgs"
 IDR_EMPLOYEE            REGISTRY                "Employee.rgs"
-IDR_EMPLOYEECOLLECTION  REGISTRY                "EmployeeCollection.rgs"
+IDR_EMPLOYEECOLLECTION  REGISTRY                "EmployeeList.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //
