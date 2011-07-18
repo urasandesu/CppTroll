@@ -1,4 +1,4 @@
-ï»¿// dllmain.cpp : DllMain ã®å®Ÿè£…
+// dllmain.cpp : DllMain ‚ÌÀ‘•
 
 #include "stdafx.h"
 #include "resource.h"
@@ -7,9 +7,9 @@
 
 CMetaDataApiSample01Module _AtlModule;
 
-// DLL ã‚¨ãƒ³ãƒˆãƒª ãƒã‚¤ãƒ³ãƒˆ
+// DLL ƒGƒ“ƒgƒŠ ƒ|ƒCƒ“ƒg
 extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 {
-    hInstance;
-    return _AtlModule.DllMain(dwReason, lpReserved); 
+	hInstance;
+	return _AtlModule.DllMain(dwReason, lpReserved); 
 }

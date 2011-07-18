@@ -3,8 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="MetaDataApiSample01"
-	ProjectGUID="{1EF41214-49FF-439A-9C2D-6979B20FD4C7}"
-	RootNamespace="MetaDataApiSample01"
+	ProjectGUID="{51E24B9A-B5FB-4C33-A0B7-6BD854F202CF}"
 	Keyword="AtlProj"
 	TargetFrameworkVersion="196613"
 	>
@@ -204,18 +203,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\AppDomainGen.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\AssemblyGen.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\AssemblyGenCollection.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\dllmain.cpp"
 				>
 				<FileConfiguration
@@ -276,18 +263,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\AppDomainGen.h"
-				>
-			</File>
-			<File
-				RelativePath=".\AssemblyGen.h"
-				>
-			</File>
-			<File
-				RelativePath=".\AssemblyGenCollection.h"
-				>
-			</File>
-			<File
 				RelativePath=".\dllmain.h"
 				>
 			</File>
@@ -309,18 +284,6 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
-			<File
-				RelativePath=".\AppDomainGen.rgs"
-				>
-			</File>
-			<File
-				RelativePath=".\AssemblyGen.rgs"
-				>
-			</File>
-			<File
-				RelativePath=".\AssemblyGenCollection.rgs"
-				>
-			</File>
 			<File
 				RelativePath=".\MetaDataApiSample01.rc"
 				>

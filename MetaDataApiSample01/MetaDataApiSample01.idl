@@ -1,72 +1,18 @@
-ï»¿// MetaDataApiSample01.idl : MetaDataApiSample01 ã® IDL ã‚½ãƒ¼ã‚¹
+// MetaDataApiSample01.idl : MetaDataApiSample01 ‚Ì IDL ƒ\[ƒX
 //
 
-// ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª (MetaDataApiSample01.tlb) ãŠã‚ˆã³ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚° ã‚³ãƒ¼ãƒ‰ã‚’
-// ä½œæˆã™ã‚‹ãŸã‚ã« MIDL ãƒ„ãƒ¼ãƒ«ã«ã‚ˆã£ã¦å‡¦ç†ã•ã‚Œã¾ã™ã€‚
+// ‚±‚Ìƒtƒ@ƒCƒ‹‚ÍAƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ (MetaDataApiSample01.tlb) ‚¨‚æ‚Ñƒ}[ƒVƒƒƒŠƒ“ƒO ƒR[ƒh‚ğ
+// ì¬‚·‚é‚½‚ß‚É MIDL ƒc[ƒ‹‚É‚æ‚Á‚Äˆ—‚³‚ê‚Ü‚·B
 
 import "oaidl.idl";
 import "ocidl.idl";
 
 [
-	object,
-	uuid(CB372775-EF3B-4D44-B033-CC6638C3AB55),
-	dual,
-	nonextensible,
-	helpstring("IAppDomainGen ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
-	pointer_default(unique)
-]
-interface IAppDomainGen : IDispatch{
-};
-[
-	object,
-	uuid(940B2252-DB28-414D-A615-49F7E7B1EFD0),
-	dual,
-	nonextensible,
-	helpstring("IAssemblyGen ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
-	pointer_default(unique)
-]
-interface IAssemblyGen : IDispatch{
-};
-[
-	object,
-	uuid(8DC18C9B-60C7-415C-AD30-2B09E56654DB),
-	dual,
-	nonextensible,
-	helpstring("IAssemblyGenCollection ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
-	pointer_default(unique)
-]
-interface IAssemblyGenCollection : IDispatch{
-};
-[
-	uuid(300EAE93-937E-4B29-A02A-29FB75328EC4),
+	uuid(9EF23A67-76B5-4822-8C3C-56C95DC984AF),
 	version(1.0),
-	helpstring("MetaDataApiSample01 1.0 ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª")
+	helpstring("MetaDataApiSample01 1.0 ƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ")
 ]
 library MetaDataApiSample01Lib
 {
 	importlib("stdole2.tlb");
-	[
-		uuid(965DB760-A27B-4592-8A32-23F4E22EB167),
-		helpstring("AppDomainGen Class")
-	]
-	coclass AppDomainGen
-	{
-		[default] interface IAppDomainGen;
-	};
-	[
-		uuid(6D2E93D6-6364-4FA7-90CF-E7861E875D9F),
-		helpstring("AssemblyGen Class")
-	]
-	coclass AssemblyGen
-	{
-		[default] interface IAssemblyGen;
-	};
-	[
-		uuid(FA217239-6436-4D05-80AA-CFAB4A86A16F),
-		helpstring("AssemblyGenCollection Class")
-	]
-	coclass AssemblyGenCollection
-	{
-		[default] interface IAssemblyGenCollection;
-	};
 };
