@@ -1,0 +1,18 @@
+// ProfilingApiSample01.idl : ProfilingApiSample01 の IDL ソース
+//
+
+// このファイルは、タイプ ライブラリ (ProfilingApiSample01.tlb) およびマーシャリング コードを
+// 作成するために MIDL ツールによって処理されます。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(27AD8864-4640-4757-BA89-AE75C3614EAF),
+	version(1.0),
+	helpstring("ProfilingApiSample01 1.0 タイプ ライブラリ")
+]
+library ProfilingApiSample01Lib
+{
+	importlib("stdole2.tlb");
+};
