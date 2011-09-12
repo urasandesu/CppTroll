@@ -17,3 +17,18 @@
 #include <atlstr.h>
 
 // TODO: プログラムに必要な追加ヘッダーをここで参照してください。
+#import "libid:9EF23A67-76B5-4822-8C3C-56C95DC984AF" version("1.0") no_namespace // MetaDataApiSample01 1.0 タイプ ライブラリ
+
+#include <iostream>
+#include <boost/scope_exit.hpp>
+#include <mscoree.h>
+#include <string>
+#include <boost/filesystem.hpp>
+#include <cor.h>
+#include <corhdr.h>
+#include <memory>
+#include <iomanip>
+#include <ICeeFileGen.h>
+#include <vector>
+#include <corhlpr.h>
+#include <corhlpr.cpp>

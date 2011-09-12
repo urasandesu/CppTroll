@@ -1,0 +1,26 @@
+HKCR
+{
+	MetaDataApiSample01.ExeCreator.1 = s 'ExeCreator Class'
+	{
+		CLSID = s '{568782B7-5428-4E73-B385-24F37DC0579B}'
+	}
+	MetaDataApiSample01.ExeCreator = s 'ExeCreator Class'
+	{
+		CLSID = s '{568782B7-5428-4E73-B385-24F37DC0579B}'
+		CurVer = s 'MetaDataApiSample01.ExeCreator.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {568782B7-5428-4E73-B385-24F37DC0579B} = s 'ExeCreator Class'
+		{
+			ProgID = s 'MetaDataApiSample01.ExeCreator.1'
+			VersionIndependentProgID = s 'MetaDataApiSample01.ExeCreator'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{9EF23A67-76B5-4822-8C3C-56C95DC984AF}'
+		}
+	}
+}

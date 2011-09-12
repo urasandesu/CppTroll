@@ -63,7 +63,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="&quot;C:\Program Files\Microsoft SDKs\Windows\v6.0A\Lib\mscoree.lib&quot;"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="C:\boost_1_47_0\stage\lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"

@@ -54,6 +54,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MetaDataApiSample01PS", "Me
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MetaDataApiSample01Test", "MetaDataApiSample01Test\MetaDataApiSample01Test.vcproj", "{A3378A50-10B9-4FEF-A76C-4B750FFBB076}"
+	ProjectSection(ProjectDependencies) = postProject
+		{51E24B9A-B5FB-4C33-A0B7-6BD854F202CF} = {51E24B9A-B5FB-4C33-A0B7-6BD854F202CF}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProfilingApiSample01", "ProfilingApiSample01\ProfilingApiSample01.vcproj", "{34C61D32-8232-4AD1-BC3F-3B0601282436}"
 EndProject

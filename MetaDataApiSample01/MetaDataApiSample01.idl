@@ -8,6 +8,17 @@ import "oaidl.idl";
 import "ocidl.idl";
 
 [
+	object,
+	uuid(CF2C53DD-B374-4B9A-99A8-704D2A7DFA27),
+	dual,
+	nonextensible,
+	helpstring("IExeCreator インターフェイス"),
+	pointer_default(unique)
+]
+interface IExeCreator : IDispatch{
+    [id(1), helpstring("メソッド Create")] HRESULT Create([in] BSTR fileName);
+};
+[
 	uuid(9EF23A67-76B5-4822-8C3C-56C95DC984AF),
 	version(1.0),
 	helpstring("MetaDataApiSample01 1.0 タイプ ライブラリ")
@@ -15,4 +26,12 @@ import "ocidl.idl";
 library MetaDataApiSample01Lib
 {
 	importlib("stdole2.tlb");
+	[
+		uuid(568782B7-5428-4E73-B385-24F37DC0579B),
+		helpstring("ExeCreator Class")
+	]
+	coclass ExeCreator
+	{
+		[default] interface IExeCreator;
+	};
 };

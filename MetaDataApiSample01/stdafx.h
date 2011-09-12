@@ -21,3 +21,22 @@
 #include <atlctl.h>
 
 using namespace ATL;
+
+#include <io.h>
+#include <iostream>
+#include <boost/scope_exit.hpp>
+#include <boost/exception/all.hpp>
+#include <string>
+#include <boost/system/windows_error.hpp>
+#include <mscoree.h>
+#include <boost/filesystem.hpp>
+#include <cor.h>
+#include <corhdr.h>
+#include <iomanip>
+#include <ICeeFileGen.h>
+#include <comdef.h>
+#include <memory>
+#include <StrongName.h>
+#include <corhlpr.h>
+#include <boost/type_traits.hpp>
+#include <boost/mpl/assert.hpp>
