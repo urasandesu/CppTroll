@@ -289,6 +289,46 @@
 				RelativePath=".\targetver.h"
 				>
 			</File>
+			<Filter
+				Name="Urasandesu"
+				>
+				<File
+					RelativePath=".\Urasandesu\NAnonym.h"
+					>
+				</File>
+				<Filter
+					Name="NAnonym"
+					>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\MetaData.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\NAnonymDependsOn.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\SimpleBlob.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\SystemError.h"
+						>
+					</File>
+					<Filter
+						Name="MetaData"
+						>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\MetaDataDependsOn.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\OpCodes.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="リソース ファイル"
@@ -339,10 +379,6 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\ReadMe.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

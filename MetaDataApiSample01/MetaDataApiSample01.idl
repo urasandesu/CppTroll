@@ -1,8 +1,8 @@
-// MetaDataApiSample01.idl : MetaDataApiSample01 ‚Ì IDL ƒ\[ƒX
+ï»¿// MetaDataApiSample01.idl : MetaDataApiSample01 ã® IDL ã‚½ãƒ¼ã‚¹
 //
 
-// ‚±‚Ìƒtƒ@ƒCƒ‹‚ÍAƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ (MetaDataApiSample01.tlb) ‚¨‚æ‚Ñƒ}[ƒVƒƒƒŠƒ“ƒO ƒR[ƒh‚ğ
-// ì¬‚·‚é‚½‚ß‚É MIDL ƒc[ƒ‹‚É‚æ‚Á‚Äˆ—‚³‚ê‚Ü‚·B
+// ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª (MetaDataApiSample01.tlb) ãŠã‚ˆã³ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚° ã‚³ãƒ¼ãƒ‰ã‚’
+// ä½œæˆã™ã‚‹ãŸã‚ã« MIDL ãƒ„ãƒ¼ãƒ«ã«ã‚ˆã£ã¦å‡¦ç†ã•ã‚Œã¾ã™ã€‚
 
 import "oaidl.idl";
 import "ocidl.idl";
@@ -12,16 +12,16 @@ import "ocidl.idl";
 	uuid(CF2C53DD-B374-4B9A-99A8-704D2A7DFA27),
 	dual,
 	nonextensible,
-	helpstring("IExeCreator ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IExeCreator ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IExeCreator : IDispatch{
-    [id(1), helpstring("ƒƒ\ƒbƒh Create")] HRESULT Create([in] BSTR fileName);
+    [id(1), helpstring("ãƒ¡ã‚½ãƒƒãƒ‰ Create")] HRESULT Create([in] BSTR fileName);
 };
 [
 	uuid(9EF23A67-76B5-4822-8C3C-56C95DC984AF),
 	version(1.0),
-	helpstring("MetaDataApiSample01 1.0 ƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ")
+	helpstring("MetaDataApiSample01 1.0 ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª")
 ]
 library MetaDataApiSample01Lib
 {

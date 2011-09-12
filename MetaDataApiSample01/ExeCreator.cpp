@@ -1,152 +1,34 @@
-// ExeCreator.cpp : CExeCreator ÇÃé¿ëï
+Ôªø// ExeCreator.cpp : CExeCreator „ÅÆÂÆüË£Ö
 
 #include "stdafx.h"
 #include "ExeCreator.h"
 
 // CExeCreator
 
-namespace OpCodes {
 
-    enum Types_ {
-        #define OPDEF(canonicalName, stringName, stackBehaviour0, stackBehaviour1, \
-                      operandParams, opcodeKind, length, byte1, byte2, controlFlow) \
-                      canonicalName,
-        #include "opcode.def"
-        #undef  OPDEF
-        CEE_COUNT,
-        CEE_UNREACHED
-    };
-    
-    struct CEncoding {
-        BYTE byte1;
-        BYTE byte2;
-    };
-
-    CEncoding const Encodings[] = {
-        #define OPDEF(canonicalName, stringName, stackBehaviour0, stackBehaviour1, \
-                      operandParams, opcodeKind, length, byte1, byte2, controlFlow) \
-                      { byte1, byte2 },
-        #include "opcode.def"
-        #undef  OPDEF
-        { 0, 0 },
-        { 0, 0 }
-    };
-
-}   // namespace OpCodes_
-
-
-namespace Urasandesu { namespace NAnonym {
-    
-    using boost::enable_if;
-    using boost::system::error_category;
-    using boost::system::error_code;
-    using boost::system::is_error_code_enum;
-    
-    class CSystemError : public error_code
-    {
-    public:
-        CSystemError() : error_code() { }
-        CSystemError(int val, const error_category& cat)
-            : error_code(val, cat), 
-              m_bstrMessage(CComBSTR(category().message(value()).data()))
-        { 
-        }
-
-        template <class ErrorCodeEnum>
-        CSystemError(ErrorCodeEnum e, 
-                     typename enable_if<is_error_code_enum<ErrorCodeEnum>>::type* = 0)
-        {
-            using namespace boost::system::errc;
-            *this = make_error_code(e);
-        }
-        
-        CComBSTR GetBSTRMessage() const { return m_bstrMessage; }
-
-    private:
-        CComBSTR m_bstrMessage;
-    };
-    
-    
-    class CSimpleBlob
-    {
-        typedef CQuickArray<BYTE> ByteArray;        
-
-        ByteArray m_buffer;
-        BYTE *m_pCurrent;
-
-    public:
-        CSimpleBlob() : m_pCurrent(m_buffer.Ptr()) { }
-
-        template<class T>
-        HRESULT Put(T val)
-        {
-            using namespace boost;            
-            using namespace boost::mpl;
-            
-            BOOST_MPL_ASSERT((or_<is_arithmetic<T>, is_pod<T>>));
-
-            return Put(&val, sizeof(T));
-        }
-        
-        HRESULT Put(void const *p, SIZE_T size)
-        {
-            _ASSERT(0 <= size);
-            HRESULT hr = m_buffer.ReSizeNoThrow(m_buffer.Size() + size);
-            if (FAILED(hr))
-                return hr;
-            ::memcpy_s(m_pCurrent, size, p, size);
-            m_pCurrent += size;
-            return S_OK;
-        }
-        
-        BYTE *Ptr()
-        {
-            return m_buffer.Ptr();
-        }
-        
-        BYTE const *Ptr() const
-        {
-            return m_buffer.Ptr();
-        }
-        
-        SIZE_T Size() const
-        { 
-            return m_buffer.Size();
-        }
-
-        SIZE_T MaxSize() const
-        { 
-            return m_buffer.MaxSize();
-        }
-
-        BYTE& operator[] (SIZE_T ix)
-        { 
-            return m_buffer[ix];
-        }
-
-        const BYTE& operator[] (SIZE_T ix) const
-        { 
-            return m_buffer[ix];
-        }
-    };
-    
-}}  // namespace Urasandesu { namespace NAnonym {
-
-// TODO: ÉtÉ@ÉCÉãÉpÉXÅAçsî‘çÜÇ»Ç«ÇÉ}ÉNÉçÇ≈èoóÕÇ≈Ç´ÇÈÇÊÇ§ägí£Ç∑ÇÈÅB
-HRESULT CExeCreator::SystemError(DWORD errorNo)
+HRESULT CExeCreator::SystemError(DWORD errorNo, LPCSTR filePath, INT line)
 {
-    using Urasandesu::NAnonym::CSystemError;
     using boost::system::system_category;
+    using std::wostringstream;
+    using Urasandesu::NAnonym::SystemError;
 
-    return Error(CSystemError(errorNo, system_category()).GetBSTRMessage());
+    wostringstream msg;
+    msg << SystemError(errorNo, system_category()).GetBSTRMessage().m_str;
+    msg << ", File: " << filePath;
+    msg << ", Line: " << line;
+    return Error(msg.str().c_str());
 }
 
-// TODO: ÉtÉ@ÉCÉãÉpÉXÅAçsî‘çÜÇ»Ç«ÇÉ}ÉNÉçÇ≈èoóÕÇ≈Ç´ÇÈÇÊÇ§ägí£Ç∑ÇÈÅB
-HRESULT CExeCreator::COMError(HRESULT hr)
+HRESULT CExeCreator::COMError(HRESULT hr, LPCSTR filePath, INT line)
 {
-    return Error(_com_error(hr).ErrorMessage());
-}
+    using std::wostringstream;
 
+    wostringstream msg;
+    msg << _com_error(hr).ErrorMessage();
+    msg << ", File: " << filePath;
+    msg << ", Line: " << line;
+    return Error(msg.str().c_str());
+}
 
 STDMETHODIMP CExeCreator::InterfaceSupportsErrorInfo(REFIID riid)
 {
@@ -165,11 +47,12 @@ STDMETHODIMP CExeCreator::InterfaceSupportsErrorInfo(REFIID riid)
 
 STDMETHODIMP CExeCreator::Create(BSTR fileName)
 {
+    namespace OpCodes = Urasandesu::NAnonym::MetaData::OpCodes;
     using boost::filesystem::path;
     using std::auto_ptr;
     using std::string;
     using std::wstring;    
-    using Urasandesu::NAnonym::CSimpleBlob;
+    using Urasandesu::NAnonym::SimpleBlob;
 
     HRESULT hr = E_FAIL;
 
@@ -187,7 +70,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
         DWORD length = 0;
         hr = ::GetCORSystemDirectory(buffer, MAX_PATH, &length);
         if (FAILED(hr)) 
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
 
         corSystemDirectoryPath = buffer;
         mscorlibPath = buffer;
@@ -199,7 +82,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                             IID_IMetaDataDispenserEx, 
                             reinterpret_cast<void**>(&pDispMSCorLib));
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
     
     
     CComPtr<IMetaDataImport2> pImpMSCorLib;
@@ -207,7 +90,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                   IID_IMetaDataImport2, 
                                   reinterpret_cast<IUnknown**>(&pImpMSCorLib));
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
 
 
@@ -217,26 +100,26 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
     mdTypeDef mdtdObject = mdTypeDefNil;
     hr = pImpMSCorLib->FindTypeDefByName(L"System.Object", NULL, &mdtdObject);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
     
     mdTypeDef mdtdCompilationRelaxationsAttribute = mdTypeDefNil;
     hr = pImpMSCorLib->FindTypeDefByName(
                        L"System.Runtime.CompilerServices.CompilationRelaxationsAttribute",
                        NULL, &mdtdCompilationRelaxationsAttribute);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
     
     mdTypeDef mdtdRuntimeCompatibilityAttribute = mdTypeDefNil;
     hr = pImpMSCorLib->FindTypeDefByName(
                          L"System.Runtime.CompilerServices.RuntimeCompatibilityAttribute",
                          NULL, &mdtdRuntimeCompatibilityAttribute);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
     
     mdTypeDef mdtdConsole = mdTypeDefNil;
     hr = pImpMSCorLib->FindTypeDefByName(L"System.Console", NULL, &mdtdConsole);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
 
 
@@ -256,7 +139,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                       pSigBlob, sigBlobSize, 
                                       &mdmdCompilationRelaxationsAttributeCtor);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
     }
     
     mdMethodDef mdmdRuntimeCompatibilityAttributeCtor = mdMethodDefNil;
@@ -271,7 +154,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                       pSigBlob, sigBlobSize, 
                                       &mdmdRuntimeCompatibilityAttributeCtor);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
     }
     
     mdMethodDef mdmdConsoleWriteLine = mdMethodDefNil;
@@ -287,7 +170,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                       &mdmdConsoleWriteLine);            
         
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
     }
     
     mdMethodDef mdmdObjectCtor = mdMethodDefNil;
@@ -302,7 +185,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                       &mdmdObjectCtor);            
         
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
     }
 
 
@@ -314,12 +197,12 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
     hr = pImpMSCorLib->QueryInterface(IID_IMetaDataAssemblyImport, 
                                       reinterpret_cast<void**>(&pAsmImpMSCorLib));
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
     mdAssembly mdaMSCorLib = mdAssemblyNil;
     hr = pAsmImpMSCorLib->GetAssemblyFromScope(&mdaMSCorLib);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
     auto_ptr<PublicKeyBlob> pMSCorLibPubKey;
     DWORD msCorLibPubKeySize = 0;
@@ -334,7 +217,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                                &nameSize, &amdMSCorLib, 
                                                &asmFlags);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
 
         msCorLibAsmFlags |= (asmFlags & ~afPublicKey);
         msCorLibName = auto_ptr<WCHAR>(new WCHAR[nameSize]);
@@ -351,14 +234,14 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                                msCorLibName.get(), nameSize, NULL, 
                                                &amdMSCorLib, NULL);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
 
         if (msCorLibPubKeySize)
             if (!::StrongNameTokenFromPublicKey(reinterpret_cast<BYTE*>(pPubKey), 
                                                 msCorLibPubKeySize, 
                                                 reinterpret_cast<BYTE**>(&pPubKey), 
                                                 &msCorLibPubKeySize))
-                return COMError(::StrongNameErrorInfo());
+                return COMError(::StrongNameErrorInfo(), __FILE__, __LINE__);
 
         pMSCorLibPubKey = auto_ptr<PublicKeyBlob>(
                         reinterpret_cast<PublicKeyBlob*>(new BYTE[msCorLibPubKeySize]));
@@ -386,13 +269,13 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                        IID_IMetaDataDispenserEx, 
                                        reinterpret_cast<void**>(&pDispHello));
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
     CComPtr<IMetaDataEmit2> pEmtHello;
     hr = pDispHello->DefineScope(CLSID_CorMetaDataRuntime, 0, IID_IMetaDataEmit2, 
                                  reinterpret_cast<IUnknown**>(&pEmtHello));
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
 
 
@@ -403,7 +286,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
     hr = pEmtHello->QueryInterface(IID_IMetaDataAssemblyEmit, 
                                    reinterpret_cast<void**>(&pAsmEmtHello));
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
 
     //////////////////////////////////////////////////////////////////////////////////////
@@ -415,7 +298,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                          NULL, 0, 
                                          msCorLibAsmFlags, &mdarMSCorLib);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
     
 
 
@@ -425,26 +308,26 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
     mdTypeRef mdtrObject = mdTypeRefNil;
     hr = pEmtHello->DefineTypeRefByName(mdarMSCorLib, L"System.Object", &mdtrObject);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
     mdTypeRef mdtrCompilationRelaxationsAttribute = mdTypeRefNil;
     hr = pEmtHello->DefineTypeRefByName(mdarMSCorLib, 
                        L"System.Runtime.CompilerServices.CompilationRelaxationsAttribute", 
                        &mdtrCompilationRelaxationsAttribute);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
     mdTypeRef mdtrRuntimeCompatibilityAttribute = mdTypeRefNil;
     hr = pEmtHello->DefineTypeRefByName(mdarMSCorLib, 
                          L"System.Runtime.CompilerServices.RuntimeCompatibilityAttribute", 
                          &mdtrRuntimeCompatibilityAttribute);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
     mdTypeRef mdtrConsole = mdTypeRefNil;
     hr = pEmtHello->DefineTypeRefByName(mdarMSCorLib, L"System.Console", &mdtrConsole);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
 
 
@@ -458,7 +341,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                        mdtrCompilationRelaxationsAttribute, 
                                        &mdmrCompilationRelaxationsAttributeCtor);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
     mdMemberRef mdmrRuntimeCompatibilityAttributeCtor = mdMemberRefNil;
     hr = pEmtHello->DefineImportMember(pAsmImpMSCorLib, NULL, 0, pImpMSCorLib, 
@@ -467,7 +350,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                        mdtrRuntimeCompatibilityAttribute, 
                                        &mdmrRuntimeCompatibilityAttributeCtor);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
     mdMemberRef mdmrConsoleWriteLine = mdMemberRefNil;
     hr = pEmtHello->DefineImportMember(pAsmImpMSCorLib, NULL, 0, pImpMSCorLib, 
@@ -476,7 +359,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                        mdtrConsole, 
                                        &mdmrConsoleWriteLine);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
     mdMemberRef mdmrObjectCtor = mdMemberRefNil;
     hr = pEmtHello->DefineImportMember(pAsmImpMSCorLib, NULL, 0, pImpMSCorLib, 
@@ -485,7 +368,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                        mdtrObject, 
                                        &mdmrObjectCtor);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
 
 
@@ -498,7 +381,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
     hr = pAsmEmtHello->DefineAssembly(NULL, 0, CALG_SHA1, L"hello", &amdHello, afPA_None, 
                                       &mdaHello);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
 
 
@@ -509,7 +392,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
 
     mdCustomAttribute mdcaCompilationRelaxationsAttribute = mdCustomAttributeNil;
     {
-        CSimpleBlob sb;
+        SimpleBlob sb;
         sb.Put<WORD>(CustomAttributeProlog);        // Prolog
         sb.Put<DWORD>(8);                           // FixedArg, int32: 8
         sb.Put<WORD>(0);                            // NumNamed, Count: 0
@@ -519,12 +402,12 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                               sb.Size(), 
                                               &mdcaCompilationRelaxationsAttribute);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
     }
 
     mdCustomAttribute mdcaRuntimeCompatibilityAttribute = mdCustomAttributeNil;
     {
-        CSimpleBlob sb;
+        SimpleBlob sb;
         sb.Put<WORD>(CustomAttributeProlog);        // Prolog
         sb.Put<WORD>(1);                            // NumNamed, Count: 1
         sb.Put<BYTE>(SERIALIZATION_TYPE_PROPERTY);  // PROPERTY
@@ -541,7 +424,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                               sb.Size(), 
                                               &mdcaRuntimeCompatibilityAttribute);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
     }
 
 
@@ -553,7 +436,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
     hr = pEmtHello->DefineTypeDef(L"MainApp", tdNotPublic | tdBeforeFieldInit, mdtrObject, 
                                   NULL, &mdtdMainApp);
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
 
 
@@ -572,7 +455,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                      fdPublic | mdHideBySig | mdStatic, pSigBlob, 
                                      sigBlobSize, 0, 0, &mdmdMainAppMain);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
     }
 
     mdMethodDef mdmdMainAppCtor = mdMethodDefNil;
@@ -587,7 +470,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
                                      fdPublic | mdHideBySig | mdSpecialName, pSigBlob, 
                                      sigBlobSize, 0, 0, &mdmdMainAppCtor);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
     }
 
 
@@ -600,7 +483,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
         wstring text(L"Hello World!");
         hr = pEmtHello->DefineUserString(text.c_str(), text.size(), &mdsHelloWorld);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
     }
 
 
@@ -609,7 +492,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
     // Set Module name
     hr = pEmtHello->SetModuleProps(L"hello.exe");
     if (FAILED(hr))
-        return COMError(hr);
+        return COMError(hr, __FILE__, __LINE__);
 
 
 
@@ -619,7 +502,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
     //////////////////////////////////////////////////////////////////////////////////////
     // Emit Method body
     // 
-    CSimpleBlob mbMainAppMain;
+    SimpleBlob mbMainAppMain;
     mbMainAppMain.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_NOP].byte2);
     mbMainAppMain.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDSTR].byte2);
     mbMainAppMain.Put<DWORD>(mdsHelloWorld);
@@ -628,7 +511,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
     mbMainAppMain.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_NOP].byte2);
     mbMainAppMain.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_RET].byte2);
     
-    CSimpleBlob mbMainAppCtor;
+    SimpleBlob mbMainAppCtor;
     mbMainAppCtor.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDARG_0].byte2);
     mbMainAppCtor.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALL].byte2);
     mbMainAppCtor.Put<DWORD>(mdmrObjectCtor);
@@ -646,7 +529,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
     mscorpePath /= L"mscorpe.dll";
     HMODULE hmodCorPE = ::LoadLibraryW(mscorpePath.wstring().c_str());
     if (!hmodCorPE)
-        return SystemError(::GetLastError());
+        return SystemError(::GetLastError(), __FILE__, __LINE__);
     BOOST_SCOPE_EXIT((hmodCorPE))
     {
         ::FreeLibrary(hmodCorPE);
@@ -666,17 +549,17 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
         pfnCreateCeeFileGen = reinterpret_cast<CreateCeeFileGenPtr>(
                                         ::GetProcAddress(hmodCorPE, "CreateICeeFileGen"));
         if (!pfnCreateCeeFileGen)
-            return SystemError(::GetLastError());
+            return SystemError(::GetLastError(), __FILE__, __LINE__);
             
         pfnDestroyCeeFileGen = reinterpret_cast<DestroyCeeFileGenPtr>(
                                        ::GetProcAddress(hmodCorPE, "DestroyICeeFileGen"));
         if (!pfnDestroyCeeFileGen)
-            return SystemError(::GetLastError());
+            return SystemError(::GetLastError(), __FILE__, __LINE__);
 
         ICeeFileGen* pCeeFileGen = NULL;
         hr = pfnCreateCeeFileGen(&pCeeFileGen);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
         BOOST_SCOPE_EXIT((pCeeFileGen)(pfnDestroyCeeFileGen))
         {
             pfnDestroyCeeFileGen(&pCeeFileGen);
@@ -691,7 +574,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
         HCEEFILE ceeFile = NULL;
         hr = pCeeFileGen->CreateCeeFileEx(&ceeFile, ICEE_CREATE_FILE_PURE_IL);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
         BOOST_SCOPE_EXIT((ceeFile)(pCeeFileGen))
         {
             pCeeFileGen->DestroyCeeFile(&ceeFile);
@@ -700,15 +583,15 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
         
         hr = pCeeFileGen->SetOutputFileName(ceeFile, L"hello.exe");
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
         
         hr = pCeeFileGen->SetComImageFlags(ceeFile, COMIMAGE_FLAGS_ILONLY);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
         
         hr = pCeeFileGen->SetSubsystem(ceeFile, IMAGE_SUBSYSTEM_WINDOWS_CUI, 4, 0);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
         
         
         
@@ -718,7 +601,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
         HCEESECTION textSection = NULL;
         hr = pCeeFileGen->GetIlSection(ceeFile, &textSection);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
         
         {
             COR_ILMETHOD_FAT fatHeader;
@@ -735,22 +618,22 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
             hr = pCeeFileGen->GetSectionBlock(textSection, totalSize, 1, 
                                               reinterpret_cast<void**>(&pBuffer));
             if (FAILED(hr))
-                return COMError(hr);
+                return COMError(hr, __FILE__, __LINE__);
 
             ULONG offset = 0;
             hr = pCeeFileGen->GetSectionDataLen(textSection, &offset);
             if (FAILED(hr))
-                return COMError(hr);
+                return COMError(hr, __FILE__, __LINE__);
 
             offset -= totalSize;
             ULONG codeRVA = 0;
             hr = pCeeFileGen->GetMethodRVA(ceeFile, offset, &codeRVA);
             if (FAILED(hr))
-                return COMError(hr);
+                return COMError(hr, __FILE__, __LINE__);
             
             hr = pEmtHello->SetMethodProps(mdmdMainAppMain, -1, codeRVA, 0);
             if (FAILED(hr))
-                return COMError(hr);
+                return COMError(hr, __FILE__, __LINE__);
 
             pBuffer += COR_ILMETHOD::Emit(headerSize, &fatHeader, false, pBuffer);
             ::memcpy_s(pBuffer, totalSize - headerSize, mbMainAppMain.Ptr(), 
@@ -772,22 +655,22 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
             hr = pCeeFileGen->GetSectionBlock(textSection, totalSize, 1, 
                                               reinterpret_cast<void**>(&pBuffer));
             if (FAILED(hr))
-                return COMError(hr);
+                return COMError(hr, __FILE__, __LINE__);
 
             ULONG offset = 0;
             hr = pCeeFileGen->GetSectionDataLen(textSection, &offset);
             if (FAILED(hr))
-                return COMError(hr);
+                return COMError(hr, __FILE__, __LINE__);
 
             offset -= totalSize;
             ULONG codeRVA = 0;
             hr = pCeeFileGen->GetMethodRVA(ceeFile, offset, &codeRVA);
             if (FAILED(hr))
-                return COMError(hr);
+                return COMError(hr, __FILE__, __LINE__);
             
             hr = pEmtHello->SetMethodProps(mdmdMainAppCtor, -1, codeRVA, 0);
             if (FAILED(hr))
-                return COMError(hr);
+                return COMError(hr, __FILE__, __LINE__);
 
             pBuffer += COR_ILMETHOD::Emit(headerSize, &fatHeader, false, pBuffer);
             ::memcpy_s(pBuffer, totalSize - headerSize, mbMainAppCtor.Ptr(), 
@@ -796,11 +679,11 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
         
         pCeeFileGen->SetEntryPoint(ceeFile, mdmdMainAppMain);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
         
         hr = pCeeFileGen->EmitMetaDataEx(ceeFile, pEmtHello);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
         
         
         
@@ -809,7 +692,7 @@ STDMETHODIMP CExeCreator::Create(BSTR fileName)
         // 
         hr = pCeeFileGen->GenerateCeeFile(ceeFile);
         if (FAILED(hr))
-            return COMError(hr);
+            return COMError(hr, __FILE__, __LINE__);
     }
 
 

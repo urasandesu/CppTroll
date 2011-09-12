@@ -1,4 +1,4 @@
-// MetaDataApiSample01.cpp : DLL �G�N�X�|�[�g�̎����ł��B
+﻿// MetaDataApiSample01.cpp : DLL エクスポートの実装です。
 
 
 #include "stdafx.h"
@@ -6,38 +6,38 @@
 #include "MetaDataApiSample01_i.h"
 #include "dllmain.h"
 
-// DLL �� OLE �ɂ���ăA�����[�h�ł���悤�ɂ��邩�ǂ������w�肵�܂��B
+// DLL を OLE によってアンロードできるようにするかどうかを指定します。
 STDAPI DllCanUnloadNow(void)
 {
     return _AtlModule.DllCanUnloadNow();
 }
 
 
-// �v�����ꂽ�^�̃I�u�W�F�N�g���쐬����N���X �t�@�N�g����Ԃ��܂��B
+// 要求された型のオブジェクトを作成するクラス ファクトリを返します。
 STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 {
     return _AtlModule.DllGetClassObject(rclsid, riid, ppv);
 }
 
 
-// DllRegisterServer - �G���g�����V�X�e�� ���W�X�g���ɒǉ����܂��B
+// DllRegisterServer - エントリをシステム レジストリに追加します。
 STDAPI DllRegisterServer(void)
 {
-    // �I�u�W�F�N�g�A�^�C�v ���C�u��������у^�C�v ���C�u�������̂��ׂẴC���^�[�t�F�C�X��o�^���܂�
+    // オブジェクト、タイプ ライブラリおよびタイプ ライブラリ内のすべてのインターフェイスを登録します
     HRESULT hr = _AtlModule.DllRegisterServer();
 	return hr;
 }
 
 
-// DllUnregisterServer - �G���g�������W�X�g������폜���܂��B
+// DllUnregisterServer - エントリをレジストリから削除します。
 STDAPI DllUnregisterServer(void)
 {
 	HRESULT hr = _AtlModule.DllUnregisterServer();
 	return hr;
 }
 
-// DllInstall - ���[�U�[����уR���s���[�^���Ƃ̃V�X�e�� ���W�X�g�� �G���g����
-//              �ǉ��܂��͍폜���܂��B	
+// DllInstall - ユーザーおよびコンピュータごとのシステム レジストリ エントリを
+//              追加または削除します。	
 STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 {
     HRESULT hr = E_FAIL;
