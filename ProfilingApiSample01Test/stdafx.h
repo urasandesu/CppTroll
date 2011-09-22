@@ -17,3 +17,11 @@
 #include <atlstr.h>
 
 // TODO: プログラムに必要な追加ヘッダーをここで参照してください。
+#import "libid:27AD8864-4640-4757-BA89-AE75C3614EAF" version("1.0") no_namespace // ProfilingApiSample01 1.0 タイプ ライブラリ
+
+#include <cor.h>
+#include <corprof.h>
+#include <comdef.h>
+#include <ios>
+#include <iostream>
+#include <iomanip>

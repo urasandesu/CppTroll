@@ -7,9 +7,8 @@
 // TODO: このファイルではなく、STDAFX.H で必要な
 // 追加ヘッダーを参照してください。
 
-#define BOOST_TEST_NO_LIB
 #define BOOST_TEST_MAIN
-#define BOOST_TEST_MODULE Sample03Test2
+#define BOOST_TEST_MODULE ProfilingApiSample01Test
 #include <boost/test/included/unit_test.hpp>
 
 struct OleCom 

@@ -63,7 +63,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="corguids.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="C:\boost_1_47_0\stage\lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"

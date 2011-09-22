@@ -21,3 +21,13 @@
 #include <atlctl.h>
 
 using namespace ATL;
+
+#ifndef URASANDESU_NANONYM_NANONYMDEPENDSON_H
+#include "Urasandesu/NAnonym.h"
+#endif
+
+#include <corprof.h>
+#include <comdef.h>
+#include <ios>
+#include <iostream>
+#include <iomanip>

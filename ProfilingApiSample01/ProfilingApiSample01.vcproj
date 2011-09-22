@@ -52,6 +52,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="C:\boost_1_47_0"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -76,7 +77,9 @@
 				Name="VCLinkerTool"
 				RegisterOutput="true"
 				IgnoreImportLibrary="true"
+				AdditionalDependencies="corguids.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="C:\boost_1_47_0\stage\lib"
 				ModuleDefinitionFile=".\ProfilingApiSample01.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -225,6 +228,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\ExeWeaver.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ProfilingApiSample01.cpp"
 				>
 			</File>
@@ -267,6 +274,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ExeWeaver.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Resource.h"
 				>
 			</File>
@@ -278,12 +289,56 @@
 				RelativePath=".\targetver.h"
 				>
 			</File>
+			<Filter
+				Name="Urasandesu"
+				>
+				<File
+					RelativePath=".\Urasandesu\NAnonym.h"
+					>
+				</File>
+				<Filter
+					Name="NAnonym"
+					>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\MetaData.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\NAnonymDependsOn.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\SimpleBlob.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\SystemError.h"
+						>
+					</File>
+					<Filter
+						Name="MetaData"
+						>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\MetaDataDependsOn.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\OpCodes.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="リソース ファイル"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\ExeWeaver.rgs"
+				>
+			</File>
 			<File
 				RelativePath=".\ProfilingApiSample01.rc"
 				>
