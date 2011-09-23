@@ -7,6 +7,8 @@
 #endif
 
 #include <boost/mpl/assert.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/mpl/logical.hpp>
 #include <boost/system/windows_error.hpp>
 #include <boost/type_traits.hpp>
 #include <corhlpr.h>    // This header needs the definitions. You must include the 

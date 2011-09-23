@@ -14,6 +14,8 @@ namespace {
     // SET COR_ENABLE_PROFILING=1
     // SET COR_PROFILER={1DC70D11-5E46-48C6-BB07-75CFFF188327}
     // ProfilingApiSample01Target.exe
+    //
+    // ildasm /out=ProfilingApiSample01Target.exe.dasm /all /metadata=SCHEMA /metadata=HEAPS /metadata=CSV /source ProfilingApiSample01Target.exe
     BOOST_AUTO_TEST_CASE(ProfilingApiSample01Test)
     {
         HRESULT hr = E_FAIL;

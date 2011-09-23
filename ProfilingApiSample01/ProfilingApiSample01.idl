@@ -1,8 +1,8 @@
-// ProfilingApiSample01.idl : ProfilingApiSample01 ‚Ì IDL ƒ\[ƒX
+ï»¿// ProfilingApiSample01.idl : ProfilingApiSample01 ã® IDL ã‚½ãƒ¼ã‚¹
 //
 
-// ‚±‚Ìƒtƒ@ƒCƒ‹‚ÍAƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ (ProfilingApiSample01.tlb) ‚¨‚æ‚Ñƒ}[ƒVƒƒƒŠƒ“ƒO ƒR[ƒh‚ğ
-// ì¬‚·‚é‚½‚ß‚É MIDL ƒc[ƒ‹‚É‚æ‚Á‚Äˆ—‚³‚ê‚Ü‚·B
+// ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª (ProfilingApiSample01.tlb) ãŠã‚ˆã³ãƒãƒ¼ã‚·ãƒ£ãƒªãƒ³ã‚° ã‚³ãƒ¼ãƒ‰ã‚’
+// ä½œæˆã™ã‚‹ãŸã‚ã« MIDL ãƒ„ãƒ¼ãƒ«ã«ã‚ˆã£ã¦å‡¦ç†ã•ã‚Œã¾ã™ã€‚
 
 import "oaidl.idl";
 import "ocidl.idl";
@@ -12,7 +12,7 @@ import "ocidl.idl";
 	uuid(A4AE8917-9F7E-40A7-B880-D175451DAD40),
 	dual,
 	nonextensible,
-	helpstring("IExeWeaver ƒCƒ“ƒ^[ƒtƒFƒCƒX"),
+	helpstring("IExeWeaver ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹"),
 	pointer_default(unique)
 ]
 interface IExeWeaver : IDispatch{
@@ -20,7 +20,7 @@ interface IExeWeaver : IDispatch{
 [
 	uuid(27AD8864-4640-4757-BA89-AE75C3614EAF),
 	version(1.0),
-	helpstring("ProfilingApiSample01 1.0 ƒ^ƒCƒv ƒ‰ƒCƒuƒ‰ƒŠ")
+	helpstring("ProfilingApiSample01 1.0 ã‚¿ã‚¤ãƒ— ãƒ©ã‚¤ãƒ–ãƒ©ãƒª")
 ]
 library ProfilingApiSample01Lib
 {
