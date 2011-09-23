@@ -22,26 +22,16 @@
 
 using namespace ATL;
 
-namespace Urasandesu { namespace NAnonym {
-
-    template<class T>
-    inline T max(T a, T b) { return a > b ? a : b; }
-    
-    template<class T>
-    inline T min(T a, T b) { return a < b ? a : b; }
-    
-}}  // namespace Urasandesu { namespace NAnonym {
-
 #ifndef URASANDESU_NANONYM_NANONYMDEPENDSON_H
 #include "Urasandesu/NAnonym.h"
 #endif
 
 #include <boost/scope_exit.hpp>
-#include <corprof.h>
 #include <comdef.h>
+#include <corprof.h>
+#include <iomanip>
 #include <ios>
 #include <iostream>
-#include <iomanip>
 #include <malloc.h>
 #include <sstream>
 

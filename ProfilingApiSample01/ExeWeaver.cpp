@@ -5,6 +5,34 @@
 
 // CExeWeaver
 
+namespace Urasandesu { namespace NAnonym {
+
+    template<class TElem>
+    class PadLeft_
+    {
+    public:
+        PadLeft_(std::streamsize size, TElem elem) : m_size(size), m_elem(elem) { }
+
+        friend std::basic_ostream<TElem>& operator <<(std::basic_ostream<TElem>& os, 
+                                                      PadLeft_<TElem> const& padLeft_)
+        {
+            os << std::setw(padLeft_.m_size) << std::setfill(padLeft_.m_elem);
+            return os;
+        }
+
+    private:
+        std::streamsize m_size;
+        TElem m_elem;
+    };
+
+    template<class TElem>
+    inline PadLeft_<TElem> PadLeft(std::streamsize size, TElem elem)
+    {
+        return PadLeft_<TElem>(size, elem);
+    }
+
+}}  // namespace Urasandesu { namespace NAnonym {
+
 HRESULT CExeWeaver::SystemError(DWORD errorNo, LPCSTR filePath, INT line)
 {
     using boost::system::system_category;
@@ -35,18 +63,16 @@ HRESULT CExeWeaver::PrintTypeSignatures(PCCOR_SIGNATURE &pMethodSig)
     using std::wcout;
     using std::uppercase;
     using std::hex;
-    using std::setw;
-    using std::setfill;
     using std::endl;
     using std::dec;
-
+    using Urasandesu::NAnonym::PadLeft;
     _ASSERTE(pMethodSig != NULL);
     
     HRESULT hr = E_FAIL;
 
     CorElementType retType = ELEMENT_TYPE_END;
     pMethodSig += ::CorSigUncompressElementType(pMethodSig, &retType);
-    cout << "  Type: 0x" << setw(8) << setfill('0') << retType << endl;
+    cout << "  Type: 0x" << PadLeft(8, '0') << retType << endl;
     switch (retType)
     {
         case ELEMENT_TYPE_CLASS:    
@@ -56,7 +82,7 @@ HRESULT CExeWeaver::PrintTypeSignatures(PCCOR_SIGNATURE &pMethodSig)
             {
                 mdToken mdt = mdTokenNil;    
                 pMethodSig += ::CorSigUncompressToken(pMethodSig, &mdt); 
-                cout << "    Token: 0x" << setw(8) << setfill('0') << mdt << endl;
+                cout << "    Token: 0x" << PadLeft(8, '0') << mdt << endl;
             }
             break;
         case ELEMENT_TYPE_SZARRAY:     
@@ -79,12 +105,12 @@ HRESULT CExeWeaver::PrintTypeSignatures(PCCOR_SIGNATURE &pMethodSig)
                 }
                 else 
                 {
-                    cout << "    Rank: 0x" << setw(8) << setfill('0') << rank << endl;
+                    cout << "    Rank: 0x" << PadLeft(8, '0') << rank << endl;
                     ULONG size = sizeof(ULONG) * rank;
 
                     ULONG sizesSize = ::CorSigUncompressData(pMethodSig);
                     _ASSERTE(sizesSize <= rank);
-                    cout << "    Sizes size: 0x" << setw(8) << setfill('0') << sizesSize << endl;
+                    cout << "    Sizes size: 0x" << PadLeft(8, '0') << sizesSize << endl;
                     
                     ULONG *pSizes = reinterpret_cast<ULONG*>(_malloca(size));
                     BOOST_SCOPE_EXIT((pSizes))
@@ -101,7 +127,7 @@ HRESULT CExeWeaver::PrintTypeSignatures(PCCOR_SIGNATURE &pMethodSig)
 
                     ULONG lowersSize = ::CorSigUncompressData(pMethodSig);
                     _ASSERTE(lowersSize <= rank);
-                    cout << "    Lowers size: 0x" << setw(8) << setfill('0') << lowersSize << endl;
+                    cout << "    Lowers size: 0x" << PadLeft(8, '0') << lowersSize << endl;
                     
                     ULONG *pLowers = reinterpret_cast<ULONG*>(_malloca(size));
                     BOOST_SCOPE_EXIT((pLowers))
@@ -322,23 +348,25 @@ HRESULT CExeWeaver::JITCompilationStarted(
     /* [in] */ FunctionID functionId,
     /* [in] */ BOOL fIsSafeToBlock)
 {
-    using std::cout;
-    using std::wcout;
-    using std::uppercase;
-    using std::hex;
-    using std::dec;
-    using std::setw;
-    using std::setfill;
-    using std::endl;
-    using std::wstring;
-    using std::wostringstream;
-    using Urasandesu::NAnonym::min;
-    using Urasandesu::NAnonym::SimpleBlob;
     namespace OpCodes = Urasandesu::NAnonym::MetaData::OpCodes;
+    using std::cout;
+    using std::dec;
+    using std::endl;
+    using std::hex;
+    using std::uppercase;
+    using std::wcout;
+    using std::wostringstream;
+    using std::wstring;
+    using Urasandesu::NAnonym::PadLeft;
+    using Urasandesu::NAnonym::SimpleBlob;
     
     HRESULT hr = E_FAIL;
     cout << hex << uppercase;
     
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Convert FunctionID to MethodDef token
+    // 
     mdMethodDef mdmd = mdMethodDefNil;
     CComPtr<IMetaDataImport2> pImport;
     hr = m_pInfo->GetTokenAndMetaDataFromFunction(functionId, IID_IMetaDataImport2, 
@@ -347,10 +375,13 @@ HRESULT CExeWeaver::JITCompilationStarted(
     if (FAILED(hr)) 
         return COMError(hr, __FILE__, __LINE__);
         
-    cout << "MethodDef Token: 0x" << setw(8) << setfill('0') << mdmd << endl;
+    cout << "MethodDef Token: 0x" << PadLeft(8, '0') << mdmd << endl;
 
 
 
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Convert FunctionID to ModuleID
+    // 
     ModuleID mid = NULL;
     {
         ClassID cid = NULL;
@@ -359,9 +390,14 @@ HRESULT CExeWeaver::JITCompilationStarted(
         if (FAILED(hr)) 
             return COMError(hr, __FILE__, __LINE__);
     }
-    cout << "Module ID: 0x" << setw(8) << setfill('0') << mid << endl;
+    cout << "Module ID: 0x" << PadLeft(8, '0') << mid << endl;
 
 
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Get the method properties
+    // * Actually, these are used to identify the instrumentation target.
+    // 
     mdTypeDef mdtd = mdTypeDefNil;
     WCHAR methodName_[MAX_PATH] = { 0 };
     ULONG methodName_Size = sizeof(methodName_) / sizeof(WCHAR);
@@ -381,11 +417,11 @@ HRESULT CExeWeaver::JITCompilationStarted(
 
     ULONG callConv = IMAGE_CEE_CS_CALLCONV_MAX;
     pMethodSig += ::CorSigUncompressData(pMethodSig, &callConv);
-    cout << "Calling Convention: 0x" << setw(8) << setfill('0') << callConv << endl;
+    cout << "Calling Convention: 0x" << PadLeft(8, '0') << callConv << endl;
 
     ULONG paramCount = 0;
     pMethodSig += ::CorSigUncompressData(pMethodSig, &paramCount);
-    cout << "Parameter Count: 0x" << setw(8) << setfill('0') << paramCount << endl;
+    cout << "Parameter Count: 0x" << PadLeft(8, '0') << paramCount << endl;
     
     cout << "Return" << endl;
     hr = PrintTypeSignatures(pMethodSig);
@@ -405,53 +441,60 @@ HRESULT CExeWeaver::JITCompilationStarted(
 
 
 
-
-
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Get the IL method body
+    // * Actually, these are replaced by the user code called monkey patching.
+    // 
     BYTE const *pILFunctionBody = NULL;
     ULONG ilFunctionBodySize = 0;
     hr = m_pInfo->GetILFunctionBody(mid, mdmd, &pILFunctionBody, &ilFunctionBodySize);
     if (FAILED(hr)) 
         return COMError(hr, __FILE__, __LINE__);
     
-    cout << "IL Function Body: 0x" << setw(8) << setfill('0') << reinterpret_cast<INT>(pILFunctionBody) << endl;
-    cout << "IL Function Body Size: 0x" << setw(8) << setfill('0') << ilFunctionBodySize << endl;
+    cout << "IL Function Body: 0x" << PadLeft(8, '0') << reinterpret_cast<INT>(pILFunctionBody) << endl;
+    cout << "IL Function Body Size: 0x" << PadLeft(8, '0') << ilFunctionBodySize << endl;
 
 
     COR_ILMETHOD const *pILMethod = reinterpret_cast<COR_ILMETHOD*>(
                                                       const_cast<BYTE*>(pILFunctionBody));
 
-    cout << "IsTiny?: 0x" << setw(8) << setfill('0') << pILMethod->Tiny.IsTiny() << endl;
+    cout << "IsTiny?: 0x" << PadLeft(8, '0') << pILMethod->Tiny.IsTiny() << endl;
     
     if (pILMethod->Fat.IsFat())
     {
         cout << "The method has Fat format header with following values: " << endl;
-        cout << "  Size: 0x" << setw(8) << setfill('0') << pILMethod->Fat.GetSize() << endl;
-        cout << "  Flags: 0x" << setw(8) << setfill('0') << pILMethod->Fat.GetFlags() << endl;
-        cout << "  IsFat?: 0x" << setw(8) << setfill('0') << pILMethod->Fat.IsFat() << endl;
-        cout << "  MaxStack: 0x" << setw(8) << setfill('0') << pILMethod->Fat.GetMaxStack() << endl;
-        cout << "  LocalVarSigTok: 0x" << setw(8) << setfill('0') << pILMethod->Fat.GetLocalVarSigTok() << endl;
-        cout << "  CodeSize: 0x" << setw(8) << setfill('0') << pILMethod->Fat.GetCodeSize() << endl;
+        cout << "  Size: 0x" << PadLeft(8, '0') << pILMethod->Fat.GetSize() << endl;
+        cout << "  Flags: 0x" << PadLeft(8, '0') << pILMethod->Fat.GetFlags() << endl;
+        cout << "  IsFat?: 0x" << PadLeft(8, '0') << pILMethod->Fat.IsFat() << endl;
+        cout << "  MaxStack: 0x" << PadLeft(8, '0') << pILMethod->Fat.GetMaxStack() << endl;
+        cout << "  LocalVarSigTok: 0x" << PadLeft(8, '0') << pILMethod->Fat.GetLocalVarSigTok() << endl;
+        cout << "  CodeSize: 0x" << PadLeft(8, '0') << pILMethod->Fat.GetCodeSize() << endl;
         cout << "  Code: ";
         for (BYTE const *i = pILMethod->Fat.GetCode(), *i_end = i + pILMethod->Fat.GetCodeSize(); i != i_end; ++i)
-            cout << setw(2) << setfill('0') << static_cast<INT>(*i) << " ";
+            cout << PadLeft(2, '0') << static_cast<INT>(*i) << " ";
         cout << endl;
-        cout << "  Sect: 0x" << setw(8) << setfill('0') << pILMethod->Fat.GetSect() << endl;
+        cout << "  Sect: 0x" << PadLeft(8, '0') << pILMethod->Fat.GetSect() << endl;
     }
     else
     {
         cout << "The method has Tiny format header with following values: " << endl;
-        cout << "  IsTiny?: 0x" << setw(8) << setfill('0') << pILMethod->Tiny.IsTiny() << endl;
-        cout << "  MaxStack: 0x" << setw(8) << setfill('0') << pILMethod->Tiny.GetMaxStack() << endl;
-        cout << "  LocalVarSigTok: 0x" << setw(8) << setfill('0') << pILMethod->Tiny.GetLocalVarSigTok() << endl;
-        cout << "  CodeSize: 0x" << setw(8) << setfill('0') << pILMethod->Tiny.GetCodeSize() << endl;
+        cout << "  IsTiny?: 0x" << PadLeft(8, '0') << pILMethod->Tiny.IsTiny() << endl;
+        cout << "  MaxStack: 0x" << PadLeft(8, '0') << pILMethod->Tiny.GetMaxStack() << endl;
+        cout << "  LocalVarSigTok: 0x" << PadLeft(8, '0') << pILMethod->Tiny.GetLocalVarSigTok() << endl;
+        cout << "  CodeSize: 0x" << PadLeft(8, '0') << pILMethod->Tiny.GetCodeSize() << endl;
         cout << "  Code: ";
         for (BYTE const *i = pILMethod->Tiny.GetCode(), *i_end = i + pILMethod->Tiny.GetCodeSize(); i != i_end; ++i)
-            cout << setw(2) << setfill('0') << static_cast<INT>(*i) << " ";
+            cout << PadLeft(2, '0') << static_cast<INT>(*i) << " ";
         cout << endl;
-        cout << "  Sect: 0x" << setw(8) << setfill('0') << pILMethod->Tiny.GetSect() << endl;
+        cout << "  Sect: 0x" << PadLeft(8, '0') << pILMethod->Tiny.GetSect() << endl;
     }
-    
-    
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Instrument new IL method body
+    // * This time, I decided to replace the method named "Print" to the method which returns the fixed sentence.
+    // 
     wstring methodName(methodName_);
     if (methodName == L"Print")
     {
@@ -467,12 +510,12 @@ HRESULT CExeWeaver::JITCompilationStarted(
         {
             wostringstream s;
             s << hex;
-            s << L"Instrumented: 0x" << setw(8) << setfill(L'0') << mdmd;
+            s << L"!!!!!!!!!!!!!!!!!!!! Instrumented !!!!!!!!!!!!!!!!!!!!: 0x" << PadLeft(8, L'0') << mdmd;
             hr = pEmit->DefineUserString(s.str().c_str(), s.str().size(), &mdsMessage);
             if (FAILED(hr))
                 return COMError(hr, __FILE__, __LINE__);
         }
-        cout << "New message token is 0x" << setw(8) << setfill('0') << mdsMessage << endl;
+        cout << "New message token is 0x" << PadLeft(8, '0') << mdsMessage << endl;
         
 
         SimpleBlob sb;
@@ -504,7 +547,7 @@ HRESULT CExeWeaver::JITCompilationStarted(
         
         cout << "  New IL Function Body: ";
         for (BYTE const *i = pNewILFunctionBody, *i_end = i + totalSize; i != i_end; ++i)
-            cout << setw(2) << setfill('0') << static_cast<INT>(*i) << " ";
+            cout << PadLeft(2, '0') << static_cast<INT>(*i) << " ";
         cout << endl;
 
         hr = m_pInfo->SetILFunctionBody(mid, mdmd, pNewILFunctionBody);
