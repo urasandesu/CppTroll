@@ -45,7 +45,8 @@ HRESULT CMetaDataInfo::COMError(HRESULT hr, LPCSTR filePath, INT line)
     return Error(msg.str().c_str());
 }
 
-HRESULT CMetaDataInfo::GetTypeSignature(PCCOR_SIGNATURE &pSigBlob, Urasandesu::NAnonym::MetaData::TypeSignature* pTypeSig)
+HRESULT CMetaDataInfo::GetTypeSignature(PCCOR_SIGNATURE &pSigBlob, 
+                                   Urasandesu::NAnonym::MetaData::TypeSignature* pTypeSig)
 {
     using namespace std;
     HRESULT hr = E_FAIL;
@@ -189,7 +190,7 @@ HRESULT CMetaDataInfo::GetMethodDef(mdMethodDef mdmd, CComPtr<IMetaDataImport2>&
     return S_OK;
 }
 
-HRESULT CMetaDataInfo::EnumCustomAttribute(mdCustomAttribute mdca, CComPtr<IMetaDataImport2>& pImp)
+HRESULT CMetaDataInfo::GetCustomAttribute(mdCustomAttribute mdca, CComPtr<IMetaDataImport2>& pImp)
 {
     using namespace std;
     using boost::format;
@@ -225,11 +226,11 @@ HRESULT CMetaDataInfo::EnumCustomAttributes(mdToken mdt, CComPtr<IMetaDataImport
 {
     using namespace std;
     using boost::format;
+    using boost::array;
     HRESULT hr = E_FAIL;
 
     HCORENUM hcaEnum = NULL;
-    mdTypeRef mdtrs[10];
-    ULONG mdtrsSize = sizeof(mdtrs) / sizeof(mdTypeRef);
+    array<mdTypeRef, 10> mdtrs;
     ULONG count = 0;
 
     BOOST_SCOPE_EXIT((hcaEnum)(pImp))
@@ -238,13 +239,14 @@ HRESULT CMetaDataInfo::EnumCustomAttributes(mdToken mdt, CComPtr<IMetaDataImport
     }
     BOOST_SCOPE_EXIT_END
 
-    while(SUCCEEDED(hr = pImp->EnumCustomAttributes(&hcaEnum, mdt, 0, mdtrs, mdtrsSize, &count)) && 
+    while(SUCCEEDED(hr = pImp->EnumCustomAttributes(&hcaEnum, mdt, 0, mdtrs.c_array(), 
+                                                    mdtrs.size(), &count)) && 
           0 < count)
     {
         for (ULONG i = 0; i < count; ++i)
         {
             cout << format("CustomAttribute: 0x%|1$08X|") % mdtrs[i] << endl;
-            hr = EnumCustomAttribute(mdtrs[i], pImp);
+            hr = GetCustomAttribute(mdtrs[i], pImp);
             if (FAILED(hr)) 
                 return COMError(hr, __FILE__, __LINE__);
         }
@@ -252,10 +254,43 @@ HRESULT CMetaDataInfo::EnumCustomAttributes(mdToken mdt, CComPtr<IMetaDataImport
     return S_OK;    
 }
 
+HRESULT CMetaDataInfo::EnumMethods(mdToken mdt, CComPtr<IMetaDataImport2>& pImp)
+{
+    using namespace std;
+    using boost::format;
+    using boost::array;
+    HRESULT hr = E_FAIL;
+
+    HCORENUM hmdEnum = NULL;
+    array<mdMethodDef, 10> mdmds;
+    ULONG count = 0;
+    
+    BOOST_SCOPE_EXIT((hmdEnum)(pImp))
+    {
+        pImp->CloseEnum(hmdEnum);
+    }
+    BOOST_SCOPE_EXIT_END
+
+    while (SUCCEEDED(hr = pImp->EnumMethods(&hmdEnum, mdt, mdmds.c_array(), mdmds.size(), 
+                                            &count)) && 
+           0 < count)
+    {
+        for (ULONG i = 0; i < count; ++i)
+        {
+            cout << format("MethodDef: 0x%|1$08X|") % mdmds[i] << endl;
+            hr = EnumCustomAttributes(mdmds[i], pImp);
+            if (FAILED(hr)) 
+                return COMError(hr, __FILE__, __LINE__);
+        }
+    }
+    return S_OK;
+}
+
 STDMETHODIMP CMetaDataInfo::Get(BSTR fileName)
 {
     using namespace std;
     using boost::format;
+    using boost::array;
     HRESULT hr = E_FAIL;
     
     CComPtr<IMetaDataDispenserEx> pDisp;
@@ -272,8 +307,7 @@ STDMETHODIMP CMetaDataInfo::Get(BSTR fileName)
         return COMError(hr, __FILE__, __LINE__);
 
     HCORENUM htdEnum = NULL;
-    mdTypeDef mdtds[10];
-    ULONG mdtdsSize = sizeof(mdtds) / sizeof(mdTypeDef);
+    array<mdTypeDef, 10> mdtds;
     ULONG count = 0;
 
     BOOST_SCOPE_EXIT((htdEnum)(pImp))
@@ -282,13 +316,17 @@ STDMETHODIMP CMetaDataInfo::Get(BSTR fileName)
     }
     BOOST_SCOPE_EXIT_END
     
-    while (SUCCEEDED(hr = pImp->EnumTypeDefs(&htdEnum, mdtds, mdtdsSize, &count)) && 
+    while (SUCCEEDED(hr = pImp->EnumTypeDefs(&htdEnum, mdtds.c_array(), mdtds.size(), 
+                                             &count)) && 
            0 < count)
     {
         for (ULONG i = 0; i < count; ++i)
         {
             cout << format("TypeDef: 0x%|1$08X|") % mdtds[i] << endl;
             hr = EnumCustomAttributes(mdtds[i], pImp);
+            if (FAILED(hr)) 
+                return COMError(hr, __FILE__, __LINE__);
+            hr = EnumMethods(mdtds[i], pImp);
             if (FAILED(hr)) 
                 return COMError(hr, __FILE__, __LINE__);
         }

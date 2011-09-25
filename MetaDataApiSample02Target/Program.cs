@@ -1,8 +1,8 @@
 ﻿using System;
 
-[ReplaceAttribute(0x02000003, 0x06000003)]
 class Program
 {
+    [ReplaceAttribute(0x02000003, 0x06000003)]
     static void Main(string[] args)
     {
         Console.WriteLine("Hello World!!");
@@ -11,12 +11,13 @@ class Program
 
 class AlternativeProgram
 {
-    static void AlternativeMain(string[] args)
+    static void Main(string[] args)
     {
         Console.WriteLine("Welcome to Low Layer World!!");
     }
 }
 
+[AttributeUsage(AttributeTargets.Method)]
 sealed class ReplaceAttribute : Attribute
 {
     readonly int typeDefToken;

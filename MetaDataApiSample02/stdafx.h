@@ -26,6 +26,7 @@ using namespace ATL;
 #include "Urasandesu/NAnonym.h"
 #endif
 
+#include <boost/array.hpp>
+#include <boost/format.hpp>
 #include <boost/scope_exit.hpp>
 #include <comdef.h>
-#include <boost/format.hpp>

@@ -41,8 +41,9 @@ END_COM_MAP()
 	HRESULT COMError(HRESULT hr, LPCSTR filePath, INT line);
     HRESULT GetTypeSignature(PCCOR_SIGNATURE &pSigBlob, Urasandesu::NAnonym::MetaData::TypeSignature* pTypeSig);
     HRESULT GetMethodDef(mdMethodDef mdmd, CComPtr<IMetaDataImport2>& pImp);
-    HRESULT EnumCustomAttribute(mdCustomAttribute mdca, CComPtr<IMetaDataImport2>& pImp);
+    HRESULT GetCustomAttribute(mdCustomAttribute mdca, CComPtr<IMetaDataImport2>& pImp);
     HRESULT EnumCustomAttributes(mdToken mdt, CComPtr<IMetaDataImport2>& pImp);
+    HRESULT EnumMethods(mdToken mdt, CComPtr<IMetaDataImport2>& pImp);
 
 	DECLARE_PROTECT_FINAL_CONSTRUCT()
 

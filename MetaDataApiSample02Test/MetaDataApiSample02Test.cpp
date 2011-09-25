@@ -10,6 +10,8 @@ namespace {
     BOOST_AUTO_TEST_SUITE(MetaDataApiSample02TestSuite)
 
     // MetaDataApiSample02Test --log_level=test_suite --run_test=MetaDataApiSample02TestSuite/MetaDataApiSample02Test
+    //
+    // ildasm /out=MetaDataApiSample02Target.exe.dasm /all /metadata=SCHEMA /metadata=HEAPS /metadata=CSV /source MetaDataApiSample02Target.exe
     BOOST_AUTO_TEST_CASE(MetaDataApiSample02Test)
     {
         IMetaDataInfoPtr pMetaDataInfo;
