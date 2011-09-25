@@ -1,0 +1,37 @@
+﻿// MetaDataApiSample02.idl : MetaDataApiSample02 の IDL ソース
+//
+
+// このファイルは、タイプ ライブラリ (MetaDataApiSample02.tlb) およびマーシャリング コードを
+// 作成するために MIDL ツールによって処理されます。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(D54D3D63-DF11-4075-80D7-502C9627A741),
+	dual,
+	nonextensible,
+	helpstring("IMetaDataInfo インターフェイス"),
+	pointer_default(unique)
+]
+interface IMetaDataInfo : IDispatch{
+    [id(1), helpstring("メソッド Get")] HRESULT Get([in] BSTR fileName);
+};
+[
+	uuid(ED090FE8-5141-4094-B76F-D86D3738D196),
+	version(1.0),
+	helpstring("MetaDataApiSample02 1.0 タイプ ライブラリ")
+]
+library MetaDataApiSample02Lib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(3CF0D5CC-7C06-410E-B235-EFBEA32B8497),
+		helpstring("MetaDataInfo Class")
+	]
+	coclass MetaDataInfo
+	{
+		[default] interface IMetaDataInfo;
+	};
+};

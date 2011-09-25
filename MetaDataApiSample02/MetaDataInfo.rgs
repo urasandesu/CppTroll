@@ -1,0 +1,26 @@
+HKCR
+{
+	MetaDataApiSample02.MetaDataInfo.1 = s 'MetaDataInfo Class'
+	{
+		CLSID = s '{3CF0D5CC-7C06-410E-B235-EFBEA32B8497}'
+	}
+	MetaDataApiSample02.MetaDataInfo = s 'MetaDataInfo Class'
+	{
+		CLSID = s '{3CF0D5CC-7C06-410E-B235-EFBEA32B8497}'
+		CurVer = s 'MetaDataApiSample02.MetaDataInfo.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {3CF0D5CC-7C06-410E-B235-EFBEA32B8497} = s 'MetaDataInfo Class'
+		{
+			ProgID = s 'MetaDataApiSample02.MetaDataInfo.1'
+			VersionIndependentProgID = s 'MetaDataApiSample02.MetaDataInfo'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{ED090FE8-5141-4094-B76F-D86D3738D196}'
+		}
+	}
+}

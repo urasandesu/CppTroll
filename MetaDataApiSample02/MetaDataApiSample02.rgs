@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'MetaDataApiSample02'
+		'MetaDataApiSample02.DLL'
+		{
+			val AppID = s '%APPID%'
+		}
+	}
+}
