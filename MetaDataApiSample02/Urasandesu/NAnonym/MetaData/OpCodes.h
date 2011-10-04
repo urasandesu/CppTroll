@@ -10,7 +10,7 @@ namespace OpCodes {
         #define OPDEF(canonicalName, stringName, stackBehaviour0, stackBehaviour1, \
                       operandParams, opcodeKind, length, byte1, byte2, controlFlow) \
                       canonicalName,
-        #include "opcode.def"
+        #include <opcode.def>
         #undef  OPDEF
         CEE_COUNT,
         CEE_UNREACHED
@@ -25,7 +25,7 @@ namespace OpCodes {
         #define OPDEF(canonicalName, stringName, stackBehaviour0, stackBehaviour1, \
                       operandParams, opcodeKind, length, byte1, byte2, controlFlow) \
                       { byte1, byte2 },
-        #include "opcode.def"
+        #include <opcode.def>
         #undef  OPDEF
         { 0, 0 },
         { 0, 0 }

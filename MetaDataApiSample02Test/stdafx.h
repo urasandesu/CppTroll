@@ -18,3 +18,5 @@
 
 // TODO: プログラムに必要な追加ヘッダーをここで参照してください。
 #import "libid:ED090FE8-5141-4094-B76F-D86D3738D196" version("1.0") no_namespace // MetaDataApiSample02 1.0 タイプ ライブラリ
+
+#include <gtest/gtest.h>

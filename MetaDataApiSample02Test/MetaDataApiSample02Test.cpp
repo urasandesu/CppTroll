@@ -3,31 +3,20 @@
 
 #include "stdafx.h"
 
-#include <boost/test/unit_test.hpp>
-
 namespace {
 
-    BOOST_AUTO_TEST_SUITE(MetaDataApiSample02TestSuite)
-
-    // MetaDataApiSample02Test --log_level=test_suite --run_test=MetaDataApiSample02TestSuite/MetaDataApiSample02Test
-    //
-    // ildasm /out=MetaDataApiSample02Target.exe.dasm /all /metadata=SCHEMA /metadata=HEAPS /metadata=CSV /source MetaDataApiSample02Target.exe
-    BOOST_AUTO_TEST_CASE(MetaDataApiSample02Test)
+    TEST(MetaDataApiSample02TestSuite, MetaDataApiSample02Test)
     {
         IMetaDataInfoPtr pMetaDataInfo;
-        HRESULT hr = pMetaDataInfo.CreateInstance(__uuidof(MetaDataInfo));
-        BOOST_REQUIRE(SUCCEEDED(hr));
+        ASSERT_HRESULT_SUCCEEDED(pMetaDataInfo.CreateInstance(__uuidof(MetaDataInfo)));
 
         try
         {
-            hr = pMetaDataInfo->Get(L"..\\MetaDataApiSample02Target\\bin\\Debug\\MetaDataApiSample02Target.exe");
-            BOOST_REQUIRE(SUCCEEDED(hr));
+            pMetaDataInfo->Get(L"..\\MetaDataApiSample02Target\\bin\\Debug\\MetaDataApiSample02Target.exe");
         }
         catch (_com_error& e)
         {
-            BOOST_FAIL(e.Description());
+            FAIL() << e.Description();
         }
     }
-
-    BOOST_AUTO_TEST_SUITE_END()
 }

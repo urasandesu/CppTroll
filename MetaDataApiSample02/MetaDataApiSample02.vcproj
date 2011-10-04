@@ -262,6 +262,22 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<Filter
+				Name="Urasandesu"
+				>
+				<Filter
+					Name="NAnonym"
+					>
+					<Filter
+						Name="MetaData"
+						>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultMetaDataApi.cpp"
+							>
+						</File>
+					</Filter>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="ヘッダー ファイル"
@@ -303,7 +319,15 @@
 						>
 					</File>
 					<File
+						RelativePath=".\Urasandesu\NAnonym\NAnonymCOMException.h"
+						>
+					</File>
+					<File
 						RelativePath=".\Urasandesu\NAnonym\NAnonymDependsOn.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\NAnonymException.h"
 						>
 					</File>
 					<File
@@ -318,11 +342,43 @@
 						RelativePath=".\Urasandesu\NAnonym\SystemError.h"
 						>
 					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\Traits.h"
+						>
+					</File>
 					<Filter
 						Name="MetaData"
 						>
 						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\Assembly.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\CustomAttribute.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\CustomAttributeEnumerator.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultMetaDataApi.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\IMetaDataOperable.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\ITokenizable.h"
+							>
+						</File>
+						<File
 							RelativePath=".\Urasandesu\NAnonym\MetaData\MetaDataDependsOn.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\Method.h"
 							>
 						</File>
 						<File
@@ -330,11 +386,47 @@
 							>
 						</File>
 						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\MethodEnumerator.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\Module.h"
+							>
+						</File>
+						<File
 							RelativePath=".\Urasandesu\NAnonym\MetaData\OpCodes.h"
 							>
 						</File>
 						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\Runtime.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\Type.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\TypeEnumerator.h"
+							>
+						</File>
+						<File
 							RelativePath=".\Urasandesu\NAnonym\MetaData\TypeSignature.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\UseDefaultMetaDataApiIfNecessary.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Traits"
+						>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Traits\Replace.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Traits\TraitsDependsOn.h"
 							>
 						</File>
 					</Filter>

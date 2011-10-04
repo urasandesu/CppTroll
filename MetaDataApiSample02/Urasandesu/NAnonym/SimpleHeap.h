@@ -10,12 +10,17 @@ namespace Urasandesu { namespace NAnonym {
     public:
         typedef CQuickArray<T> TArray;        
         
-        SimpleHeap() : m_pCurrent(m_array.Ptr()) { }
+        SimpleHeap() : m_pCurrent(m_array.Ptr()), m_lastMaxSize(m_array.MaxSize()) { }
  
         HRESULT New(T **ppObj)
         {
             HRESULT hr = E_FAIL;
             hr = m_array.ReSizeNoThrow(m_array.Size() + 1);
+            if (m_lastMaxSize < m_array.MaxSize())
+            {
+                m_lastMaxSize = m_array.MaxSize();
+                m_pCurrent = m_array.Ptr() + m_array.Size() - 1;
+            }
             if (FAILED(hr))
                 return hr;
             *ppObj = m_pCurrent;
@@ -33,6 +38,7 @@ namespace Urasandesu { namespace NAnonym {
     private:    
         TArray m_array;
         T *m_pCurrent;
+        SIZE_T m_lastMaxSize;
     };
     
 }}  // namespace Urasandesu { namespace NAnonym {
