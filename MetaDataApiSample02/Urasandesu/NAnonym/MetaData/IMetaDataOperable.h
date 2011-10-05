@@ -9,22 +9,22 @@
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
     template<class MetaDataApiType>
-    class Runtime;
+    class Assembly;
 
     template<class MetaDataApiType = boost::use_default>
     class ATL_NO_VTABLE IMetaDataOperable : UseDefaultMetaDataApiIfNecessary<MetaDataApiType>
     {
     public:
-        IMetaDataOperable() : m_pRuntime(NULL), m_pApi(NULL) { }
+        IMetaDataOperable() : m_pAsm(NULL), m_pApi(NULL) { }
 
-        void Init(Runtime<MetaDataApiType> *pRuntime, meta_data_api_type *pApi)
+        void Init(Assembly<MetaDataApiType> *pAsm, meta_data_api_type *pApi)
         {
-            m_pRuntime = pRuntime;
+            m_pAsm = pAsm;
             m_pApi = pApi;
         }
     
     protected:
-        Runtime<MetaDataApiType> *m_pRuntime;
+        Assembly<MetaDataApiType> *m_pAsm;
         meta_data_api_type *m_pApi;
     };
 

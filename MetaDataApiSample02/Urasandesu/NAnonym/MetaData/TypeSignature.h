@@ -147,7 +147,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
                         pSigBlob += ::CorSigUncompressData(pSigBlob, &sizesSize);
                         _ASSERTE(sizesSize <= this_->m_rank);
                         
-                        hr = this_->m_pRuntime->GetHeap<std::vector<ULONG>>()->New(&this_->m_pSizes);
+                        hr = this_->m_pAsm->GetHeap<std::vector<ULONG>>()->New(&this_->m_pSizes);
                         if (FAILED(hr))
                             BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
                         for (ULONG i = 0; i < sizesSize; ++i)
@@ -162,7 +162,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
                         pSigBlob += ::CorSigUncompressData(pSigBlob, &lowersSize);
                         _ASSERTE(lowersSize <= this_->m_rank);
                         
-                        hr = this_->m_pRuntime->GetHeap<std::vector<ULONG>>()->New(&this_->m_pLowers);
+                        hr = this_->m_pAsm->GetHeap<std::vector<ULONG>>()->New(&this_->m_pLowers);
                         if (FAILED(hr))
                             BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
                         for (ULONG i = 0; i < lowersSize; ++i)

@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <boost/array.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/range/algorithm.hpp>
 #include <boost/range/any_range.hpp>
 

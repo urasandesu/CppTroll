@@ -35,11 +35,11 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             }
 
             Method<MetaDataApiType> *pMethod = NULL;
-            hr = m_pRuntime->GetHeap<Method<MetaDataApiType>>()->New(&pMethod);
+            hr = m_pAsm->GetHeap<Method<MetaDataApiType>>()->New(&pMethod);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 
-            pMethod->Init(m_pRuntime, m_pApi);
+            pMethod->Init(m_pAsm, m_pApi);
             pMethod->SetToken(m_mdmds[m_current]);
             pMethod->DeclaringType = DeclaringType;
 

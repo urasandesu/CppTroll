@@ -79,25 +79,25 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             m_pParsedSigBlob += ::CorSigUncompressData(m_pParsedSigBlob, &m_callingConv);
             m_pParsedSigBlob += ::CorSigUncompressData(m_pParsedSigBlob, &m_paramCount);
 
-            hr = m_pRuntime->GetHeap<TypeSignature<MetaDataApiType>>()->New(&m_pRetTypeSig);
+            hr = m_pAsm->GetHeap<TypeSignature<MetaDataApiType>>()->New(&m_pRetTypeSig);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
             
-            m_pRetTypeSig->Init(m_pRuntime, m_pApi);            
+            m_pRetTypeSig->Init(m_pAsm, m_pApi);            
             m_pRetTypeSig->SignatureBlob = m_pParsedSigBlob;
             m_pParsedSigBlob = m_pRetTypeSig->GetParsedSigBlob();
 
-            hr = m_pRuntime->GetHeap<std::vector<TypeSignature<MetaDataApiType>*>>()->New(&m_pParamTypeSigs);
+            hr = m_pAsm->GetHeap<std::vector<TypeSignature<MetaDataApiType>*>>()->New(&m_pParamTypeSigs);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
             for (ULONG i = 0; i < m_paramCount; ++i)   
             {
                 TypeSignature<MetaDataApiType> *pTypeSig = NULL;
-                hr = m_pRuntime->GetHeap<TypeSignature<MetaDataApiType>>()->New(&pTypeSig);
+                hr = m_pAsm->GetHeap<TypeSignature<MetaDataApiType>>()->New(&pTypeSig);
                 if (FAILED(hr))
                     BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
                 
-                pTypeSig->Init(m_pRuntime, m_pApi);
+                pTypeSig->Init(m_pAsm, m_pApi);
                 pTypeSig->SignatureBlob = m_pParsedSigBlob;
                 m_pParsedSigBlob = pTypeSig->GetParsedSigBlob();
 

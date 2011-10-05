@@ -36,11 +36,11 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             HRESULT hr = E_FAIL;
             custom_attribute_enumerator_type *pCAEnum = NULL;
             
-            hr = m_pRuntime->GetHeap<custom_attribute_enumerator_type>()->New(&pCAEnum);
+            hr = m_pAsm->GetHeap<custom_attribute_enumerator_type>()->New(&pCAEnum);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 
-            pCAEnum->Init(m_pRuntime, m_pApi);
+            pCAEnum->Init(m_pAsm, m_pApi);
             pCAEnum->Target = this;
                         
             return pCAEnum;
@@ -51,11 +51,11 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             HRESULT hr = E_FAIL;
             MethodEnumerator<MetaDataApiType> *pMethodEnum = NULL;
             
-            hr = m_pRuntime->GetHeap<MethodEnumerator<MetaDataApiType>>()->New(&pMethodEnum);
+            hr = m_pAsm->GetHeap<MethodEnumerator<MetaDataApiType>>()->New(&pMethodEnum);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 
-            pMethodEnum->Init(m_pRuntime, m_pApi);
+            pMethodEnum->Init(m_pAsm, m_pApi);
             pMethodEnum->DeclaringType = this;
                         
             return pMethodEnum;

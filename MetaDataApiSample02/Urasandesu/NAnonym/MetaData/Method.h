@@ -32,11 +32,11 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             HRESULT hr = E_FAIL;
             custom_attribute_enumerator_type *pCAEnum = NULL;
             
-            hr = m_pRuntime->GetHeap<custom_attribute_enumerator_type>()->New(&pCAEnum);
+            hr = m_pAsm->GetHeap<custom_attribute_enumerator_type>()->New(&pCAEnum);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 
-            pCAEnum->Init(m_pRuntime, m_pApi);
+            pCAEnum->Init(m_pAsm, m_pApi);
             pCAEnum->Target = this;
                         
             return pCAEnum;
@@ -71,11 +71,11 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             if (FAILED(hr)) 
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
             
-            hr = m_pRuntime->GetHeap<MethodDefSignature<MetaDataApiType>>()->New(&m_pMethodSig);
+            hr = m_pAsm->GetHeap<MethodDefSignature<MetaDataApiType>>()->New(&m_pMethodSig);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 
-            m_pMethodSig->Init(m_pRuntime, m_pApi);
+            m_pMethodSig->Init(m_pAsm, m_pApi);
             m_pMethodSig->SignatureBlob = pSigBlob;
         }
 

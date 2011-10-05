@@ -25,11 +25,11 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             HRESULT hr = E_FAIL;
             TypeEnumerator<MetaDataApiType> *pTypeEnum = NULL;
             
-            hr = m_pRuntime->GetHeap<TypeEnumerator<MetaDataApiType>>()->New(&pTypeEnum);
+            hr = m_pAsm->GetHeap<TypeEnumerator<MetaDataApiType>>()->New(&pTypeEnum);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 
-            pTypeEnum->Init(m_pRuntime, m_pApi);
+            pTypeEnum->Init(m_pAsm, m_pApi);
                         
             return pTypeEnum;
         }

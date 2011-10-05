@@ -53,7 +53,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             if (FAILED(hr)) 
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 
-            hr = m_pRuntime->GetHeap<Method<MetaDataApiType>>()->New(&m_pMethod);
+            hr = m_pAsm->GetHeap<Method<MetaDataApiType>>()->New(&m_pMethod);
             if (FAILED(hr)) 
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
             
