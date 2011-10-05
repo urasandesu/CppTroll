@@ -63,6 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="gtestd.lib gtest_maind.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="C:\boost_1_47_0\stage\lib;C:\gtest-1.6.0-vc90\msvc\gtest\Debug"
 				IgnoreDefaultLibraryNames=""
@@ -120,8 +121,9 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="C:\boost_1_47_0;..\MetaDataApiSample02;C:\gtest-1.6.0\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				WarningLevel="3"
@@ -138,7 +140,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="gtest.lib gtest_main.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="C:\boost_1_47_0\stage\lib;C:\gtest-1.6.0-vc90\msvc\gtest\Release"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
