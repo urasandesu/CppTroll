@@ -3,27 +3,27 @@
 #define URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTE_H
 
 #ifndef URASANDESU_NANONYM_METADATA_IMETADATAOPERABLE_H
-#include "Urasandesu/NAnonym/MetaData/IMetaDataOperable.h"
+#include <Urasandesu/NAnonym/MetaData/IMetaDataOperable.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_ITOKENIZABLE_H
-#include "Urasandesu/NAnonym/MetaData/ITokenizable.h"
+#include <Urasandesu/NAnonym/MetaData/ITokenizable.h>
 #endif
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
-    template<class MetaDataApiType>
+    template<class AssemblyMetaDataApiType>
     class Method;
 
-    template<class TokenizableType, class MetaDataApiType = boost::use_default>
-    class CustomAttribute : public IMetaDataOperable<MetaDataApiType>, public ITokenizable
+    template<class TokenizableType, class AssemblyMetaDataApiType = boost::use_default>
+    class CustomAttribute : public IMetaDataOperable<AssemblyMetaDataApiType>, public ITokenizable
     {
     public:
         TokenizableType *Target;
         
         CustomAttribute() : m_pMethod(NULL) { }
     
-        Method<MetaDataApiType> *GetConstructor()
+        Method<AssemblyMetaDataApiType> *GetConstructor()
         {
             FillPropertiesIfNecessary();
             return m_pMethod;
@@ -53,7 +53,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             if (FAILED(hr)) 
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 
-            hr = m_pAsm->GetHeap<Method<MetaDataApiType>>()->New(&m_pMethod);
+            hr = m_pAsm->GetHeap<Method<AssemblyMetaDataApiType>>()->New(&m_pMethod);
             if (FAILED(hr)) 
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
             
@@ -71,7 +71,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             //return S_OK;
         }
         
-        Method<MetaDataApiType> *m_pMethod;    
+        Method<AssemblyMetaDataApiType> *m_pMethod;    
     };
 
 

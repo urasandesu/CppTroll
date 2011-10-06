@@ -3,21 +3,21 @@
 #define URASANDESU_NANONYM_METADATA_TYPEENUMERATOR_H
 
 #ifndef URASANDESU_NANONYM_METADATA_IMETADATAOPERABLE_H
-#include "Urasandesu/NAnonym/MetaData/IMetaDataOperable.h"
+#include <Urasandesu/NAnonym/MetaData/IMetaDataOperable.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_ITOKENIZABLE_H
-#include "Urasandesu/NAnonym/MetaData/ITokenizable.h"
+#include <Urasandesu/NAnonym/MetaData/ITokenizable.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_TYPE_H
-#include "Urasandesu/NAnonym/MetaData/Type.h"
+#include <Urasandesu/NAnonym/MetaData/Type.h>
 #endif
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
-    template<class MetaDataApiType = boost::use_default>
-    class TypeEnumerator : public IMetaDataOperable<MetaDataApiType>, public ITokenizable
+    template<class AssemblyMetaDataApiType = boost::use_default>
+    class TypeEnumerator : public IMetaDataOperable<AssemblyMetaDataApiType>, public ITokenizable
     {
     public:
         TypeEnumerator() : m_htdEnum(NULL), m_count(0), m_current(-1) { }
@@ -27,7 +27,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
                 m_pApi->Import->CloseEnum(m_htdEnum);
         }
 
-        Type<MetaDataApiType> *Next()
+        Type<AssemblyMetaDataApiType> *Next()
         {
             HRESULT hr = E_FAIL;
             
@@ -40,8 +40,8 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
                     return NULL;
             }
             
-            Type<MetaDataApiType> *pType = NULL;
-            hr = m_pAsm->GetHeap<Type<MetaDataApiType>>()->New(&pType);
+            Type<AssemblyMetaDataApiType> *pType = NULL;
+            hr = m_pAsm->GetHeap<Type<AssemblyMetaDataApiType>>()->New(&pType);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 

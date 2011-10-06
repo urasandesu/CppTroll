@@ -3,21 +3,21 @@
 #define URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTEENUMERATOR_H
 
 #ifndef URASANDESU_NANONYM_METADATA_IMETADATAOPERABLE_H
-#include "Urasandesu/NAnonym/MetaData/IMetaDataOperable.h"
+#include <Urasandesu/NAnonym/MetaData/IMetaDataOperable.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_ITOKENIZABLE_H
-#include "Urasandesu/NAnonym/MetaData/ITokenizable.h"
+#include <Urasandesu/NAnonym/MetaData/ITokenizable.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTE_H
-#include "Urasandesu/NAnonym/MetaData/CustomAttribute.h"
+#include <Urasandesu/NAnonym/MetaData/CustomAttribute.h>
 #endif
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
-    template<class TokenizableType, class MetaDataApiType = boost::use_default>
-    class CustomAttributeEnumerator : public IMetaDataOperable<MetaDataApiType>, public ITokenizable
+    template<class TokenizableType, class AssemblyMetaDataApiType = boost::use_default>
+    class CustomAttributeEnumerator : public IMetaDataOperable<AssemblyMetaDataApiType>, public ITokenizable
     {
     public:
         TokenizableType *Target;
@@ -29,7 +29,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
                 m_pApi->Import->CloseEnum(m_hcaEnum);
         }
         
-        CustomAttribute<TokenizableType, MetaDataApiType> *Next()
+        CustomAttribute<TokenizableType, AssemblyMetaDataApiType> *Next()
         {
             HRESULT hr = E_FAIL;
             
@@ -43,8 +43,8 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
                     return NULL;
             }
 
-            CustomAttribute<TokenizableType, MetaDataApiType> *pCA = NULL;
-            hr = m_pAsm->GetHeap<CustomAttribute<TokenizableType, MetaDataApiType>>()->New(&pCA);
+            CustomAttribute<TokenizableType, AssemblyMetaDataApiType> *pCA = NULL;
+            hr = m_pAsm->GetHeap<CustomAttribute<TokenizableType, AssemblyMetaDataApiType>>()->New(&pCA);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 

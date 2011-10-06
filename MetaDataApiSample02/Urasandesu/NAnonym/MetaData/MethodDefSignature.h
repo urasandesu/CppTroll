@@ -3,17 +3,17 @@
 #define URASANDESU_NANONYM_METADATA_METHODDEFSIGNATURE_H
 
 #ifndef URASANDESU_NANONYM_METADATA_IMETADATAOPERABLE_H
-#include "Urasandesu/NAnonym/MetaData/IMetaDataOperable.h"
+#include <Urasandesu/NAnonym/MetaData/IMetaDataOperable.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_TYPESIGNATURE_H
-#include "Urasandesu/NAnonym/MetaData/TypeSignature.h"
+#include <Urasandesu/NAnonym/MetaData/TypeSignature.h>
 #endif
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
-    template<class MetaDataApiType = boost::use_default>
-    class MethodDefSignature : public IMetaDataOperable<MetaDataApiType>
+    template<class AssemblyMetaDataApiType = boost::use_default>
+    class MethodDefSignature : public IMetaDataOperable<AssemblyMetaDataApiType>
     {
     public:
         MethodDefSignature() : 
@@ -46,13 +46,13 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             return m_paramCount;
         }
 
-        TypeSignature<MetaDataApiType> *GetReturnTypeSignature()
+        TypeSignature<AssemblyMetaDataApiType> *GetReturnTypeSignature()
         {
             FillPropertiesIfNecessary();
             return m_pRetTypeSig;
         }
                 
-        std::vector<TypeSignature<MetaDataApiType>*> *GetParameterTypeSignatures()
+        std::vector<TypeSignature<AssemblyMetaDataApiType>*> *GetParameterTypeSignatures()
         {
             FillPropertiesIfNecessary();
             return m_pParamTypeSigs;
@@ -79,7 +79,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             m_pParsedSigBlob += ::CorSigUncompressData(m_pParsedSigBlob, &m_callingConv);
             m_pParsedSigBlob += ::CorSigUncompressData(m_pParsedSigBlob, &m_paramCount);
 
-            hr = m_pAsm->GetHeap<TypeSignature<MetaDataApiType>>()->New(&m_pRetTypeSig);
+            hr = m_pAsm->GetHeap<TypeSignature<AssemblyMetaDataApiType>>()->New(&m_pRetTypeSig);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
             
@@ -87,13 +87,13 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             m_pRetTypeSig->SignatureBlob = m_pParsedSigBlob;
             m_pParsedSigBlob = m_pRetTypeSig->GetParsedSigBlob();
 
-            hr = m_pAsm->GetHeap<std::vector<TypeSignature<MetaDataApiType>*>>()->New(&m_pParamTypeSigs);
+            hr = m_pAsm->GetHeap<std::vector<TypeSignature<AssemblyMetaDataApiType>*>>()->New(&m_pParamTypeSigs);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
             for (ULONG i = 0; i < m_paramCount; ++i)   
             {
-                TypeSignature<MetaDataApiType> *pTypeSig = NULL;
-                hr = m_pAsm->GetHeap<TypeSignature<MetaDataApiType>>()->New(&pTypeSig);
+                TypeSignature<AssemblyMetaDataApiType> *pTypeSig = NULL;
+                hr = m_pAsm->GetHeap<TypeSignature<AssemblyMetaDataApiType>>()->New(&pTypeSig);
                 if (FAILED(hr))
                     BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
                 
@@ -110,8 +110,8 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
         ULONG m_callingConv;
         ULONG m_paramCount;
 
-        TypeSignature<MetaDataApiType> *m_pRetTypeSig;        
-        std::vector<TypeSignature<MetaDataApiType>*> *m_pParamTypeSigs;
+        TypeSignature<AssemblyMetaDataApiType> *m_pRetTypeSig;        
+        std::vector<TypeSignature<AssemblyMetaDataApiType>*> *m_pParamTypeSigs;
     };
 
 

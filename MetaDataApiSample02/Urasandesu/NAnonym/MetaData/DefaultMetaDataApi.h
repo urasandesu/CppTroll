@@ -4,16 +4,12 @@
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
-    struct DefaultMetaDataApi
+    struct DefaultDispenserMetaDataApi
     {        
         typedef IMetaDataDispenserEx IDispenser;
         static IID const CLSID_Dispenser;
         static IID const IID_IDispenser;
         CComPtr<IDispenser> Dispenser;
-        
-        typedef IMetaDataImport2 IImport;
-        static IID const IID_IImport;
-        CComPtr<IImport> Import;
         
         inline static HRESULT CoCreateInstance(REFCLSID rclsid, 
                                              LPUNKNOWN pUnkOuter,
@@ -23,6 +19,13 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
         {
             return ::CoCreateInstance(rclsid, pUnkOuter, dwClsContext, riid, ppv);
         }
+    };
+
+    struct DefaultAssemblyMetaDataApi
+    {        
+        typedef IMetaDataImport2 IImport;
+        static IID const IID_IImport;
+        CComPtr<IImport> Import;
     };
 
 }}}   // namespace Urasandesu { namespace NAnonym { namespace MetaData {

@@ -4,11 +4,11 @@
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
-    template<class MetaDataApiType>
+    template<class AssemblyMetaDataApiType>
     class Type;
 
-    template<class MetaDataApiType = boost::use_default>
-    class MethodEnumerator : public IMetaDataOperable<MetaDataApiType>, public ITokenizable
+    template<class AssemblyMetaDataApiType = boost::use_default>
+    class MethodEnumerator : public IMetaDataOperable<AssemblyMetaDataApiType>, public ITokenizable
     {
     public:
         MethodEnumerator() : DeclaringType(NULL), m_hmdEnum(NULL), m_count(0), m_current(-1) { }
@@ -18,9 +18,9 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
                 m_pApi->Import->CloseEnum(m_hmdEnum);
         }
 
-        Type<MetaDataApiType> *DeclaringType;
+        Type<AssemblyMetaDataApiType> *DeclaringType;
 
-        Method<MetaDataApiType> *Next()
+        Method<AssemblyMetaDataApiType> *Next()
         {
             HRESULT hr = E_FAIL;
             
@@ -34,8 +34,8 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
                     return NULL;
             }
 
-            Method<MetaDataApiType> *pMethod = NULL;
-            hr = m_pAsm->GetHeap<Method<MetaDataApiType>>()->New(&pMethod);
+            Method<AssemblyMetaDataApiType> *pMethod = NULL;
+            hr = m_pAsm->GetHeap<Method<AssemblyMetaDataApiType>>()->New(&pMethod);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 

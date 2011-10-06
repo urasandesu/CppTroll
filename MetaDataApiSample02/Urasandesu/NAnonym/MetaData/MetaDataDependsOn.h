@@ -4,9 +4,11 @@
 
 #include <vector>
 #include <boost/array.hpp>
+#include <boost/make_shared.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/range/algorithm.hpp>
 #include <boost/range/any_range.hpp>
+#include <boost/shared_ptr.hpp>
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 

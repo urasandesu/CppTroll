@@ -3,29 +3,40 @@
 #define URASANDESU_NANONYM_METADATA_METHOD_H
 
 #ifndef URASANDESU_NANONYM_METADATA_IMETADATAOPERABLE_H
-#include "Urasandesu/NAnonym/MetaData/IMetaDataOperable.h"
+#include <Urasandesu/NAnonym/MetaData/IMetaDataOperable.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_ITOKENIZABLE_H
-#include "Urasandesu/NAnonym/MetaData/ITokenizable.h"
+#include <Urasandesu/NAnonym/MetaData/ITokenizable.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTEENUMERATOR_H
+#include <Urasandesu/NAnonym/MetaData/CustomAttributeEnumerator.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTE_H
+#include <Urasandesu/NAnonym/MetaData/CustomAttribute.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_METHODDEFSIGNATURE_H
-#include "Urasandesu/NAnonym/MetaData/MethodDefSignature.h"
+#include <Urasandesu/NAnonym/MetaData/MethodDefSignature.h>
 #endif
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
-    template<class MetaDataApiType = boost::use_default>
-    class Method : public IMetaDataOperable<MetaDataApiType>, public ITokenizable
+    template<class AssemblyMetaDataApiType>
+    class Type;
+
+    template<class AssemblyMetaDataApiType = boost::use_default>
+    class Method : public IMetaDataOperable<AssemblyMetaDataApiType>, public ITokenizable
     {
     public:
-        typedef CustomAttributeEnumerator<Method<MetaDataApiType>, MetaDataApiType> custom_attribute_enumerator_type;
-        typedef CustomAttribute<Method<MetaDataApiType>, MetaDataApiType> custom_attribute_type;
+        typedef CustomAttributeEnumerator<Method<AssemblyMetaDataApiType>, AssemblyMetaDataApiType> custom_attribute_enumerator_type;
+        typedef CustomAttribute<Method<AssemblyMetaDataApiType>, AssemblyMetaDataApiType> custom_attribute_type;
         
         Method() : m_pMethodSig(NULL) { }
 
-        Type<MetaDataApiType> *DeclaringType;
+        Type<AssemblyMetaDataApiType> *DeclaringType;
         
         custom_attribute_enumerator_type *EnumerateCustomAttribute()
         {
@@ -42,7 +53,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             return pCAEnum;
         }
         
-        MethodDefSignature<MetaDataApiType> *GetMethodSignature()
+        MethodDefSignature<AssemblyMetaDataApiType> *GetMethodSignature()
         {
             FillPropertiesIfNecessary();
             return m_pMethodSig;
@@ -71,7 +82,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             if (FAILED(hr)) 
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
             
-            hr = m_pAsm->GetHeap<MethodDefSignature<MetaDataApiType>>()->New(&m_pMethodSig);
+            hr = m_pAsm->GetHeap<MethodDefSignature<AssemblyMetaDataApiType>>()->New(&m_pMethodSig);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 
@@ -79,7 +90,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             m_pMethodSig->SignatureBlob = pSigBlob;
         }
 
-        MethodDefSignature<MetaDataApiType> *m_pMethodSig;
+        MethodDefSignature<AssemblyMetaDataApiType> *m_pMethodSig;
     };
 
 

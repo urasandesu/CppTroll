@@ -5,6 +5,7 @@
 
 namespace {
 
+    // MetaDataApiSample02Test.exe --gtest_filter=MetaDataApiSample02TestSuite.MetaDataApiSample02Test
     TEST(MetaDataApiSample02TestSuite, MetaDataApiSample02Test)
     {
         IMetaDataInfoPtr pMetaDataInfo;

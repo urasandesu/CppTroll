@@ -3,7 +3,7 @@
 #define URASANDESU_NANONYM_NANONYMCOMEXCEPTION_H
 
 #ifndef URASANDESU_NANONYM_NANONYMEXCEPTION_H
-#include "Urasandesu/NAnonym/NAnonymException.h"
+#include <Urasandesu/NAnonym/NAnonymException.h>
 #endif
 
 namespace Urasandesu { namespace NAnonym {

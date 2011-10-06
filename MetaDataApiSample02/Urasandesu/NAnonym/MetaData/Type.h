@@ -3,33 +3,33 @@
 #define URASANDESU_NANONYM_METADATA_TYPE_H
 
 #ifndef URASANDESU_NANONYM_METADATA_IMETADATAOPERABLE_H
-#include "Urasandesu/NAnonym/MetaData/IMetaDataOperable.h"
+#include <Urasandesu/NAnonym/MetaData/IMetaDataOperable.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_ITOKENIZABLE_H
-#include "Urasandesu/NAnonym/MetaData/ITokenizable.h"
+#include <Urasandesu/NAnonym/MetaData/ITokenizable.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTEENUMERATOR_H
-#include "Urasandesu/NAnonym/MetaData/CustomAttributeEnumerator.h"
+#include <Urasandesu/NAnonym/MetaData/CustomAttributeEnumerator.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTE_H
-#include "Urasandesu/NAnonym/MetaData/CustomAttribute.h"
+#include <Urasandesu/NAnonym/MetaData/CustomAttribute.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_METHODENUMERATOR_H
-#include "Urasandesu/NAnonym/MetaData/MethodEnumerator.h"
+#include <Urasandesu/NAnonym/MetaData/MethodEnumerator.h>
 #endif
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
-    template<class MetaDataApiType = boost::use_default>
-    class Type : public IMetaDataOperable<MetaDataApiType>, public ITokenizable
+    template<class AssemblyMetaDataApiType = boost::use_default>
+    class Type : public IMetaDataOperable<AssemblyMetaDataApiType>, public ITokenizable
     {
     public:
-        typedef CustomAttributeEnumerator<Type<MetaDataApiType>, MetaDataApiType> custom_attribute_enumerator_type;
-        typedef CustomAttribute<Type<MetaDataApiType>, MetaDataApiType> custom_attribute_type;
+        typedef CustomAttributeEnumerator<Type<AssemblyMetaDataApiType>, AssemblyMetaDataApiType> custom_attribute_enumerator_type;
+        typedef CustomAttribute<Type<AssemblyMetaDataApiType>, AssemblyMetaDataApiType> custom_attribute_type;
 
         custom_attribute_enumerator_type *EnumerateCustomAttribute()
         {
@@ -46,12 +46,12 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             return pCAEnum;
         }
         
-        MethodEnumerator<MetaDataApiType> *EnumerateMethod()
+        MethodEnumerator<AssemblyMetaDataApiType> *EnumerateMethod()
         {
             HRESULT hr = E_FAIL;
-            MethodEnumerator<MetaDataApiType> *pMethodEnum = NULL;
+            MethodEnumerator<AssemblyMetaDataApiType> *pMethodEnum = NULL;
             
-            hr = m_pAsm->GetHeap<MethodEnumerator<MetaDataApiType>>()->New(&pMethodEnum);
+            hr = m_pAsm->GetHeap<MethodEnumerator<AssemblyMetaDataApiType>>()->New(&pMethodEnum);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 

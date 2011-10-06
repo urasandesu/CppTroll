@@ -4,8 +4,8 @@
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
-    template<class MetaDataApiType = boost::use_default>
-    class TypeSignature : public IMetaDataOperable<MetaDataApiType>
+    template<class AssemblyMetaDataApiType = boost::use_default>
+    class TypeSignature : public IMetaDataOperable<AssemblyMetaDataApiType>
     {
     public:
         TypeSignature() : 
@@ -97,7 +97,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             return m_type != ELEMENT_TYPE_END && m_pParsedSigBlob != NULL;
         }
         
-        void GetTypeSignature(PCCOR_SIGNATURE &pSigBlob, TypeSignature<MetaDataApiType> *this_)
+        void GetTypeSignature(PCCOR_SIGNATURE &pSigBlob, TypeSignature<AssemblyMetaDataApiType> *this_)
         {
             pSigBlob += ::CorSigUncompressElementType(pSigBlob, &this_->m_type);
             switch (this_->m_type)

@@ -52,7 +52,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\boost_1_47_0"
+				AdditionalIncludeDirectories="C:\boost_1_47_0;."
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;NOMINMAX"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -363,6 +363,10 @@
 						</File>
 						<File
 							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultMetaDataApi.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\HeapProvider.h"
 							>
 						</File>
 						<File

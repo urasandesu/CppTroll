@@ -204,6 +204,22 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<Filter
+				Name="Urasandesu"
+				>
+				<Filter
+					Name="NAnonym"
+					>
+					<Filter
+						Name="MetaData"
+						>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\CustomAttributeTest.cpp"
+							>
+						</File>
+					</Filter>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="ヘッダー ファイル"
