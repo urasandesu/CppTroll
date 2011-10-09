@@ -2,20 +2,14 @@
 #ifndef URASANDESU_NANONYM_METADATA_ASSEMBLY_H
 #define URASANDESU_NANONYM_METADATA_ASSEMBLY_H
 
-#ifndef URASANDESU_NANONYM_METADATA_IMETADATAOPERABLE_H
-#include <Urasandesu/NAnonym/MetaData/IMetaDataOperable.h>
-#endif
-
-#ifndef URASANDESU_NANONYM_METADATA_ITOKENIZABLE_H
-#include <Urasandesu/NAnonym/MetaData/ITokenizable.h>
-#endif
-
 #ifndef URASANDESU_NANONYM_METADATA_HEAPPROVIDER_H
 #include <Urasandesu/NAnonym/MetaData/HeapProvider.h>
 #endif
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
+    template<class AssemblyMetaDataApiType>
+    class ATL_NO_VTABLE IMetaDataOperable;
 
     template<class AssemblyMetaDataApiType = boost::use_default>
     class Assembly : public IMetaDataOperable<AssemblyMetaDataApiType>, public ITokenizable

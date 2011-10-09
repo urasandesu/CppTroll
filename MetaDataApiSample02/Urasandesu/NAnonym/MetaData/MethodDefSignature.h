@@ -2,15 +2,10 @@
 #ifndef URASANDESU_NANONYM_METADATA_METHODDEFSIGNATURE_H
 #define URASANDESU_NANONYM_METADATA_METHODDEFSIGNATURE_H
 
-#ifndef URASANDESU_NANONYM_METADATA_IMETADATAOPERABLE_H
-#include <Urasandesu/NAnonym/MetaData/IMetaDataOperable.h>
-#endif
-
-#ifndef URASANDESU_NANONYM_METADATA_TYPESIGNATURE_H
-#include <Urasandesu/NAnonym/MetaData/TypeSignature.h>
-#endif
-
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
+
+    template<class AssemblyMetaDataApiType>
+    class TypeSignature;
 
     template<class AssemblyMetaDataApiType = boost::use_default>
     class MethodDefSignature : public IMetaDataOperable<AssemblyMetaDataApiType>

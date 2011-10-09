@@ -6,16 +6,8 @@
 #include <Urasandesu/NAnonym/MetaData/UseDefaultMetaDataApiIfNecessary.h>
 #endif
 
-#ifndef URASANDESU_NANONYM_SIMPLEHEAP_H
-#include <Urasandesu/NAnonym/SimpleHeap.h>
-#endif
-
-#ifndef URASANDESU_NANONYM_METADATA_ASSEMBLY_H
-#include <Urasandesu/NAnonym/MetaData/Assembly.h>
-#endif
-
-#ifndef URASANDESU_NANONYM_NANONYMCOMEXCEPTION_H
-#include <Urasandesu/NAnonym/NAnonymCOMException.h>
+#ifndef URASANDESU_NANONYM_METADATA_HEAPPROVIDER_H
+#include <Urasandesu/NAnonym/MetaData/HeapProvider.h>
 #endif
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {

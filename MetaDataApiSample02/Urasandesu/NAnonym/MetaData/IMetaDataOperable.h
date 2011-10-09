@@ -9,6 +9,9 @@
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
     template<class AssemblyMetaDataApiType>
+    struct ATL_NO_VTABLE UseDefaultAssemblyMetaDataApiIfNecessary;
+
+    template<class AssemblyMetaDataApiType>
     class Assembly;
 
     template<class AssemblyMetaDataApiType = boost::use_default>

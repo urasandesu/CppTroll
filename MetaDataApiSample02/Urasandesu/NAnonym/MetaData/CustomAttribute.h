@@ -2,15 +2,10 @@
 #ifndef URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTE_H
 #define URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTE_H
 
-#ifndef URASANDESU_NANONYM_METADATA_IMETADATAOPERABLE_H
-#include <Urasandesu/NAnonym/MetaData/IMetaDataOperable.h>
-#endif
-
-#ifndef URASANDESU_NANONYM_METADATA_ITOKENIZABLE_H
-#include <Urasandesu/NAnonym/MetaData/ITokenizable.h>
-#endif
-
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
+
+    template<class AssemblyMetaDataApiType>
+    class ATL_NO_VTABLE IMetaDataOperable;
 
     template<class AssemblyMetaDataApiType>
     class Method;

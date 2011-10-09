@@ -4,8 +4,32 @@
 #include <Urasandesu/NAnonym/MetaData/Runtime.h>
 #endif
 
+#ifndef URASANDESU_NANONYM_METADATA_ASSEMBLY_H
+#include <Urasandesu/NAnonym/MetaData/Assembly.h>
+#endif
+
 #ifndef URASANDESU_NANONYM_METADATA_METHOD_H
 #include <Urasandesu/NAnonym/MetaData/Method.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_IMETADATAOPERABLE_H
+#include <Urasandesu/NAnonym/MetaData/IMetaDataOperable.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_ITOKENIZABLE_H
+#include <Urasandesu/NAnonym/MetaData/ITokenizable.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_DEFAULTMETADATAAPI_H
+#include <Urasandesu/NAnonym/MetaData/DefaultMetaDataApi.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTE_H
+#include <Urasandesu/NAnonym/MetaData/CustomAttribute.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_NANONYMCOMEXCEPTION_H
+#include "Urasandesu/NAnonym/NAnonymCOMException.h"
 #endif
 
 namespace {

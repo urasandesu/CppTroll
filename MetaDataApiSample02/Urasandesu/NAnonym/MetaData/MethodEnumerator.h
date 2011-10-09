@@ -5,7 +5,13 @@
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
     template<class AssemblyMetaDataApiType>
+    class ATL_NO_VTABLE IMetaDataOperable;
+
+    template<class AssemblyMetaDataApiType>
     class Type;
+
+    template<class AssemblyMetaDataApiType>
+    class Method;
 
     template<class AssemblyMetaDataApiType = boost::use_default>
     class MethodEnumerator : public IMetaDataOperable<AssemblyMetaDataApiType>, public ITokenizable

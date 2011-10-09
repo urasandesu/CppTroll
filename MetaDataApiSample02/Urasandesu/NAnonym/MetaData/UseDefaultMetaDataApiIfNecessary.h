@@ -6,17 +6,19 @@
 #include <Urasandesu/NAnonym/Traits/Replace.h>
 #endif
 
-#ifndef URASANDESU_NANONYM_METADATA_DEFAULTMETADATAAPI_H
-#include <Urasandesu/NAnonym/MetaData/DefaultMetaDataApi.h>
-#endif
-
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
+
+    struct DefaultDispenserMetaDataApi;
 
     template<class DispenserMetaDataApiType = boost::use_default>
     struct ATL_NO_VTABLE UseDefaultDispenserMetaDataApiIfNecessary
     {
         typedef typename Urasandesu::NAnonym::Traits::Replace<DispenserMetaDataApiType, boost::use_default, DefaultDispenserMetaDataApi>::type meta_data_api_type;
     };
+
+
+
+    struct DefaultAssemblyMetaDataApi;
 
     template<class AssemblyMetaDataApiType = boost::use_default>
     struct ATL_NO_VTABLE UseDefaultAssemblyMetaDataApiIfNecessary

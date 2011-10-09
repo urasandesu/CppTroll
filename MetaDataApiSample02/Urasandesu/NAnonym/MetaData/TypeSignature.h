@@ -4,6 +4,9 @@
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
+    template<class AssemblyMetaDataApiType>
+    class ATL_NO_VTABLE IMetaDataOperable;
+
     template<class AssemblyMetaDataApiType = boost::use_default>
     class TypeSignature : public IMetaDataOperable<AssemblyMetaDataApiType>
     {
