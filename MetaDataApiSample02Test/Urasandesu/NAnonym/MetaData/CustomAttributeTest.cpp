@@ -60,6 +60,14 @@
 #include <Urasandesu/NAnonym/MetaData/TypeSignature.h>
 #endif
 
+#ifndef URASANDESU_NANONYM_METADATA_NAMEDARGSIGNATURE_H
+#include <Urasandesu/NAnonym/MetaData/NamedArgSignature.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_STRINGORTYPEELEMSIGNATURE_H
+#include <Urasandesu/NAnonym/MetaData/StringOrTypeElemSignature.h>
+#endif
+
 namespace {
 
     // MetaDataApiSample02Test.exe --gtest_filter=MetaDataApiSample02TestSuite.CustomAttributeTest

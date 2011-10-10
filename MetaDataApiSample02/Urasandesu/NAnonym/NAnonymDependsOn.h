@@ -2,14 +2,6 @@
 #ifndef URASANDESU_NANONYM_NANONYMDEPENDSON_H
 #define URASANDESU_NANONYM_NANONYMDEPENDSON_H
 
-#ifndef URASANDESU_NANONYM_METADATA_METADATADEPENDSON_H
-#include <Urasandesu/NAnonym/MetaData/MetaDataDependsOn.h>
-#endif
-
-#ifndef URASANDESU_NANONYM_TRAITS_TRAITSDEPENDSON_H
-#include <Urasandesu/NAnonym/Traits/TraitsDependsOn.h>
-#endif
-
 #include <boost/exception/all.hpp>
 #include <boost/exception/errinfo_nested_exception.hpp>
 #include <boost/exception_ptr.hpp>
@@ -27,5 +19,13 @@
 namespace Urasandesu { namespace NAnonym {
 
 }}   // namespace Urasandesu { namespace NAnonym {
+
+#ifndef URASANDESU_NANONYM_METADATA_METADATADEPENDSON_H
+#include <Urasandesu/NAnonym/MetaData/MetaDataDependsOn.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_TRAITS_TRAITSDEPENDSON_H
+#include <Urasandesu/NAnonym/Traits/TraitsDependsOn.h>
+#endif
 
 #endif  // #ifndef URASANDESU_NANONYM_NANONYMDEPENDSON_H

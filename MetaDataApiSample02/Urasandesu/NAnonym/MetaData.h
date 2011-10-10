@@ -74,6 +74,10 @@
 #include <Urasandesu/NAnonym/MetaData/Module.h>
 #endif
 
+#ifndef URASANDESU_NANONYM_METADATA_NAMEDARGSIGNATURE_H
+#include <Urasandesu/NAnonym/MetaData/NamedArgSignature.h>
+#endif
+
 #ifndef URASANDESU_NANONYM_METADATA_OPCODES_H
 #include <Urasandesu/NAnonym/MetaData/OpCodes.h>
 #endif
@@ -84,6 +88,10 @@
 
 #ifndef URASANDESU_NANONYM_METADATA_SIMPLEORENUMELEMSIGNATURE_H
 #include <Urasandesu/NAnonym/MetaData/SimpleOrEnumElemSignature.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_STRINGORTYPEELEMSIGNATURE_H
+#include <Urasandesu/NAnonym/MetaData/StringOrTypeElemSignature.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_TYPE_H
