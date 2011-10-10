@@ -362,7 +362,31 @@
 							>
 						</File>
 						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\CustomAttributeSignature.h"
+							>
+						</File>
+						<File
 							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultMetaDataApi.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\ElemSignature.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\ElemSignatureTrait.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\FixedArgArraySignature.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\FixedArgElemSignature.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\FixedArgSignature.h"
 							>
 						</File>
 						<File
@@ -403,6 +427,10 @@
 						</File>
 						<File
 							RelativePath=".\Urasandesu\NAnonym\MetaData\Runtime.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\SimpleOrEnumElemSignature.h"
 							>
 						</File>
 						<File

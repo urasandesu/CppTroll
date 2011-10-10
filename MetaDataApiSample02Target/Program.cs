@@ -2,10 +2,10 @@
 
 class Program
 {
-    [ReplaceAttribute(0x02000003, 0x06000003)]
+    [ReplaceAttribute(0x02000003, 0x06000003, Value = "aiueo")]
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello World!!");
+        Console.WriteLine("Hello world!!");
     }
 }
 
@@ -13,7 +13,7 @@ class AlternativeProgram
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Welcome to Low Layer World!!");
+        Console.WriteLine("Welcome to our low layer world!!");
     }
 }
 
@@ -30,4 +30,5 @@ sealed class ReplaceAttribute : Attribute
 
     public int TypeDefToken { get { return typeDefToken; } }
     public int MethodDefToken { get { return methodDefToken; } }
+    public string Value { get; set; }
 }

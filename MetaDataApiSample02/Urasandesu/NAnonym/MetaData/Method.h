@@ -79,7 +79,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 
             m_pMethodSig->Init(m_pAsm, m_pApi);
-            m_pMethodSig->SignatureBlob = pSigBlob;
+            m_pMethodSig->Blob = pSigBlob;
         }
 
         MethodDefSignature<AssemblyMetaDataApiType> *m_pMethodSig;

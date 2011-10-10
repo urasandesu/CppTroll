@@ -12,6 +12,8 @@
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
 
+    template<class AssemblyMetaDataApiType>
+    class Assembly;
 
     template<
         class DispenserMetaDataApiType = boost::use_default,
@@ -25,9 +27,9 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
     
     private:
         BEGIN_META_DATA_HEAP_PROVIDER()
-            DECLARE_META_DATA_HEAP_PROVIDER(dispenser_meta_data_api_type, m_dispApiFactory)
-            DECLARE_META_DATA_HEAP_PROVIDER(assembly_meta_data_api_type, m_asmApiFactory)
-            DECLARE_META_DATA_HEAP_PROVIDER1(AssemblyMetaDataApiType, Assembly, m_asmFactory)
+            DECLARE_META_DATA_HEAP_PROVIDER(dispenser_meta_data_api_type, m_pDispApiFactory)
+            DECLARE_META_DATA_HEAP_PROVIDER(assembly_meta_data_api_type, m_pAsmApiFactory)
+            DECLARE_META_DATA_HEAP_PROVIDER(Assembly<AssemblyMetaDataApiType>, m_pAsmFactory)
         END_META_DATA_HEAP_PROVIDER()
 
     public:

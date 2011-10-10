@@ -2,19 +2,13 @@
 #ifndef URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTEENUMERATOR_H
 #define URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTEENUMERATOR_H
 
-#ifndef URASANDESU_NANONYM_METADATA_IMETADATAOPERABLE_H
-#include <Urasandesu/NAnonym/MetaData/IMetaDataOperable.h>
-#endif
-
-#ifndef URASANDESU_NANONYM_METADATA_ITOKENIZABLE_H
-#include <Urasandesu/NAnonym/MetaData/ITokenizable.h>
-#endif
-
-#ifndef URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTE_H
-#include <Urasandesu/NAnonym/MetaData/CustomAttribute.h>
-#endif
-
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
+
+    template<class AssemblyMetaDataApiType>
+    class ATL_NO_VTABLE IMetaDataOperable;
+
+    template<class TokenizableType, class AssemblyMetaDataApiType>
+    class CustomAttribute;
 
     template<class TokenizableType, class AssemblyMetaDataApiType = boost::use_default>
     class CustomAttributeEnumerator : public IMetaDataOperable<AssemblyMetaDataApiType>, public ITokenizable

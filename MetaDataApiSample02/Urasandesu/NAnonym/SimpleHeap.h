@@ -37,6 +37,24 @@ namespace Urasandesu { namespace NAnonym {
                 new(*ppObj)T();
                 return S_OK;
             }
+     
+            T *New()
+            {
+                HRESULT hr = E_FAIL;
+                T *pObj = NULL;
+                hr = m_array.ReSizeNoThrow(m_array.Size() + 1);
+                if (m_lastMaxSize < m_array.MaxSize())
+                {
+                    m_lastMaxSize = m_array.MaxSize();
+                    m_pCurrent = m_array.Ptr() + m_array.Size() - 1;
+                }
+                if (FAILED(hr))
+                    BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+                pObj = m_pCurrent;
+                ++m_pCurrent;
+                new(pObj)T();
+                return pObj;
+            }
             
             ~SimpleHeapImpl()
             {
@@ -61,6 +79,13 @@ namespace Urasandesu { namespace NAnonym {
                 return S_OK;
             }
         
+            T *New()
+            {
+                T *pObj = new T();
+                m_array.push_back(pObj);
+                return pObj;
+            }
+        
         private:
             boost::ptr_vector<T> m_array;
         };
@@ -78,6 +103,11 @@ namespace Urasandesu { namespace NAnonym {
         HRESULT New(T **ppObj)
         {
             return m_impl.New(ppObj);
+        }
+        
+        T *New()
+        {
+            return m_impl.New();
         }
     };
     

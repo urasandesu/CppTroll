@@ -12,8 +12,8 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
     {
     public:
         MethodDefSignature() : 
-            SignatureBlob(NULL),
-            m_pParsedSigBlob(NULL),
+            Blob(NULL),
+            m_pParsedBlob(NULL),
             m_callingConv(-1), 
             m_paramCount(-1), 
             m_pRetTypeSig(NULL),
@@ -21,12 +21,12 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
         {
         }
 
-        PCCOR_SIGNATURE SignatureBlob;
+        PCCOR_SIGNATURE Blob;
 
-        PCCOR_SIGNATURE GetParsedSigBlob()
+        PCCOR_SIGNATURE GetParsedBlob()
         {
             FillPropertiesIfNecessary();
-            return m_pParsedSigBlob;
+            return m_pParsedBlob;
         }
 
         ULONG GetCallingConversion()
@@ -62,25 +62,25 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
         
         bool HasGotProperties()
         {
-            return m_pParsedSigBlob != NULL && m_callingConv != -1 && m_paramCount != -1 && m_pRetTypeSig != NULL;
+            return m_pParsedBlob != NULL && m_callingConv != -1 && m_paramCount != -1 && m_pRetTypeSig != NULL;
         }
         
         void FillProperties()
         {
             HRESULT hr = E_FAIL;
             
-            m_pParsedSigBlob = SignatureBlob;
+            m_pParsedBlob = Blob;
 
-            m_pParsedSigBlob += ::CorSigUncompressData(m_pParsedSigBlob, &m_callingConv);
-            m_pParsedSigBlob += ::CorSigUncompressData(m_pParsedSigBlob, &m_paramCount);
+            m_pParsedBlob += ::CorSigUncompressData(m_pParsedBlob, &m_callingConv);
+            m_pParsedBlob += ::CorSigUncompressData(m_pParsedBlob, &m_paramCount);
 
             hr = m_pAsm->GetHeap<TypeSignature<AssemblyMetaDataApiType>>()->New(&m_pRetTypeSig);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
             
             m_pRetTypeSig->Init(m_pAsm, m_pApi);            
-            m_pRetTypeSig->SignatureBlob = m_pParsedSigBlob;
-            m_pParsedSigBlob = m_pRetTypeSig->GetParsedSigBlob();
+            m_pRetTypeSig->Blob = m_pParsedBlob;
+            m_pParsedBlob = m_pRetTypeSig->GetParsedBlob();
 
             hr = m_pAsm->GetHeap<std::vector<TypeSignature<AssemblyMetaDataApiType>*>>()->New(&m_pParamTypeSigs);
             if (FAILED(hr))
@@ -93,15 +93,15 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
                     BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
                 
                 pTypeSig->Init(m_pAsm, m_pApi);
-                pTypeSig->SignatureBlob = m_pParsedSigBlob;
-                m_pParsedSigBlob = pTypeSig->GetParsedSigBlob();
+                pTypeSig->Blob = m_pParsedBlob;
+                m_pParsedBlob = pTypeSig->GetParsedBlob();
 
                 m_pParamTypeSigs->push_back(pTypeSig);
             }
         }
         
                 
-        PCCOR_SIGNATURE m_pParsedSigBlob;
+        PCCOR_SIGNATURE m_pParsedBlob;
         ULONG m_callingConv;
         ULONG m_paramCount;
 

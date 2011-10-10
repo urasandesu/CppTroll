@@ -10,18 +10,27 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
     template<class AssemblyMetaDataApiType>
     class Method;
 
+    template<class AssemblyMetaDataApiType>
+    class CustomAttributeSignature;
+
     template<class TokenizableType, class AssemblyMetaDataApiType = boost::use_default>
     class CustomAttribute : public IMetaDataOperable<AssemblyMetaDataApiType>, public ITokenizable
     {
     public:
         TokenizableType *Target;
         
-        CustomAttribute() : m_pMethod(NULL) { }
+        CustomAttribute() : m_pMethod(NULL), m_pSignature(NULL) { }
     
         Method<AssemblyMetaDataApiType> *GetConstructor()
         {
             FillPropertiesIfNecessary();
             return m_pMethod;
+        }
+    
+        CustomAttributeSignature<AssemblyMetaDataApiType> *GetSignature()
+        {
+            FillPropertiesIfNecessary();
+            return m_pSignature;
         }
     
     private:
@@ -33,7 +42,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
         
         bool HasGotProperties()
         {
-            return m_pMethod != NULL;
+            return m_pMethod != NULL && m_pSignature != NULL;
         }
         
         void FillProperties()
@@ -48,25 +57,26 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             if (FAILED(hr)) 
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 
+
             hr = m_pAsm->GetHeap<Method<AssemblyMetaDataApiType>>()->New(&m_pMethod);
             if (FAILED(hr)) 
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
             
+            m_pMethod->Init(m_pAsm, m_pApi);
             m_pMethod->SetToken(mdtCtor);
 
-            //cout << "Blob: ";
-            //for (BYTE const *i = reinterpret_cast<BYTE*>(const_cast<void*>(pBlob)), 
-            //                *i_end = i + blobSize; 
-            //     i != i_end; 
-            //     ++i)
-            //{
-            //    cout << format("%|1$02X|") % static_cast<INT>(*i) << " ";
-            //}
-            //cout << endl;
-            //return S_OK;
+
+            hr = m_pAsm->GetHeap<CustomAttributeSignature<AssemblyMetaDataApiType>>()->New(&m_pSignature);
+            if (FAILED(hr)) 
+                BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
+
+            m_pSignature->Init(m_pAsm, m_pApi);
+            m_pSignature->Blob = reinterpret_cast<PCCOR_SIGNATURE>(pBlob);
+            m_pSignature->Constructor = m_pMethod;
         }
         
         Method<AssemblyMetaDataApiType> *m_pMethod;    
+        CustomAttributeSignature<AssemblyMetaDataApiType> *m_pSignature;
     };
 
 

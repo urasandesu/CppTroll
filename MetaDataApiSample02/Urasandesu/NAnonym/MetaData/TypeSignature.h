@@ -12,8 +12,8 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
     {
     public:
         TypeSignature() : 
-            SignatureBlob(NULL),
-            m_pParsedSigBlob(NULL),
+            Blob(NULL),
+            m_pParsedBlob(NULL),
             m_type(ELEMENT_TYPE_END), 
             m_token(mdTokenNil),
             m_rank(-1),
@@ -26,12 +26,12 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
         { 
         }
 
-        PCCOR_SIGNATURE SignatureBlob;
+        PCCOR_SIGNATURE Blob;
 
-        PCCOR_SIGNATURE GetParsedSigBlob()
+        PCCOR_SIGNATURE GetParsedBlob()
         {
             FillPropertiesIfNecessary();
-            return m_pParsedSigBlob;
+            return m_pParsedBlob;
         }
         
         CorElementType GetType()
@@ -97,7 +97,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
         
         bool HasGotProperties()
         {
-            return m_type != ELEMENT_TYPE_END && m_pParsedSigBlob != NULL;
+            return m_type != ELEMENT_TYPE_END && m_pParsedBlob != NULL;
         }
         
         void GetTypeSignature(PCCOR_SIGNATURE &pSigBlob, TypeSignature<AssemblyMetaDataApiType> *this_)
@@ -197,11 +197,11 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
         
         void FillProperties()
         {
-            m_pParsedSigBlob = SignatureBlob;
-            GetTypeSignature(m_pParsedSigBlob, this);    
+            m_pParsedBlob = Blob;
+            GetTypeSignature(m_pParsedBlob, this);    
         }
         
-        PCCOR_SIGNATURE m_pParsedSigBlob;
+        PCCOR_SIGNATURE m_pParsedBlob;
         CorElementType m_type;
         mdToken m_token;
         ULONG m_rank;

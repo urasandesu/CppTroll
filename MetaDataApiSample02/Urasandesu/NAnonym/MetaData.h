@@ -22,8 +22,32 @@
 #include <Urasandesu/NAnonym/MetaData/CustomAttributeEnumerator.h>
 #endif
 
+#ifndef URASANDESU_NANONYM_METADATA_CUSTOMATTRIBUTESIGNATURE_H
+#include <Urasandesu/NAnonym/MetaData/CustomAttributeSignature.h>
+#endif
+
 #ifndef URASANDESU_NANONYM_METADATA_DEFAULTMETADATAAPI_H
 #include <Urasandesu/NAnonym/MetaData/DefaultMetaDataApi.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_ELEMSIGNATURE_H
+#include <Urasandesu/NAnonym/MetaData/ElemSignature.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_ELEMSIGNATURETRAIT_H
+#include <Urasandesu/NAnonym/MetaData/ElemSignatureTrait.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_FIXEDARGARRAYSIGNATURE_H
+#include <Urasandesu/NAnonym/MetaData/FixedArgArraySignature.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_FIXEDARGELEMSIGNATURE_H
+#include <Urasandesu/NAnonym/MetaData/FixedArgElemSignature.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_FIXEDARGSIGNATURE_H
+#include <Urasandesu/NAnonym/MetaData/FixedArgSignature.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_IMETADATAOPERABLE_H
@@ -56,6 +80,10 @@
 
 #ifndef URASANDESU_NANONYM_METADATA_RUNTIME_H
 #include <Urasandesu/NAnonym/MetaData/Runtime.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_METADATA_SIMPLEORENUMELEMSIGNATURE_H
+#include <Urasandesu/NAnonym/MetaData/SimpleOrEnumElemSignature.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_METADATA_TYPE_H
