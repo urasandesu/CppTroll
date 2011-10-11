@@ -38,10 +38,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             }
 
             CustomAttribute<TokenizableType, AssemblyMetaDataApiType> *pCA = NULL;
-            hr = m_pAsm->GetHeap<CustomAttribute<TokenizableType, AssemblyMetaDataApiType>>()->New(&pCA);
-            if (FAILED(hr))
-                BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
-
+            pCA = m_pAsm->GetHeap<CustomAttribute<TokenizableType, AssemblyMetaDataApiType>>()->New();
             pCA->Init(m_pAsm, m_pApi);
             pCA->SetToken(m_mdtrs[m_current]);
             pCA->Target = Target;

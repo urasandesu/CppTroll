@@ -20,24 +20,7 @@ namespace Urasandesu { namespace NAnonym {
             typedef CQuickArray<T> TArray;        
             
             SimpleHeapImpl() : m_pCurrent(m_array.Ptr()), m_lastMaxSize(m_array.MaxSize()) { }
-     
-            HRESULT New(T **ppObj)
-            {
-                HRESULT hr = E_FAIL;
-                hr = m_array.ReSizeNoThrow(m_array.Size() + 1);
-                if (m_lastMaxSize < m_array.MaxSize())
-                {
-                    m_lastMaxSize = m_array.MaxSize();
-                    m_pCurrent = m_array.Ptr() + m_array.Size() - 1;
-                }
-                if (FAILED(hr))
-                    return hr;
-                *ppObj = m_pCurrent;
-                ++m_pCurrent;
-                new(*ppObj)T();
-                return S_OK;
-            }
-     
+
             T *New()
             {
                 HRESULT hr = E_FAIL;
@@ -72,13 +55,6 @@ namespace Urasandesu { namespace NAnonym {
         class SimpleHeapImpl<T, DefaultHeap>
         {
         public:
-            HRESULT New(T **ppObj)
-            {
-                *ppObj = new T();
-                m_array.push_back(*ppObj);
-                return S_OK;
-            }
-        
             T *New()
             {
                 T *pObj = new T();
@@ -100,11 +76,6 @@ namespace Urasandesu { namespace NAnonym {
         Detail::SimpleHeapImpl<T, Tag> m_impl;
         
     public:
-        HRESULT New(T **ppObj)
-        {
-            return m_impl.New(ppObj);
-        }
-        
         T *New()
         {
             return m_impl.New();

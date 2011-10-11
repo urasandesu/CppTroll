@@ -102,10 +102,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             HRESULT hr = E_FAIL;
             
             Module<AssemblyMetaDataApiType> *pMod = NULL;
-            hr = m_pAsm->GetHeap<Module<AssemblyMetaDataApiType>>()->New(&pMod);
-            if (FAILED(hr))
-                BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
-
+            pMod = m_pAsm->GetHeap<Module<AssemblyMetaDataApiType>>()->New();
             pMod->Init(m_pAsm, m_pApi);
                         
             return pMod;

@@ -40,10 +40,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             HRESULT hr = E_FAIL;
 
             assembly_meta_data_api_type *pAsmApi = NULL;
-            hr = GetHeap<assembly_meta_data_api_type>()->New(&pAsmApi);
-            if (FAILED(hr))
-                BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
-
+            pAsmApi = GetHeap<assembly_meta_data_api_type>()->New();
             hr = GetDispApi()->Dispenser->OpenScope(scope, openFlags, 
                                                     assembly_meta_data_api_type::IID_IImport, 
                                                     reinterpret_cast<IUnknown**>(&pAsmApi->Import));
@@ -52,10 +49,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             
 
             Assembly<AssemblyMetaDataApiType> *pAsm = NULL;
-            hr = GetHeap<Assembly<AssemblyMetaDataApiType>>()->New(&pAsm);
-            if (FAILED(hr))
-                BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
-            
+            pAsm = GetHeap<Assembly<AssemblyMetaDataApiType>>()->New();
             pAsm->Init(pAsm, pAsmApi);
             
             return pAsm;
@@ -68,10 +62,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             {
                 HRESULT hr = E_FAIL;
 
-                hr = GetHeap<dispenser_meta_data_api_type>()->New(&m_pDispApi);
-                if (FAILED(hr))
-                    BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
-
+                m_pDispApi = GetHeap<dispenser_meta_data_api_type>()->New();
                 hr = dispenser_meta_data_api_type::CoCreateInstance(
                                             dispenser_meta_data_api_type::CLSID_Dispenser, 
                                             NULL, 

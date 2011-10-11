@@ -62,7 +62,10 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
         
         bool HasGotProperties()
         {
-            return m_pParsedBlob != NULL && m_callingConv != -1 && m_paramCount != -1 && m_pRetTypeSig != NULL;
+            return m_pParsedBlob != NULL && 
+                   m_callingConv != -1 && 
+                   m_paramCount != -1 && 
+                   m_pRetTypeSig != NULL;
         }
         
         void FillProperties()
@@ -74,24 +77,16 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             m_pParsedBlob += ::CorSigUncompressData(m_pParsedBlob, &m_callingConv);
             m_pParsedBlob += ::CorSigUncompressData(m_pParsedBlob, &m_paramCount);
 
-            hr = m_pAsm->GetHeap<TypeSignature<AssemblyMetaDataApiType>>()->New(&m_pRetTypeSig);
-            if (FAILED(hr))
-                BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
-            
+            m_pRetTypeSig = m_pAsm->GetHeap<TypeSignature<AssemblyMetaDataApiType>>()->New();
             m_pRetTypeSig->Init(m_pAsm, m_pApi);            
             m_pRetTypeSig->Blob = m_pParsedBlob;
             m_pParsedBlob = m_pRetTypeSig->GetParsedBlob();
 
-            hr = m_pAsm->GetHeap<std::vector<TypeSignature<AssemblyMetaDataApiType>*>>()->New(&m_pParamTypeSigs);
-            if (FAILED(hr))
-                BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
+            m_pParamTypeSigs = m_pAsm->GetHeap<std::vector<TypeSignature<AssemblyMetaDataApiType>*>>()->New();
             for (ULONG i = 0; i < m_paramCount; ++i)   
             {
                 TypeSignature<AssemblyMetaDataApiType> *pTypeSig = NULL;
-                hr = m_pAsm->GetHeap<TypeSignature<AssemblyMetaDataApiType>>()->New(&pTypeSig);
-                if (FAILED(hr))
-                    BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
-                
+                pTypeSig = m_pAsm->GetHeap<TypeSignature<AssemblyMetaDataApiType>>()->New();
                 pTypeSig->Init(m_pAsm, m_pApi);
                 pTypeSig->Blob = m_pParsedBlob;
                 m_pParsedBlob = pTypeSig->GetParsedBlob();

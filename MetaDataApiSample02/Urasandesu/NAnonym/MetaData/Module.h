@@ -16,13 +16,9 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
     public:
         TypeEnumerator<AssemblyMetaDataApiType> *EnumerateType()
         {
-            HRESULT hr = E_FAIL;
             TypeEnumerator<AssemblyMetaDataApiType> *pTypeEnum = NULL;
             
-            hr = m_pAsm->GetHeap<TypeEnumerator<AssemblyMetaDataApiType>>()->New(&pTypeEnum);
-            if (FAILED(hr))
-                BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
-
+            pTypeEnum = m_pAsm->GetHeap<TypeEnumerator<AssemblyMetaDataApiType>>()->New();
             pTypeEnum->Init(m_pAsm, m_pApi);
                         
             return pTypeEnum;

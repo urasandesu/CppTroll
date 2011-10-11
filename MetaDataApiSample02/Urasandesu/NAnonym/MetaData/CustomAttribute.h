@@ -58,18 +58,12 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
                 BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
 
 
-            hr = m_pAsm->GetHeap<Method<AssemblyMetaDataApiType>>()->New(&m_pMethod);
-            if (FAILED(hr)) 
-                BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
-            
+            m_pMethod = m_pAsm->GetHeap<Method<AssemblyMetaDataApiType>>()->New();
             m_pMethod->Init(m_pAsm, m_pApi);
             m_pMethod->SetToken(mdtCtor);
 
 
-            hr = m_pAsm->GetHeap<CustomAttributeSignature<AssemblyMetaDataApiType>>()->New(&m_pSignature);
-            if (FAILED(hr)) 
-                BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymCOMException(hr));
-
+            m_pSignature = m_pAsm->GetHeap<CustomAttributeSignature<AssemblyMetaDataApiType>>()->New();
             m_pSignature->Init(m_pAsm, m_pApi);
             m_pSignature->Blob = reinterpret_cast<PCCOR_SIGNATURE>(pBlob);
             m_pSignature->Constructor = m_pMethod;
