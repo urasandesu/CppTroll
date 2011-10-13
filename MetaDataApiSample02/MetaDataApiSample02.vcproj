@@ -77,6 +77,7 @@
 				Name="VCLinkerTool"
 				RegisterOutput="true"
 				IgnoreImportLibrary="true"
+				AdditionalDependencies="imagehlp.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="C:\boost_1_47_0\stage\lib"
 				ModuleDefinitionFile=".\MetaDataApiSample02.def"
@@ -315,6 +316,10 @@
 					Name="NAnonym"
 					>
 					<File
+						RelativePath=".\Urasandesu\NAnonym\HeapProvider.h"
+						>
+					</File>
+					<File
 						RelativePath=".\Urasandesu\NAnonym\MetaData.h"
 						>
 					</File>
@@ -336,6 +341,14 @@
 					</File>
 					<File
 						RelativePath=".\Urasandesu\NAnonym\SimpleHeap.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\StackFrame.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\StackTrace.h"
 						>
 					</File>
 					<File
@@ -387,10 +400,6 @@
 						</File>
 						<File
 							RelativePath=".\Urasandesu\NAnonym\MetaData\FixedArgSignature.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\HeapProvider.h"
 							>
 						</File>
 						<File

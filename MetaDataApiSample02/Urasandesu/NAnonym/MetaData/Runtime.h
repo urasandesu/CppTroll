@@ -6,8 +6,8 @@
 #include <Urasandesu/NAnonym/MetaData/UseDefaultMetaDataApiIfNecessary.h>
 #endif
 
-#ifndef URASANDESU_NANONYM_METADATA_HEAPPROVIDER_H
-#include <Urasandesu/NAnonym/MetaData/HeapProvider.h>
+#ifndef URASANDESU_NANONYM_HEAPPROVIDER_H
+#include <Urasandesu/NAnonym/HeapProvider.h>
 #endif
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData {
@@ -26,11 +26,11 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
         typedef typename UseDefaultAssemblyMetaDataApiIfNecessary<AssemblyMetaDataApiType>::meta_data_api_type assembly_meta_data_api_type;
     
     private:
-        BEGIN_META_DATA_HEAP_PROVIDER()
-            DECLARE_META_DATA_HEAP_PROVIDER(dispenser_meta_data_api_type, m_pDispApiFactory)
-            DECLARE_META_DATA_HEAP_PROVIDER(assembly_meta_data_api_type, m_pAsmApiFactory)
-            DECLARE_META_DATA_HEAP_PROVIDER(Assembly<AssemblyMetaDataApiType>, m_pAsmFactory)
-        END_META_DATA_HEAP_PROVIDER()
+        BEGIN_NANONYM_HEAP_PROVIDER()
+            DECLARE_NANONYM_HEAP_PROVIDER(dispenser_meta_data_api_type, m_pDispApiFactory)
+            DECLARE_NANONYM_HEAP_PROVIDER(assembly_meta_data_api_type, m_pAsmApiFactory)
+            DECLARE_NANONYM_HEAP_PROVIDER(Assembly<AssemblyMetaDataApiType>, m_pAsmFactory)
+        END_NANONYM_HEAP_PROVIDER()
 
     public:
         Runtime() : m_pDispApi(NULL) { }

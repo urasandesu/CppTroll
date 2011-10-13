@@ -1,20 +1,20 @@
 ﻿#pragma once
-#ifndef URASANDESU_NANONYM_METADATA_HEAPPROVIDER_H
-#define URASANDESU_NANONYM_METADATA_HEAPPROVIDER_H
+#ifndef URASANDESU_NANONYM_HEAPPROVIDER_H
+#define URASANDESU_NANONYM_HEAPPROVIDER_H
 
 #ifndef URASANDESU_NANONYM_SIMPLEHEAP_H
 #include <Urasandesu/NAnonym/SimpleHeap.h>
 #endif
 
-namespace Urasandesu { namespace NAnonym { namespace MetaData {
+namespace Urasandesu { namespace NAnonym {
 
-#define BEGIN_META_DATA_HEAP_PROVIDER() \
+#define BEGIN_NANONYM_HEAP_PROVIDER() \
     public: \
         template<class T> \
         Urasandesu::NAnonym::SimpleHeap<T> *GetHeap();
 
 
-#define DECLARE_META_DATA_HEAP_PROVIDER(t, name) \
+#define DECLARE_NANONYM_HEAP_PROVIDER(t, name) \
     private: \
         boost::shared_ptr<Urasandesu::NAnonym::SimpleHeap<t>> name; \
     public: \
@@ -28,8 +28,8 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
             return name.get(); \
         }
 
-#define END_META_DATA_HEAP_PROVIDER()
+#define END_NANONYM_HEAP_PROVIDER()
 
-}}}   // namespace Urasandesu { namespace NAnonym { namespace MetaData {
+}}   // namespace Urasandesu { namespace NAnonym {
 
-#endif  // #ifndef URASANDESU_NANONYM_METADATA_HEAPPROVIDER_H
+#endif  // #ifndef URASANDESU_NANONYM_HEAPPROVIDER_H

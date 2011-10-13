@@ -63,7 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gtestd.lib gtest_maind.lib"
+				AdditionalDependencies="gtestd.lib gtest_maind.lib Dbghelp.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="C:\boost_1_47_0\stage\lib;C:\gtest-1.6.0-vc90\msvc\gtest\Debug"
 				IgnoreDefaultLibraryNames=""
@@ -210,6 +210,10 @@
 				<Filter
 					Name="NAnonym"
 					>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\StackTraceTest.cpp"
+						>
+					</File>
 					<Filter
 						Name="MetaData"
 						>

@@ -14,12 +14,24 @@
 #include "Urasandesu/NAnonym/Traits.h"
 #endif
 
+#ifndef URASANDESU_NANONYM_HEAPPROVIDER_H
+#include <Urasandesu/NAnonym/HeapProvider.h>
+#endif
+
 #ifndef URASANDESU_NANONYM_SIMPLEBLOB_H
 #include "Urasandesu/NAnonym/SimpleBlob.h"
 #endif
 
 #ifndef URASANDESU_NANONYM_SIMPLEHEAP_H
 #include "Urasandesu/NAnonym/SimpleHeap.h"
+#endif
+
+#ifndef URASANDESU_NANONYM_STACKFRAME_H
+#include "Urasandesu/NAnonym/StackFrame.h"
+#endif
+
+#ifndef URASANDESU_NANONYM_STACKTRACE_H
+#include "Urasandesu/NAnonym/StackTrace.h"
 #endif
 
 #ifndef URASANDESU_NANONYM_SYSTEMERROR_H

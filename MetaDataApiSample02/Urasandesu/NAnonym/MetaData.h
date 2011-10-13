@@ -6,10 +6,6 @@
 #include <Urasandesu/NAnonym/MetaData/MetaDataDependsOn.h>
 #endif
 
-#ifndef URASANDESU_NANONYM_METADATA_HEAPPROVIDER_H
-#include <Urasandesu/NAnonym/MetaData/HeapProvider.h>
-#endif
-
 #ifndef URASANDESU_NANONYM_METADATA_ASSEMBLY_H
 #include <Urasandesu/NAnonym/MetaData/Assembly.h>
 #endif
