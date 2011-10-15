@@ -9,17 +9,11 @@
 namespace Urasandesu { namespace NAnonym {
 
     typedef boost::error_info<struct tag_hresult, std::string> ThrowHResult;
-    typedef boost::error_info<struct tag_hresult, _com_error> ThrowCOMError;
+    typedef boost::error_info<struct tag_com_error, _com_error> ThrowCOMError;
     
     struct NAnonymCOMException : NAnonymException
     {
-        NAnonymCOMException(HRESULT hr)
-        {
-            _com_error ce(hr);    
-            m_what = std::string(CW2A(ce.ErrorMessage()));
-            *this << ThrowHResult(boost::str(boost::format("0x%|1$08X|") % hr));
-            *this << ThrowCOMError(ce);
-        }
+        NAnonymCOMException(HRESULT hr);
     };
         
 }}  // namespace Urasandesu { namespace NAnonym {

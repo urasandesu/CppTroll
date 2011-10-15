@@ -4,33 +4,27 @@
 
 namespace Urasandesu { namespace NAnonym {
 
+    class StackTrace;
+
+    typedef boost::error_info<struct tag_stack_trace, StackTrace*> ThrowStackTrace;
+
     class NAnonymException : 
         public virtual boost::exception, 
         public virtual std::exception
     {
     public:
-        NAnonymException()
-        { 
-        }
-        
-        NAnonymException(std::string const &what) : 
-            m_what(what)
-        { 
-        }
-        
-        NAnonymException(std::string const &what, NAnonymException &innerException) : 
-            m_what(what)
-        {
-            *this << boost::errinfo_nested_exception(boost::copy_exception(innerException));
-        }
-        
-	    virtual const char *__CLR_OR_THIS_CALL what() const
-	    {
-	        return m_what.c_str();
-	    }
+        NAnonymException();
+        NAnonymException(std::string const &what);
+        NAnonymException(std::string const &what, NAnonymException &innerException);
+	    virtual const char *__CLR_OR_THIS_CALL what() const;
         
     protected:
         std::string m_what;
+        boost::shared_ptr<StackTrace> m_pStackTrace;
+    
+    private:
+        void CaptureStackTrace(NAnonymException *this_);
+
     };
         
 }}  // namespace Urasandesu { namespace NAnonym {

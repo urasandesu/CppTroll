@@ -205,20 +205,74 @@
 				</FileConfiguration>
 			</File>
 			<Filter
+				Name="Test"
+				>
+				<Filter
+					Name="Urasandesu"
+					>
+					<Filter
+						Name="NAnonym"
+						>
+						<File
+							RelativePath=".\Test\Urasandesu\NAnonym\NAnonymExceptionTest.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Test\Urasandesu\NAnonym\StackTraceTest.cpp"
+							>
+						</File>
+						<Filter
+							Name="MetaData"
+							>
+							<File
+								RelativePath=".\Test\Urasandesu\NAnonym\MetaData\CustomAttributeTest.cpp"
+								>
+								<FileConfiguration
+									Name="Debug|Win32"
+									>
+									<Tool
+										Name="VCCLCompilerTool"
+									/>
+								</FileConfiguration>
+							</File>
+						</Filter>
+					</Filter>
+				</Filter>
+			</Filter>
+			<Filter
 				Name="Urasandesu"
 				>
 				<Filter
 					Name="NAnonym"
 					>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\StackTraceTest.cpp"
+						RelativePath="..\MetaDataApiSample02\Urasandesu\NAnonym\NAnonymCOMException.cpp"
 						>
+					</File>
+					<File
+						RelativePath="..\MetaDataApiSample02\Urasandesu\NAnonym\NAnonymException.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\MetaDataApiSample02\Urasandesu\NAnonym\StackFrame.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\MetaDataApiSample02\Urasandesu\NAnonym\StackTrace.cpp"
+						>
+						<FileConfiguration
+							Name="Debug|Win32"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<Filter
 						Name="MetaData"
 						>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\CustomAttributeTest.cpp"
+							RelativePath="..\MetaDataApiSample02\Urasandesu\NAnonym\MetaData\DefaultMetaDataApi.cpp"
 							>
 						</File>
 					</Filter>

@@ -72,7 +72,7 @@ namespace {
         cout << boost::filesystem::absolute(p) << endl;
 
         StackTrace stackTrace;
-        stackTrace.Capture(hProcess, hThread, &context, userSearchPath);
+        stackTrace.Capture(0, hProcess, hThread, userSearchPath, &context);
         ptr_vector<StackFrame> *pFrames = stackTrace.GetStackFrames();
         ASSERT_LT(0U, pFrames->size());
         for (ptr_vector<StackFrame>::iterator i = pFrames->begin(), i_end = pFrames->end(); i != i_end; ++i)

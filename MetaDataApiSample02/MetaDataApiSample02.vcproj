@@ -269,6 +269,22 @@
 				<Filter
 					Name="NAnonym"
 					>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\NAnonymCOMException.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\NAnonymException.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\StackFrame.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\StackTrace.cpp"
+						>
+					</File>
 					<Filter
 						Name="MetaData"
 						>
