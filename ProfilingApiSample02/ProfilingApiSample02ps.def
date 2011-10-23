@@ -1,0 +1,8 @@
+
+LIBRARY      "ProfilingApiSample02PS"
+
+EXPORTS
+	DllGetClassObject		PRIVATE
+	DllCanUnloadNow			PRIVATE
+	DllRegisterServer		PRIVATE
+	DllUnregisterServer		PRIVATE

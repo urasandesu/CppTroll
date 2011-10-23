@@ -1,0 +1,35 @@
+﻿// ProfilingApiSample02.idl : ProfilingApiSample02 の IDL ソース
+//
+
+// このファイルは、タイプ ライブラリ (ProfilingApiSample02.tlb) およびマーシャリング コードを
+// 作成するために MIDL ツールによって処理されます。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(22E09B8F-3B11-4377-9075-F0AF29EFFE87),
+	dual,
+	nonextensible,
+	helpstring("IExeWeaver2 インターフェイス"),
+	pointer_default(unique)
+]
+interface IExeWeaver2 : IDispatch{
+};
+[
+	uuid(8B6C1B28-B4DA-4C92-8053-1B911458F597),
+	version(1.0),
+	helpstring("ProfilingApiSample02 1.0 タイプ ライブラリ")
+]
+library ProfilingApiSample02Lib
+{
+	[
+		uuid(F60DB91B-5932-4964-818A-CA697CF46A5F),
+		helpstring("ExeWeaver2 Class")
+	]
+	coclass ExeWeaver2
+	{
+		[default] interface IExeWeaver2;
+	};
+};

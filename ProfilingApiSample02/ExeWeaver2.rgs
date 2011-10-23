@@ -1,0 +1,26 @@
+HKCR
+{
+	ProfilingApiSample02.ExeWeaver2.1 = s 'ExeWeaver2 Class'
+	{
+		CLSID = s '{F60DB91B-5932-4964-818A-CA697CF46A5F}'
+	}
+	ProfilingApiSample02.ExeWeaver2 = s 'ExeWeaver2 Class'
+	{
+		CLSID = s '{F60DB91B-5932-4964-818A-CA697CF46A5F}'
+		CurVer = s 'ProfilingApiSample02.ExeWeaver2.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {F60DB91B-5932-4964-818A-CA697CF46A5F} = s 'ExeWeaver2 Class'
+		{
+			ProgID = s 'ProfilingApiSample02.ExeWeaver2.1'
+			VersionIndependentProgID = s 'ProfilingApiSample02.ExeWeaver2'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{8B6C1B28-B4DA-4C92-8053-1B911458F597}'
+		}
+	}
+}
