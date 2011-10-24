@@ -16,19 +16,59 @@
 
 namespace Urasandesu { namespace NAnonym { namespace Profiling {
 
+#if 0
     template<
         class InfoProfilingApiType,
         class AppDomainProfilingApiType
     >
     class BasicProfilingInfo;
     typedef BasicProfilingInfo<boost::use_default, boost::use_default> ProfilingInfo;
+    
+    class ProcessProfile;
+#endif
+
+    template<
+        class ProcessProfilingApiType
+    >
+    class BaseProcessProfile;
+    typedef BaseProcessProfile<boost::use_default> ProcessProfile;
+
+    template<
+        class InfoProfilingApiType
+    >    
+    class BaseProfilingInfo;
+    typedef BaseProfilingInfo<boost::use_default> ProfilingInfo;
+
 
 }}}   // namespace Urasandesu { namespace NAnonym { namespace Profiling {
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
-    
+
+#if 0    
     class ModuleMetaData;
     class MetaDataInfo;
+#endif
+    template<
+        class AssemblyMetaDataApiType
+    >
+    class BaseModuleMetaData;
+    
+    typedef BaseModuleMetaData<boost::use_default> ModuleMetaData;
+
+    template<
+        class AssemblyMetaDataApiType
+    >
+    class BaseAssemblyMetaData;
+
+    typedef BaseAssemblyMetaData<boost::use_default> AssemblyMetaData;
+
+    template<
+        class InfoMetaDataApiType,
+        class AssemblyMetaDataApiType
+    >    
+    class BaseMetaDataInfo;
+
+    typedef BaseMetaDataInfo<boost::use_default, boost::use_default> MetaDataInfo;
     
 }}}   // namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
 
@@ -38,6 +78,15 @@ namespace Urasandesu { namespace NAnonym { namespace Utilities {
     struct ValueConverter;
     
 }}}   // namespace Urasandesu { namespace NAnonym { namespace Utilities {
+
+#undef UNM
+#define UNM Urasandesu::NAnonym::MetaData2
+#undef UNP
+#define UNP Urasandesu::NAnonym::Profiling
+#undef UNT
+#define UNT Urasandesu::NAnonym::Traits
+#undef UNU
+#define UNU Urasandesu::NAnonym::Utilities
 
 class ATL_NO_VTABLE CExeWeaver2 :
 	public CComObjectRootEx<CComSingleThreadModel>,
@@ -346,10 +395,11 @@ END_COM_MAP()
 public:
 
 private:
-    boost::shared_ptr<Urasandesu::NAnonym::Profiling::ProfilingInfo> m_pProf;
-    Urasandesu::NAnonym::MetaData2::ModuleMetaData *m_pModMeta;
-    boost::shared_ptr<Urasandesu::NAnonym::Utilities::ValueConverter<Urasandesu::NAnonym::MetaData2::MetaDataInfo *, Urasandesu::NAnonym::Profiling::ProfilingInfo *>> m_pConv;
-    CComPtr<ICorProfilerInfo2> m_pInfo;
+    boost::shared_ptr<UNP::ProfilingInfo> m_pProfInfo;
+    boost::shared_ptr<UNM::MetaDataInfo> m_pMetaInfo;
+    UNP::ProcessProfile *m_pProcProf;
+    UNM::AssemblyMetaData *m_pAsmMeta;
+    boost::shared_ptr<UNU::ValueConverter<UNM::AssemblyMetaData *, UNP::ProcessProfile *>> m_pConv;
     
     mdAssembly m_mdaTargetAssembly;
     mdTypeDef m_mdtdReplaceTypeFrom;
@@ -357,5 +407,10 @@ private:
     mdTypeDef m_mdtdReplaceTypeTo;
     mdMethodDef m_mdtdReplaceMethodTo;
 };
+
+#undef UNU
+#undef UNT
+#undef UNM
+#undef UNP
 
 OBJECT_ENTRY_AUTO(__uuidof(ExeWeaver2), CExeWeaver2)
