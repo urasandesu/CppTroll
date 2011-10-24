@@ -3,164 +3,134 @@
 
 #include "stdafx.h"
 
-#ifndef URASANDESU_NANONYM_TRAITS_REPLACE_H
-#include <Urasandesu/NAnonym/Traits/Replace.h>
-#endif
-
 #ifndef URASANDESU_NANONYM_HEAPPROVIDER_H
 #include <Urasandesu/NAnonym/HeapProvider.h>
 #endif
 
-#ifndef URASANDESU_NANONYM_SIMPLEHEAP_H
-#include <Urasandesu/NAnonym/SimpleHeap.h>
-#endif
-
 namespace {
 
-    struct DefaultInfoProfilingApi;
-    struct DefaultProcessProfilingApi;
-
-    template<
-        class Type,
-        class DefaultType
-    >
-    struct ATL_NO_VTABLE UseDefaultIfNecessary
-    {
-        typedef typename Urasandesu::NAnonym::Traits::Replace<Type, boost::use_default, DefaultType>::type type;
-    };
-
-    template<
-        class HeapManagerType,
-        class ApiType
-    >        
-    class ATL_NO_VTABLE IUnmanagedApiOperable
+    template<class Key>
+    class ATL_NO_VTABLE IHeapContent
     {
     public:
-        IUnmanagedApiOperable() :
-            m_pHeapManager(NULL),
-            m_pApi(NULL)
+        IHeapContent() : 
+            m_key(Key())
         { }
         
-        void Init(HeapManagerType *pHeapManager, ApiType *pApi)
+        Key GetKey()
         {
-            m_pHeapManager = pHeapManager;
-            m_pApi = pApi;
-        }
-
-        template<class T>
-        T *New()
-        {
-            T *pObj = m_pHeapManager->GetHeap<T>()->New();
-            pObj->Init(m_pHeapManager, m_pApi);
-            return pObj;
-        }
-    protected:
-        HeapManagerType *m_pHeapManager;
-        ApiType *m_pApi;
-    };
-    //class IIdentifiable
-    //{
-    //};
-
-    template<
-        class ProcessProfilingApiType
-    >
-    class BaseProcessProfile;
-
-    template<
-        class ProcessProfilingApiType = boost::use_default
-    >
-    class BaseAssemblyProfile : 
-        public IUnmanagedApiOperable<
-            BaseProcessProfile<ProcessProfilingApiType>, 
-            typename UseDefaultIfNecessary<ProcessProfilingApiType, DefaultProcessProfilingApi>::type
-        >
-    {
-    };
-
-    typedef BaseAssemblyProfile<boost::use_default> AssemblyProfile;
-
-
-
-    template<
-        class ProcessProfilingApiType = boost::use_default
-    >
-    class BaseAppDomainProfile : 
-        public IUnmanagedApiOperable<
-            BaseProcessProfile<ProcessProfilingApiType>, 
-            typename UseDefaultIfNecessary<ProcessProfilingApiType, DefaultProcessProfilingApi>::type
-        >
-    {
-    };
-
-    typedef BaseAppDomainProfile<boost::use_default> AppDomainProfile;
-
-
-
-
-    template<
-        class ProcessProfilingApiType = boost::use_default
-    >
-    class BaseProcessProfile : 
-        public IUnmanagedApiOperable<
-            BaseProcessProfile<ProcessProfilingApiType>, 
-            typename UseDefaultIfNecessary<ProcessProfilingApiType, DefaultProcessProfilingApi>::type
-        >
-    {
-        BEGIN_NANONYM_HEAP_PROVIDER()
-            DECLARE_NANONYM_HEAP_PROVIDER(BaseAppDomainProfile<ProcessProfilingApiType>, m_pDomainProfFactory);
-            DECLARE_NANONYM_HEAP_PROVIDER(BaseAssemblyProfile<ProcessProfilingApiType>, m_pAsmProfFactory);
-        END_NANONYM_HEAP_PROVIDER()
-    };
-
-    typedef BaseProcessProfile<boost::use_default> ProcessProfile;
-
-
-
-    template<
-        class InfoProfilingApiType = boost::use_default,
-        class ProcessProfilingApiType = boost::use_default
-    >    
-    class BaseProfilingInfo
-    {
-        BEGIN_NANONYM_HEAP_PROVIDER()
-            DECLARE_NANONYM_HEAP_PROVIDER(BaseProcessProfile<ProcessProfilingApiType>, m_pProcProfFactory);
-        END_NANONYM_HEAP_PROVIDER()
-
-    public:
-        typedef typename UseDefaultIfNecessary<InfoProfilingApiType, DefaultInfoProfilingApi>::type info_profiling_api_type;
-        typedef typename UseDefaultIfNecessary<ProcessProfilingApiType, DefaultProcessProfilingApi>::type process_profiling_api_type;
-    
-    public:
-        template<class T>
-        T *New()
-        {
-            T *pObj = GetHeap<T>()->New();
-            pObj->Init(pObj, GetProcProfInfoApi());
-            return pObj;
+            return m_key;
         }
         
-    private:
-        process_profiling_api_type *GetProcProfInfoApi()
+        void SetKey(Key key)
         {
-            return NULL;
+            m_key = key;
         }
+        
+        bool IsPseudo()
+        {
+            return m_key == Key();
+        }
+        
+    private:        
+        Key m_key;
+    }; 
+
+    class A : public IHeapContent<UINT_PTR>
+    {
+    };
+    
+    class B : public IHeapContent<UINT_PTR>
+    {
     };
 
-    typedef BaseProfilingInfo<boost::use_default, boost::use_default> ProfilingInfo;
+    class Hoge
+    {
+        BEGIN_NANONYM_HEAP_PROVIDER()
+            DECLARE_NANONYM_HEAP_PROVIDER(A, UINT_PTR, m_pAFactory)
+            DECLARE_NANONYM_HEAP_PROVIDER(B, UINT_PTR, m_pBFactory)
+        END_NANONYM_HEAP_PROVIDER()
+    };
 
     // ProfilingApiSample02Test.exe --gtest_filter=ProfilingApiSample02TestSuite.TempTestTest
     TEST(ProfilingApiSample02TestSuite, TempTestTest)
     {
         using namespace std;
         using namespace boost;
-        using namespace Urasandesu::NAnonym;
         
-        ProfilingInfo profInfo;
-        ProcessProfile *pProcProf = profInfo.New<ProcessProfile>();
-        AppDomainProfile *pDomainProf = pProcProf->New<AppDomainProfile>();
-        AssemblyProfile *pAsmProf = pDomainProf->New<AssemblyProfile>();
+        Hoge hoge;
         
-        SUCCEED();
+        UINT_PTR a1Id = 1;
+        UINT_PTR a2Id = 2;
+        A *pA1 = hoge.New<A>(a1Id);
+        A *pA2 = hoge.Get<A>(a1Id);
+        
+        cout << format("pA1: 0x%|1$08X|") % reinterpret_cast<void *>(pA1) << endl;
+        cout << format("pA2: 0x%|1$08X|") % reinterpret_cast<void *>(pA2) << endl;
+        
+        ASSERT_TRUE(pA1 == pA2);
+        ASSERT_EQ(1, pA1->GetKey());
+        ASSERT_EQ(1, pA2->GetKey());
+
+        
+        
+        pA2 = hoge.New<A>(a1Id);
+        
+        ASSERT_TRUE(pA1 != pA2);
+        ASSERT_TRUE(pA1->IsPseudo());
+        ASSERT_EQ(0, pA1->GetKey());
+
+        
+        
+        pA2 = hoge.New<A>(a2Id);
+
+        cout << format("pA1: 0x%|1$08X|") % reinterpret_cast<void *>(pA1) << endl;
+        cout << format("pA2: 0x%|1$08X|") % reinterpret_cast<void *>(pA2) << endl;
+
+        ASSERT_TRUE(pA1 != pA2);
+        ASSERT_EQ(2, pA2->GetKey());
+        
+        
+        
+        UINT_PTR a3Id = 3;
+        A *pA3 = hoge.NewPseudo<A>();
+        hoge.SetToLast<A>(a3Id);
+        A *pA4 = hoge.Get<A>(a3Id);
+
+        cout << format("pA3: 0x%|1$08X|") % reinterpret_cast<void *>(pA3) << endl;
+        cout << format("pA4: 0x%|1$08X|") % reinterpret_cast<void *>(pA4) << endl;
+        
+        ASSERT_TRUE(pA3 == pA4);
+        ASSERT_EQ(3, pA3->GetKey());
+        ASSERT_EQ(3, pA4->GetKey());
+
+        
+        
+        A *pA5 = hoge.NewPseudo<A>();
+        cout << format("pA5: 0x%|1$08X|") % reinterpret_cast<void *>(pA5) << endl;
+
+        ASSERT_TRUE(pA5 != NULL);                
+
+
+        
+        cout << format("Size: %|1$d|") % hoge.Size<A>() << endl;
+
+        ASSERT_EQ(5, hoge.Size<A>());
+
+
+        
+        A *pA6 = hoge.Peek<A>();         
+        cout << format("pA6: 0x%|1$08X|") % reinterpret_cast<void *>(pA6) << endl;
+
+        ASSERT_TRUE(pA5 == pA6);
+        
+        
+        IHeapContent<UINT_PTR> piyo;
+
+        ASSERT_TRUE(piyo.IsPseudo());
+        
+        piyo.SetKey(10);
+        
+        ASSERT_FALSE(piyo.IsPseudo());
     }
 }

@@ -400,7 +400,8 @@ private:
     UNP::ProcessProfile *m_pProcProf;
     UNM::AssemblyMetaData *m_pAsmMeta;
     boost::shared_ptr<UNU::ValueConverter<UNM::AssemblyMetaData *, UNP::ProcessProfile *>> m_pConv;
-    
+
+    std::wstring m_targetAssemblyName;    
     mdAssembly m_mdaTargetAssembly;
     mdTypeDef m_mdtdReplaceTypeFrom;
     mdMethodDef m_mdmdReplaceMethodFrom;

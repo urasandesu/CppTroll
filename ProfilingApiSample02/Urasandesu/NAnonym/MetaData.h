@@ -6,6 +6,7 @@
 #include <Urasandesu/NAnonym/MetaData/MetaDataDependsOn.h>
 #endif
 
+#if 0
 #ifndef URASANDESU_NANONYM_METADATA_ASSEMBLY_H
 #include <Urasandesu/NAnonym/MetaData/Assembly.h>
 #endif
@@ -104,6 +105,7 @@
 
 #ifndef URASANDESU_NANONYM_METADATA_USEDEFAULTMETADATAAPIIFNECESSARY_H
 #include <Urasandesu/NAnonym/MetaData/UseDefaultMetaDataApiIfNecessary.h>
+#endif
 #endif
 
 #endif  // #ifndef URASANDESU_NANONYM_METADATA_H

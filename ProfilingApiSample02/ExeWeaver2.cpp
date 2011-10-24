@@ -18,6 +18,33 @@ namespace Urasandesu { namespace NAnonym {
         }
     };
 
+    template<class Key>
+    class ATL_NO_VTABLE IHeapContent
+    {
+    public:
+        IHeapContent() : 
+            m_key(Key())
+        { }
+        
+        Key GetKey()
+        {
+            return m_key;
+        }
+        
+        void SetKey(Key key)
+        {
+            m_key = key;
+        }
+        
+        bool IsPseudo()
+        {
+            return m_key == Key();
+        }
+        
+    private:        
+        Key m_key;
+    }; 
+
     template<
         class HeapManagerType,
         class ApiType
@@ -25,6 +52,9 @@ namespace Urasandesu { namespace NAnonym {
     class ATL_NO_VTABLE IApiOperable
     {
     public:
+        typedef HeapManagerType heap_manager_type;
+        typedef ApiType api_type;
+         
         IApiOperable() :
             m_pHeapManager(NULL),
             m_pApi(NULL)
@@ -37,13 +67,18 @@ namespace Urasandesu { namespace NAnonym {
         }
 
         template<class T>
-        T *New()
+        T *CreatePseudo()
         {
-            T *pObj = m_pHeapManager->GetHeap<T>()->New();
+            T *pObj = m_pHeapManager->NewPseudo<T>();
             pObj->Init(m_pHeapManager, m_pApi);
             return pObj;
         }
-        
+
+        HeapManagerType *GetHeapManager()
+        {
+            return m_pHeapManager;
+        }
+
         ApiType *GetApi()
         {
             return m_pApi;
@@ -211,33 +246,36 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
         class ApiType
     >        
     class ATL_NO_VTABLE IProfilingApiOperable : 
-        public IApiOperable<HeapManagerType, ApiType>
+        public IApiOperable<HeapManagerType, ApiType>, 
+        public IHeapContent<UINT_PTR>
     {
     public:
-        IProfilingApiOperable() : 
-            m_id(-1)
-        { }
+        IProfilingApiOperable() { }
 
         template<class T>
-        T *New(UINT_PTR id)
+        T *CreateIfNecessary(UINT_PTR id)
         {
-            T *pObj = IApiOperable<HeapManagerType, ApiType>::New<T>();
-            pObj->SetID(id);
-            return pObj;
+            if (GetHeapManager()->Exists<T>(id))
+            {
+                return GetHeapManager()->Get<T>(id);
+            }
+            else
+            {
+                T *pObj = IApiOperable<HeapManagerType, ApiType>::CreatePseudo<T>();
+                GetHeapManager()->SetToLast<T>(id);
+                return pObj;
+            }
         }
         
         UINT_PTR GetID()
         {
-            return m_id;
+            return GetKey();
         }
         
         void SetID(UINT_PTR id)
         {
-            m_id = id;
+            SetKey(id);
         }
-
-    private:
-        UINT_PTR m_id;
     };
 
 
@@ -343,11 +381,11 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
         >
     {
         BEGIN_NANONYM_HEAP_PROVIDER()
-            DECLARE_NANONYM_HEAP_PROVIDER(BaseAppDomainProfile<InfoProfilingApiType>, m_pDomainProfFactory);
-            DECLARE_NANONYM_HEAP_PROVIDER(BaseAssemblyProfile<InfoProfilingApiType>, m_pAsmProfFactory);
-            DECLARE_NANONYM_HEAP_PROVIDER(BaseModuleProfile<InfoProfilingApiType>, m_pModProfFactory);
-            DECLARE_NANONYM_HEAP_PROVIDER(BaseMethodProfile<InfoProfilingApiType>, m_pMethodProfFactory);
-            DECLARE_NANONYM_HEAP_PROVIDER(BaseMethodBodyProfile<InfoProfilingApiType>, m_pMethodBodyProfFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(BaseAppDomainProfile<InfoProfilingApiType>, UINT_PTR, m_pDomainProfFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(BaseAssemblyProfile<InfoProfilingApiType>, UINT_PTR, m_pAsmProfFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(BaseModuleProfile<InfoProfilingApiType>, UINT_PTR, m_pModProfFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(BaseMethodProfile<InfoProfilingApiType>, UINT_PTR, m_pMethodProfFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(BaseMethodBodyProfile<InfoProfilingApiType>, UINT_PTR, m_pMethodBodyProfFactory);
         END_NANONYM_HEAP_PROVIDER()
     };
 
@@ -365,8 +403,8 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
     
     private:
         BEGIN_NANONYM_HEAP_PROVIDER()
-            DECLARE_NANONYM_HEAP_PROVIDER(info_profiling_api_type, m_pInfoProfApiFactory);
-            DECLARE_NANONYM_HEAP_PROVIDER(BaseProcessProfile<InfoProfilingApiType>, m_pProcProfFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(info_profiling_api_type, UINT_PTR, m_pInfoProfApiFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(BaseProcessProfile<InfoProfilingApiType>, UINT_PTR, m_pProcProfFactory);
         END_NANONYM_HEAP_PROVIDER()
 
     public:
@@ -375,19 +413,26 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
         { }
         
         template<class T>
-        T *New()
+        T *CreatePseudo()
         {
-            T *pObj = GetHeap<T>()->New();
+            T *pObj = NewPseudo<T>();
             pObj->Init(pObj, GetInfoProfApi());
             return pObj;
         }
         
         template<class T>
-        T *New(UINT_PTR id)
+        T *CreateIfNecessary(UINT_PTR id)
         {
-            T *pObj = New<T>();
-            pObj->SetID(id);
-            return pObj;
+            if (Exists<T>(id))
+            {
+                return Get<T>(id);
+            }
+            else
+            {
+                T *pObj = New<T>(id);
+                SetToLast<T>(id);
+                return pObj;
+            }
         }
         
         void Init(IUnknown *pICorProfilerInfoUnk)
@@ -412,7 +457,7 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
         BaseProcessProfile<InfoProfilingApiType> *GetCurrentProcess()
         {
             BaseProcessProfile<InfoProfilingApiType> *pProcProf = NULL;
-            pProcProf = New<BaseProcessProfile<InfoProfilingApiType>>(::GetCurrentProcessId());
+            pProcProf = CreateIfNecessary<BaseProcessProfile<InfoProfilingApiType>>(::GetCurrentProcessId());
             return pProcProf;
         }
 
@@ -421,7 +466,7 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
         {
             if (!m_pInfoProfApi)
             {
-                m_pInfoProfApi = GetHeap<info_profiling_api_type>()->New();
+                m_pInfoProfApi = NewPseudo<info_profiling_api_type>();
             }
             return m_pInfoProfApi;
         }
@@ -594,8 +639,12 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
         typedef IMetaDataImport2 IImport;
         static IID const IID_IImport;
         CComPtr<IImport> Import;
+        typedef IMetaDataAssemblyImport IAssemblyImport;
+        static IID const IID_IAssemblyImport;
+        CComPtr<IAssemblyImport> AssemblyImport;
     };
     IID const DefaultAssemblyMetaDataApi::IID_IImport = IID_IMetaDataImport2;
+    IID const DefaultAssemblyMetaDataApi::IID_IAssemblyImport = IID_IMetaDataAssemblyImport;
 
 
     template<
@@ -603,33 +652,36 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
         class ApiType
     >        
     class ATL_NO_VTABLE IMetaDataApiOperable : 
-        public IApiOperable<HeapManagerType, ApiType>
+        public IApiOperable<HeapManagerType, ApiType>, 
+        public IHeapContent<mdToken>
     {
     public:
-        IMetaDataApiOperable() : 
-            m_token(-1)
-        { }
+        IMetaDataApiOperable() { }
 
         template<class T>
-        T *New(mdToken token)
+        T *CreateIfNecessary(mdToken token)
         {
-            T *pObj = IApiOperable<HeapManagerType, ApiType>::New<T>();
-            pObj->SetToken(token);
-            return pObj;
+            if (GetHeapManager()->Exists<T>(token))
+            {
+                return GetHeapManager()->Get<T>(token);
+            }
+            else
+            {
+                T *pObj = IApiOperable<HeapManagerType, ApiType>::CreatePseudo<T>();
+                GetHeapManager()->SetToLast<T>(token);
+                return pObj;
+            }
         }
         
         mdToken GetToken()
         {
-            return m_token;
+            return GetKey();
         }
         
         void SetToken(mdToken token)
         {
-            m_token = token;
+            SetKey(token);
         }
-
-    private:
-        mdToken m_token;
     };
 
 
@@ -669,10 +721,34 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
         >
     {
     public:
+        BaseMethodMetaData() :
+            m_pTypeMeta(NULL)
+        { }
+        
         BaseTypeMetaData<AssemblyMetaDataApiType> *GetDeclaringType()
         {
-            BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
-            return NULL;
+            HRESULT hr = E_FAIL;
+            
+            if (m_pTypeMeta == NULL)
+            {
+                mdTypeDef mdtd = mdTypeDefNil;      
+                WCHAR methodName[MAX_SYM_NAME];
+                ULONG methodNameSize = sizeof(methodName);
+                DWORD methodAttr = 0;
+                PCCOR_SIGNATURE pMethodSig = NULL;
+                ULONG methodSigSize = 0;
+                ULONG methodRva = 0;
+                DWORD methodImplFlg = 0;
+                hr = GetApi()->Import->GetMethodProps(GetToken(), &mdtd, methodName, 
+                                            methodNameSize, &methodNameSize, &methodAttr, 
+                                            &pMethodSig, &methodSigSize, &methodRva, 
+                                            &methodImplFlg);
+                if (FAILED(hr))
+                    BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+                
+                m_pTypeMeta = CreateIfNecessary<BaseTypeMetaData<AssemblyMetaDataApiType>>(mdtd);
+            }
+            return m_pTypeMeta;
         }
 
         BaseMethodBodyMetaData<AssemblyMetaDataApiType> *GetMethodBody()
@@ -680,6 +756,9 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
             BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
             return NULL;
         }
+        
+    private:
+        BaseTypeMetaData<AssemblyMetaDataApiType> *m_pTypeMeta;
     };
 
     typedef BaseMethodMetaData<boost::use_default> MethodMetaData;
@@ -702,17 +781,48 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
         >
     {
     public:
+        BaseTypeMetaData() : 
+            m_pModMeta(NULL)
+        { }
+        
         BaseModuleMetaData<AssemblyMetaDataApiType> *GetModule()
         {
-            BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
-            return NULL;
+            HRESULT hr = E_FAIL;
+            
+            if (m_pModMeta == NULL)
+            {
+                mdModule mdm = mdModuleNil;
+                hr = GetApi()->Import->GetModuleFromScope(&mdm);
+                if (FAILED(hr))
+                    BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+                
+                m_pModMeta = CreateIfNecessary<BaseModuleMetaData<AssemblyMetaDataApiType>>(mdm);
+    //STDMETHOD(GetModuleFromScope)(          // S_OK.
+    //    mdModule    *pmd) PURE;             // [OUT] Put mdModule token here.
+            }
+            return m_pModMeta;
         }
 
         BaseMethodMetaData<AssemblyMetaDataApiType> *GetMethod(mdMethodDef mdmd)
         {
             BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
             return NULL;
+    //STDMETHOD (GetMethodProps)( 
+    //    mdMethodDef mb,                     // The method for which to get props.   
+    //    mdTypeDef   *pClass,                // Put method's class here. 
+    //  __out_ecount_part_opt(cchMethod, *pchMethod)
+    //    LPWSTR      szMethod,               // Put method's name here.  
+    //    ULONG       cchMethod,              // Size of szMethod buffer in wide chars.   
+    //    ULONG       *pchMethod,             // Put actual size here 
+    //    DWORD       *pdwAttr,               // Put flags here.  
+    //    PCCOR_SIGNATURE *ppvSigBlob,        // [OUT] point to the blob value of meta data   
+    //    ULONG       *pcbSigBlob,            // [OUT] actual size of signature blob  
+    //    ULONG       *pulCodeRVA,            // [OUT] codeRVA    
+    //    DWORD       *pdwImplFlags) PURE;    // [OUT] Impl. Flags    
         }
+        
+    private:
+        BaseModuleMetaData<AssemblyMetaDataApiType> *m_pModMeta;
     };
 
     typedef BaseTypeMetaData<boost::use_default> TypeMetaData;
@@ -737,15 +847,39 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
     public:
         BaseAssemblyMetaData<AssemblyMetaDataApiType> *GetAssembly()
         {
-            BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
-            return NULL;
+            HRESULT hr = E_FAIL;
+            
+            BaseAssemblyMetaData<AssemblyMetaDataApiType> *pAsmMeta = NULL;
+            pAsmMeta = GetHeapManager();
+            if (pAsmMeta->GetToken() == -1)
+            {
+                if (GetApi()->AssemblyImport.p == NULL)
+                {
+                    hr = GetApi()->Import->QueryInterface(api_type::IID_IAssemblyImport, 
+                                    reinterpret_cast<void **>(&GetApi()->AssemblyImport));
+                    if (FAILED(hr))
+                        BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+                }
+                
+                mdAssembly mda = mdAssemblyNil;
+                hr = GetApi()->AssemblyImport->GetAssemblyFromScope(&mda);
+                if (FAILED(hr))
+                    BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+                
+                pAsmMeta->SetToken(mda);
+            }
+            return pAsmMeta;
         }
         
         BaseTypeMetaData<AssemblyMetaDataApiType> *GetType(mdTypeDef mdtd)
         {
-            BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
-            return NULL;
+            BaseTypeMetaData<AssemblyMetaDataApiType> *pTypeMeta = NULL;
+            pTypeMeta = CreateIfNecessary<BaseTypeMetaData<AssemblyMetaDataApiType>>(mdtd);
+            return pTypeMeta;
         }
+        
+    private:
+        boost::unordered_map<mdToken, SIZE_T> m_typeIndexes;
     };
 
 
@@ -761,7 +895,9 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
         >
     {
         BEGIN_NANONYM_HEAP_PROVIDER()
-            DECLARE_NANONYM_HEAP_PROVIDER(BaseMethodMetaData<AssemblyMetaDataApiType>, m_pMethodMetaFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(BaseModuleMetaData<AssemblyMetaDataApiType>, mdToken, m_pModMetaFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(BaseTypeMetaData<AssemblyMetaDataApiType>, mdToken, m_pTypeMetaFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(BaseMethodMetaData<AssemblyMetaDataApiType>, mdToken, m_pMethodMetaFactory);
         END_NANONYM_HEAP_PROVIDER()
     };
 
@@ -780,9 +916,9 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
     
     private:
         BEGIN_NANONYM_HEAP_PROVIDER()
-            DECLARE_NANONYM_HEAP_PROVIDER(info_meta_data_api_type, m_pInfoMetaApiFactory);
-            DECLARE_NANONYM_HEAP_PROVIDER(assembly_meta_data_api_type, m_pAsmMetaApiFactory);
-            DECLARE_NANONYM_HEAP_PROVIDER(BaseAssemblyMetaData<AssemblyMetaDataApiType>, m_pAsmMetaFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(info_meta_data_api_type, mdToken, m_pInfoMetaApiFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(assembly_meta_data_api_type, mdToken, m_pAsmMetaApiFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(BaseAssemblyMetaData<AssemblyMetaDataApiType>, mdToken, m_pAsmMetaFactory);
         END_NANONYM_HEAP_PROVIDER()
 
     public:
@@ -799,10 +935,10 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
         //}
 
         template<class T>
-        T *New()
+        T *Create()
         {
-            T *pObj = GetHeap<T>()->New();
-            pObj->Init(pObj, GetHeap<assembly_meta_data_api_type>()->New());
+            T *pObj = New<T>();
+            pObj->Init(pObj, NewPseudo<assembly_meta_data_api_type>());
             return pObj;
         }
 
@@ -870,8 +1006,12 @@ namespace Urasandesu { namespace NAnonym { namespace Utilities {
             m_pAsmMeta = pAsmMeta;
             m_pProcProf = pProcProf;
         }
-
         
+        bool Initialized()
+        {
+            return m_pAsmMeta != NULL && m_pProcProf != NULL;
+        }
+
         //UNM::BaseModuleMetaData<AssemblyMetaDataApiType> *Convert(UNP::BaseModuleProfile<InfoProfilingApiType> *from)
         //{
         //    BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
@@ -897,14 +1037,6 @@ namespace Urasandesu { namespace NAnonym { namespace Utilities {
             UNM::BaseMethodMetaData<AssemblyMetaDataApiType> *pMethodMeta = NULL;
             pMethodMeta = m_pAsmMeta->New<UNM::BaseMethodMetaData<AssemblyMetaDataApiType>>(mdt);
             return pMethodMeta;
-
-        ////virtual HRESULT STDMETHODCALLTYPE GetTokenAndMetaDataFromFunction( 
-        ////    /* [in] */ FunctionID functionId,
-        ////    /* [in] */ REFIID riid,
-        ////    /* [out] */ IUnknown **ppImport,
-        ////    /* [out] */ mdToken *pToken) = 0;
-        //    BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
-        //    return NULL;
         }
         
         UNP::BaseMethodBodyProfile<InfoProfilingApiType> *ConvertBack(UNM::BaseMethodBodyMetaData<AssemblyMetaDataApiType> *to)
@@ -1000,7 +1132,10 @@ HRESULT CExeWeaver2::Initialize(
 
         // Initialize the unmanaged profiling API.
         m_pProfInfo->Init(pICorProfilerInfoUnk);
-        m_pProfInfo->SetEventMask(COR_PRF_MONITOR_ASSEMBLY_LOADS |
+        m_pProfInfo->SetEventMask(COR_PRF_MONITOR_ASSEMBLY_LOADS | 
+                                  COR_PRF_MONITOR_MODULE_LOADS | 
+                                  COR_PRF_MONITOR_APPDOMAIN_LOADS | 
+                                  COR_PRF_MONITOR_CLASS_LOADS | 
                                   COR_PRF_MONITOR_JIT_COMPILATION);
 
 
@@ -1040,8 +1175,7 @@ HRESULT CExeWeaver2::Initialize(
         }
         
         m_pProcProf = m_pProfInfo->GetCurrentProcess();
-        m_pAsmMeta = m_pMetaInfo->New<AssemblyMetaData>();
-        m_pConv->Init(m_pAsmMeta, m_pProcProf);
+        //m_pProcProf->GetPseudoDomain();
     }
     catch (NAnonymException &e)
     {
@@ -1063,6 +1197,25 @@ HRESULT CExeWeaver2::Shutdown( void)
 HRESULT CExeWeaver2::AppDomainCreationStarted( 
     /* [in] */ AppDomainID appDomainId)
 { 
+    using namespace std;
+    using namespace boost;
+    using namespace Urasandesu::NAnonym;
+    using namespace Urasandesu::NAnonym::MetaData2;
+    
+    try
+    {
+        cout << "AppDomainCreationStarted !!" << endl;
+        //m_pProcProf->CreateIfNecessary<AppDomainProfile>(appDomainId);
+    }
+    catch (NAnonymException &e)
+    {
+        cout << diagnostic_information(e) << endl;
+    }
+    catch (...)
+    {
+        cout << diagnostic_information(current_exception()) << endl;
+    }
+
     return S_OK; 
 }
 
@@ -1070,7 +1223,7 @@ HRESULT CExeWeaver2::AppDomainCreationFinished(
     /* [in] */ AppDomainID appDomainId,
     /* [in] */ HRESULT hrStatus)
 { 
-    return S_OK; 
+    return S_OK;
 }
 
 HRESULT CExeWeaver2::AppDomainShutdownStarted( 
@@ -1089,6 +1242,51 @@ HRESULT CExeWeaver2::AppDomainShutdownFinished(
 HRESULT CExeWeaver2::AssemblyLoadStarted( 
     /* [in] */ AssemblyID assemblyId)
 {
+    using namespace std;
+    using namespace boost;
+    using namespace Urasandesu::NAnonym;
+    using namespace Urasandesu::NAnonym::MetaData2;
+    
+    try
+    {
+        //AppDomainProfile *pDomainProf = m_pProcProf->GetCurrentDomain();
+        //AssemblyProfile *pAsmProf = pDomainProf->CreateIfNecessary<AssemblyProfile>(assemblyId);
+        //if (pAsmProf->GetName() != m_targetAssemblyName)
+        //    return S_OK;
+        //
+        //m_pAsmProf = pAsmProf;
+        //m_pModConv->
+        //m_pAsmMeta = m_pMetaInfo->Create<AssemblyMetaData>();
+        //m_pConv->Init(m_pAsmMeta, m_pProcProf);
+        //
+        //HRESULT hr = E_FAIL;
+        //
+        //WCHAR asmName[MAX_SYM_NAME];
+        //ULONG asmNameSize = sizeof(asmName);
+        //AppDomainID domainId = 0;
+        //ModuleID modId = 0;
+        //hr = m_pProcProf->GetApi()->ProfilerInfo->GetAssemblyInfo(assemblyId, asmNameSize, &asmNameSize, asmName, &domainId, &modId);
+        //if (hr != CORPROF_E_DATAINCOMPLETE && FAILED(hr))
+        //    BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+        //
+        //wcout << L"AssemblyLoadStarted: " << asmName << endl;
+        ////virtual HRESULT STDMETHODCALLTYPE GetAssemblyInfo( 
+        //                    //    /* [in] */ AssemblyID assemblyId,
+        //                    //    /* [in] */ ULONG cchName,
+        //                    //    /* [out] */ ULONG *pcchName,
+        //                    //    /* [length_is][size_is][out] */ WCHAR szName[  ],
+        //                    //    /* [out] */ AppDomainID *pAppDomainId,
+        ////    /* [out] */ ModuleID *pModuleId) = 0;
+    }
+    catch (NAnonymException &e)
+    {
+        cout << diagnostic_information(e) << endl;
+    }
+    catch (...)
+    {
+        cout << diagnostic_information(current_exception()) << endl;
+    }
+
     return S_OK;
 }
 
@@ -1115,6 +1313,35 @@ HRESULT CExeWeaver2::AssemblyUnloadFinished(
 HRESULT CExeWeaver2::ModuleLoadStarted( 
     /* [in] */ ModuleID moduleId)
 {
+    using namespace std;
+    using namespace boost;
+    using namespace Urasandesu::NAnonym;
+    using namespace Urasandesu::NAnonym::MetaData2;
+    
+    try
+    {
+        cout << "ModuleLoadStarted !!" << endl;
+        //if (m_pAsmProf == NULL)
+        //    return S_OK;
+        
+        //ModuleProfile *pModProf = m_pAsmProf->CreateIfNecessary<ModuleProfile>(moduleId);
+        //m_pAsmMeta = m_pMetaInfo->Create<AssemblyMetaData>();
+        //m_pConv->Init(m_pAsmMeta, m_pProcProf);
+        //virtual HRESULT STDMETHODCALLTYPE GetModuleMetaData( 
+        //    /* [in] */ ModuleID moduleId,
+        //    /* [in] */ DWORD dwOpenFlags,
+        //    /* [in] */ REFIID riid,
+        //    /* [out] */ IUnknown **ppOut) = 0;
+    }
+    catch (NAnonymException &e)
+    {
+        cout << diagnostic_information(e) << endl;
+    }
+    catch (...)
+    {
+        cout << diagnostic_information(current_exception()) << endl;
+    }
+
     return S_OK;
 }
 
@@ -1148,6 +1375,24 @@ HRESULT CExeWeaver2::ModuleAttachedToAssembly(
 HRESULT CExeWeaver2::ClassLoadStarted( 
     /* [in] */ ClassID classId)
 {
+    using namespace std;
+    using namespace boost;
+    using namespace Urasandesu::NAnonym;
+    using namespace Urasandesu::NAnonym::MetaData2;
+    
+    try
+    {
+        cout << "ClassLoadStarted !!" << endl;
+    }
+    catch (NAnonymException &e)
+    {
+        cout << diagnostic_information(e) << endl;
+    }
+    catch (...)
+    {
+        cout << diagnostic_information(current_exception()) << endl;
+    }
+
     return S_OK;
 }
 
@@ -1155,7 +1400,7 @@ HRESULT CExeWeaver2::ClassLoadFinished(
     /* [in] */ ClassID classId,
     /* [in] */ HRESULT hrStatus)
 {
-    return S_OK;
+    return S_OK; 
 }
 
 HRESULT CExeWeaver2::ClassUnloadStarted( 
@@ -1189,7 +1434,10 @@ HRESULT CExeWeaver2::JITCompilationStarted(
     
     try
     {
-        MethodProfile *pMethodProfFrom = m_pProcProf->New<MethodProfile>(functionId);
+        if (!m_pConv->Initialized())
+            return S_OK;
+
+        MethodProfile *pMethodProfFrom = m_pProcProf->CreateIfNecessary<MethodProfile>(functionId);
         MethodMetaData *pMethodMetaFrom = m_pConv->Convert(pMethodProfFrom);
         cout << format("Current Method Token: 0x%|1$08X|") % pMethodMetaFrom->GetToken() << endl;
         if (pMethodMetaFrom->GetToken() != m_mdmdReplaceMethodFrom)
@@ -1197,12 +1445,15 @@ HRESULT CExeWeaver2::JITCompilationStarted(
 
 
         TypeMetaData *pTypeMetaFrom = pMethodMetaFrom->GetDeclaringType();
+        cout << format("Current Type Token: 0x%|1$08X|") % pTypeMetaFrom->GetToken() << endl;
         if (pTypeMetaFrom->GetToken() != m_mdtdReplaceTypeFrom)
             return S_OK;
 
 
         ModuleMetaData *pModMetaFrom = pTypeMetaFrom->GetModule();
+        cout << format("Current Module Token: 0x%|1$08X|") % pModMetaFrom->GetToken() << endl;
         AssemblyMetaData *pTargetAsmMeta = pModMetaFrom->GetAssembly();
+        cout << format("Current Assembly Token: 0x%|1$08X|") % pTargetAsmMeta->GetToken() << endl;
         if (pTargetAsmMeta->GetToken() != m_mdaTargetAssembly)
             return S_OK;
 
