@@ -46,4 +46,8 @@
 #include <Urasandesu/NAnonym/NAnonymCOMException.h>
 #endif
 
+#ifndef URASANDESU_NANONYM_NANONYMSYSTEMEXCEPTION_H
+#include <Urasandesu/NAnonym/NAnonymSystemException.h>
+#endif
+
 #endif  // #ifndef URASANDESU_NANONYM_NANONYM_H

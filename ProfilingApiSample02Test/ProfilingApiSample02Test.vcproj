@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gtestd.lib gtest_maind.lib corguids.lib"
+				AdditionalDependencies="gtestd.lib gtest_maind.lib corguids.lib Dbghelp.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="C:\boost_1_47_0\stage\lib;C:\gtest-1.6.0-vc90\msvc\gtest\Debug"
 				GenerateDebugInformation="true"
@@ -199,6 +199,34 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<Filter
+				Name="Urasandesu"
+				>
+				<Filter
+					Name="NAnonym"
+					>
+					<File
+						RelativePath="..\ProfilingApiSample02\Urasandesu\NAnonym\NAnonymCOMException.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\ProfilingApiSample02\Urasandesu\NAnonym\NAnonymException.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\ProfilingApiSample02\Urasandesu\NAnonym\NAnonymSystemException.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\ProfilingApiSample02\Urasandesu\NAnonym\StackFrame.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\ProfilingApiSample02\Urasandesu\NAnonym\StackTrace.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="ヘッダー ファイル"

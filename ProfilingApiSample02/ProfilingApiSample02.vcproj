@@ -77,7 +77,7 @@
 				Name="VCLinkerTool"
 				RegisterOutput="true"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="Dbghelp.lib"
+				AdditionalDependencies="Dbghelp.lib corguids.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="C:\boost_1_47_0\stage\lib"
 				ModuleDefinitionFile=".\ProfilingApiSample02.def"
@@ -279,6 +279,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\Urasandesu\NAnonym\NAnonymSystemException.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\Urasandesu\NAnonym\StackFrame.cpp"
 						>
 					</File>
@@ -350,6 +354,10 @@
 					</File>
 					<File
 						RelativePath=".\Urasandesu\NAnonym\NAnonymException.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\NAnonymSystemException.h"
 						>
 					</File>
 					<File

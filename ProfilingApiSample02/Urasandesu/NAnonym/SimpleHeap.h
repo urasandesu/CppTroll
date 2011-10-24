@@ -38,6 +38,16 @@ namespace Urasandesu { namespace NAnonym {
                 new(pObj)T();
                 return pObj;
             }
+
+            SIZE_T Size()
+            {
+                return m_array.Size();
+            }
+            
+            T *operator[] (SIZE_T ix)
+            {
+                return &m_array[ix];
+            }
             
             ~SimpleHeapImpl()
             {
@@ -61,6 +71,16 @@ namespace Urasandesu { namespace NAnonym {
                 m_array.push_back(pObj);
                 return pObj;
             }
+            
+            SIZE_T Size()
+            {
+                return m_array.size();
+            }
+            
+            T *operator[] (SIZE_T ix)
+            {
+                return &m_array[ix];
+            }
         
         private:
             boost::ptr_vector<T> m_array;
@@ -79,6 +99,16 @@ namespace Urasandesu { namespace NAnonym {
         T *New()
         {
             return m_impl.New();
+        }
+        
+        SIZE_T Size()
+        {
+            return m_impl.Size();
+        }
+
+        T *operator[] (SIZE_T ix)
+        {
+            return m_impl[ix];
         }
     };
     

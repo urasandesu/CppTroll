@@ -25,3 +25,6 @@
 
 #include <corprof.h>
 #include <gtest/gtest.h>
+
+#include <boost/lexical_cast.hpp>
+#include <boost/unordered_map.hpp>

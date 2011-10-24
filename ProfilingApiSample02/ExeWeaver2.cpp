@@ -3,8 +3,272 @@
 #include "stdafx.h"
 #include "ExeWeaver2.h"
 
+namespace Urasandesu { namespace NAnonym {
+
+    struct Environment
+    {
+        static std::string GetEnvironmentVariable(LPCSTR variable)
+        {
+            char *pVarValue = NULL;
+            size_t varValueSize = 0;
+            errno_t err = ::_dupenv_s(&pVarValue, &varValueSize, variable);
+            if (err)
+                BOOST_THROW_EXCEPTION(NAnonymSystemException(err));
+            return std::string(pVarValue, varValueSize);
+        }
+    };
+
+}}  // namespace Urasandesu { namespace NAnonym {
+
+namespace Urasandesu { namespace NAnonym { namespace Profiling {
+
+    // IMetaDataOperable に対応する IProfilable みたいな。
+    // ITokenizable に対応する IIdentifiable みたいな。
+    struct DefaultInfoProfilingApi;
+
+    template<class InfoProfilingApiType = boost::use_default>
+    struct ATL_NO_VTABLE UseDefaultInfoProfilingApiIfNecessary
+    {
+        typedef typename Urasandesu::NAnonym::Traits::Replace<InfoProfilingApiType, boost::use_default, DefaultInfoProfilingApi>::type type;
+    };
+
+    struct DefaultAppDomainProfilingApi;
+
+    template<class AppDomainProfilingApiType = boost::use_default>
+    struct ATL_NO_VTABLE UseDefaultAppDomainProfilingApiIfNecessary
+    {
+        typedef typename Urasandesu::NAnonym::Traits::Replace<AppDomainProfilingApiType, boost::use_default, DefaultAppDomainProfilingApi>::type type;
+    };
+
+    class ModuleProfile
+    {
+    };
+
+    class AssemblyProfile
+    {
+    public:
+        AssemblyProfile() { }
+        
+        ModuleProfile *GetModule()
+        {
+            return NULL;
+        }
+    };
+
+    template<
+        class InfoProfilingApiType = boost::use_default,
+        class AppDomainProfilingApiType = boost::use_default
+    >
+    class BasicProfilingInfo
+    {
+        BEGIN_NANONYM_HEAP_PROVIDER()
+            DECLARE_NANONYM_HEAP_PROVIDER(AssemblyProfile, m_pAsmProfFactory)
+        END_NANONYM_HEAP_PROVIDER()
+
+    public:
+        typedef typename UseDefaultInfoProfilingApiIfNecessary<InfoProfilingApiType>::type info_profiling_api_type;
+        typedef typename UseDefaultAppDomainProfilingApiIfNecessary<AppDomainProfilingApiType>::type app_domain_profiling_api_type;
+
+        BasicProfilingInfo() { }
+        
+        void Init(IUnknown *pICorProfilerInfoUnk)
+        {
+            using namespace Urasandesu::NAnonym;
+            HRESULT hr = E_FAIL;
+            
+            hr = pICorProfilerInfoUnk->QueryInterface(IID_ICorProfilerInfo2, 
+                                                      reinterpret_cast<void**>(&m_pInfo));
+            if (FAILED(hr)) 
+                BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+        }
+        
+        void SetEventMask(DWORD events)
+        {
+            using namespace Urasandesu::NAnonym;
+            HRESULT hr = E_FAIL;
+
+            hr = m_pInfo->SetEventMask(events);
+            if (FAILED(hr)) 
+                BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+        }
+        
+        // このメソッドは AppDomain にあるべき！
+        AssemblyProfile *GetAssembly(AssemblyID assemblyId)
+        {
+            if (m_asmIndexes.find(assemblyId) != m_asmIndexes.end())
+            {
+                return (*GetHeap<AssemblyProfile>())[m_asmIndexes[assemblyId]];
+            }
+            else
+            {
+                AssemblyProfile *pAsmProf = GetHeap<AssemblyProfile>()->New();
+                m_asmIndexes[assemblyId] = GetHeap<AssemblyProfile>()->Size() - 1;
+                
+                // ここで pAsmProf->Init みたいなのが必要。
+                
+                return pAsmProf;
+            }
+        }
+
+    //private:    
+        CComPtr<ICorProfilerInfo2> m_pInfo;
+        boost::unordered_map<AssemblyID, SIZE_T> m_asmIndexes;
+    };
+    
+}}}   // namespace Urasandesu { namespace NAnonym { namespace Profiling {
+
+namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
+    
+    #if 0
+
+    struct DefaultInfoMetaDataApi;
+
+    template<class InfoMetaDataApiType = boost::use_default>
+    struct ATL_NO_VTABLE UseDefaultInfoMetaDataApiIfNecessary2
+    {
+        typedef typename Urasandesu::NAnonym::Traits::Replace<InfoMetaDataApiType, boost::use_default, DefaultInfoMetaDataApi>::type type;
+    };
+
+
+
+
+
+
+
+    template<
+        class InfoMetaDataApiType = boost::use_default,
+        class AssemblyMetaDataApiType = boost::use_default
+    >
+    class BasicMetaDataInfo
+    {
+    public:
+        typedef typename UseDefaultInfoMetaDataApiIfNecessary<InfoMetaDataApiType>::type info_meta_data_api_type;
+        typedef typename UseDefaultAssemblyMetaDataApiIfNecessary<AssemblyMetaDataApiType>::type assembly_meta_data_api_type;
+    };
+    
+    typedef BasicMetaDataInfo<> MetaDataInfo;
+    
+       
+    
+    
+    #endif
+
+    struct DefaultAssemblyMetaDataApi;
+
+    template<class AssemblyMetaDataApiType = boost::use_default>
+    struct ATL_NO_VTABLE UseDefaultAssemblyMetaDataApiIfNecessary
+    {
+        typedef typename Urasandesu::NAnonym::Traits::Replace<AssemblyMetaDataApiType, boost::use_default, DefaultAssemblyMetaDataApi>::type type;
+    };
+
+    template<class AssemblyMetaDataApiType>
+    class BasicAssemblyMetaData;
+
+    template<class AssemblyMetaDataApiType = boost::use_default>
+    class ATL_NO_VTABLE IMetaDataOperable
+    {
+    public:
+        typedef typename UseDefaultAssemblyMetaDataApiIfNecessary<AssemblyMetaDataApiType>::type assembly_meta_data_api_type;
+        
+        IMetaDataOperable() : m_pAsm(NULL), m_pApi(NULL) { }
+
+        void Init(BasicAssemblyMetaData<AssemblyMetaDataApiType> *pAsm, assembly_meta_data_api_type *pApi)
+        {
+            m_pAsm = pAsm;
+            m_pApi = pApi;
+        }
+    
+    protected:
+        BasicAssemblyMetaData<AssemblyMetaDataApiType> *m_pAsm;
+        assembly_meta_data_api_type *m_pApi;
+    };
+    
+    
+    class ATL_NO_VTABLE ITokenizable
+    {
+    private:
+        mdToken m_token;
+
+    public:
+        ITokenizable() : m_token(mdTokenNil) { }
+                
+        mdToken GetToken()
+        {
+            return m_token;
+        }
+        
+        void SetToken(mdToken token)
+        {
+            m_token = token;
+        }
+    };
+
+    template<class AssemblyMetaDataApiType = boost::use_default>
+    class BasicAssemblyMetaData : public IMetaDataOperable<AssemblyMetaDataApiType>, public ITokenizable
+    {
+    };
+    
+    typedef BasicAssemblyMetaData<> AssemblyMetaData;
+    
+}}}   // namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
+
+namespace Urasandesu { namespace NAnonym { namespace Utilities {
+
+    template<class ToInfoType, class FromInfoType>
+    struct ValueConverter;
+
+    template<>
+    struct ValueConverter<Urasandesu::NAnonym::MetaData2::MetaDataInfo *, Urasandesu::NAnonym::Profiling::ProfilingInfo *>
+    {
+        ValueConverter() { }
+        
+        Urasandesu::NAnonym::MetaData2::ModuleMetaData *Convert(Urasandesu::NAnonym::Profiling::ModuleProfile *from)
+        {
+            return NULL;
+        }
+        
+        Urasandesu::NAnonym::MetaData2::AssemblyMetaData *Convert(Urasandesu::NAnonym::Profiling::AssemblyProfile *from)
+        {
+            return NULL;
+        }
+    };
+
+}}}   // namespace Urasandesu { namespace NAnonym { namespace Utilities {
+
 
 // CExeWeaver2
+HRESULT CExeWeaver2::FinalConstruct()
+{
+    using namespace boost;
+    using namespace Urasandesu::NAnonym::MetaData2;
+    using namespace Urasandesu::NAnonym::Profiling;
+    using namespace Urasandesu::NAnonym::Utilities;
+    
+    m_pProf = make_shared<ProfilingInfo>();
+    m_pConv = make_shared<ValueConverter<MetaDataInfo *, ProfilingInfo *>>();
+    m_mdaTargetAssembly = mdAssemblyNil;
+    m_mdtdReplaceTypeFrom = mdTypeDefNil;
+    m_mdmdReplaceMethodFrom = mdMethodDefNil;
+    m_mdtdReplaceTypeTo = mdTypeDefNil;
+    m_mdtdReplaceMethodTo = mdMethodDefNil;
+
+	return S_OK;
+}
+
+void CExeWeaver2::FinalRelease()
+{
+}
+
+HRESULT CExeWeaver2::COMError(HRESULT hr, LPCSTR filePath, INT line)
+{
+    using std::wostringstream;
+
+    wostringstream msg;
+    msg << _com_error(hr).ErrorMessage();
+    msg << ", File: " << filePath;
+    msg << ", Line: " << line;
+    return Error(msg.str().c_str());
+}
 
 STDMETHODIMP CExeWeaver2::InterfaceSupportsErrorInfo(REFIID riid)
 {
@@ -21,11 +285,173 @@ STDMETHODIMP CExeWeaver2::InterfaceSupportsErrorInfo(REFIID riid)
 	return S_FALSE;
 }
 
+void __stdcall FunctionEnter2Impl(FunctionID funcId, UINT_PTR clientData, COR_PRF_FRAME_INFO func, COR_PRF_FUNCTION_ARGUMENT_INFO *argumentInfo)
+{
+    using namespace std;
+    cout << "Enter Function ID: " << funcId << endl;
+}
+
+void __declspec(naked) FunctionEnter2Naked(FunctionID funcId, UINT_PTR clientData, COR_PRF_FRAME_INFO func, COR_PRF_FUNCTION_ARGUMENT_INFO *argumentInfo)
+{
+    __asm
+    {
+        PUSH EBP
+        MOV EBP, ESP
+
+        PUSH EAX
+        PUSH ECX
+        PUSH EDX
+    }
+
+    FunctionEnter2Impl(funcId, clientData, func, argumentInfo);
+
+    __asm
+    {
+        POP EDX
+        POP ECX
+        POP EAX
+
+        MOV ESP, EBP
+        POP EBP
+
+        RET 16
+    }
+}
+
+void __stdcall FunctionLeave2Impl(FunctionID funcId, UINT_PTR clientData, COR_PRF_FRAME_INFO func, COR_PRF_FUNCTION_ARGUMENT_RANGE *retvalRange)
+{
+    using namespace std;
+    cout << "Leave Function ID: " << funcId << endl;
+}
+
+void __declspec(naked) FunctionLeave2Naked(FunctionID funcId, UINT_PTR clientData, COR_PRF_FRAME_INFO func, COR_PRF_FUNCTION_ARGUMENT_RANGE *retvalRange)
+{
+    __asm
+    {
+        PUSH EBP
+        MOV EBP, ESP
+
+        PUSH EAX
+        PUSH ECX
+        PUSH EDX
+    }
+
+    FunctionLeave2Impl(funcId, clientData, func, retvalRange);
+
+    __asm
+    {
+        POP EDX
+        POP ECX
+        POP EAX
+
+        MOV ESP, EBP
+        POP EBP
+
+        RET 16
+    }
+}
+
+void __stdcall FunctionTailcall2Impl(FunctionID funcId, UINT_PTR clientData, COR_PRF_FRAME_INFO func)
+{
+    using namespace std;
+    cout << "Tailcall Function ID: " << funcId << endl;
+}
+
+void __declspec(naked) FunctionTailcall2Naked(FunctionID funcId, UINT_PTR clientData, COR_PRF_FRAME_INFO func)
+{
+    __asm
+    {
+        PUSH EBP
+        MOV EBP, ESP
+
+        PUSH EAX
+        PUSH ECX
+        PUSH EDX
+    }
+
+    FunctionTailcall2Impl(funcId, clientData, func);
+
+    __asm
+    {
+        POP EDX
+        POP ECX
+        POP EAX
+
+        MOV ESP, EBP
+        POP EBP
+
+        RET 12
+    }
+}
+
+
+
 // ICorProfilerCallback
 HRESULT CExeWeaver2::Initialize( 
     /* [in] */ IUnknown *pICorProfilerInfoUnk)
 {
-    return S_OK; 
+    using namespace std;
+    using namespace boost;
+    using namespace Urasandesu::NAnonym;
+    
+    try
+    {
+        //::_CrtDbgBreak();
+        //::_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+        m_pProf->Init(pICorProfilerInfoUnk);
+        m_pProf->SetEventMask(COR_PRF_MONITOR_ASSEMBLY_LOADS |
+                              COR_PRF_MONITOR_APPDOMAIN_LOADS | 
+                              COR_PRF_MONITOR_ENTERLEAVE |
+                              COR_PRF_MONITOR_JIT_COMPILATION);
+
+
+        // Get token of the target assembly.
+        {
+            istringstream is(Environment::GetEnvironmentVariable("NANONYM_TARGET_ASSEMBLY"));
+            is >> hex >> m_mdaTargetAssembly;
+            cout << format("Target Assembly Token: 0x%|1$08X|") % m_mdaTargetAssembly << endl;
+        }
+        
+        // Get token of the replaced type.
+        {
+            istringstream is(Environment::GetEnvironmentVariable("NANONYM_REPLACE_TYPE_FROM"));
+            is >> hex >> m_mdtdReplaceTypeFrom;
+            cout << format("Replaced Type Token: 0x%|1$08X|") % m_mdtdReplaceTypeFrom << endl;
+        }
+        
+        // Get token of the replaced method.
+        {
+            istringstream is(Environment::GetEnvironmentVariable("NANONYM_REPLACE_METHOD_FROM"));
+            is >> hex >> m_mdmdReplaceMethodFrom;
+            cout << format("Replaced Method Token: 0x%|1$08X|") % m_mdmdReplaceMethodFrom << endl;
+        }
+        
+        // Get token of the replacing type.
+        {
+            istringstream is(Environment::GetEnvironmentVariable("NANONYM_REPLACE_TYPE_TO"));
+            is >> hex >> m_mdtdReplaceTypeTo;
+            cout << format("Replacing Type Token: 0x%|1$08X|") % m_mdtdReplaceTypeTo << endl;
+        }
+        
+        // Get token of the replacing method.
+        {
+            istringstream is(Environment::GetEnvironmentVariable("NANONYM_REPLACE_METHOD_TO"));
+            is >> hex >> m_mdtdReplaceMethodTo;
+            cout << format("Replacing Method Token: 0x%|1$08X|") % m_mdtdReplaceMethodTo << endl;
+        }
+        
+        m_pProf->m_pInfo->SetEnterLeaveFunctionHooks2(FunctionEnter2Naked, FunctionLeave2Naked, FunctionTailcall2Naked);
+    }
+    catch (NAnonymException &e)
+    {
+        cout << diagnostic_information(e) << endl;
+    }
+    catch (...)
+    {
+        cout << diagnostic_information(current_exception()) << endl;
+    }
+
+    return S_OK;
 }
 
 HRESULT CExeWeaver2::Shutdown( void)
@@ -43,6 +469,40 @@ HRESULT CExeWeaver2::AppDomainCreationFinished(
     /* [in] */ AppDomainID appDomainId,
     /* [in] */ HRESULT hrStatus)
 { 
+    using namespace std;
+    using namespace boost;
+    using namespace Urasandesu::NAnonym;
+    
+    try
+    {
+        HRESULT hr = E_FAIL;
+        
+        ULONG nameSize = MAX_SYM_NAME;
+        WCHAR name[MAX_SYM_NAME];
+        ProcessID processId = 0;
+        hr = m_pProf->m_pInfo->GetAppDomainInfo(appDomainId, nameSize, &nameSize, name, &processId);
+        if (FAILED(hr))
+            BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+        
+        cout << format("Profiling API's Process ID: %|1$d|") % processId << endl;
+        cout << format("P/Invoke Process ID: %|1$d|") % ::GetCurrentProcessId() << endl;
+        
+        //virtual HRESULT STDMETHODCALLTYPE GetAppDomainInfo( 
+        //    /* [in] */ AppDomainID appDomainId,
+        //    /* [in] */ ULONG cchName,
+        //    /* [out] */ ULONG *pcchName,
+        //    /* [length_is][size_is][out] */ WCHAR szName[  ],
+        //    /* [out] */ ProcessID *pProcessId) = 0;
+    }
+    catch (NAnonymException &e)
+    {
+        cout << diagnostic_information(e) << endl;
+    }
+    catch (...)
+    {
+        cout << diagnostic_information(current_exception()) << endl;
+    }
+    
     return S_OK; 
 }
 
@@ -69,6 +529,38 @@ HRESULT CExeWeaver2::AssemblyLoadFinished(
     /* [in] */ AssemblyID assemblyId,
     /* [in] */ HRESULT hrStatus)
 {
+    using namespace std;
+    using namespace boost;
+    using namespace Urasandesu::NAnonym;
+    using namespace Urasandesu::NAnonym::Profiling;
+    using namespace Urasandesu::NAnonym::MetaData2;
+    
+    try
+    {
+        //::_CrtDbgBreak();
+        //::_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+        //AssemblyProfile *pAsmProf = m_pProf->GetAssembly(assemblyId);
+        //AssemblyMetaData *pAsmMeta = m_pConv->Convert(pAsmProf);
+        //if (pAsmMeta->GetToken() == m_mdaTargetAssembly)
+        //{
+        //    ModuleProfile *pModProf = pAsmProf->GetModule();
+        //    m_pModMeta = m_pConv->Convert(pModProf);
+
+        //    //TypeMetaData *pReplaceTypeFromMeta = m_pModMeta->GetType(mdtdReplaceTypeFrom);
+        //    //m_pReplaceMethodFromMeta = pReplaceTypeFromMeta->GetMethod(mdmdReplaceMethodFrom);
+        //    //TypeMetaData *pReplaceTypeToMeta = m_pModMeta->GetType(mdtdReplaceTypeTo);
+        //    //m_pReplaceMethodToMeta = pReplaceTypeToMeta->GetMethod(mdtdReplaceMethodTo);
+        //}
+    }
+    catch (NAnonymException &e)
+    {
+        cout << diagnostic_information(e) << endl;
+    }
+    catch (...)
+    {
+        cout << diagnostic_information(current_exception()) << endl;
+    }
+
     return S_OK;
 }
 
@@ -154,6 +646,10 @@ HRESULT CExeWeaver2::JITCompilationStarted(
     /* [in] */ FunctionID functionId,
     /* [in] */ BOOL fIsSafeToBlock)
 {
+    using namespace std;
+    
+    cout << "JITCompilationStarted !!" << endl;
+    
     return S_OK;
 }
 

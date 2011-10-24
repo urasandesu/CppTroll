@@ -14,6 +14,31 @@
 
 // CExeWeaver2
 
+namespace Urasandesu { namespace NAnonym { namespace Profiling {
+
+    template<
+        class InfoProfilingApiType,
+        class AppDomainProfilingApiType
+    >
+    class BasicProfilingInfo;
+    typedef BasicProfilingInfo<boost::use_default, boost::use_default> ProfilingInfo;
+
+}}}   // namespace Urasandesu { namespace NAnonym { namespace Profiling {
+
+namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
+    
+    class ModuleMetaData;
+    class MetaDataInfo;
+    
+}}}   // namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
+
+namespace Urasandesu { namespace NAnonym { namespace Utilities {
+    
+    template<class ToInfoType, class FromInfoType>
+    struct ValueConverter;
+    
+}}}   // namespace Urasandesu { namespace NAnonym { namespace Utilities {
+
 class ATL_NO_VTABLE CExeWeaver2 :
 	public CComObjectRootEx<CComSingleThreadModel>,
 	public CComCoClass<CExeWeaver2, &CLSID_ExeWeaver2>,
@@ -40,6 +65,7 @@ END_COM_MAP()
 	STDMETHOD(InterfaceSupportsErrorInfo)(REFIID riid);
 
 // ICorProfilerCallback
+#if 1
     STDMETHOD(Initialize)( 
         /* [in] */ IUnknown *pICorProfilerInfoUnk);
 
@@ -306,19 +332,30 @@ END_COM_MAP()
     STDMETHOD(HandleDestroyed)( 
         /* [in] */ GCHandleID handleId);
 
+#endif
+
+
 	DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-	HRESULT FinalConstruct()
-	{
-		return S_OK;
-	}
+	HRESULT FinalConstruct();
 
-	void FinalRelease()
-	{
-	}
+	void FinalRelease();
+
+	HRESULT COMError(HRESULT hr, LPCSTR filePath, INT line);
 
 public:
 
+private:
+    boost::shared_ptr<Urasandesu::NAnonym::Profiling::ProfilingInfo> m_pProf;
+    Urasandesu::NAnonym::MetaData2::ModuleMetaData *m_pModMeta;
+    boost::shared_ptr<Urasandesu::NAnonym::Utilities::ValueConverter<Urasandesu::NAnonym::MetaData2::MetaDataInfo *, Urasandesu::NAnonym::Profiling::ProfilingInfo *>> m_pConv;
+    CComPtr<ICorProfilerInfo2> m_pInfo;
+    
+    mdAssembly m_mdaTargetAssembly;
+    mdTypeDef m_mdtdReplaceTypeFrom;
+    mdMethodDef m_mdmdReplaceMethodFrom;
+    mdTypeDef m_mdtdReplaceTypeTo;
+    mdMethodDef m_mdtdReplaceMethodTo;
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(ExeWeaver2), CExeWeaver2)
