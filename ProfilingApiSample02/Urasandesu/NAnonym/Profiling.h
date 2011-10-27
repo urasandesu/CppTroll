@@ -42,6 +42,10 @@
 #include <Urasandesu/NAnonym/Profiling/DefaultInfoProfilingApi.h>
 #endif
 
+#ifndef URASANDESU_NANONYM_PROFILING_ICORPROFILERCALLBACK2IMPL_H
+#include <Urasandesu/NAnonym/Profiling/ICorProfilerCallback2Impl.h>
+#endif
+
 #ifndef URASANDESU_NANONYM_PROFILING_IPROFILINGAPIOPERABLE_H
 #include <Urasandesu/NAnonym/Profiling/IProfilingApiOperable.h>
 #endif

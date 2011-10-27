@@ -42,11 +42,11 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData {
         typedef typename UNT::Replace<AssemblyMetaDataApiType, boost::use_default, DefaultAssemblyMetaDataApi>::type assembly_meta_data_api_type;
     
     private:
-        BEGIN_NANONYM_HEAP_PROVIDER()
-            DECLARE_NANONYM_HEAP_PROVIDER(info_meta_data_api_type, mdToken, m_pInfoMetaApiFactory);
-            DECLARE_NANONYM_HEAP_PROVIDER(assembly_meta_data_api_type, mdToken, m_pAsmMetaApiFactory);
-            DECLARE_NANONYM_HEAP_PROVIDER(BaseAssemblyMetaData<AssemblyMetaDataApiType>, mdToken, m_pAsmMetaFactory);
-        END_NANONYM_HEAP_PROVIDER()
+        NANONYM_BEGIN_HEAP_PROVIDER_DECLARATION()
+            NANONYM_HEAP_PROVIDER(info_meta_data_api_type, mdToken, m_pInfoMetaApiFactory);
+            NANONYM_HEAP_PROVIDER(assembly_meta_data_api_type, mdToken, m_pAsmMetaApiFactory);
+            NANONYM_HEAP_PROVIDER(BaseAssemblyMetaData<AssemblyMetaDataApiType>, mdToken, m_pAsmMetaFactory);
+        NANONYM_END_HEAP_PROVIDER_DECLARATION()
 
     public:
         BaseMetaDataInfo() : 

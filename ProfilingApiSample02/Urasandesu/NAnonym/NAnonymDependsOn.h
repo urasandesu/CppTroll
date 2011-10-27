@@ -10,6 +10,10 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/logical.hpp>
+#include <boost/preprocessor/punctuation/comma_if.hpp>
+#include <boost/preprocessor/seq/for_each_i.hpp>
+#include <boost/preprocessor/seq/seq.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/system/windows_error.hpp>
 #include <boost/type_traits.hpp>
@@ -29,8 +33,16 @@ namespace Urasandesu { namespace NAnonym {
 #include <Urasandesu/NAnonym/MetaData/MetaDataDependsOn.h>
 #endif
 
+#ifndef URASANDESU_NANONYM_PROFILING_PROFILINGDEPENDSON_H
+#include <Urasandesu/NAnonym/Profiling/ProfilingDependsOn.h>
+#endif
+
 #ifndef URASANDESU_NANONYM_TRAITS_TRAITSDEPENDSON_H
 #include <Urasandesu/NAnonym/Traits/TraitsDependsOn.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_UTILITIES_UTILITIESDEPENDSON_H
+#include <Urasandesu/NAnonym/Utilities/UtilitiesDependsOn.h>
 #endif
 
 #endif  // #ifndef URASANDESU_NANONYM_NANONYMDEPENDSON_H

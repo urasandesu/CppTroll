@@ -8,7 +8,7 @@
 
 namespace Urasandesu { namespace NAnonym {
 
-#define BEGIN_NANONYM_HEAP_PROVIDER() \
+#define NANONYM_BEGIN_HEAP_PROVIDER_DECLARATION() \
     private: \
         template<class T> \
         Urasandesu::NAnonym::SimpleHeap<T> *GetHeap(); \
@@ -38,7 +38,7 @@ namespace Urasandesu { namespace NAnonym {
         T *Peek();
 
 
-#define DECLARE_NANONYM_HEAP_PROVIDER(t, key_, name) \
+#define NANONYM_HEAP_PROVIDER(t, key_, name) \
     private: \
         boost::shared_ptr<Urasandesu::NAnonym::SimpleHeap<t>> name; \
         boost::unordered_map<key_, SIZE_T> name##Indexes; \
@@ -116,7 +116,7 @@ namespace Urasandesu { namespace NAnonym {
             } \
         }
 
-#define END_NANONYM_HEAP_PROVIDER()
+#define NANONYM_END_HEAP_PROVIDER_DECLARATION()
 
 }}   // namespace Urasandesu { namespace NAnonym {
 

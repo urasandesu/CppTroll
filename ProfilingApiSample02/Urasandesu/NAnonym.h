@@ -22,6 +22,10 @@
 #include <Urasandesu/NAnonym/Utilities.h>
 #endif
 
+#ifndef URASANDESU_NANONYM_DEFAULTSTDMETHODWRAPPER_H
+#include <Urasandesu/NAnonym/DefaultSTDMETHODWrapper.h>
+#endif
+
 #ifndef URASANDESU_NANONYM_ENVIRONMENT_H
 #include <Urasandesu/NAnonym/Environment.h>
 #endif

@@ -15,6 +15,10 @@
 
 #include <atlbase.h>
 #include <atlstr.h>
+#include <atlcom.h>
+#include <atlctl.h>
+
+using namespace ATL;
 
 // TODO: プログラムに必要な追加ヘッダーをここで参照してください。
 #import "libid:8B6C1B28-B4DA-4C92-8053-1B911458F597" version("1.0") no_namespace // ProfilingApiSample02 1.0 タイプ ライブラリ

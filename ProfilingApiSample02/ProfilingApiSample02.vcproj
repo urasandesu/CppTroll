@@ -353,6 +353,10 @@
 					Name="NAnonym"
 					>
 					<File
+						RelativePath=".\Urasandesu\NAnonym\DefaultSTDMETHODWrapper.h"
+						>
+					</File>
+					<File
 						RelativePath=".\Urasandesu\NAnonym\Environment.h"
 						>
 					</File>
@@ -513,6 +517,10 @@
 						</File>
 						<File
 							RelativePath=".\Urasandesu\NAnonym\Profiling\DefaultInfoProfilingApi.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Profiling\ICorProfilerCallback2Impl.h"
 							>
 						</File>
 						<File

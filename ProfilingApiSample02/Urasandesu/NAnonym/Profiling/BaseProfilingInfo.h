@@ -33,10 +33,10 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
         typedef typename UNT::Replace<InfoProfilingApiType, boost::use_default, DefaultInfoProfilingApi>::type info_profiling_api_type;
     
     private:
-        BEGIN_NANONYM_HEAP_PROVIDER()
-            DECLARE_NANONYM_HEAP_PROVIDER(info_profiling_api_type, UINT_PTR, m_pInfoProfApiFactory);
-            DECLARE_NANONYM_HEAP_PROVIDER(BaseProcessProfile<InfoProfilingApiType>, UINT_PTR, m_pProcProfFactory);
-        END_NANONYM_HEAP_PROVIDER()
+        NANONYM_BEGIN_HEAP_PROVIDER_DECLARATION()
+            NANONYM_HEAP_PROVIDER(info_profiling_api_type, UINT_PTR, m_pInfoProfApiFactory);
+            NANONYM_HEAP_PROVIDER(BaseProcessProfile<InfoProfilingApiType>, UINT_PTR, m_pProcProfFactory);
+        NANONYM_END_HEAP_PROVIDER_DECLARATION()
 
     public:
         BaseProfilingInfo() : 
