@@ -10,12 +10,32 @@
 #include <Urasandesu/NAnonym/MetaData.h>
 #endif
 
+#ifndef URASANDESU_NANONYM_PROFILING_H
+#include <Urasandesu/NAnonym/Profiling.h>
+#endif
+
 #ifndef URASANDESU_NANONYM_TRAITS_H
 #include <Urasandesu/NAnonym/Traits.h>
 #endif
 
+#ifndef URASANDESU_NANONYM_UTILITIES_H
+#include <Urasandesu/NAnonym/Utilities.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_ENVIRONMENT_H
+#include <Urasandesu/NAnonym/Environment.h>
+#endif
+
 #ifndef URASANDESU_NANONYM_HEAPPROVIDER_H
 #include <Urasandesu/NAnonym/HeapProvider.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_IAPIOPERABLE_H
+#include <Urasandesu/NAnonym/IApiOperable.h>
+#endif
+
+#ifndef URASANDESU_NANONYM_IHEAPCONTENT_H
+#include <Urasandesu/NAnonym/IHeapContent.h>
 #endif
 
 #ifndef URASANDESU_NANONYM_SIMPLEBLOB_H

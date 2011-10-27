@@ -271,6 +271,10 @@
 					Name="NAnonym"
 					>
 					<File
+						RelativePath=".\Urasandesu\NAnonym\Environment.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\Urasandesu\NAnonym\NAnonymCOMException.cpp"
 						>
 					</File>
@@ -294,7 +298,19 @@
 						Name="MetaData"
 						>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultMetaDataApi.cpp"
+							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultAssemblyMetaDataApi.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultInfoMetaDataApi.cpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Profiling"
+						>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Profiling\DefaultInfoProfilingApi.cpp"
 							>
 						</File>
 					</Filter>
@@ -337,7 +353,19 @@
 					Name="NAnonym"
 					>
 					<File
+						RelativePath=".\Urasandesu\NAnonym\Environment.h"
+						>
+					</File>
+					<File
 						RelativePath=".\Urasandesu\NAnonym\HeapProvider.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\IApiOperable.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\IHeapContent.h"
 						>
 					</File>
 					<File
@@ -358,6 +386,10 @@
 					</File>
 					<File
 						RelativePath=".\Urasandesu\NAnonym\NAnonymSystemException.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\Profiling.h"
 						>
 					</File>
 					<File
@@ -384,111 +416,51 @@
 						RelativePath=".\Urasandesu\NAnonym\Traits.h"
 						>
 					</File>
+					<File
+						RelativePath=".\Urasandesu\NAnonym\Utilities.h"
+						>
+					</File>
 					<Filter
 						Name="MetaData"
 						>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\Assembly.h"
+							RelativePath=".\Urasandesu\NAnonym\MetaData\BaseAssemblyMetaData.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\CustomAttribute.h"
+							RelativePath=".\Urasandesu\NAnonym\MetaData\BaseMetaDataInfo.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\CustomAttributeEnumerator.h"
+							RelativePath=".\Urasandesu\NAnonym\MetaData\BaseMethodBodyMetaData.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\CustomAttributeSignature.h"
+							RelativePath=".\Urasandesu\NAnonym\MetaData\BaseMethodMetaData.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultMetaDataApi.h"
+							RelativePath=".\Urasandesu\NAnonym\MetaData\BaseModuleMetaData.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\ElemSignature.h"
+							RelativePath=".\Urasandesu\NAnonym\MetaData\BaseTypeMetaData.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\ElemSignatureTrait.h"
+							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultAssemblyMetaDataApi.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\FixedArgArraySignature.h"
+							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultInfoMetaDataApi.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\FixedArgElemSignature.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\FixedArgSignature.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\IMetaDataOperable.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\ITokenizable.h"
+							RelativePath=".\Urasandesu\NAnonym\MetaData\IMetaDataApiOperable.h"
 							>
 						</File>
 						<File
 							RelativePath=".\Urasandesu\NAnonym\MetaData\MetaDataDependsOn.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\Method.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\MethodDefSignature.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\MethodEnumerator.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\Module.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\NamedArgSignature.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\OpCodes.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\Runtime.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\SimpleOrEnumElemSignature.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\StringOrTypeElemSignature.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\Type.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\TypeEnumerator.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\TypeSignature.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\UseDefaultMetaDataApiIfNecessary.h"
 							>
 						</File>
 					</Filter>
@@ -501,6 +473,66 @@
 						</File>
 						<File
 							RelativePath=".\Urasandesu\NAnonym\Traits\TraitsDependsOn.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Profiling"
+						>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseAppDomainProfile.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseAssemblyProfile.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseMethodBodyProfile.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseMethodProfile.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseModuleProfile.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseProcessProfile.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseProfilingInfo.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseTypeProfile.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Profiling\DefaultInfoProfilingApi.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Profiling\IProfilingApiOperable.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Profiling\ProfilingDependsOn.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Utilities"
+						>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Utilities\UtilitiesDependsOn.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Urasandesu\NAnonym\Utilities\ValueConverter.h"
 							>
 						</File>
 					</Filter>

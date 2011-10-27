@@ -23,8 +23,8 @@
 #include <Urasandesu/NAnonym/NAnonymDependsOn.h>
 #endif
 
-#include <corprof.h>
+//#include <corprof.h>
 #include <gtest/gtest.h>
 
 #include <boost/lexical_cast.hpp>
-#include <boost/unordered_map.hpp>
+//#include <boost/unordered_map.hpp>

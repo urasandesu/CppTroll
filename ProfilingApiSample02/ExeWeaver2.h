@@ -14,69 +14,24 @@
 
 // CExeWeaver2
 
-namespace Urasandesu { namespace NAnonym { namespace Profiling {
+#ifdef UNM
+#error This .h reserves the word "UNM" that means "Urasandesu::NAnonym::MetaData".
+#endif
+#define UNM Urasandesu::NAnonym::MetaData
 
-    template<
-        class ProcessProfilingApiType
-    >
-    class BaseAssemblyProfile;
-    typedef BaseAssemblyProfile<boost::use_default> AssemblyProfile;
-
-    template<
-        class ProcessProfilingApiType
-    >
-    class BaseProcessProfile;
-    typedef BaseProcessProfile<boost::use_default> ProcessProfile;
-
-    template<
-        class InfoProfilingApiType
-    >    
-    class BaseProfilingInfo;
-    typedef BaseProfilingInfo<boost::use_default> ProfilingInfo;
-
-
-}}}   // namespace Urasandesu { namespace NAnonym { namespace Profiling {
-
-namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
-
-    template<
-        class AssemblyMetaDataApiType
-    >
-    class BaseModuleMetaData;
-    
-    typedef BaseModuleMetaData<boost::use_default> ModuleMetaData;
-
-    template<
-        class AssemblyMetaDataApiType
-    >
-    class BaseAssemblyMetaData;
-
-    typedef BaseAssemblyMetaData<boost::use_default> AssemblyMetaData;
-
-    template<
-        class InfoMetaDataApiType,
-        class AssemblyMetaDataApiType
-    >    
-    class BaseMetaDataInfo;
-
-    typedef BaseMetaDataInfo<boost::use_default, boost::use_default> MetaDataInfo;
-    
-}}}   // namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
-
-namespace Urasandesu { namespace NAnonym { namespace Utilities {
-    
-    template<class ToInfoType, class FromInfoType>
-    struct ValueConverter;
-    
-}}}   // namespace Urasandesu { namespace NAnonym { namespace Utilities {
-
-#undef UNM
-#define UNM Urasandesu::NAnonym::MetaData2
-#undef UNP
+#ifdef UNP
+#error This .h reserves the word "UNP" that means "Urasandesu::NAnonym::Profiling".
+#endif
 #define UNP Urasandesu::NAnonym::Profiling
-#undef UNT
+
+#ifdef UNT
+#error This .h reserves the word "UNT" that means "Urasandesu::NAnonym::Traits".
+#endif
 #define UNT Urasandesu::NAnonym::Traits
-#undef UNU
+
+#ifdef UNU
+#error This .h reserves the word "UNU" that means "Urasandesu::NAnonym::Utilities".
+#endif
 #define UNU Urasandesu::NAnonym::Utilities
 
 class ATL_NO_VTABLE CExeWeaver2 :

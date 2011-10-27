@@ -13,6 +13,7 @@
 #include <boost/scope_exit.hpp>
 #include <boost/system/windows_error.hpp>
 #include <boost/type_traits.hpp>
+#include <boost/unordered_map.hpp>
 #include <corhlpr.h>    // This header needs the definitions. You must include the 
                         // implementation file, named corhlpr.cpp at only once. 
                         // In this time, I include it in stdafx.cpp.
