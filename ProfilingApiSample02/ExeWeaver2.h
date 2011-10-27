@@ -16,16 +16,11 @@
 
 namespace Urasandesu { namespace NAnonym { namespace Profiling {
 
-#if 0
     template<
-        class InfoProfilingApiType,
-        class AppDomainProfilingApiType
+        class ProcessProfilingApiType
     >
-    class BasicProfilingInfo;
-    typedef BasicProfilingInfo<boost::use_default, boost::use_default> ProfilingInfo;
-    
-    class ProcessProfile;
-#endif
+    class BaseAssemblyProfile;
+    typedef BaseAssemblyProfile<boost::use_default> AssemblyProfile;
 
     template<
         class ProcessProfilingApiType
@@ -44,10 +39,6 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
 
-#if 0    
-    class ModuleMetaData;
-    class MetaDataInfo;
-#endif
     template<
         class AssemblyMetaDataApiType
     >
@@ -397,12 +388,10 @@ public:
 private:
     boost::shared_ptr<UNP::ProfilingInfo> m_pProfInfo;
     boost::shared_ptr<UNM::MetaDataInfo> m_pMetaInfo;
-    UNP::ProcessProfile *m_pProcProf;
-    UNM::AssemblyMetaData *m_pAsmMeta;
     boost::shared_ptr<UNU::ValueConverter<UNM::AssemblyMetaData *, UNP::ProcessProfile *>> m_pConv;
 
+    UNP::AssemblyProfile *m_pTargetAssemblyProf;
     std::wstring m_targetAssemblyName;    
-    mdAssembly m_mdaTargetAssembly;
     mdTypeDef m_mdtdReplaceTypeFrom;
     mdMethodDef m_mdmdReplaceMethodFrom;
     mdTypeDef m_mdtdReplaceTypeTo;

@@ -90,146 +90,7 @@ namespace Urasandesu { namespace NAnonym {
 
 }}  // namespace Urasandesu { namespace NAnonym {
 
-//namespace Urasandesu { namespace NAnonym { namespace Traits {
-//
-//    template<
-//        class Type,
-//        class DefaultType
-//    >
-//    struct ATL_NO_VTABLE UseDefaultIfNecessary
-//    {
-//        typedef typename Replace<Type, boost::use_default, DefaultType>::type type;
-//    };
-//
-//}}}   // namespace Urasandesu { namespace NAnonym { namespace Traits {
-
 namespace Urasandesu { namespace NAnonym { namespace Profiling {
-
-#if 0
-    // IMetaDataOperable に対応する IProfilable みたいな。
-    // ITokenizable に対応する IIdentifiable みたいな。
-    struct DefaultInfoProfilingApi;
-
-    template<class InfoProfilingApiType = boost::use_default>
-    struct ATL_NO_VTABLE UseDefaultInfoProfilingApiIfNecessary
-    {
-        typedef typename Urasandesu::NAnonym::Traits::Replace<InfoProfilingApiType, boost::use_default, DefaultInfoProfilingApi>::type type;
-    };
-
-    struct DefaultProcessProfilingApi;
-
-    template<class ProcessProfilingApiType = boost::use_default>
-    struct ATL_NO_VTABLE UseDefaultProcessProfilingApiIfNecessary
-    {
-        typedef typename Urasandesu::NAnonym::Traits::Replace<ProcessProfilingApiType, boost::use_default, DefaultProcessProfilingApi>::type type;
-    };
-    
-    class MethodBodyProfile
-    {
-    };
-    
-    class MethodProfile
-    {
-    public:
-        void SetMethodBody(MethodBodyProfile *pBodyProf)
-        {
-            BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymException("Not Implemented!!"));
-        }
-    };
-
-    class ModuleProfile
-    {
-    };
-
-    class AssemblyProfile
-    {
-    public:
-        AssemblyProfile() { }
-        
-        ModuleProfile *GetModule()
-        {
-            return NULL;
-        }
-    };
-    
-    class ProcessProfile
-    {
-    public:
-        template<class T>
-        T *New(UINT_PTR id)
-        {
-            BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymException("Not Implemented!!"));
-            return NULL;
-        }
-    };
-
-    //template<
-    //    class InfoProfilingApiType = boost::use_default,
-    //    class ProcessProfilingApiType = boost::use_default
-    //>
-    //class BasicProfilingInfo
-    //{
-    //    //BEGIN_NANONYM_HEAP_PROVIDER()
-    //    //    DECLARE_NANONYM_HEAP_PROVIDER(AssemblyProfile, m_pAsmProfFactory)
-    //    //END_NANONYM_HEAP_PROVIDER()
-
-    //public:
-    //    typedef typename UseDefaultInfoProfilingApiIfNecessary<InfoProfilingApiType>::type info_profiling_api_type;
-    //    typedef typename UseDefaultProcessProfilingApiIfNecessary<ProcessProfilingApiType>::type process_profiling_api_type;
-
-    //    BasicProfilingInfo() { }
-    //    
-    //    void Init(IUnknown *pICorProfilerInfoUnk)
-    //    {
-    //        using namespace Urasandesu::NAnonym;
-    //        HRESULT hr = E_FAIL;
-    //        
-    //        hr = pICorProfilerInfoUnk->QueryInterface(IID_ICorProfilerInfo2, 
-    //                                                  reinterpret_cast<void**>(&m_pInfo));
-    //        if (FAILED(hr)) 
-    //            BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
-    //    }
-    //    
-    //    void SetEventMask(DWORD events)
-    //    {
-    //        using namespace Urasandesu::NAnonym;
-    //        HRESULT hr = E_FAIL;
-
-    //        hr = m_pInfo->SetEventMask(events);
-    //        if (FAILED(hr)) 
-    //            BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
-    //    }
-    //    
-    //    ProcessProfile *GetCurrentProcess()
-    //    {
-    //        BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymException("Not Implemented!!"));
-    //        return NULL;
-    //    }
-    //    
-    //    //// このメソッドは AppDomain にあるべき！
-    //    //AssemblyProfile *GetAssembly(AssemblyID assemblyId)
-    //    //{
-    //    //    if (m_asmIndexes.find(assemblyId) != m_asmIndexes.end())
-    //    //    {
-    //    //        return (*GetHeap<AssemblyProfile>())[m_asmIndexes[assemblyId]];
-    //    //    }
-    //    //    else
-    //    //    {
-    //    //        AssemblyProfile *pAsmProf = GetHeap<AssemblyProfile>()->New();
-    //    //        m_asmIndexes[assemblyId] = GetHeap<AssemblyProfile>()->Size() - 1;
-    //    //        
-    //    //        // ここで pAsmProf->Init みたいなのが必要。
-    //    //        
-    //    //        return pAsmProf;
-    //    //    }
-    //    //}
-
-    ////private:    
-    //    CComPtr<ICorProfilerInfo2> m_pInfo;
-    //    boost::unordered_map<AssemblyID, SIZE_T> m_asmIndexes;
-    //};
-
-#endif
 
     struct DefaultInfoProfilingApi
     {
@@ -279,6 +140,9 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
     };
 
 
+#ifdef UNT
+#error This .h reserves the word "UNT" that means "Urasandesu::NAnonym::Traits".
+#endif
 #undef UNT
 #define UNT Urasandesu::NAnonym::Traits
 
@@ -313,13 +177,177 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
         >
     {
     public:
+        BaseMethodBodyProfile<InfoProfilingApiType> *GetMethodBody()
+        {
+            HRESULT hr = E_FAIL;
+            
+            ClassID classId = 0;
+            ModuleID modId = 0;
+            mdToken mdt = mdTokenNil;
+            hr = GetApi()->ProfilerInfo->GetFunctionInfo(GetID(), &classId, &modId, &mdt);
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+            
+            LPCBYTE pMethodBodyAll = NULL;
+            ULONG methodBodyAllSize = 0;
+            hr = GetApi()->ProfilerInfo->GetILFunctionBody(modId, mdt, &pMethodBodyAll, &methodBodyAllSize);
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+            
+            BaseMethodBodyProfile<InfoProfilingApiType> *pBodyProf = NULL;
+            pBodyProf = CreateIfNecessary<BaseMethodBodyProfile<InfoProfilingApiType>>(reinterpret_cast<UINT_PTR>(pMethodBodyAll));
+            return pBodyProf;
+        }
+
         void SetMethodBody(BaseMethodBodyProfile<InfoProfilingApiType> *pBodyProf)
         {
-            BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymException("Not Implemented!!"));
+            HRESULT hr = E_FAIL;
+            
+            COR_ILMETHOD *pILMethod = reinterpret_cast<COR_ILMETHOD *>(pBodyProf->GetID());
+
+            ClassID classId = 0;
+            ModuleID modId = 0;
+            mdToken mdt = mdTokenNil;
+            hr = GetApi()->ProfilerInfo->GetFunctionInfo(GetID(), &classId, &modId, &mdt);
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+            
+            CComPtr<IMethodMalloc> pMethodMalloc;
+            hr = GetApi()->ProfilerInfo->GetILFunctionBodyAllocator(modId, &pMethodMalloc);
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+            
+            
+            unsigned headerSize = 0;
+            BYTE *pCode = NULL;
+            unsigned codeSize = 0;
+            if (pILMethod->Fat.IsFat())
+            {
+                headerSize = sizeof(COR_ILMETHOD_FAT);
+                pCode = pILMethod->Fat.GetCode();
+                codeSize = pILMethod->Fat.GetCodeSize();
+            }
+            else
+            {
+                headerSize = sizeof(COR_ILMETHOD_TINY);
+                pCode = pILMethod->Tiny.GetCode();
+                codeSize = pILMethod->Tiny.GetCodeSize();
+            }
+            unsigned totalSize = headerSize + codeSize;
+            
+            
+            BYTE *pNewILFunctionBody = reinterpret_cast<BYTE*>(pMethodMalloc->Alloc(totalSize));
+            BYTE *pBuffer = pNewILFunctionBody;
+            if (pILMethod->Fat.IsFat())
+            {
+                COR_ILMETHOD_FAT* pILMethodFat = reinterpret_cast<COR_ILMETHOD_FAT *>(pBuffer);
+                pBuffer += sizeof(COR_ILMETHOD_FAT);
+                *pILMethodFat = pILMethod->Fat;
+                pILMethodFat->SetFlags(pILMethodFat->GetFlags() | CorILMethod_FatFormat);
+                pILMethodFat->SetSize(sizeof(COR_ILMETHOD_FAT) / 4);
+                // TODO: Add the process if there are more sections...
+            }
+            else
+            {
+                *pBuffer++ = static_cast<BYTE>(CorILMethod_TinyFormat | (pILMethod->Tiny.GetCodeSize() << 2));
+            }
+            ::memcpy_s(pBuffer, totalSize - headerSize, pCode, codeSize);
+            
+            hr = GetApi()->ProfilerInfo->SetILFunctionBody(modId, mdt, pNewILFunctionBody);
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+        //
+        //cout << "  New IL Function Body: ";
+        //for (BYTE const *i = pNewILFunctionBody, *i_end = i + totalSize; i != i_end; ++i)
+        //    cout << PadLeft(2, '0') << static_cast<INT>(*i) << " ";
+        //cout << endl;
+
+        //hr = m_pInfo->SetILFunctionBody(mid, mdmd, pNewILFunctionBody);
+        //if (FAILED(hr)) 
+        //    return COMError(hr, __FILE__, __LINE__);
+
+
+            //unsigned totalSize = headerSize + sb.Size();
+
+        //virtual HRESULT STDMETHODCALLTYPE GetILFunctionBodyAllocator( 
+        //    /* [in] */ ModuleID moduleId,
+        //    /* [out] */ IMethodMalloc **ppMalloc) = 0;
+
+    //if (pILMethod->Fat.IsFat())
+    //{
+    //    cout << "The method has Fat format header with following values: " << endl;
+    //    cout << "  Size: 0x" << PadLeft(8, '0') << pILMethod->Fat.GetSize() << endl;
+    //    cout << "  Flags: 0x" << PadLeft(8, '0') << pILMethod->Fat.GetFlags() << endl;
+    //    cout << "  IsFat?: 0x" << PadLeft(8, '0') << pILMethod->Fat.IsFat() << endl;
+    //    cout << "  MaxStack: 0x" << PadLeft(8, '0') << pILMethod->Fat.GetMaxStack() << endl;
+    //    cout << "  LocalVarSigTok: 0x" << PadLeft(8, '0') << pILMethod->Fat.GetLocalVarSigTok() << endl;
+    //    cout << "  CodeSize: 0x" << PadLeft(8, '0') << pILMethod->Fat.GetCodeSize() << endl;
+    //    cout << "  Code: ";
+    //    for (BYTE const *i = pILMethod->Fat.GetCode(), *i_end = i + pILMethod->Fat.GetCodeSize(); i != i_end; ++i)
+    //        cout << PadLeft(2, '0') << static_cast<INT>(*i) << " ";
+    //    cout << endl;
+    //    cout << "  Sect: 0x" << PadLeft(8, '0') << pILMethod->Fat.GetSect() << endl;
+    //}
+    //else
+    //{
+    //    cout << "The method has Tiny format header with following values: " << endl;
+    //    cout << "  IsTiny?: 0x" << PadLeft(8, '0') << pILMethod->Tiny.IsTiny() << endl;
+    //    cout << "  MaxStack: 0x" << PadLeft(8, '0') << pILMethod->Tiny.GetMaxStack() << endl;
+    //    cout << "  LocalVarSigTok: 0x" << PadLeft(8, '0') << pILMethod->Tiny.GetLocalVarSigTok() << endl;
+    //    cout << "  CodeSize: 0x" << PadLeft(8, '0') << pILMethod->Tiny.GetCodeSize() << endl;
+    //    cout << "  Code: ";
+    //    for (BYTE const *i = pILMethod->Tiny.GetCode(), *i_end = i + pILMethod->Tiny.GetCodeSize(); i != i_end; ++i)
+    //        cout << PadLeft(2, '0') << static_cast<INT>(*i) << " ";
+    //    cout << endl;
+    //    cout << "  Sect: 0x" << PadLeft(8, '0') << pILMethod->Tiny.GetSect() << endl;
+    //}
+            
+    //COR_ILMETHOD const *pILMethod = reinterpret_cast<COR_ILMETHOD*>(
+    //                                                  const_cast<BYTE*>(pILFunctionBody));
+            
+
+        //SimpleBlob sb;
+        //sb.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDSTR].byte2);
+        //sb.Put<DWORD>(mdsMessage);
+        //sb.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_RET].byte2);
+
+        //
+        //COR_ILMETHOD ilMethod;
+        //::ZeroMemory(&ilMethod, sizeof(COR_ILMETHOD));
+        //ilMethod.Fat.SetMaxStack(1);
+        //ilMethod.Fat.SetCodeSize(sb.Size());
+        //ilMethod.Fat.SetLocalVarSigTok(mdTokenNil);
+        //ilMethod.Fat.SetFlags(0);
+        //
+        //unsigned headerSize = COR_ILMETHOD::Size(&ilMethod.Fat, false);
+        //unsigned totalSize = headerSize + sb.Size();
+        //
+        //CComPtr<IMethodMalloc> pMethodMalloc;
+        //hr = m_pInfo->GetILFunctionBodyAllocator(mid, &pMethodMalloc);
+        //if (FAILED(hr)) 
+        //    return COMError(hr, __FILE__, __LINE__);
+
+            //BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
         }
     };
 
     typedef BaseMethodProfile<boost::use_default> MethodProfile;
+
+
+
+
+    template<
+        class InfoProfilingApiType = boost::use_default
+    >
+    class BaseTypeProfile : 
+        public IProfilingApiOperable<
+            BaseProcessProfile<InfoProfilingApiType>, 
+            typename UNT::Replace<InfoProfilingApiType, boost::use_default, DefaultInfoProfilingApi>::type
+        >
+    {
+    };
+
+    typedef BaseTypeProfile<boost::use_default> TypeProfile;
 
 
 
@@ -333,6 +361,31 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
             typename UNT::Replace<InfoProfilingApiType, boost::use_default, DefaultInfoProfilingApi>::type
         >
     {
+    public:
+        std::wstring GetName()
+        {
+            using namespace std;
+            HRESULT hr = E_FAIL;
+            
+            if (m_name == L"")
+            {
+                LPCBYTE pBaseLoadAddress = NULL;
+                WCHAR modName[MAX_SYM_NAME] = { 0 };
+                ULONG modNameSize = sizeof(modName);
+                AssemblyID asmId = 0;
+                
+                hr = GetApi()->ProfilerInfo->GetModuleInfo(GetID(), &pBaseLoadAddress, 
+                                                modNameSize, &modNameSize, modName, &asmId);
+                if (hr != CORPROF_E_DATAINCOMPLETE && FAILED(hr))
+                    BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+                
+                m_name = wstring(modName);
+            }
+            return m_name;
+        }
+    
+    private:
+        std::wstring m_name;
     };
 
     typedef BaseModuleProfile<boost::use_default> ModuleProfile;
@@ -349,9 +402,34 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
             typename UNT::Replace<InfoProfilingApiType, boost::use_default, DefaultInfoProfilingApi>::type
         >
     {
+    public:
+        std::wstring GetName()
+        {
+            using namespace std;
+            HRESULT hr = E_FAIL;
+        
+            if (m_name == L"")
+            {
+                WCHAR asmName[MAX_SYM_NAME] = { 0 };
+                ULONG asmNameSize = sizeof(asmName);
+                AppDomainID domainId = 0;
+                ModuleID modId = 0;
+                hr = GetApi()->ProfilerInfo->GetAssemblyInfo(GetID(), asmNameSize, 
+                                                             &asmNameSize, asmName, &domainId, &modId);
+
+                if (hr != CORPROF_E_DATAINCOMPLETE && FAILED(hr))
+                    BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+                
+                m_name = wstring(asmName);
+            }
+            return m_name;    
+        }
+        
+    private:
+        std::wstring m_name;
     };
 
-    typedef BaseAssemblyProfile<boost::use_default> AssemblyProfile;
+    //typedef BaseAssemblyProfile<boost::use_default> AssemblyProfile;
 
 
 
@@ -384,9 +462,21 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
             DECLARE_NANONYM_HEAP_PROVIDER(BaseAppDomainProfile<InfoProfilingApiType>, UINT_PTR, m_pDomainProfFactory);
             DECLARE_NANONYM_HEAP_PROVIDER(BaseAssemblyProfile<InfoProfilingApiType>, UINT_PTR, m_pAsmProfFactory);
             DECLARE_NANONYM_HEAP_PROVIDER(BaseModuleProfile<InfoProfilingApiType>, UINT_PTR, m_pModProfFactory);
+            DECLARE_NANONYM_HEAP_PROVIDER(BaseTypeProfile<InfoProfilingApiType>, UINT_PTR, m_pTypeProfFactory);
             DECLARE_NANONYM_HEAP_PROVIDER(BaseMethodProfile<InfoProfilingApiType>, UINT_PTR, m_pMethodProfFactory);
             DECLARE_NANONYM_HEAP_PROVIDER(BaseMethodBodyProfile<InfoProfilingApiType>, UINT_PTR, m_pMethodBodyProfFactory);
         END_NANONYM_HEAP_PROVIDER()
+        
+    public:
+        BaseAppDomainProfile<InfoProfilingApiType> *GetPseudoDomain()
+        {
+            return CreatePseudo<BaseAppDomainProfile<InfoProfilingApiType>>();
+        }
+        
+        BaseAppDomainProfile<InfoProfilingApiType> *GetCurrentDomain()
+        {
+            return GetHeapManager()->Peek<BaseAppDomainProfile<InfoProfilingApiType>>();
+        }
     };
 
     typedef BaseProcessProfile<boost::use_default> ProcessProfile;
@@ -409,7 +499,8 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
 
     public:
         BaseProfilingInfo() : 
-            m_pInfoProfApi(NULL)
+            m_pInfoProfApi(NULL),
+            m_currentProcessId(-1)
         { }
         
         template<class T>
@@ -429,7 +520,7 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
             }
             else
             {
-                T *pObj = New<T>(id);
+                T *pObj = CreatePseudo<T>();
                 SetToLast<T>(id);
                 return pObj;
             }
@@ -457,7 +548,7 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
         BaseProcessProfile<InfoProfilingApiType> *GetCurrentProcess()
         {
             BaseProcessProfile<InfoProfilingApiType> *pProcProf = NULL;
-            pProcProf = CreateIfNecessary<BaseProcessProfile<InfoProfilingApiType>>(::GetCurrentProcessId());
+            pProcProf = CreateIfNecessary<BaseProcessProfile<InfoProfilingApiType>>(CurrentProcessId());
             return pProcProf;
         }
 
@@ -470,8 +561,18 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
             }
             return m_pInfoProfApi;
         }
-        
+
+        DWORD CurrentProcessId()
+        {
+            if (m_currentProcessId == -1)
+            {
+                m_currentProcessId = ::GetCurrentProcessId();
+            }
+            return m_currentProcessId;
+        }
+
         info_profiling_api_type *m_pInfoProfApi;
+        DWORD m_currentProcessId;
     };
 
 #undef UNT
@@ -481,137 +582,6 @@ namespace Urasandesu { namespace NAnonym { namespace Profiling {
 
 namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
     
-    #if 0
-
-    struct DefaultAssemblyMetaDataApi;
-
-    template<class AssemblyMetaDataApiType = boost::use_default>
-    struct ATL_NO_VTABLE UseDefaultAssemblyMetaDataApiIfNecessary
-    {
-        typedef typename Urasandesu::NAnonym::Traits::Replace<AssemblyMetaDataApiType, boost::use_default, DefaultAssemblyMetaDataApi>::type type;
-    };
-
-    template<class AssemblyMetaDataApiType>
-    class BasicAssemblyMetaData;
-
-    template<class AssemblyMetaDataApiType = boost::use_default>
-    class ATL_NO_VTABLE IMetaDataOperable
-    {
-    public:
-        typedef typename UseDefaultAssemblyMetaDataApiIfNecessary<AssemblyMetaDataApiType>::type assembly_meta_data_api_type;
-        
-        IMetaDataOperable() : m_pAsm(NULL), m_pApi(NULL) { }
-
-        void Init(BasicAssemblyMetaData<AssemblyMetaDataApiType> *pAsm, assembly_meta_data_api_type *pApi)
-        {
-            m_pAsm = pAsm;
-            m_pApi = pApi;
-        }
-    
-    protected:
-        BasicAssemblyMetaData<AssemblyMetaDataApiType> *m_pAsm;
-        assembly_meta_data_api_type *m_pApi;
-    };
-    
-    
-    class ATL_NO_VTABLE ITokenizable
-    {
-    private:
-        mdToken m_token;
-
-    public:
-        ITokenizable() : m_token(mdTokenNil) { }
-                
-        mdToken GetToken()
-        {
-            return m_token;
-        }
-        
-        void SetToken(mdToken token)
-        {
-            m_token = token;
-        }
-    };
-    
-    class MethodBodyMetaData
-    {
-    };
-    
-    class TypeMetaData;
-
-    class MethodMetaData
-    {
-    public:
-        mdToken GetToken()
-        {
-            BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymException("Not Implemented!!"));
-            return mdTokenNil;
-        }
-        
-        TypeMetaData *GetDeclaringType()
-        {
-            BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymException("Not Implemented!!"));
-            return NULL;
-        }
-        
-        MethodBodyMetaData *GetMethodBody()
-        {
-            BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymException("Not Implemented!!"));
-            return NULL;
-        }
-    };
-    
-    class ModuleMetaData;
-    
-    class TypeMetaData
-    {
-    public:
-        mdToken GetToken()
-        {
-            BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymException("Not Implemented!!"));
-            return mdTokenNil;
-        }
-        
-        ModuleMetaData *GetModule()
-        {
-            BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymException("Not Implemented!!"));
-            return NULL;
-        }
-        
-        MethodMetaData *GetMethod(mdMethodDef mdmd)
-        {
-            BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymException("Not Implemented!!"));
-            return NULL;
-        }
-    };
-    
-    template<class AssemblyMetaDataApiType>
-    class BasicAssemblyMetaData;
-    typedef BasicAssemblyMetaData<boost::use_default> AssemblyMetaData;
-
-    class ModuleMetaData
-    {
-    public:
-        AssemblyMetaData *GetAssembly()
-        {
-            BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymException("Not Implemented!!"));
-            return NULL;
-        }
-        
-        TypeMetaData *GetType(mdTypeDef mdtd)
-        {
-            BOOST_THROW_EXCEPTION(Urasandesu::NAnonym::NAnonymException("Not Implemented!!"));
-            return NULL;
-        }
-    };
-
-    template<class AssemblyMetaDataApiType = boost::use_default>
-    class BasicAssemblyMetaData : public IMetaDataOperable<AssemblyMetaDataApiType>, public ITokenizable
-    {
-    };
-    
-    #endif
-
 #undef UNT
 #define UNT Urasandesu::NAnonym::Traits
 
@@ -732,7 +702,7 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
             if (m_pTypeMeta == NULL)
             {
                 mdTypeDef mdtd = mdTypeDefNil;      
-                WCHAR methodName[MAX_SYM_NAME];
+                WCHAR methodName[MAX_SYM_NAME] = { 0 };
                 ULONG methodNameSize = sizeof(methodName);
                 DWORD methodAttr = 0;
                 PCCOR_SIGNATURE pMethodSig = NULL;
@@ -753,8 +723,32 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
 
         BaseMethodBodyMetaData<AssemblyMetaDataApiType> *GetMethodBody()
         {
+            HRESULT hr = E_FAIL;
+            
+            CComPtr<ICeeGen> pCeeGen;
+            hr = GetApi()->Import->QueryInterface(IID_ICeeGen, reinterpret_cast<void **>(&pCeeGen));
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+            
             BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
             return NULL;
+            //virtual HRESULT STDMETHODCALLTYPE QueryInterface( 
+            //    /* [in] */ REFIID riid,
+            //    /* [iid_is][out] */ __RPC__deref_out void __RPC_FAR *__RPC_FAR *ppvObject) = 0;
+    //BYTE const *pILFunctionBody = NULL;
+    //ULONG ilFunctionBodySize = 0;
+    //hr = m_pInfo->GetILFunctionBody(mid, mdmd, &pILFunctionBody, &ilFunctionBodySize);
+    //if (FAILED(hr)) 
+    //    return COMError(hr, __FILE__, __LINE__);
+    //
+    //cout << "IL Function Body: 0x" << PadLeft(8, '0') << reinterpret_cast<INT>(pILFunctionBody) << endl;
+    //cout << "IL Function Body Size: 0x" << PadLeft(8, '0') << ilFunctionBodySize << endl;
+
+
+    //COR_ILMETHOD const *pILMethod = reinterpret_cast<COR_ILMETHOD*>(
+    //                                                  const_cast<BYTE*>(pILFunctionBody));
+
+    //cout << "IsTiny?: 0x" << PadLeft(8, '0') << pILMethod->Tiny.IsTiny() << endl;
         }
         
     private:
@@ -797,28 +791,31 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
                     BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
                 
                 m_pModMeta = CreateIfNecessary<BaseModuleMetaData<AssemblyMetaDataApiType>>(mdm);
-    //STDMETHOD(GetModuleFromScope)(          // S_OK.
-    //    mdModule    *pmd) PURE;             // [OUT] Put mdModule token here.
             }
             return m_pModMeta;
         }
 
         BaseMethodMetaData<AssemblyMetaDataApiType> *GetMethod(mdMethodDef mdmd)
         {
-            BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
-            return NULL;
-    //STDMETHOD (GetMethodProps)( 
-    //    mdMethodDef mb,                     // The method for which to get props.   
-    //    mdTypeDef   *pClass,                // Put method's class here. 
-    //  __out_ecount_part_opt(cchMethod, *pchMethod)
-    //    LPWSTR      szMethod,               // Put method's name here.  
-    //    ULONG       cchMethod,              // Size of szMethod buffer in wide chars.   
-    //    ULONG       *pchMethod,             // Put actual size here 
-    //    DWORD       *pdwAttr,               // Put flags here.  
-    //    PCCOR_SIGNATURE *ppvSigBlob,        // [OUT] point to the blob value of meta data   
-    //    ULONG       *pcbSigBlob,            // [OUT] actual size of signature blob  
-    //    ULONG       *pulCodeRVA,            // [OUT] codeRVA    
-    //    DWORD       *pdwImplFlags) PURE;    // [OUT] Impl. Flags    
+            HRESULT hr = E_FAIL;
+            
+            // TODO: Set its properties if the token is valid.
+            mdTypeDef mdtd = mdTypeDefNil;      
+            WCHAR methodName[MAX_SYM_NAME] = { 0 };
+            ULONG methodNameSize = sizeof(methodName);
+            DWORD methodAttr = 0;
+            PCCOR_SIGNATURE pMethodSig = NULL;
+            ULONG methodSigSize = 0;
+            ULONG methodRva = 0;
+            DWORD methodImplFlg = 0;            
+            hr = GetApi()->Import->GetMethodProps(mdmd, &mdtd, methodName, 
+                                            methodNameSize, &methodNameSize, &methodAttr, 
+                                            &pMethodSig, &methodSigSize, &methodRva, 
+                                            &methodImplFlg);
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+            
+            return CreateIfNecessary<BaseMethodMetaData<AssemblyMetaDataApiType>>(mdmd);
         }
         
     private:
@@ -935,9 +932,9 @@ namespace Urasandesu { namespace NAnonym { namespace MetaData2 {
         //}
 
         template<class T>
-        T *Create()
+        T *CreatePseudo()
         {
-            T *pObj = New<T>();
+            T *pObj = NewPseudo<T>();
             pObj->Init(pObj, NewPseudo<assembly_meta_data_api_type>());
             return pObj;
         }
@@ -997,64 +994,87 @@ namespace Urasandesu { namespace NAnonym { namespace Utilities {
 
         ValueConverter() : 
             m_pAsmMeta(NULL),
-            m_pProcProf(NULL)
+            m_pProcProf(NULL),
+            m_pModProf(NULL)
         {
         }
         
-        void Init(UNM::BaseAssemblyMetaData<AssemblyMetaDataApiType> *pAsmMeta, UNP::BaseProcessProfile<InfoProfilingApiType> *pProcProf)
+        void Initialize(UNM::BaseAssemblyMetaData<AssemblyMetaDataApiType> *pAsmMeta, 
+                        UNP::BaseProcessProfile<InfoProfilingApiType> *pProcProf, 
+                        UNP::BaseModuleProfile<InfoProfilingApiType> *pModProf)
         {
+            
+            HRESULT hr = E_FAIL;
+            
+            hr = pProcProf->GetApi()->ProfilerInfo->GetModuleMetaData(
+                                                pModProf->GetID(), ofRead, 
+                                                assembly_meta_data_api_type::IID_IImport, 
+                                                reinterpret_cast<IUnknown **>(&pAsmMeta->GetApi()->Import));
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+            
             m_pAsmMeta = pAsmMeta;
             m_pProcProf = pProcProf;
-        }
-        
-        bool Initialized()
-        {
-            return m_pAsmMeta != NULL && m_pProcProf != NULL;
+            m_pModProf = pModProf;
         }
 
-        //UNM::BaseModuleMetaData<AssemblyMetaDataApiType> *Convert(UNP::BaseModuleProfile<InfoProfilingApiType> *from)
-        //{
-        //    BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
-        //    return NULL;
-        //}
-        //
-        //UNM::BaseAssemblyMetaData<AssemblyMetaDataApiType> *Convert(UNP::BaseAssemblyProfile<InfoProfilingApiType> *from)
-        //{
-        //    BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
-        //    return NULL;
-        //}
-        
+        bool HasInitialized()
+        {
+            return m_pAsmMeta != NULL && m_pProcProf != NULL && m_pModProf != NULL;
+        }
+
         UNM::BaseMethodMetaData<AssemblyMetaDataApiType> *Convert(UNP::BaseMethodProfile<InfoProfilingApiType> *from)
         {
+            using namespace Urasandesu::NAnonym::MetaData2;
             HRESULT hr = E_FAIL;
             
             CComPtr<assembly_meta_data_api_type::IImport> pImport;
-            IUnknown **ppImport = GetInitializingImport(pImport);
             mdToken mdt = mdTokenNil;
-            hr = from->GetApi()->ProfilerInfo->GetTokenAndMetaDataFromFunction(from->GetID(), 
-                                        assembly_meta_data_api_type::IID_IImport, ppImport, &mdt);
+            hr = m_pProcProf->GetApi()->ProfilerInfo->GetTokenAndMetaDataFromFunction(from->GetID(), 
+                                                assembly_meta_data_api_type::IID_IImport, 
+                                                reinterpret_cast<IUnknown **>(&pImport), &mdt);
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
             
-            UNM::BaseMethodMetaData<AssemblyMetaDataApiType> *pMethodMeta = NULL;
-            pMethodMeta = m_pAsmMeta->New<UNM::BaseMethodMetaData<AssemblyMetaDataApiType>>(mdt);
+            BaseMethodMetaData<AssemblyMetaDataApiType> *pMethodMeta = NULL;
+            pMethodMeta = m_pAsmMeta->CreateIfNecessary<BaseMethodMetaData<AssemblyMetaDataApiType>>(mdt);
             return pMethodMeta;
         }
+
+        UNP::BaseTypeProfile<InfoProfilingApiType> *ConvertBack(UNM::BaseTypeMetaData<AssemblyMetaDataApiType> *to)
+        {
+            using namespace Urasandesu::NAnonym::Profiling;
+            HRESULT hr = E_FAIL;
+            
+            ClassID classId = 0;
+            hr = m_pProcProf->GetApi()->ProfilerInfo->GetClassFromToken(m_pModProf->GetID(), to->GetToken(), &classId);
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+            
+            BaseTypeProfile<InfoProfilingApiType> *pTypeProf = NULL;
+            pTypeProf = m_pProcProf->CreateIfNecessary<BaseTypeProfile<InfoProfilingApiType>>(classId);
+            return pTypeProf;
+        }
         
-        UNP::BaseMethodBodyProfile<InfoProfilingApiType> *ConvertBack(UNM::BaseMethodBodyMetaData<AssemblyMetaDataApiType> *to)
+        UNP::BaseMethodProfile<InfoProfilingApiType> *ConvertBack(UNM::BaseMethodMetaData<AssemblyMetaDataApiType> *to)
         {
-            BOOST_THROW_EXCEPTION(NAnonymException("Not Implemented!!"));
-            return NULL;
+            using namespace Urasandesu::NAnonym::Profiling;
+            HRESULT hr = E_FAIL;
+            
+            FunctionID funcId = 0;
+            hr = m_pProcProf->GetApi()->ProfilerInfo->GetFunctionFromToken(m_pModProf->GetID(), to->GetToken(), &funcId);
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
+            
+            BaseMethodProfile<InfoProfilingApiType> *pMethodProf = NULL;
+            pMethodProf = m_pProcProf->CreateIfNecessary<BaseMethodProfile<InfoProfilingApiType>>(funcId);
+            return pMethodProf;
         }
+
     private:
-        IUnknown **GetInitializingImport(CComPtr<typename assembly_meta_data_api_type::IImport> &pImport)
-        {
-            if (m_pAsmMeta->GetApi()->Import.p == NULL)
-                return reinterpret_cast<IUnknown **>(&m_pAsmMeta->GetApi()->Import);
-            else
-                return reinterpret_cast<IUnknown **>(&pImport);
-        }
-    
         UNM::BaseAssemblyMetaData<AssemblyMetaDataApiType> *m_pAsmMeta;
         UNP::BaseProcessProfile<InfoProfilingApiType> *m_pProcProf;
+        UNP::BaseModuleProfile<InfoProfilingApiType> *m_pModProf;
     };
 
 #undef UNT
@@ -1075,7 +1095,8 @@ HRESULT CExeWeaver2::FinalConstruct()
     m_pProfInfo = make_shared<ProfilingInfo>();
     m_pMetaInfo = make_shared<MetaDataInfo>();
     m_pConv = make_shared<ValueConverter<AssemblyMetaData *, ProcessProfile *>>();
-    m_mdaTargetAssembly = mdAssemblyNil;
+
+    m_pTargetAssemblyProf = NULL;
     m_mdtdReplaceTypeFrom = mdTypeDefNil;
     m_mdmdReplaceMethodFrom = mdMethodDefNil;
     m_mdtdReplaceTypeTo = mdTypeDefNil;
@@ -1135,15 +1156,13 @@ HRESULT CExeWeaver2::Initialize(
         m_pProfInfo->SetEventMask(COR_PRF_MONITOR_ASSEMBLY_LOADS | 
                                   COR_PRF_MONITOR_MODULE_LOADS | 
                                   COR_PRF_MONITOR_APPDOMAIN_LOADS | 
-                                  COR_PRF_MONITOR_CLASS_LOADS | 
                                   COR_PRF_MONITOR_JIT_COMPILATION);
 
 
-        // Get token of the target assembly.
+        // Get name of the target assembly.
         {
-            istringstream is(Environment::GetEnvironmentVariable("NANONYM_TARGET_ASSEMBLY"));
-            is >> hex >> m_mdaTargetAssembly;
-            cout << format("Target Assembly Token: 0x%|1$08X|") % m_mdaTargetAssembly << endl;
+            m_targetAssemblyName = wstring(CA2W(Environment::GetEnvironmentVariable("NANONYM_TARGET_ASSEMBLY").c_str()));
+            wcout << wformat(L"Target Assembly: %|1$s|") % m_targetAssemblyName << endl;
         }
         
         // Get token of the replaced type.
@@ -1173,9 +1192,9 @@ HRESULT CExeWeaver2::Initialize(
             is >> hex >> m_mdtdReplaceMethodTo;
             cout << format("Replacing Method Token: 0x%|1$08X|") % m_mdtdReplaceMethodTo << endl;
         }
-        
-        m_pProcProf = m_pProfInfo->GetCurrentProcess();
-        //m_pProcProf->GetPseudoDomain();
+
+        // Create pseudo AppDomain to load mscorlib.dll.
+        m_pProfInfo->GetCurrentProcess()->GetPseudoDomain();
     }
     catch (NAnonymException &e)
     {
@@ -1201,11 +1220,12 @@ HRESULT CExeWeaver2::AppDomainCreationStarted(
     using namespace boost;
     using namespace Urasandesu::NAnonym;
     using namespace Urasandesu::NAnonym::MetaData2;
+    using namespace Urasandesu::NAnonym::Profiling;
     
     try
     {
-        cout << "AppDomainCreationStarted !!" << endl;
-        //m_pProcProf->CreateIfNecessary<AppDomainProfile>(appDomainId);
+        cout << format("AppDomain Creation Started(ID: 0x%|1$08X|)") % appDomainId << endl;
+        m_pProfInfo->GetCurrentProcess()->CreateIfNecessary<AppDomainProfile>(appDomainId);
     }
     catch (NAnonymException &e)
     {
@@ -1223,6 +1243,9 @@ HRESULT CExeWeaver2::AppDomainCreationFinished(
     /* [in] */ AppDomainID appDomainId,
     /* [in] */ HRESULT hrStatus)
 { 
+    using namespace std;
+    using namespace boost;
+    cout << format("AppDomain Creation Finished(ID: 0x%|1$08X|)") % appDomainId << endl;
     return S_OK;
 }
 
@@ -1246,37 +1269,18 @@ HRESULT CExeWeaver2::AssemblyLoadStarted(
     using namespace boost;
     using namespace Urasandesu::NAnonym;
     using namespace Urasandesu::NAnonym::MetaData2;
+    using namespace Urasandesu::NAnonym::Profiling;
     
     try
     {
-        //AppDomainProfile *pDomainProf = m_pProcProf->GetCurrentDomain();
-        //AssemblyProfile *pAsmProf = pDomainProf->CreateIfNecessary<AssemblyProfile>(assemblyId);
-        //if (pAsmProf->GetName() != m_targetAssemblyName)
-        //    return S_OK;
-        //
-        //m_pAsmProf = pAsmProf;
-        //m_pModConv->
-        //m_pAsmMeta = m_pMetaInfo->Create<AssemblyMetaData>();
-        //m_pConv->Init(m_pAsmMeta, m_pProcProf);
-        //
-        //HRESULT hr = E_FAIL;
-        //
-        //WCHAR asmName[MAX_SYM_NAME];
-        //ULONG asmNameSize = sizeof(asmName);
-        //AppDomainID domainId = 0;
-        //ModuleID modId = 0;
-        //hr = m_pProcProf->GetApi()->ProfilerInfo->GetAssemblyInfo(assemblyId, asmNameSize, &asmNameSize, asmName, &domainId, &modId);
-        //if (hr != CORPROF_E_DATAINCOMPLETE && FAILED(hr))
-        //    BOOST_THROW_EXCEPTION(NAnonymCOMException(hr));
-        //
-        //wcout << L"AssemblyLoadStarted: " << asmName << endl;
-        ////virtual HRESULT STDMETHODCALLTYPE GetAssemblyInfo( 
-        //                    //    /* [in] */ AssemblyID assemblyId,
-        //                    //    /* [in] */ ULONG cchName,
-        //                    //    /* [out] */ ULONG *pcchName,
-        //                    //    /* [length_is][size_is][out] */ WCHAR szName[  ],
-        //                    //    /* [out] */ AppDomainID *pAppDomainId,
-        ////    /* [out] */ ModuleID *pModuleId) = 0;
+        AppDomainProfile *pDomainProf = m_pProfInfo->GetCurrentProcess()->GetCurrentDomain();
+        AssemblyProfile *pAsmProf = pDomainProf->CreateIfNecessary<AssemblyProfile>(assemblyId);
+        wcout << wformat(L"Assembly Load Started: %|1$s|") % pAsmProf->GetName() << endl;
+        if (pAsmProf->GetName() != m_targetAssemblyName)
+            return S_OK;
+        
+        cout << "Target Assembly Found" << endl;
+        m_pTargetAssemblyProf = pAsmProf;
     }
     catch (NAnonymException &e)
     {
@@ -1317,21 +1321,18 @@ HRESULT CExeWeaver2::ModuleLoadStarted(
     using namespace boost;
     using namespace Urasandesu::NAnonym;
     using namespace Urasandesu::NAnonym::MetaData2;
+    using namespace Urasandesu::NAnonym::Profiling;
     
     try
     {
-        cout << "ModuleLoadStarted !!" << endl;
-        //if (m_pAsmProf == NULL)
-        //    return S_OK;
+        cout << format("Module Load Started(ID: 0x%|1$08X|)") % moduleId << endl;
+        if (m_pTargetAssemblyProf == NULL || m_pConv->HasInitialized())
+            return S_OK;
         
-        //ModuleProfile *pModProf = m_pAsmProf->CreateIfNecessary<ModuleProfile>(moduleId);
-        //m_pAsmMeta = m_pMetaInfo->Create<AssemblyMetaData>();
-        //m_pConv->Init(m_pAsmMeta, m_pProcProf);
-        //virtual HRESULT STDMETHODCALLTYPE GetModuleMetaData( 
-        //    /* [in] */ ModuleID moduleId,
-        //    /* [in] */ DWORD dwOpenFlags,
-        //    /* [in] */ REFIID riid,
-        //    /* [out] */ IUnknown **ppOut) = 0;
+        ModuleProfile *pModProf = m_pTargetAssemblyProf->CreateIfNecessary<ModuleProfile>(moduleId);
+        wcout << wformat(L"Module Analysis Started: %|1$s|") % pModProf->GetName() << endl;
+        AssemblyMetaData *pAsmMeta = m_pMetaInfo->CreatePseudo<AssemblyMetaData>();
+        m_pConv->Initialize(pAsmMeta, m_pProfInfo->GetCurrentProcess(), pModProf);
     }
     catch (NAnonymException &e)
     {
@@ -1349,6 +1350,9 @@ HRESULT CExeWeaver2::ModuleLoadFinished(
     /* [in] */ ModuleID moduleId,
     /* [in] */ HRESULT hrStatus)
 {
+    using namespace std;
+    using namespace boost;
+    cout << format("Module Load Finished(ID: 0x%|1$08X|)") % moduleId << endl;
     return S_OK;
 }
 
@@ -1375,24 +1379,6 @@ HRESULT CExeWeaver2::ModuleAttachedToAssembly(
 HRESULT CExeWeaver2::ClassLoadStarted( 
     /* [in] */ ClassID classId)
 {
-    using namespace std;
-    using namespace boost;
-    using namespace Urasandesu::NAnonym;
-    using namespace Urasandesu::NAnonym::MetaData2;
-    
-    try
-    {
-        cout << "ClassLoadStarted !!" << endl;
-    }
-    catch (NAnonymException &e)
-    {
-        cout << diagnostic_information(e) << endl;
-    }
-    catch (...)
-    {
-        cout << diagnostic_information(current_exception()) << endl;
-    }
-
     return S_OK;
 }
 
@@ -1434,10 +1420,10 @@ HRESULT CExeWeaver2::JITCompilationStarted(
     
     try
     {
-        if (!m_pConv->Initialized())
+        if (!m_pConv->HasInitialized())
             return S_OK;
 
-        MethodProfile *pMethodProfFrom = m_pProcProf->CreateIfNecessary<MethodProfile>(functionId);
+        MethodProfile *pMethodProfFrom = m_pProfInfo->GetCurrentProcess()->CreateIfNecessary<MethodProfile>(functionId);
         MethodMetaData *pMethodMetaFrom = m_pConv->Convert(pMethodProfFrom);
         cout << format("Current Method Token: 0x%|1$08X|") % pMethodMetaFrom->GetToken() << endl;
         if (pMethodMetaFrom->GetToken() != m_mdmdReplaceMethodFrom)
@@ -1449,19 +1435,14 @@ HRESULT CExeWeaver2::JITCompilationStarted(
         if (pTypeMetaFrom->GetToken() != m_mdtdReplaceTypeFrom)
             return S_OK;
 
+        cout << "Conditions Right: Method Body Replace Started" << endl;
 
         ModuleMetaData *pModMetaFrom = pTypeMetaFrom->GetModule();
-        cout << format("Current Module Token: 0x%|1$08X|") % pModMetaFrom->GetToken() << endl;
-        AssemblyMetaData *pTargetAsmMeta = pModMetaFrom->GetAssembly();
-        cout << format("Current Assembly Token: 0x%|1$08X|") % pTargetAsmMeta->GetToken() << endl;
-        if (pTargetAsmMeta->GetToken() != m_mdaTargetAssembly)
-            return S_OK;
-
-
         TypeMetaData *pTypeMetaTo = pModMetaFrom->GetType(m_mdtdReplaceTypeTo);
+        TypeProfile *pTypeProfTo = m_pConv->ConvertBack(pTypeMetaTo);   // NOTE: To resolve the type defined explicitly 
         MethodMetaData *pMethodMetaTo = pTypeMetaTo->GetMethod(m_mdtdReplaceMethodTo);
-        MethodBodyMetaData *pBodyMetaTo = pMethodMetaTo->GetMethodBody();
-        MethodBodyProfile *pBodyProfTo = m_pConv->ConvertBack(pBodyMetaTo);
+        MethodProfile *pMethodProfTo = m_pConv->ConvertBack(pMethodMetaTo);
+        MethodBodyProfile *pBodyProfTo = pMethodProfTo->GetMethodBody();
         pMethodProfFrom->SetMethodBody(pBodyProfTo);
     }
     catch (NAnonymException &e)
