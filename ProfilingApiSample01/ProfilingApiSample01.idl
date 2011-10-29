@@ -8,29 +8,29 @@ import "oaidl.idl";
 import "ocidl.idl";
 
 [
-	object,
-	uuid(A4AE8917-9F7E-40A7-B880-D175451DAD40),
-	dual,
-	nonextensible,
-	helpstring("IExeWeaver インターフェイス"),
-	pointer_default(unique)
+    object,
+    uuid(A4AE8917-9F7E-40A7-B880-D175451DAD40),
+    dual,
+    nonextensible,
+    helpstring("IExeWeaver インターフェイス"),
+    pointer_default(unique)
 ]
 interface IExeWeaver : IDispatch{
 };
 [
-	uuid(27AD8864-4640-4757-BA89-AE75C3614EAF),
-	version(1.0),
-	helpstring("ProfilingApiSample01 1.0 タイプ ライブラリ")
+    uuid(27AD8864-4640-4757-BA89-AE75C3614EAF),
+    version(1.0),
+    helpstring("ProfilingApiSample01 1.0 タイプ ライブラリ")
 ]
 library ProfilingApiSample01Lib
 {
-	importlib("stdole2.tlb");
-	[
-		uuid(1DC70D11-5E46-48C6-BB07-75CFFF188327),
-		helpstring("ExeWeaver Class")
-	]
-	coclass ExeWeaver
-	{
-		[default] interface IExeWeaver;
-	};
+    importlib("stdole2.tlb");
+    [
+        uuid(1DC70D11-5E46-48C6-BB07-75CFFF188327),
+        helpstring("ExeWeaver Class")
+    ]
+    coclass ExeWeaver
+    {
+        [default] interface IExeWeaver;
+    };
 };

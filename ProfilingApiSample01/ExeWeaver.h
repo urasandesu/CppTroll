@@ -20,40 +20,40 @@
 #define UNP Urasandesu::NAnonym::Profiling
 
 class ATL_NO_VTABLE CExeWeaver :
-	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CExeWeaver, &CLSID_ExeWeaver>,
-	public ISupportErrorInfo,
-	public UNP::ICorProfilerCallback2Impl<ICorProfilerCallback2>,
-	public IDispatchImpl<IExeWeaver, &IID_IExeWeaver, &LIBID_ProfilingApiSample01Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+    public CComObjectRootEx<CComSingleThreadModel>,
+    public CComCoClass<CExeWeaver, &CLSID_ExeWeaver>,
+    public ISupportErrorInfo,
+    public UNP::ICorProfilerCallback2Impl<ICorProfilerCallback2>,
+    public IDispatchImpl<IExeWeaver, &IID_IExeWeaver, &LIBID_ProfilingApiSample01Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
-	CExeWeaver()
-	{
-	}
+    CExeWeaver()
+    {
+    }
 
 DECLARE_REGISTRY_RESOURCEID(IDR_EXEWEAVER)
 
 
 BEGIN_COM_MAP(CExeWeaver)
-	COM_INTERFACE_ENTRY(IExeWeaver)
-	COM_INTERFACE_ENTRY(IDispatch)
-	COM_INTERFACE_ENTRY(ISupportErrorInfo)
-	COM_INTERFACE_ENTRY(ICorProfilerCallback2)
+    COM_INTERFACE_ENTRY(IExeWeaver)
+    COM_INTERFACE_ENTRY(IDispatch)
+    COM_INTERFACE_ENTRY(ISupportErrorInfo)
+    COM_INTERFACE_ENTRY(ICorProfilerCallback2)
 END_COM_MAP()
 
 // ISupportsErrorInfo
-	STDMETHOD(InterfaceSupportsErrorInfo)(REFIID riid);
+    STDMETHOD(InterfaceSupportsErrorInfo)(REFIID riid);
 
-	DECLARE_PROTECT_FINAL_CONSTRUCT()
+    DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-	HRESULT FinalConstruct()
-	{
-		return S_OK;
-	}
+    HRESULT FinalConstruct()
+    {
+        return S_OK;
+    }
 
-	void FinalRelease()
-	{
-	}
+    void FinalRelease()
+    {
+    }
 
 protected:
     STDMETHOD(InitializeCore)( 
