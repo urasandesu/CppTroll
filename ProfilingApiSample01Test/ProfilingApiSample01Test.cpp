@@ -13,6 +13,8 @@ namespace {
     // 
     // SET COR_ENABLE_PROFILING=1
     // SET COR_PROFILER={1DC70D11-5E46-48C6-BB07-75CFFF188327}
+    // SET NANONYM_TARGET_METHOD=Class2.Print
+    // SET NANONYM_NEW_MESSAGE=Hello, Dynamic Languages World!!
     // ProfilingApiSample01Target.exe
     //
     // ildasm /out=ProfilingApiSample01Target.exe.dasm /all /metadata=SCHEMA /metadata=HEAPS /metadata=CSV /source ProfilingApiSample01Target.exe

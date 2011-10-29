@@ -66,7 +66,10 @@ protected:
         /* [in] */ BOOL fIsSafeToBlock);
 
 private:
+    boost::timer m_timer;
     CComPtr<ICorProfilerInfo2> m_pInfo;
+    std::wstring m_targetMethodName;    
+    std::wstring m_newMessage;
 };
 
 #undef UNP

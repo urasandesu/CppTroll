@@ -26,12 +26,4 @@ using namespace ATL;
 #include <Urasandesu/NAnonym.h>
 #endif
 
-#include <boost/scope_exit.hpp>
-#include <comdef.h>
-#include <corprof.h>
-#include <iomanip>
-#include <ios>
-#include <iostream>
-#include <malloc.h>
-#include <sstream>
-
+#include <boost/timer.hpp>
