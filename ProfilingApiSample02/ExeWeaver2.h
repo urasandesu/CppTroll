@@ -14,22 +14,22 @@
 
 #ifdef UNM
 #error This .h reserves the word "UNM" that means "Urasandesu::NAnonym::MetaData".
-#endif
+#else
 #define UNM Urasandesu::NAnonym::MetaData
 
 #ifdef UNP
 #error This .h reserves the word "UNP" that means "Urasandesu::NAnonym::Profiling".
-#endif
+#else
 #define UNP Urasandesu::NAnonym::Profiling
 
 #ifdef UNT
 #error This .h reserves the word "UNT" that means "Urasandesu::NAnonym::Traits".
-#endif
+#else
 #define UNT Urasandesu::NAnonym::Traits
 
 #ifdef UNU
 #error This .h reserves the word "UNU" that means "Urasandesu::NAnonym::Utilities".
-#endif
+#else
 #define UNU Urasandesu::NAnonym::Utilities
 
 class ATL_NO_VTABLE CExeWeaver2 :
@@ -63,18 +63,14 @@ END_COM_MAP()
 
 	void FinalRelease();
 
-	HRESULT COMError(HRESULT hr, LPCSTR filePath, INT line);
-
 protected:
     STDMETHOD(InitializeCore)(
         /* [in] */ IUnknown *pICorProfilerInfoUnk);
 
+    STDMETHOD(ShutdownCore)(void);
+
     STDMETHOD(AppDomainCreationStartedCore)( 
         /* [in] */ AppDomainID appDomainId);
-
-    STDMETHOD(AppDomainCreationFinishedCore)( 
-        /* [in] */ AppDomainID appDomainId,
-        /* [in] */ HRESULT hrStatus);
 
     STDMETHOD(AssemblyLoadStartedCore)( 
         /* [in] */ AssemblyID assemblyId);
@@ -82,15 +78,13 @@ protected:
     STDMETHOD(ModuleLoadStartedCore)( 
         /* [in] */ ModuleID moduleId);
 
-    STDMETHOD(ModuleLoadFinishedCore)( 
-        /* [in] */ ModuleID moduleId,
-        /* [in] */ HRESULT hrStatus);
-
     STDMETHOD(JITCompilationStartedCore)( 
         /* [in] */ FunctionID functionId,
         /* [in] */ BOOL fIsSafeToBlock);
 
 private:
+    boost::timer m_timer;
+
     boost::shared_ptr<UNP::ProfilingInfo> m_pProfInfo;
     boost::shared_ptr<UNM::MetaDataInfo> m_pMetaInfo;
     boost::shared_ptr<UNU::ValueConverter<UNM::AssemblyMetaData *, UNP::ProcessProfile *>> m_pConv;
@@ -104,8 +98,15 @@ private:
 };
 
 #undef UNU
+#endif
+
 #undef UNT
-#undef UNM
+#endif
+
 #undef UNP
+#endif
+
+#undef UNM
+#endif
 
 OBJECT_ENTRY_AUTO(__uuidof(ExeWeaver2), CExeWeaver2)

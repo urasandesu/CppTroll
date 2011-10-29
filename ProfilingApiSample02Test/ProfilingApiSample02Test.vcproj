@@ -199,10 +199,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath=".\TempTest.cpp"
-				>
-			</File>
 			<Filter
 				Name="Urasandesu"
 				>

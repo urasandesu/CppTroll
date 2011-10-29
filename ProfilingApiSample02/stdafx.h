@@ -26,5 +26,4 @@ using namespace ATL;
 #include <Urasandesu/NAnonym.h>
 #endif
 
-//#include <corprof.h>
-//#include <boost/unordered_map.hpp>
+#include <boost/timer.hpp>
