@@ -21,7 +21,7 @@ HRESULT CExeWeaver2::FinalConstruct()
     m_mdtdReplaceTypeTo = mdTypeDefNil;
     m_mdtdReplaceMethodTo = mdMethodDefNil;
 
-	return S_OK;
+    return S_OK;
 }
 
 void CExeWeaver2::FinalRelease()
@@ -30,17 +30,17 @@ void CExeWeaver2::FinalRelease()
 
 STDMETHODIMP CExeWeaver2::InterfaceSupportsErrorInfo(REFIID riid)
 {
-	static const IID* arr[] = 
-	{
-		&IID_IExeWeaver2
-	};
+    static const IID* arr[] = 
+    {
+        &IID_IExeWeaver2
+    };
 
-	for (int i=0; i < sizeof(arr) / sizeof(arr[0]); i++)
-	{
-		if (InlineIsEqualGUID(*arr[i],riid))
-			return S_OK;
-	}
-	return S_FALSE;
+    for (int i=0; i < sizeof(arr) / sizeof(arr[0]); i++)
+    {
+        if (InlineIsEqualGUID(*arr[i],riid))
+            return S_OK;
+    }
+    return S_FALSE;
 }
 
 HRESULT CExeWeaver2::InitializeCore( 

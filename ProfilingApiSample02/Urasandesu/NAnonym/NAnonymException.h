@@ -16,7 +16,7 @@ namespace Urasandesu { namespace NAnonym {
         NAnonymException();
         NAnonymException(std::string const &what);
         NAnonymException(std::string const &what, NAnonymException &innerException);
-	    virtual const char *__CLR_OR_THIS_CALL what() const;
+        virtual const char *__CLR_OR_THIS_CALL what() const;
         
     protected:
         std::string m_what;

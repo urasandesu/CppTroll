@@ -33,35 +33,35 @@
 #define UNU Urasandesu::NAnonym::Utilities
 
 class ATL_NO_VTABLE CExeWeaver2 :
-	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CExeWeaver2, &CLSID_ExeWeaver2>,
-	public ISupportErrorInfo,
-	public UNP::ICorProfilerCallback2Impl<ICorProfilerCallback2>,
-	public IDispatchImpl<IExeWeaver2, &IID_IExeWeaver2, &LIBID_ProfilingApiSample02Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+    public CComObjectRootEx<CComSingleThreadModel>,
+    public CComCoClass<CExeWeaver2, &CLSID_ExeWeaver2>,
+    public ISupportErrorInfo,
+    public UNP::ICorProfilerCallback2Impl<ICorProfilerCallback2>,
+    public IDispatchImpl<IExeWeaver2, &IID_IExeWeaver2, &LIBID_ProfilingApiSample02Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
-	CExeWeaver2()
-	{
-	}
+    CExeWeaver2()
+    {
+    }
 
 DECLARE_REGISTRY_RESOURCEID(IDR_EXEWEAVER2)
 
 
 BEGIN_COM_MAP(CExeWeaver2)
-	COM_INTERFACE_ENTRY(IExeWeaver2)
-	COM_INTERFACE_ENTRY(IDispatch)
-	COM_INTERFACE_ENTRY(ISupportErrorInfo)
-	COM_INTERFACE_ENTRY(ICorProfilerCallback2)
+    COM_INTERFACE_ENTRY(IExeWeaver2)
+    COM_INTERFACE_ENTRY(IDispatch)
+    COM_INTERFACE_ENTRY(ISupportErrorInfo)
+    COM_INTERFACE_ENTRY(ICorProfilerCallback2)
 END_COM_MAP()
 
 // ISupportsErrorInfo
-	STDMETHOD(InterfaceSupportsErrorInfo)(REFIID riid);
+    STDMETHOD(InterfaceSupportsErrorInfo)(REFIID riid);
 
-	DECLARE_PROTECT_FINAL_CONSTRUCT()
+    DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-	HRESULT FinalConstruct();
+    HRESULT FinalConstruct();
 
-	void FinalRelease();
+    void FinalRelease();
 
 protected:
     STDMETHOD(InitializeCore)(
