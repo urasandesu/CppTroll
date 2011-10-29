@@ -52,7 +52,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\boost_1_47_0"
+				AdditionalIncludeDirectories="C:\boost_1_47_0;..\ProfilingApiSample02"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;NOMINMAX"
 				GeneratePreprocessedFile="0"
 				MinimalRebuild="true"
@@ -78,7 +78,7 @@
 				Name="VCLinkerTool"
 				RegisterOutput="true"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="corguids.lib"
+				AdditionalDependencies="Dbghelp.lib corguids.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="C:\boost_1_47_0\stage\lib"
 				ModuleDefinitionFile=".\ProfilingApiSample01.def"
@@ -264,6 +264,38 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<Filter
+				Name="Urasandesu"
+				>
+				<Filter
+					Name="NAnonym"
+					>
+					<File
+						RelativePath="..\ProfilingApiSample02\Urasandesu\NAnonym\Environment.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\ProfilingApiSample02\Urasandesu\NAnonym\NAnonymCOMException.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\ProfilingApiSample02\Urasandesu\NAnonym\NAnonymException.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\ProfilingApiSample02\Urasandesu\NAnonym\NAnonymSystemException.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\ProfilingApiSample02\Urasandesu\NAnonym\StackFrame.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\ProfilingApiSample02\Urasandesu\NAnonym\StackTrace.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="ヘッダー ファイル"
@@ -290,46 +322,6 @@
 				RelativePath=".\targetver.h"
 				>
 			</File>
-			<Filter
-				Name="Urasandesu"
-				>
-				<File
-					RelativePath=".\Urasandesu\NAnonym.h"
-					>
-				</File>
-				<Filter
-					Name="NAnonym"
-					>
-					<File
-						RelativePath=".\Urasandesu\NAnonym\MetaData.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Urasandesu\NAnonym\NAnonymDependsOn.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Urasandesu\NAnonym\SimpleBlob.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Urasandesu\NAnonym\SystemError.h"
-						>
-					</File>
-					<Filter
-						Name="MetaData"
-						>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\MetaDataDependsOn.h"
-							>
-						</File>
-						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\OpCodes.h"
-							>
-						</File>
-					</Filter>
-				</Filter>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="リソース ファイル"

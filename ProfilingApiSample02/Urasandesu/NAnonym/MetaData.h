@@ -42,4 +42,8 @@
 #include <Urasandesu/NAnonym/MetaData/IMetaDataApiOperable.h>
 #endif
 
+#ifndef URASANDESU_NANONYM_METADATA_OPCODES_H
+#include "Urasandesu/NAnonym/MetaData/OpCodes.h"
+#endif
+
 #endif  // #ifndef URASANDESU_NANONYM_METADATA_H

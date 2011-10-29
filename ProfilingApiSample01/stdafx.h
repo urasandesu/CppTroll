@@ -22,8 +22,8 @@
 
 using namespace ATL;
 
-#ifndef URASANDESU_NANONYM_NANONYMDEPENDSON_H
-#include "Urasandesu/NAnonym.h"
+#ifndef URASANDESU_NANONYM_H
+#include <Urasandesu/NAnonym.h>
 #endif
 
 #include <boost/scope_exit.hpp>
