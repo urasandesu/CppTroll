@@ -1,0 +1,26 @@
+HKCR
+{
+	ProfilingApiSample03.ExeWeaver3.1 = s 'ExeWeaver3 Class'
+	{
+		CLSID = s '{ACC35A1C-B127-4A75-9EB8-B4E54A49F6CF}'
+	}
+	ProfilingApiSample03.ExeWeaver3 = s 'ExeWeaver3 Class'
+	{
+		CLSID = s '{ACC35A1C-B127-4A75-9EB8-B4E54A49F6CF}'
+		CurVer = s 'ProfilingApiSample03.ExeWeaver3.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {ACC35A1C-B127-4A75-9EB8-B4E54A49F6CF} = s 'ExeWeaver3 Class'
+		{
+			ProgID = s 'ProfilingApiSample03.ExeWeaver3.1'
+			VersionIndependentProgID = s 'ProfilingApiSample03.ExeWeaver3'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{362E2FA5-C7CC-4EFE-B94F-7AA45BBCCCE8}'
+		}
+	}
+}
