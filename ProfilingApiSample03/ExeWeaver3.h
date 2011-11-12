@@ -50,6 +50,8 @@ protected:
     STDMETHOD(InitializeCore)(
         /* [in] */ IUnknown *pICorProfilerInfoUnk);
 
+    STDMETHOD(ShutdownCore)(void);
+
     STDMETHOD(ModuleLoadStartedCore)( 
         /* [in] */ ModuleID moduleId);
 
@@ -58,7 +60,10 @@ protected:
         /* [in] */ BOOL fIsSafeToBlock);
 
 private:
+    boost::timer m_timer;
+
     CComPtr<ICorProfilerInfo2> m_pInfo;
+    CComPtr<IMetaDataEmit2> m_pEmtMSCorLib;
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(ExeWeaver3), CExeWeaver3)

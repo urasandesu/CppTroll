@@ -25,3 +25,7 @@ using namespace ATL;
 #ifndef URASANDESU_NANONYM_H
 #include <Urasandesu/NAnonym.h>
 #endif
+
+#include <StrongName.h>
+#include <boost/timer.hpp>
+#include <iostream>

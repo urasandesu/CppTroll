@@ -11,6 +11,8 @@ namespace {
     // ProfilingApiSample03Target.exe
     // 
     // ProfilingApiSample03Test.exe --gtest_filter=ProfilingApiSample03TestSuite.ProfilingApiSample03Test
+    // 
+    // ildasm /out=ProfilingApiSample03Patch.dll.dasm /all /metadata=SCHEMA /metadata=HEAPS /metadata=CSV /source ProfilingApiSample03Patch.dll
     TEST(ProfilingApiSample03TestSuite, ProfilingApiSample03Test)
     {
         CComPtr<ICorProfilerCallback2> pCallback;
