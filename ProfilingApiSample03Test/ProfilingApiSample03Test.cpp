@@ -13,6 +13,8 @@ namespace {
     // ProfilingApiSample03Test.exe --gtest_filter=ProfilingApiSample03TestSuite.ProfilingApiSample03Test
     // 
     // ildasm /out=ProfilingApiSample03Patch.dll.dasm /all /metadata=SCHEMA /metadata=HEAPS /metadata=CSV /source ProfilingApiSample03Patch.dll
+    // 
+    // ProfilingApiSample03Stubber.exe --input="C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\mscorlib.dll"
     TEST(ProfilingApiSample03TestSuite, ProfilingApiSample03Test)
     {
         CComPtr<ICorProfilerCallback2> pCallback;

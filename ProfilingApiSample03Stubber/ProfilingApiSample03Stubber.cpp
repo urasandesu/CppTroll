@@ -5,7 +5,7 @@
 
 
 template<class T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
+std::ostream &operator<<(std::ostream &os, std::vector<T> const &v)
 {
     using namespace std;
     copy(v.begin(), v.end(), ostream_iterator<T>(cout, " ")); 
@@ -16,6 +16,8 @@ int _tmain(int argc, _TCHAR* argv[])
 {
     using namespace std;
     using namespace boost::program_options;
+    using namespace Urasandesu::CppAnonym;
+    HRESULT hr = E_FAIL;
     
     options_description desc("Allowed options");
     desc.add_options()
@@ -26,10 +28,12 @@ int _tmain(int argc, _TCHAR* argv[])
     store(parse_command_line(argc, argv, desc), vm);
     notify(vm);
 
-    if (vm.count("input"))
-    {
-        cout << "Input files are: " << vm["input"].as<vector<string>>() << endl;
-    }    
+    if (!vm.count("input"))
+        return 0;
+    
+    vector<string> const &inputs = vm["input"].as<vector<string>>();
+    cout << "Input files are: " << inputs << endl;
+    
     
 	return 0;
 }

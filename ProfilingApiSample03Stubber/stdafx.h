@@ -17,6 +17,10 @@
 #include <atlstr.h>
 
 // TODO: プログラムに必要な追加ヘッダーをここで参照してください。
+#ifndef URASANDESU_CPPANONYM_H
+#include <Urasandesu/CppAnonym.h>
+#endif
+
 #include <boost/program_options.hpp>
 
 #include <algorithm>

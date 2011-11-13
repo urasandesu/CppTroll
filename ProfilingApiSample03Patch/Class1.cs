@@ -16,3 +16,11 @@ namespace Anonym.System
         }
     }
 }
+
+namespace ProfilingApiSample03Patch
+{
+    public class Hoge<T>
+    {
+        
+    }
+}
