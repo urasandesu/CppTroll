@@ -492,7 +492,7 @@ HRESULT CExeWeaver3::JITCompilationStartedCore(
 
 
 
-        // Add the gotten Assembly records to AssemblyRef table.
+        // Add Assembly records retrieved in above to AssemblyRef table.
         mdAssemblyRef mdarMSCorLibPrig = mdAssemblyRefNil;
         hr = pAsmEmtMSCorLib->DefineAssemblyRef(pMSCorLibPrigPubKey.get(), msCorLibPrigPubKeySize, 
                                                 msCorLibPrigAsmName.get(), &amdMSCorLibPrig, NULL, 0, 
@@ -538,7 +538,7 @@ HRESULT CExeWeaver3::JITCompilationStartedCore(
 
 
 
-        // Add the gotten TypeRef records to TypeSpec table.
+        // Add TypeRef records retrieved in above to TypeSpec table.
         mdTypeSpec mdtsSystemFunc1DateTime = mdTypeSpecNil;
         {
             COR_SIGNATURE pSigBlob[] = {
@@ -561,7 +561,7 @@ HRESULT CExeWeaver3::JITCompilationStartedCore(
 
 
 
-        // Add the gotten MethodDef records to MemberRef table.
+        // Add MethodDef records retrieved in above to MemberRef table.
         mdMemberRef mdmrNowGetget_Body = mdMemberRefNil;
         hr = m_pEmtMSCorLib->DefineImportMember(pAsmImpMSCorLibPrig, NULL, 0, pImpMSCorLibPrig, 
                                                 mdmdget_Body, 

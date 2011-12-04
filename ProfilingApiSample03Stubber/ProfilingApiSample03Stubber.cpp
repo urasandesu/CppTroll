@@ -3,19 +3,50 @@
 
 #include "stdafx.h"
 
+//#define OUTPUT_VERBOSE
+#define OUTPUT_DEBUG
+
+#ifdef OUTPUT_VERBOSE
+#define V_WCOUT(s) std::wcout << s << std::endl
+#else
+#define V_WCOUT(s)
+#endif
+
+#ifdef OUTPUT_VERBOSE
+#define V_WCOUT1(fmt, arg) std::wcout << boost::wformat(fmt) % arg << std::endl
+#else
+#define V_WCOUT1(fmt, arg)
+#endif
+
+#ifdef OUTPUT_DEBUG
+#define D_COUT(s) std::cout << s << std::endl
+#else
+#define D_COUT(s) 
+#endif
+
+#ifdef OUTPUT_DEBUG
+#define D_COUT1(fmt, arg) std::cout << boost::format(fmt) % arg << std::endl
+#else
+#define D_COUT1(fmt, arg) 
+#endif
+
+#ifdef OUTPUT_DEBUG
+#define D_WCOUT(s) std::wcout << s << std::endl
+#else
+#define D_WCOUT(s) 
+#endif
+
+#ifdef OUTPUT_DEBUG
+#define D_WCOUT1(fmt, arg) std::wcout << boost::wformat(fmt) % arg << std::endl
+#else
+#define D_WCOUT1(fmt, arg) 
+#endif
+
 struct OleCom 
 {
     OleCom() { ::CoInitialize(NULL); }
     ~OleCom() { ::CoUninitialize(); }
 } olecom;
-
-template<class T>
-std::ostream &operator<<(std::ostream &os, std::vector<T> const &v)
-{
-    using namespace std;
-    copy(v.begin(), v.end(), ostream_iterator<T>(cout, " ")); 
-    return os;
-}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -23,34 +54,12 @@ int _tmain(int argc, _TCHAR* argv[])
     using namespace std;
     using namespace boost;
     using namespace boost::filesystem;
-    using namespace boost::program_options;
     using namespace Urasandesu::CppAnonym;
     HRESULT hr = E_FAIL;
     
     try
     {
-        positional_options_description p;
-        p.add("input", -1);
-        
-        options_description desc("Allowed options");
-        desc.add_options()
-            ("input", value<vector<string>>(), "stubbing files")
-        ;
-        
-        variables_map vm;
-        store(wcommand_line_parser(argc, argv).options(desc).positional(p).run(), vm);
-        notify(vm);
-
-        if (!vm.count("input"))
-            return 0;
-        
-        vector<string> const &inputs = vm["input"].as<vector<string>>();
-        cout << "Input files are: " << inputs << endl;
-
-
-
-        
-        
+        // Preapre Fusion API to retrieve creating its instance method.
         path corSystemDirectoryPath;
         path fusionPath;
         {
@@ -87,10 +96,9 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr)) 
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
 
-        
-        
-        
-        
+
+
+        // Retrieve the place of System.Core.dll from GAC with Fusion API.
         path systemCorePath;
         {
             WCHAR buffer[MAX_PATH] = { 0 };
@@ -103,7 +111,7 @@ int _tmain(int argc, _TCHAR* argv[])
             if (FAILED(hr)) 
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
             
-            wcout << L"System.Core is here: " << buffer << endl;
+            D_WCOUT1(L"System.Core is here: %|1$s|", buffer);
             systemCorePath = buffer;
         }
 
@@ -116,6 +124,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 
+        // Get IMetaDataImport object to import using types.
         CComPtr<IMetaDataImport2> pImpSystemCore;
         hr = pDispSystemCore->OpenScope(systemCorePath.c_str(), ofRead, 
                                         IID_IMetaDataImport2, 
@@ -125,36 +134,39 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 
+        // Get TypeDef records to add to TypeRef table.
         mdTypeDef mdtdFunc1 = mdTypeDefNil;
         hr = pImpSystemCore->FindTypeDefByName(L"System.Func`1", NULL, &mdtdFunc1);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of TypeDef for System.Func<T>: 0x%|1$08X|") % mdtdFunc1 << endl;
+        D_COUT1("Token of TypeDef for System.Func<T>: 0x%|1$08X|", mdtdFunc1);
 
 
 
-        mdMethodDef mdmdFunc1Ctor = mdMethodDefNil;
+        // Get MethodDef records to add to MemberRef table.
+        mdMethodDef mdmdFunc1ctor = mdMethodDefNil;
         {
             COR_SIGNATURE pSigBlob[] = { 
                 IMAGE_CEE_CS_CALLCONV_HASTHIS,  // HASTHIS 
-                2,                              // ParamCount
-                ELEMENT_TYPE_VOID,              // RetType
+                2,                              // ParamCount: 2
+                ELEMENT_TYPE_VOID,              // RetType: void
                 ELEMENT_TYPE_OBJECT,            // ParamType[0]: object
                 ELEMENT_TYPE_I                  // ParamType[1]: native int
             };
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
             hr = pImpSystemCore->FindMethod(mdtdFunc1, L".ctor", 
                                             pSigBlob, sigBlobSize, 
-                                            &mdmdFunc1Ctor);
+                                            &mdmdFunc1ctor);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
         
-        cout << format("Token of MethodDef for System.Func<T>..ctor: 0x%|1$08X|") % mdmdFunc1Ctor << endl;
+        D_COUT1("Token of MethodDef for System.Func<T>..ctor: 0x%|1$08X|", mdmdFunc1ctor);
 
 
 
+        // Get MetaDataAssemblyImport and Assembly record to add to AssemblyRef table.
         CComPtr<IMetaDataAssemblyImport> pAsmImpSystemCore;
         hr = pImpSystemCore->QueryInterface(IID_IMetaDataAssemblyImport, 
                                           reinterpret_cast<void **>(&pAsmImpSystemCore));
@@ -166,7 +178,7 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of Assembly for System.Core.dll: 0x%|1$08X|") % mdaSystemCore << endl;
+        D_COUT1("Token of Assembly for System.Core.dll: 0x%|1$08X|", mdaSystemCore);
 
         auto_ptr<PublicKeyBlob> pSystemCorePubKey;
         DWORD systemCorePubKeySize = 0;
@@ -216,11 +228,12 @@ int _tmain(int argc, _TCHAR* argv[])
                 ::StrongNameFreeBuffer(reinterpret_cast<BYTE*>(pPubKey));
         }
 
-        wcout << wformat(L"Assembly Name: %|1$s|") % systemCoreName.get() << endl;
+        D_WCOUT1(L"Assembly Name: %|1$s|", systemCoreName.get());
 
         
         
         
+        // Retrieve the place of mscorlib.dll from GAC with Fusion API.
         path mscorlibPath;
         {
             WCHAR buffer[MAX_PATH] = { 0 };
@@ -233,7 +246,7 @@ int _tmain(int argc, _TCHAR* argv[])
             if (FAILED(hr)) 
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
             
-            wcout << L"mscorlib is here: " << buffer << endl;
+            D_WCOUT1(L"mscorlib is here: %|1$s|", buffer);
             mscorlibPath = buffer;
         }
 
@@ -246,6 +259,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 
+        // Get IMetaDataImport object to import using types.
         CComPtr<IMetaDataImport2> pImpMSCorLib;
         hr = pDispMSCorLib->OpenScope(mscorlibPath.c_str(), ofRead, 
                                       IID_IMetaDataImport2, 
@@ -255,19 +269,20 @@ int _tmain(int argc, _TCHAR* argv[])
 
         
         
+        // Get TypeDef records to add to TypeRef table.
         mdTypeDef mdtdObject = mdTypeDefNil;
         hr = pImpMSCorLib->FindTypeDefByName(L"System.Object", NULL, &mdtdObject);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of TypeDef for System.Object: 0x%|1$08X|") % mdtdObject << endl;
+        D_COUT1("Token of TypeDef for System.Object: 0x%|1$08X|", mdtdObject);
         
         mdTypeDef mdtdDateTime = mdTypeDefNil;
         hr = pImpMSCorLib->FindTypeDefByName(L"System.DateTime", NULL, &mdtdDateTime);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of TypeDef for System.DateTime: 0x%|1$08X|") % mdtdDateTime << endl;
+        D_COUT1("Token of TypeDef for System.DateTime: 0x%|1$08X|", mdtdDateTime);
 
         mdTypeDef mdtdCompilationRelaxationsAttribute = mdTypeDefNil;
         hr = pImpMSCorLib->FindTypeDefByName(
@@ -276,7 +291,7 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of TypeDef for System.Runtime.CompilerServices.CompilationRelaxationsAttribute: 0x%|1$08X|") % mdtdCompilationRelaxationsAttribute << endl;
+        D_COUT1("Token of TypeDef for System.Runtime.CompilerServices.CompilationRelaxationsAttribute: 0x%|1$08X|", mdtdCompilationRelaxationsAttribute);
         
         mdTypeDef mdtdRuntimeCompatibilityAttribute = mdTypeDefNil;
         hr = pImpMSCorLib->FindTypeDefByName(
@@ -285,17 +300,18 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of TypeDef for System.Runtime.CompilerServices.RuntimeCompatibilityAttribute: 0x%|1$08X|") % mdtdCompilationRelaxationsAttribute << endl;
+        D_COUT1("Token of TypeDef for System.Runtime.CompilerServices.RuntimeCompatibilityAttribute: 0x%|1$08X|", mdtdCompilationRelaxationsAttribute);
 
 
 
+        // Get MethodDef records to add to MemberRef table.
         mdMethodDef mdmdDateTimeget_Now = mdMethodDefNil;
         {
             COR_SIGNATURE pSigBlob[] = { 
                 IMAGE_CEE_CS_CALLCONV_DEFAULT,  // DEFAULT
-                0,                              // ParamCount
+                0,                              // ParamCount: 0
                 ELEMENT_TYPE_VALUETYPE,         // RetType: VALUETYPE
-                0x80,                           //   TypeDef: 0x02000032(System.DateTime)
+                0x80,                           //          TypeDef: 0x02000032(System.DateTime)
                 0xC8                            //   
             };
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
@@ -306,44 +322,46 @@ int _tmain(int argc, _TCHAR* argv[])
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
         
-        cout << format("Token of MethodDef for System.DateTime.get_Now: 0x%|1$08X|") % mdmdDateTimeget_Now << endl;
+        D_COUT1("Token of MethodDef for System.DateTime.get_Now: 0x%|1$08X|", mdmdDateTimeget_Now);
 
-        mdMethodDef mdmdCompilationRelaxationsAttributeCtor = mdMethodDefNil;
+        mdMethodDef mdmdCompilationRelaxationsAttributector = mdMethodDefNil;
         {
             COR_SIGNATURE pSigBlob[] = { 
                 IMAGE_CEE_CS_CALLCONV_HASTHIS,  // HASTHIS 
-                1,                              // ParamCount
-                ELEMENT_TYPE_VOID,              // RetType
-                ELEMENT_TYPE_I4                 // ParamType
+                1,                              // ParamCount: 1
+                ELEMENT_TYPE_VOID,              // RetType: void
+                ELEMENT_TYPE_I4                 // ParamType: int
             };
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
             hr = pImpMSCorLib->FindMethod(mdtdCompilationRelaxationsAttribute, L".ctor", 
                                           pSigBlob, sigBlobSize, 
-                                          &mdmdCompilationRelaxationsAttributeCtor);
+                                          &mdmdCompilationRelaxationsAttributector);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
         
-        cout << format("Token of MethodDef for System.Runtime.CompilerServices.CompilationRelaxationsAttribute..ctor: 0x%|1$08X|") % mdmdCompilationRelaxationsAttributeCtor << endl;
+        D_COUT1("Token of MethodDef for System.Runtime.CompilerServices.CompilationRelaxationsAttribute..ctor: 0x%|1$08X|", mdmdCompilationRelaxationsAttributector);
         
-        mdMethodDef mdmdRuntimeCompatibilityAttributeCtor = mdMethodDefNil;
+        mdMethodDef mdmdRuntimeCompatibilityAttributector = mdMethodDefNil;
         {
             COR_SIGNATURE pSigBlob[] = { 
                 IMAGE_CEE_CS_CALLCONV_HASTHIS,  // HASTHIS  
-                0,                              // ParamCount
-                ELEMENT_TYPE_VOID               // RetType
+                0,                              // ParamCount: 0
+                ELEMENT_TYPE_VOID               // RetType: void
             };                                  
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
             hr = pImpMSCorLib->FindMethod(mdtdRuntimeCompatibilityAttribute, L".ctor", 
                                           pSigBlob, sigBlobSize, 
-                                          &mdmdRuntimeCompatibilityAttributeCtor);
+                                          &mdmdRuntimeCompatibilityAttributector);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
         
-        cout << format("Token of MethodDef for System.Runtime.CompilerServices.RuntimeCompatibilityAttribute..ctor: 0x%|1$08X|") % mdmdRuntimeCompatibilityAttributeCtor << endl;
+        D_COUT1("Token of MethodDef for System.Runtime.CompilerServices.RuntimeCompatibilityAttribute..ctor: 0x%|1$08X|", mdmdRuntimeCompatibilityAttributector);
 
 
+        
+        // Get MetaDataAssemblyImport and Assembly record to add to AssemblyRef table.
         CComPtr<IMetaDataAssemblyImport> pAsmImpMSCorLib;
         hr = pImpMSCorLib->QueryInterface(IID_IMetaDataAssemblyImport, 
                                           reinterpret_cast<void **>(&pAsmImpMSCorLib));
@@ -355,7 +373,7 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of Assembly for mscorlib.dll: 0x%|1$08X|") % mdaMSCorLib << endl;
+        D_COUT1("Token of Assembly for mscorlib.dll: 0x%|1$08X|", mdaMSCorLib);
 
         auto_ptr<PublicKeyBlob> pMSCorLibPubKey;
         DWORD msCorLibPubKeySize = 0;
@@ -405,12 +423,11 @@ int _tmain(int argc, _TCHAR* argv[])
                 ::StrongNameFreeBuffer(reinterpret_cast<BYTE*>(pPubKey));
         }
 
-        wcout << wformat(L"Assembly Name: %|1$s|") % msCorLibName.get() << endl;
+        D_WCOUT1(L"Assembly Name: %|1$s|", msCorLibName.get());
 
 
         
-
-
+        // Get IMetaDataEmit to prepare the stub assembly.
         CComPtr<IMetaDataDispenserEx> pDispMSCorLibPrig;
         hr = ::CoCreateInstance(CLSID_CorMetaDataDispenser, NULL, CLSCTX_INPROC_SERVER, 
                                            IID_IMetaDataDispenserEx, 
@@ -426,6 +443,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 
+        // Get IMetaDataAssemblyEmit to add to AssemblyRef table. 
         CComPtr<IMetaDataAssemblyEmit> pAsmEmtMSCorLibPrig;
         hr = pEmtMSCorLibPrig->QueryInterface(IID_IMetaDataAssemblyEmit, 
                                               reinterpret_cast<void**>(&pAsmEmtMSCorLibPrig));
@@ -434,6 +452,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 
+        // Add Assembly records retrieved in above to AssemblyRef table.
         mdAssemblyRef mdarMSCorLib = mdAssemblyRefNil;
         hr = pAsmEmtMSCorLibPrig->DefineAssemblyRef(pMSCorLibPubKey.get(), msCorLibPubKeySize, 
                                                     msCorLibName.get(), &amdMSCorLib, 
@@ -442,7 +461,7 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of AssemblyRef for mscorlib.dll: 0x%|1$08X|") % mdarMSCorLib << endl;
+        D_COUT1("Token of AssemblyRef for mscorlib.dll: 0x%|1$08X|", mdarMSCorLib);
 
         mdAssemblyRef mdarSystemCore = mdAssemblyRefNil;
         hr = pAsmEmtMSCorLibPrig->DefineAssemblyRef(pSystemCorePubKey.get(), systemCorePubKeySize, 
@@ -452,30 +471,31 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of AssemblyRef for System.Core.dll: 0x%|1$08X|") % mdarSystemCore << endl;
+        D_COUT1("Token of AssemblyRef for System.Core.dll: 0x%|1$08X|", mdarSystemCore);
 
 
 
+        // Add to TypeRef table with the name.
         mdTypeRef mdtrFunc1 = mdTypeRefNil;
         hr = pEmtMSCorLibPrig->DefineTypeRefByName(mdarSystemCore, L"System.Func`1", &mdtrFunc1);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of TypeRef for System.Func`1: 0x%|1$08X|") % mdtrFunc1 << endl;
+        D_COUT1("Token of TypeRef for System.Func`1: 0x%|1$08X|", mdtrFunc1);
 
         mdTypeRef mdtrObject = mdTypeRefNil;
         hr = pEmtMSCorLibPrig->DefineTypeRefByName(mdarMSCorLib, L"System.Object", &mdtrObject);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of TypeRef for System.Object: 0x%|1$08X|") % mdtrObject << endl;
+        D_COUT1("Token of TypeRef for System.Object: 0x%|1$08X|", mdtrObject);
 
         mdTypeRef mdtrDateTime = mdTypeRefNil;
         hr = pEmtMSCorLibPrig->DefineTypeRefByName(mdarMSCorLib, L"System.DateTime", &mdtrDateTime);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of TypeRef for System.DateTime: 0x%|1$08X|") % mdtrDateTime << endl;
+        D_COUT1("Token of TypeRef for System.DateTime: 0x%|1$08X|", mdtrDateTime);
 
         mdTypeRef mdtrCompilationRelaxationsAttribute = mdTypeRefNil;
         hr = pEmtMSCorLibPrig->DefineTypeRefByName(mdarMSCorLib, 
@@ -484,7 +504,7 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of TypeRef for System.Runtime.CompilerServices.CompilationRelaxationsAttribute: 0x%|1$08X|") % mdtrCompilationRelaxationsAttribute << endl;
+        D_COUT1("Token of TypeRef for System.Runtime.CompilerServices.CompilationRelaxationsAttribute: 0x%|1$08X|", mdtrCompilationRelaxationsAttribute);
 
         mdTypeRef mdtrRuntimeCompatibilityAttribute = mdTypeRefNil;
         hr = pEmtMSCorLibPrig->DefineTypeRefByName(mdarMSCorLib, 
@@ -493,19 +513,20 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of TypeRef for System.Runtime.CompilerServices.RuntimeCompatibilityAttribute: 0x%|1$08X|") % mdtrRuntimeCompatibilityAttribute << endl;
+        D_COUT1("Token of TypeRef for System.Runtime.CompilerServices.RuntimeCompatibilityAttribute: 0x%|1$08X|", mdtrRuntimeCompatibilityAttribute);
 
 
 
+        // Add TypeRef records retrieved in above to TypeSpec table.
         mdTypeSpec mdtsSystemFunc1DateTime = mdTypeSpecNil;
         {
             COR_SIGNATURE pSigBlob[] = {
-                ELEMENT_TYPE_GENERICINST,       // GENERICINST
-                ELEMENT_TYPE_CLASS,             // CLASS
-                0x05,                           // TypeRef: 0x01000001(System.Func`1)
-                1,                              // Generics Arguments Count: 1
-                ELEMENT_TYPE_VALUETYPE,         // VALUETYPE
-                0x0D                            // TypeRef: 0x01000003(System.DateTime)
+                ELEMENT_TYPE_GENERICINST,       // TYPE: GENERICINST
+                ELEMENT_TYPE_CLASS,             //       CLASS
+                0x05,                           //       TypeRef: 0x01000001(System.Func`1)
+                1,                              //       Generics Arguments Count: 1
+                ELEMENT_TYPE_VALUETYPE,         //       VALUETYPE
+                0x0D                            //       TypeRef: 0x01000003(System.DateTime)
             };                                  
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
             hr = pEmtMSCorLibPrig->GetTokenFromTypeSpec(pSigBlob, sigBlobSize, 
@@ -514,20 +535,21 @@ int _tmain(int argc, _TCHAR* argv[])
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
         
-        cout << format("Token of TypeSpec for System.Func<DateTime>: 0x%|1$08X|") % mdtsSystemFunc1DateTime << endl;
+        D_COUT1("Token of TypeSpec for System.Func<DateTime>: 0x%|1$08X|", mdtsSystemFunc1DateTime);
 
 
 
+        // Add MethodDef records retrieved in above to MemberRef table.
         mdMemberRef mdmrFunc1DateTimector = mdMemberRefNil;
         hr = pEmtMSCorLibPrig->DefineImportMember(pAsmImpSystemCore, NULL, 0, pImpSystemCore, 
-                                                  mdmdFunc1Ctor, 
+                                                  mdmdFunc1ctor, 
                                                   pAsmEmtMSCorLibPrig, 
                                                   mdtsSystemFunc1DateTime, 
                                                   &mdmrFunc1DateTimector);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of MemberRef for System.Func<DateTime>..ctor: 0x%|1$08X|") % mdmrFunc1DateTimector << endl;
+        D_COUT1("Token of MemberRef for System.Func<DateTime>..ctor: 0x%|1$08X|", mdmrFunc1DateTimector);
 
         mdMemberRef mdmrDateTimeget_Now = mdMemberRefNil;
         hr = pEmtMSCorLibPrig->DefineImportMember(pAsmImpMSCorLib, NULL, 0, pImpMSCorLib, 
@@ -538,32 +560,33 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of MemberRef for System.DateTime.get_Now: 0x%|1$08X|") % mdmrDateTimeget_Now << endl;
+        D_COUT1("Token of MemberRef for System.DateTime.get_Now: 0x%|1$08X|", mdmrDateTimeget_Now);
 
-        mdMemberRef mdmrCompilationRelaxationsAttributeCtor = mdMemberRefNil;
+        mdMemberRef mdmrCompilationRelaxationsAttributector = mdMemberRefNil;
         hr = pEmtMSCorLibPrig->DefineImportMember(pAsmImpMSCorLib, NULL, 0, pImpMSCorLib, 
-                                                  mdmdCompilationRelaxationsAttributeCtor, 
+                                                  mdmdCompilationRelaxationsAttributector, 
                                                   pAsmEmtMSCorLibPrig, 
                                                   mdtrCompilationRelaxationsAttribute, 
-                                                  &mdmrCompilationRelaxationsAttributeCtor);
+                                                  &mdmrCompilationRelaxationsAttributector);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of MemberRef for System.Runtime.CompilerServices.CompilationRelaxationsAttribute..ctor: 0x%|1$08X|") % mdmrCompilationRelaxationsAttributeCtor << endl;
+        D_COUT1("Token of MemberRef for System.Runtime.CompilerServices.CompilationRelaxationsAttribute..ctor: 0x%|1$08X|", mdmrCompilationRelaxationsAttributector);
 
-        mdMemberRef mdmrRuntimeCompatibilityAttributeCtor = mdMemberRefNil;
+        mdMemberRef mdmrRuntimeCompatibilityAttributector = mdMemberRefNil;
         hr = pEmtMSCorLibPrig->DefineImportMember(pAsmImpMSCorLib, NULL, 0, pImpMSCorLib, 
-                                                  mdmdRuntimeCompatibilityAttributeCtor, 
+                                                  mdmdRuntimeCompatibilityAttributector, 
                                                   pAsmEmtMSCorLibPrig, 
                                                   mdtrRuntimeCompatibilityAttribute, 
-                                                  &mdmrRuntimeCompatibilityAttributeCtor);
+                                                  &mdmrRuntimeCompatibilityAttributector);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of MemberRef for System.Runtime.CompilerServices.RuntimeCompatibilityAttribute..ctor: 0x%|1$08X|") % mdmrRuntimeCompatibilityAttributeCtor << endl;
+        D_COUT1("Token of MemberRef for System.Runtime.CompilerServices.RuntimeCompatibilityAttribute..ctor: 0x%|1$08X|", mdmrRuntimeCompatibilityAttributector);
         
         
         
+        // Sign to this assembly with Strong Naming API.
         path msCorLibPrigKeyPairPath = L"..\\ProfilingApiSample03Patch\\ProfilingApiSample03Patch.snk";
         auto_ptr<BYTE> pMSCorLibPrigKeyPair;
         DWORD msCorLibPrigKeyPairSize = 0;
@@ -586,11 +609,13 @@ int _tmain(int argc, _TCHAR* argv[])
                 BOOST_THROW_EXCEPTION(CppAnonymSystemException(::GetLastError()));
 
             pMSCorLibPrigKeyPair = auto_ptr<BYTE>(new BYTE[msCorLibPrigKeyPairSize]);   
-            if (::ReadFile(hSnk, pMSCorLibPrigKeyPair.get(), msCorLibPrigKeyPairSize, &msCorLibPrigKeyPairSize, NULL) == FALSE)
+            if (::ReadFile(hSnk, pMSCorLibPrigKeyPair.get(), 
+                        msCorLibPrigKeyPairSize, &msCorLibPrigKeyPairSize, NULL) == FALSE)
                 BOOST_THROW_EXCEPTION(CppAnonymSystemException(::GetLastError()));
 
             BYTE *pPubKey = NULL;
-            if (!::StrongNameGetPublicKey(NULL, pMSCorLibPrigKeyPair.get(), msCorLibPrigKeyPairSize, &pPubKey, &msCorLibPrigPubKeySize))
+            if (!::StrongNameGetPublicKey(NULL, pMSCorLibPrigKeyPair.get(), 
+                              msCorLibPrigKeyPairSize, &pPubKey, &msCorLibPrigPubKeySize))
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(::StrongNameErrorInfo()));
             
             pMSCorLibPrigPubKey = auto_ptr<PublicKeyBlob>(
@@ -602,23 +627,28 @@ int _tmain(int argc, _TCHAR* argv[])
                 ::StrongNameFreeBuffer(pPubKey);
         }
 
-        cout << "Public Key Blob of mscorlib.Prig: " << endl;
-        cout << format("    SigAlgID: 0x%|1$08X|") % pMSCorLibPrigPubKey->SigAlgID << endl;
-        cout << format("    HashAlgID: 0x%|1$08X|") % pMSCorLibPrigPubKey->HashAlgID << endl;
+        D_COUT("Public Key Blob of mscorlib.Prig: ");
+        D_COUT1("    SigAlgID: 0x%|1$08X|", pMSCorLibPrigPubKey->SigAlgID);
+        D_COUT1("    HashAlgID: 0x%|1$08X|", pMSCorLibPrigPubKey->HashAlgID);
+#ifdef OUTPUT_DEBUG
         cout << "    Public Key: ";
-        for (BYTE *i = pMSCorLibPrigPubKey->PublicKey, *i_end = i + pMSCorLibPrigPubKey->cbPublicKey; i != i_end; ++i)
+        for (BYTE *i = pMSCorLibPrigPubKey->PublicKey, 
+                  *i_end = i + pMSCorLibPrigPubKey->cbPublicKey; i != i_end; ++i)
         {
             cout << format("%|1$02X|") % static_cast<INT>(*i);
         }
         cout << endl;
         cout << "    Raw data: ";
-        for (BYTE *i = reinterpret_cast<BYTE *>(pMSCorLibPrigPubKey.get()), *i_end = i + msCorLibPrigPubKeySize; i != i_end; ++i)
+        for (BYTE *i = reinterpret_cast<BYTE *>(pMSCorLibPrigPubKey.get()), 
+                  *i_end = i + msCorLibPrigPubKeySize; i != i_end; ++i)
         {
             cout << format("%|1$02X|") % static_cast<INT>(*i);
         }
         cout << endl;
+#endif
 
         
+        // Create Assembly records.
         mdAssembly mdaMSCorLibPrig = mdAssemblyNil;
         ASSEMBLYMETADATA amdMSCorLibPrig;
         ::ZeroMemory(&amdMSCorLibPrig, sizeof(ASSEMBLYMETADATA));
@@ -628,10 +658,11 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of Assembly for mscorlib.Prig: 0x%|1$08X|") % mdaMSCorLibPrig << endl;
+        D_COUT1("Token of Assembly for mscorlib.Prig: 0x%|1$08X|", mdaMSCorLibPrig);
 
 
 
+        // Create CustomAttribute records.
         WORD const CustomAttributeProlog = 0x0001;
 
         mdCustomAttribute mdcaCompilationRelaxationsAttribute = mdCustomAttributeNil;
@@ -641,7 +672,7 @@ int _tmain(int argc, _TCHAR* argv[])
             sb.Put<DWORD>(8);                           // FixedArg, int32: 8
             sb.Put<WORD>(0);                            // NumNamed, Count: 0
             hr = pEmtMSCorLibPrig->DefineCustomAttribute(mdaMSCorLibPrig, 
-                                                  mdmrCompilationRelaxationsAttributeCtor, 
+                                                  mdmrCompilationRelaxationsAttributector, 
                                                   sb.Ptr(), 
                                                   sb.Size(), 
                                                   &mdcaCompilationRelaxationsAttribute);
@@ -649,7 +680,7 @@ int _tmain(int argc, _TCHAR* argv[])
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
         
-        cout << format("Token of CustomAttribute for System.Runtime.CompilerServices.CompilationRelaxationsAttribute: 0x%|1$08X|") % mdcaCompilationRelaxationsAttribute << endl;
+        D_COUT1("Token of CustomAttribute for System.Runtime.CompilerServices.CompilationRelaxationsAttribute: 0x%|1$08X|", mdcaCompilationRelaxationsAttribute);
 
         mdCustomAttribute mdcaRuntimeCompatibilityAttribute = mdCustomAttributeNil;
         {
@@ -665,7 +696,7 @@ int _tmain(int argc, _TCHAR* argv[])
             }
             sb.Put<BYTE>(1);                            // FixedArg, bool: 1
             hr = pEmtMSCorLibPrig->DefineCustomAttribute(mdaMSCorLibPrig, 
-                                                  mdmrRuntimeCompatibilityAttributeCtor, 
+                                                  mdmrRuntimeCompatibilityAttributector, 
                                                   sb.Ptr(), 
                                                   sb.Size(), 
                                                   &mdcaRuntimeCompatibilityAttribute);
@@ -673,10 +704,11 @@ int _tmain(int argc, _TCHAR* argv[])
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
         
-        cout << format("Token of CustomAttribute for System.Runtime.CompilerServices.RuntimeCompatibilityAttribute: 0x%|1$08X|") % mdcaRuntimeCompatibilityAttribute << endl;
+        D_COUT1("Token of CustomAttribute for System.Runtime.CompilerServices.RuntimeCompatibilityAttribute: 0x%|1$08X|", mdcaRuntimeCompatibilityAttribute);
 
 
 
+        // Create TypeDef records.
         mdTypeDef mdtdPDateTime = mdTypeDefNil;
         hr = pEmtMSCorLibPrig->DefineTypeDef(L"System.Prig.PDateTime", 
                                              tdPublic | tdAbstract | 
@@ -685,10 +717,11 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of TypeDef for System.Prig.PDateTime: 0x%|1$08X|") % mdtdPDateTime << endl;
+        D_COUT1("Token of TypeDef for System.Prig.PDateTime: 0x%|1$08X|", mdtdPDateTime);
 
 
 
+        // Create NestedClass records.
         mdTypeDef mdtdNowGet = mdTypeDefNil;
         hr = pEmtMSCorLibPrig->DefineNestedType(L"NowGet", 
                                                 tdAbstract | tdAnsiClass | 
@@ -697,20 +730,21 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        cout << format("Token of TypeDef for System.Prig.PDateTime.NowGet: 0x%|1$08X|") % mdtdNowGet << endl;
+        D_COUT1("Token of TypeDef for System.Prig.PDateTime.NowGet: 0x%|1$08X|", mdtdNowGet);
 
 
 
+        // Create Field records.
         mdFieldDef mdfdNowGetm_body = mdFieldDefNil;
         {
             COR_SIGNATURE pSigBlob[] = {
                 IMAGE_CEE_CS_CALLCONV_FIELD,    // FIELD
-                ELEMENT_TYPE_GENERICINST,       // GENERICINST
-                ELEMENT_TYPE_CLASS,             // CLASS
-                0x05,                           // TypeRef: 0x01000001(System.Func`1)
-                1,                              // Generics Arguments Count: 1
-                ELEMENT_TYPE_VALUETYPE,         // VALUETYPE
-                0x0D                            // TypeRef: 0x01000003(System.DateTime)
+                ELEMENT_TYPE_GENERICINST,       // TYPE: GENERICINST
+                ELEMENT_TYPE_CLASS,             //       CLASS
+                0x05,                           //       TypeRef: 0x01000001(System.Func`1)
+                1,                              //       Generics Arguments Count: 1
+                ELEMENT_TYPE_VALUETYPE,         //       VALUETYPE
+                0x0D                            //       TypeRef: 0x01000003(System.DateTime)
             };                                  
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
             hr = pEmtMSCorLibPrig->DefineField(mdtdNowGet, L"m_body", 
@@ -721,21 +755,22 @@ int _tmain(int argc, _TCHAR* argv[])
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
             
-        cout << format("Token of FieldDef for System.Prig.PDateTime.NowGet.m_body: 0x%|1$08X|") % mdfdNowGetm_body << endl;
+        D_COUT1("Token of FieldDef for System.Prig.PDateTime.NowGet.m_body: 0x%|1$08X|", mdfdNowGetm_body);
 
 
 
+        // Create MethodDef records.
         mdMethodDef mdmdNowGetget_Body = mdMethodDefNil;
         {
             COR_SIGNATURE pSigBlob[] = {
                 IMAGE_CEE_CS_CALLCONV_DEFAULT,  // DEFAULT   
-                0,                              // ParamCount
-                ELEMENT_TYPE_GENERICINST,       // GENERICINST
-                ELEMENT_TYPE_CLASS,             // CLASS
-                0x05,                           // TypeRef: 0x01000001(System.Func`1)
-                1,                              // Generics Arguments Count: 1
-                ELEMENT_TYPE_VALUETYPE,         // VALUETYPE
-                0x0D                            // TypeRef: 0x01000003(System.DateTime)
+                0,                              // ParamCount: 0
+                ELEMENT_TYPE_GENERICINST,       // RetType: GENERICINST
+                ELEMENT_TYPE_CLASS,             //          CLASS
+                0x05,                           //          TypeRef: 0x01000001(System.Func`1)
+                1,                              //          Generics Arguments Count: 1
+                ELEMENT_TYPE_VALUETYPE,         //          VALUETYPE
+                0x0D                            //          TypeRef: 0x01000003(System.DateTime)
             };                                  
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
             hr = pEmtMSCorLibPrig->DefineMethod(mdtdNowGet, L"get_Body", 
@@ -746,20 +781,20 @@ int _tmain(int argc, _TCHAR* argv[])
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
             
-        cout << format("Token of MethodDef for System.Prig.PDateTime.NowGet.get_Body: 0x%|1$08X|") % mdmdNowGetget_Body << endl;
+        D_COUT1("Token of MethodDef for System.Prig.PDateTime.NowGet.get_Body: 0x%|1$08X|", mdmdNowGetget_Body);
 
         mdMethodDef mdmdNowGetset_Body = mdMethodDefNil;
         {
             COR_SIGNATURE pSigBlob[] = {
                 IMAGE_CEE_CS_CALLCONV_DEFAULT,  // DEFAULT   
-                1,                              // ParamCount
+                1,                              // ParamCount: 1
                 ELEMENT_TYPE_VOID,              // RetType: void
-                ELEMENT_TYPE_GENERICINST,       // GENERICINST
-                ELEMENT_TYPE_CLASS,             // CLASS
-                0x05,                           // TypeRef: 0x01000001(System.Func`1)
-                1,                              // Generics Arguments Count: 1
-                ELEMENT_TYPE_VALUETYPE,         // VALUETYPE
-                0x0D                            // TypeRef: 0x01000003(System.DateTime)
+                ELEMENT_TYPE_GENERICINST,       // ParamType[0]: GENERICINST
+                ELEMENT_TYPE_CLASS,             //               CLASS
+                0x05,                           //               TypeRef: 0x01000001(System.Func`1)
+                1,                              //               Generics Arguments Count: 1
+                ELEMENT_TYPE_VALUETYPE,         //               VALUETYPE
+                0x0D                            //               TypeRef: 0x01000003(System.DateTime)
             };                                  
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
             hr = pEmtMSCorLibPrig->DefineMethod(mdtdNowGet, L"set_Body", 
@@ -770,13 +805,13 @@ int _tmain(int argc, _TCHAR* argv[])
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
             
-        cout << format("Token of MethodDef for System.Prig.PDateTime.NowGet.set_Body: 0x%|1$08X|") % mdmdNowGetset_Body << endl;
+        D_COUT1("Token of MethodDef for System.Prig.PDateTime.NowGet.set_Body: 0x%|1$08X|", mdmdNowGetset_Body);
 
         mdMethodDef mdmdNowGetcctor = mdMethodDefNil;
         {
             COR_SIGNATURE pSigBlob[] = {
                 IMAGE_CEE_CS_CALLCONV_DEFAULT,  // DEFAULT   
-                0,                              // ParamCount
+                0,                              // ParamCount: 0
                 ELEMENT_TYPE_VOID               // RetType: void
             };                                  
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
@@ -788,10 +823,11 @@ int _tmain(int argc, _TCHAR* argv[])
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
             
-        cout << format("Token of MethodDef for System.Prig.PDateTime.NowGet..cctor: 0x%|1$08X|") % mdmdNowGetcctor << endl;
+        D_COUT1("Token of MethodDef for System.Prig.PDateTime.NowGet..cctor: 0x%|1$08X|", mdmdNowGetcctor);
 
 
 
+        // Create Param records.
         mdParamDef mdpdNowGetset_Body0value = mdParamDefNil;
         hr = pEmtMSCorLibPrig->DefineParam(mdmdNowGetset_Body, 0, 
                                            L"value", 0, 
@@ -800,21 +836,22 @@ int _tmain(int argc, _TCHAR* argv[])
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
             
-        cout << format("Token of ParamDef for System.Prig.PDateTime.NowGet.set_Body, 0: value: 0x%|1$08X|") % mdpdNowGetset_Body0value << endl;
+        D_COUT1("Token of ParamDef for System.Prig.PDateTime.NowGet.set_Body, 0: value: 0x%|1$08X|", mdpdNowGetset_Body0value);
 
 
 
+        // Create Property records.
         mdProperty mdpNowGetBody = mdPropertyNil;
         {
             COR_SIGNATURE pSigBlob[] = {
                 IMAGE_CEE_CS_CALLCONV_PROPERTY, // PROPERTY
-                0,                              // ParamCount
-                ELEMENT_TYPE_GENERICINST,       // GENERICINST
-                ELEMENT_TYPE_CLASS,             // CLASS
-                0x05,                           // TypeRef: 0x01000001(System.Func`1)
-                1,                              // Generics Arguments Count: 1
-                ELEMENT_TYPE_VALUETYPE,         // VALUETYPE
-                0x0D                            // TypeRef: 0x01000003(System.DateTime)
+                0,                              // ParamCount: 0
+                ELEMENT_TYPE_GENERICINST,       // TYPE: GENERICINST
+                ELEMENT_TYPE_CLASS,             //       CLASS
+                0x05,                           //       TypeRef: 0x01000001(System.Func`1)
+                1,                              //       Generics Arguments Count: 1
+                ELEMENT_TYPE_VALUETYPE,         //       VALUETYPE
+                0x0D                            //       TypeRef: 0x01000003(System.DateTime)
             };                                  
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
             hr = pEmtMSCorLibPrig->DefineProperty(mdtdNowGet, L"Body", 
@@ -828,16 +865,19 @@ int _tmain(int argc, _TCHAR* argv[])
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
             
-        cout << format("Token of Property for System.Prig.PDateTime.NowGet.Body: 0x%|1$08X|") % mdpNowGetBody << endl;
+        D_COUT1("Token of Property for System.Prig.PDateTime.NowGet.Body: 0x%|1$08X|", mdpNowGetBody);
 
 
-
-        hr = pEmtMSCorLibPrig->SetModuleProps(L"mscorlib.Prig.dll");
+        
+        // Set name of this Module.
+        WCHAR moduleNameOfMSCorLibPrig[] = L"mscorlib.Prig.dll";
+        hr = pEmtMSCorLibPrig->SetModuleProps(moduleNameOfMSCorLibPrig);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
 
 
 
+        // Emit each method bodies.
         SimpleBlob mbNowGetget_Body;
         mbNowGetget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDSFLD].byte2);
         mbNowGetget_Body.Put<DWORD>(mdfdNowGetm_body);
@@ -862,6 +902,7 @@ int _tmain(int argc, _TCHAR* argv[])
         
         
         
+        // Generate the PE format file with using ICeeFileGen
         path msCorPEPath(corSystemDirectoryPath);
         msCorPEPath /= L"mscorpe.dll";
         HMODULE hmodCorPE = ::LoadLibraryW(msCorPEPath.c_str());
@@ -874,6 +915,7 @@ int _tmain(int argc, _TCHAR* argv[])
         BOOST_SCOPE_EXIT_END
 
         {
+            // Extract the creating/destroying methods for ICeeFileGen.
             typedef HRESULT (__stdcall *CreateCeeFileGenPtr)(ICeeFileGen **ceeFileGen);
             typedef HRESULT (__stdcall *DestroyCeeFileGenPtr)(ICeeFileGen **ceeFileGen);
             
@@ -900,6 +942,9 @@ int _tmain(int argc, _TCHAR* argv[])
             }
             BOOST_SCOPE_EXIT_END
 
+            
+            
+            // Prepare to generate the PE format file.
             HCEEFILE ceeFile = NULL;
             hr = pCeeFileGen->CreateCeeFileEx(&ceeFile, ICEE_CREATE_FILE_PURE_IL);
             if (FAILED(hr))
@@ -910,7 +955,7 @@ int _tmain(int argc, _TCHAR* argv[])
             }
             BOOST_SCOPE_EXIT_END
             
-            hr = pCeeFileGen->SetOutputFileName(ceeFile, L"mscorlib.Prig.dll");
+            hr = pCeeFileGen->SetOutputFileName(ceeFile, moduleNameOfMSCorLibPrig);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
             
@@ -925,6 +970,7 @@ int _tmain(int argc, _TCHAR* argv[])
             
             
             
+            // Merge the meta data created in above.
             HCEESECTION textSection = NULL;
             hr = pCeeFileGen->GetIlSection(ceeFile, &textSection);
             if (FAILED(hr))
@@ -1041,6 +1087,9 @@ int _tmain(int argc, _TCHAR* argv[])
                            mbNowGetcctor.Size());
             }
 
+            
+            
+            // Reserve a strong name area to sign to the assembly.
             {
                 DWORD msCorLibPrigSignReserveSize = 0;
                 if (!::StrongNameSignatureSize(
@@ -1083,13 +1132,15 @@ int _tmain(int argc, _TCHAR* argv[])
             
             
             
+            // Write all data to the PE format file.
             hr = pCeeFileGen->GenerateCeeFile(ceeFile);
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
             
             
             
-            if (!::StrongNameSignatureGenerationEx(L"mscorlib.Prig.dll", NULL, 
+            // Sign to the assembly with Strong Naming API.
+            if (!::StrongNameSignatureGenerationEx(moduleNameOfMSCorLibPrig, NULL, 
                                        pMSCorLibPrigKeyPair.get(), msCorLibPrigKeyPairSize, 
                                        NULL, NULL, 0))
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(::StrongNameErrorInfo()));
