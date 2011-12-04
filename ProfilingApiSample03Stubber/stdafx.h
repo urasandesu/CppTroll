@@ -24,3 +24,9 @@
 #include <boost/program_options.hpp>
 
 #include <algorithm>
+
+#include <mscoree.h>
+#include <fusion.h>
+#include <StrongName.h>
+#include <ICeeFileGen.h>
+#include <alink.h>

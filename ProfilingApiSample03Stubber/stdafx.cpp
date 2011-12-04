@@ -3,6 +3,7 @@
 // stdafx.obj にはプリコンパイル済み型情報が含まれます。
 
 #include "stdafx.h"
+#include <corhlpr.cpp>
 
 // TODO: このファイルではなく、STDAFX.H で必要な
 // 追加ヘッダーを参照してください。

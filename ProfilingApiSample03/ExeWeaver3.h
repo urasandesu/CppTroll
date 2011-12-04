@@ -14,37 +14,37 @@
 
 // CExeWeaver3
 #ifdef UNP
-#error This .h temporarily reserves the word "UNP" that means "Urasandesu::NAnonym::Profiling".
+#error This .h temporarily reserves the word "UNP" that means "Urasandesu::CppAnonym::Profiling".
 #else
-#define UNP Urasandesu::NAnonym::Profiling
+#define UNP Urasandesu::CppAnonym::Profiling
 
 class ATL_NO_VTABLE CExeWeaver3 :
-	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CExeWeaver3, &CLSID_ExeWeaver3>,
+    public CComObjectRootEx<CComSingleThreadModel>,
+    public CComCoClass<CExeWeaver3, &CLSID_ExeWeaver3>,
     public UNP::ICorProfilerCallback2Impl<ICorProfilerCallback2>,
-	public IDispatchImpl<IExeWeaver3, &IID_IExeWeaver3, &LIBID_ProfilingApiSample03Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+    public IDispatchImpl<IExeWeaver3, &IID_IExeWeaver3, &LIBID_ProfilingApiSample03Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
-	CExeWeaver3()
-	{
-	}
+    CExeWeaver3()
+    {
+    }
 
 DECLARE_REGISTRY_RESOURCEID(IDR_EXEWEAVER3)
 
 
 BEGIN_COM_MAP(CExeWeaver3)
-	COM_INTERFACE_ENTRY(IExeWeaver3)
-	COM_INTERFACE_ENTRY(IDispatch)
+    COM_INTERFACE_ENTRY(IExeWeaver3)
+    COM_INTERFACE_ENTRY(IDispatch)
     COM_INTERFACE_ENTRY(ICorProfilerCallback2)
 END_COM_MAP()
 
 
 
-	DECLARE_PROTECT_FINAL_CONSTRUCT()
+    DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-	HRESULT FinalConstruct();
+    HRESULT FinalConstruct();
 
-	void FinalRelease();
+    void FinalRelease();
 
 protected:
     STDMETHOD(InitializeCore)(

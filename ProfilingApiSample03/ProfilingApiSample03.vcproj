@@ -270,41 +270,41 @@
 				Name="Urasandesu"
 				>
 				<Filter
-					Name="NAnonym"
+					Name="CppAnonym"
 					>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\Environment.cpp"
+						RelativePath=".\Urasandesu\CppAnonym\CppAnonymCOMException.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\NAnonymCOMException.cpp"
+						RelativePath=".\Urasandesu\CppAnonym\CppAnonymException.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\NAnonymException.cpp"
+						RelativePath=".\Urasandesu\CppAnonym\CppAnonymSystemException.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\NAnonymSystemException.cpp"
+						RelativePath=".\Urasandesu\CppAnonym\Environment.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\StackFrame.cpp"
+						RelativePath=".\Urasandesu\CppAnonym\StackFrame.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\StackTrace.cpp"
+						RelativePath=".\Urasandesu\CppAnonym\StackTrace.cpp"
 						>
 					</File>
 					<Filter
 						Name="MetaData"
 						>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultAssemblyMetaDataApi.cpp"
+							RelativePath=".\Urasandesu\CppAnonym\MetaData\DefaultAssemblyMetaDataApi.cpp"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultInfoMetaDataApi.cpp"
+							RelativePath=".\Urasandesu\CppAnonym\MetaData\DefaultInfoMetaDataApi.cpp"
 							>
 						</File>
 					</Filter>
@@ -312,7 +312,7 @@
 						Name="Profiling"
 						>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Profiling\DefaultInfoProfilingApi.cpp"
+							RelativePath=".\Urasandesu\CppAnonym\Profiling\DefaultInfoProfilingApi.cpp"
 							>
 						</File>
 					</Filter>
@@ -348,129 +348,129 @@
 				Name="Urasandesu"
 				>
 				<File
-					RelativePath=".\Urasandesu\NAnonym.h"
+					RelativePath=".\Urasandesu\CppAnonym.h"
 					>
 				</File>
 				<Filter
-					Name="NAnonym"
+					Name="CppAnonym"
 					>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\DefaultSTDMETHODWrapper.h"
+						RelativePath=".\Urasandesu\CppAnonym\CppAnonymCOMException.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\Environment.h"
+						RelativePath=".\Urasandesu\CppAnonym\CppAnonymDependsOn.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\HeapProvider.h"
+						RelativePath=".\Urasandesu\CppAnonym\CppAnonymException.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\IApiOperable.h"
+						RelativePath=".\Urasandesu\CppAnonym\CppAnonymSystemException.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\IHeapContent.h"
+						RelativePath=".\Urasandesu\CppAnonym\DefaultSTDMETHODWrapper.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\MetaData.h"
+						RelativePath=".\Urasandesu\CppAnonym\Environment.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\NAnonymCOMException.h"
+						RelativePath=".\Urasandesu\CppAnonym\HeapProvider.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\NAnonymDependsOn.h"
+						RelativePath=".\Urasandesu\CppAnonym\IApiOperable.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\NAnonymException.h"
+						RelativePath=".\Urasandesu\CppAnonym\IHeapContent.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\NAnonymSystemException.h"
+						RelativePath=".\Urasandesu\CppAnonym\MetaData.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\Profiling.h"
+						RelativePath=".\Urasandesu\CppAnonym\Profiling.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\SimpleBlob.h"
+						RelativePath=".\Urasandesu\CppAnonym\SimpleBlob.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\SimpleHeap.h"
+						RelativePath=".\Urasandesu\CppAnonym\SimpleHeap.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\StackFrame.h"
+						RelativePath=".\Urasandesu\CppAnonym\StackFrame.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\StackTrace.h"
+						RelativePath=".\Urasandesu\CppAnonym\StackTrace.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\SystemError.h"
+						RelativePath=".\Urasandesu\CppAnonym\SystemError.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\Traits.h"
+						RelativePath=".\Urasandesu\CppAnonym\Traits.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Urasandesu\NAnonym\Utilities.h"
+						RelativePath=".\Urasandesu\CppAnonym\Utilities.h"
 						>
 					</File>
 					<Filter
 						Name="MetaData"
 						>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\BaseAssemblyMetaData.h"
+							RelativePath=".\Urasandesu\CppAnonym\MetaData\BaseAssemblyMetaData.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\BaseMetaDataInfo.h"
+							RelativePath=".\Urasandesu\CppAnonym\MetaData\BaseMetaDataInfo.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\BaseMethodBodyMetaData.h"
+							RelativePath=".\Urasandesu\CppAnonym\MetaData\BaseMethodBodyMetaData.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\BaseMethodMetaData.h"
+							RelativePath=".\Urasandesu\CppAnonym\MetaData\BaseMethodMetaData.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\BaseModuleMetaData.h"
+							RelativePath=".\Urasandesu\CppAnonym\MetaData\BaseModuleMetaData.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\BaseTypeMetaData.h"
+							RelativePath=".\Urasandesu\CppAnonym\MetaData\BaseTypeMetaData.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultAssemblyMetaDataApi.h"
+							RelativePath=".\Urasandesu\CppAnonym\MetaData\DefaultAssemblyMetaDataApi.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\DefaultInfoMetaDataApi.h"
+							RelativePath=".\Urasandesu\CppAnonym\MetaData\DefaultInfoMetaDataApi.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\IMetaDataApiOperable.h"
+							RelativePath=".\Urasandesu\CppAnonym\MetaData\IMetaDataApiOperable.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\MetaDataDependsOn.h"
+							RelativePath=".\Urasandesu\CppAnonym\MetaData\MetaDataDependsOn.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\MetaData\OpCodes.h"
+							RelativePath=".\Urasandesu\CppAnonym\MetaData\OpCodes.h"
 							>
 						</File>
 					</Filter>
@@ -478,51 +478,51 @@
 						Name="Profiling"
 						>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseAppDomainProfile.h"
+							RelativePath=".\Urasandesu\CppAnonym\Profiling\BaseAppDomainProfile.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseAssemblyProfile.h"
+							RelativePath=".\Urasandesu\CppAnonym\Profiling\BaseAssemblyProfile.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseMethodBodyProfile.h"
+							RelativePath=".\Urasandesu\CppAnonym\Profiling\BaseMethodBodyProfile.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseMethodProfile.h"
+							RelativePath=".\Urasandesu\CppAnonym\Profiling\BaseMethodProfile.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseModuleProfile.h"
+							RelativePath=".\Urasandesu\CppAnonym\Profiling\BaseModuleProfile.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseProcessProfile.h"
+							RelativePath=".\Urasandesu\CppAnonym\Profiling\BaseProcessProfile.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseProfilingInfo.h"
+							RelativePath=".\Urasandesu\CppAnonym\Profiling\BaseProfilingInfo.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Profiling\BaseTypeProfile.h"
+							RelativePath=".\Urasandesu\CppAnonym\Profiling\BaseTypeProfile.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Profiling\DefaultInfoProfilingApi.h"
+							RelativePath=".\Urasandesu\CppAnonym\Profiling\DefaultInfoProfilingApi.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Profiling\ICorProfilerCallback2Impl.h"
+							RelativePath=".\Urasandesu\CppAnonym\Profiling\ICorProfilerCallback2Impl.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Profiling\IProfilingApiOperable.h"
+							RelativePath=".\Urasandesu\CppAnonym\Profiling\IProfilingApiOperable.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Profiling\ProfilingDependsOn.h"
+							RelativePath=".\Urasandesu\CppAnonym\Profiling\ProfilingDependsOn.h"
 							>
 						</File>
 					</Filter>
@@ -530,11 +530,11 @@
 						Name="Traits"
 						>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Traits\Replace.h"
+							RelativePath=".\Urasandesu\CppAnonym\Traits\Replace.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Traits\TraitsDependsOn.h"
+							RelativePath=".\Urasandesu\CppAnonym\Traits\TraitsDependsOn.h"
 							>
 						</File>
 					</Filter>
@@ -542,11 +542,11 @@
 						Name="Utilities"
 						>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Utilities\UtilitiesDependsOn.h"
+							RelativePath=".\Urasandesu\CppAnonym\Utilities\UtilitiesDependsOn.h"
 							>
 						</File>
 						<File
-							RelativePath=".\Urasandesu\NAnonym\Utilities\ValueConverter.h"
+							RelativePath=".\Urasandesu\CppAnonym\Utilities\ValueConverter.h"
 							>
 						</File>
 					</Filter>

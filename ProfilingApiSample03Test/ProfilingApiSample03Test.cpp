@@ -17,12 +17,27 @@ namespace {
     // ProfilingApiSample03Stubber.exe --input="C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\mscorlib.dll"
     TEST(ProfilingApiSample03TestSuite, ProfilingApiSample03Test)
     {
-        CComPtr<ICorProfilerCallback2> pCallback;
-        ASSERT_HRESULT_SUCCEEDED(
-            ::CoCreateInstance(__uuidof(ExeWeaver3), NULL, CLSCTX_INPROC_SERVER, 
-                               IID_ICorProfilerCallback2, 
-                               reinterpret_cast<void**>(&pCallback))
-        );
-        ASSERT_TRUE(pCallback.p != NULL);
+        using namespace std;
+        using namespace boost;
+        
+        mdToken mdt = 0x02000032;
+        BYTE pData[4] = { 0 };
+        ULONG dataSize = 0;
+        
+        dataSize = ::CorSigCompressToken(mdt, reinterpret_cast<void *>(pData));
+        cout << format("%|1$d| Byte Compressed Token: 0x%|2$08X| => 0x") % dataSize % mdt;
+        for (BYTE *i = pData, *i_end = pData + dataSize; i != i_end; ++i)
+        {
+            cout << format("%|1$02X|") % static_cast<INT>(*i);
+        }
+        cout << endl;
+
+        //CComPtr<ICorProfilerCallback2> pCallback;
+        //ASSERT_HRESULT_SUCCEEDED(
+        //    ::CoCreateInstance(__uuidof(ExeWeaver3), NULL, CLSCTX_INPROC_SERVER, 
+        //                       IID_ICorProfilerCallback2, 
+        //                       reinterpret_cast<void**>(&pCallback))
+        //);
+        //ASSERT_TRUE(pCallback.p != NULL);
     }
 }

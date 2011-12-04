@@ -13,7 +13,7 @@
 #define _ATL_APARTMENT_THREADED
 #define _ATL_NO_AUTOMATIC_NAMESPACE
 
-#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS	// 一部の CString コンストラクタは明示的です。
+#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS    // 一部の CString コンストラクタは明示的です。
 
 #include "resource.h"
 #include <atlbase.h>
@@ -22,10 +22,12 @@
 
 using namespace ATL;
 
-#ifndef URASANDESU_NANONYM_H
-#include <Urasandesu/NAnonym.h>
+#ifndef URASANDESU_CPPANONYM_H
+#include <Urasandesu/CppAnonym.h>
 #endif
 
 #include <StrongName.h>
 #include <boost/timer.hpp>
 #include <iostream>
+#include <mscoree.h>
+#include <fusion.h>
