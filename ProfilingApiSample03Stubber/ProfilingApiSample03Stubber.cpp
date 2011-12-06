@@ -551,17 +551,6 @@ int _tmain(int argc, _TCHAR* argv[])
         
         D_COUT1("Token of MemberRef for System.Func<DateTime>..ctor: 0x%|1$08X|", mdmrFunc1DateTimector);
 
-        mdMemberRef mdmrDateTimeget_Now = mdMemberRefNil;
-        hr = pEmtMSCorLibPrig->DefineImportMember(pAsmImpMSCorLib, NULL, 0, pImpMSCorLib, 
-                                                  mdmdDateTimeget_Now, 
-                                                  pAsmEmtMSCorLibPrig, 
-                                                  mdtrDateTime, 
-                                                  &mdmrDateTimeget_Now);
-        if (FAILED(hr))
-            BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
-        
-        D_COUT1("Token of MemberRef for System.DateTime.get_Now: 0x%|1$08X|", mdmrDateTimeget_Now);
-
         mdMemberRef mdmrCompilationRelaxationsAttributector = mdMemberRefNil;
         hr = pEmtMSCorLibPrig->DefineImportMember(pAsmImpMSCorLib, NULL, 0, pImpMSCorLib, 
                                                   mdmdCompilationRelaxationsAttributector, 
@@ -583,6 +572,43 @@ int _tmain(int argc, _TCHAR* argv[])
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
         D_COUT1("Token of MemberRef for System.Runtime.CompilerServices.RuntimeCompatibilityAttribute..ctor: 0x%|1$08X|", mdmrRuntimeCompatibilityAttributector);
+
+        // You can perform adding to MemberRef table with using DefineMemberRef method too.
+        mdMemberRef mdmrDateTimeget_UtcNow = mdMemberRefNil;
+        {
+            COR_SIGNATURE pSigBlob[] = { 
+                IMAGE_CEE_CS_CALLCONV_DEFAULT,  // DEFAULT
+                0,                              // ParamCount: 0
+                ELEMENT_TYPE_VALUETYPE,         // RetType: VALUETYPE
+                0x0D                            //          TypeRef: 0x01000003(System.DateTime)
+            };
+            ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
+            hr = pEmtMSCorLibPrig->DefineMemberRef(mdtrDateTime, L"get_UtcNow", 
+                                                   pSigBlob, sigBlobSize, 
+                                                   &mdmrDateTimeget_UtcNow);
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
+        }
+
+        D_COUT1("Token of MemberRef for System.DateTime.get_UtcNow: 0x%|1$08X|", mdmrDateTimeget_UtcNow);
+
+        mdMemberRef mdmrDateTimeToLocalTime = mdMemberRefNil;
+        {
+            COR_SIGNATURE pSigBlob[] = { 
+                IMAGE_CEE_CS_CALLCONV_HASTHIS,  // HASTHIS
+                0,                              // ParamCount: 0
+                ELEMENT_TYPE_VALUETYPE,         // RetType: VALUETYPE
+                0x0D                            //          TypeRef: 0x01000003(System.DateTime)
+            };
+            ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
+            hr = pEmtMSCorLibPrig->DefineMemberRef(mdtrDateTime, L"ToLocalTime", 
+                                                   pSigBlob, sigBlobSize, 
+                                                   &mdmrDateTimeToLocalTime);
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
+        }
+        
+        D_COUT1("Token of MemberRef for System.DateTime.ToLocalTime: 0x%|1$08X|", mdmrDateTimeToLocalTime);
         
         
         
@@ -825,6 +851,25 @@ int _tmain(int argc, _TCHAR* argv[])
             
         D_COUT1("Token of MethodDef for System.Prig.PDateTime.NowGet..cctor: 0x%|1$08X|", mdmdNowGetcctor);
 
+        mdMethodDef mdmdNowGetInitializeget_Body = mdMethodDefNil;
+        {
+            COR_SIGNATURE pSigBlob[] = {
+                IMAGE_CEE_CS_CALLCONV_DEFAULT,  // DEFAULT   
+                0,                              // ParamCount: 0
+                ELEMENT_TYPE_VALUETYPE,         // RetType: VALUETYPE
+                0x0D                            //          TypeRef: 0x01000003(System.DateTime)
+            };                                  
+            ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
+            hr = pEmtMSCorLibPrig->DefineMethod(mdtdNowGet, L"Initializeget_Body", 
+                                         fdPublic | mdHideBySig | mdSpecialName | mdStatic, 
+                                         pSigBlob, sigBlobSize, 
+                                         0, 0, &mdmdNowGetInitializeget_Body);
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
+        }
+            
+        D_COUT1("Token of MethodDef for System.Prig.PDateTime.NowGet.Initializeget_Body: 0x%|1$08X|", mdmdNowGetInitializeget_Body);
+
 
 
         // Create Param records.
@@ -837,9 +882,29 @@ int _tmain(int argc, _TCHAR* argv[])
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
             
         D_COUT1("Token of ParamDef for System.Prig.PDateTime.NowGet.set_Body, 0: value: 0x%|1$08X|", mdpdNowGetset_Body0value);
+        
+        
+        
+        // Create StandAloneSig records.
+        mdSignature mdsNowGetInitializeget_BodyLocals = mdSignatureNil;
+        {
+            COR_SIGNATURE pSigBlob[] = {
+                IMAGE_CEE_CS_CALLCONV_LOCAL_SIG,// LOCAL_SIG   
+                0x01,                           // Count: 1
+                ELEMENT_TYPE_VALUETYPE,         // Type[0]: VALUETYPE
+                0x0D                            //          TypeRef: 0x01000003(System.DateTime)
+            };                                  
+            ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
+            hr = pEmtMSCorLibPrig->GetTokenFromSig(pSigBlob, sigBlobSize, 
+                                                   &mdsNowGetInitializeget_BodyLocals);
+            if (FAILED(hr))
+                BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
+        }
+            
+        D_COUT1("Token of StandAloneSig for System.Prig.PDateTime.NowGet.Initializeget_Body Locals: 0x%|1$08X|", mdsNowGetInitializeget_BodyLocals);
 
 
-
+        
         // Create Property records.
         mdProperty mdpNowGetBody = mdPropertyNil;
         {
@@ -893,12 +958,22 @@ int _tmain(int argc, _TCHAR* argv[])
         mbNowGetcctor.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDNULL].byte2);
         mbNowGetcctor.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDFTN].byte1);
         mbNowGetcctor.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDFTN].byte2);
-        mbNowGetcctor.Put<DWORD>(mdmrDateTimeget_Now);
+        mbNowGetcctor.Put<DWORD>(mdmdNowGetInitializeget_Body);
         mbNowGetcctor.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_NEWOBJ].byte2);
         mbNowGetcctor.Put<DWORD>(mdmrFunc1DateTimector);
         mbNowGetcctor.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_STSFLD].byte2);
         mbNowGetcctor.Put<DWORD>(mdfdNowGetm_body);
         mbNowGetcctor.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_RET].byte2);
+
+        SimpleBlob mbNowGetInitializeget_Body;
+        mbNowGetInitializeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALL].byte2);
+        mbNowGetInitializeget_Body.Put<DWORD>(mdmrDateTimeget_UtcNow);
+        mbNowGetInitializeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_STLOC_0].byte2);
+        mbNowGetInitializeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOCA_S].byte2);
+        mbNowGetInitializeget_Body.Put<BYTE>(0x00);
+        mbNowGetInitializeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALL].byte2);
+        mbNowGetInitializeget_Body.Put<DWORD>(mdmrDateTimeToLocalTime);
+        mbNowGetInitializeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_RET].byte2);
         
         
         
@@ -1085,6 +1160,46 @@ int _tmain(int argc, _TCHAR* argv[])
                 pBuffer += COR_ILMETHOD::Emit(headerSize, &fatHeader, false, pBuffer);
                 ::memcpy_s(pBuffer, totalSize - headerSize, mbNowGetcctor.Ptr(), 
                            mbNowGetcctor.Size());
+            }
+            
+            {
+                // System.Prig.PDateTime.NowGet.Initializeget_Body method has Fat format header.
+                // Note that SetLocalVarSigTok is called with StandAloneSig for local variables, 
+                // and GetSectionBlock is called with setting to DWORD size alignment.
+                COR_ILMETHOD_FAT fatHeader;
+                ::ZeroMemory(&fatHeader, sizeof(COR_ILMETHOD_FAT));
+                fatHeader.SetMaxStack(1);
+                fatHeader.SetCodeSize(mbNowGetInitializeget_Body.Size());
+                fatHeader.SetLocalVarSigTok(mdsNowGetInitializeget_BodyLocals);
+                fatHeader.SetFlags(CorILMethod_InitLocals);
+                
+                unsigned headerSize = COR_ILMETHOD::Size(&fatHeader, false);
+                unsigned totalSize = headerSize + mbNowGetInitializeget_Body.Size();
+
+                BYTE *pBuffer = NULL;
+                hr = pCeeFileGen->GetSectionBlock(textSection, totalSize, sizeof(DWORD), 
+                                                  reinterpret_cast<void**>(&pBuffer));
+                if (FAILED(hr))
+                    BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
+
+                ULONG offset = 0;
+                hr = pCeeFileGen->GetSectionDataLen(textSection, &offset);
+                if (FAILED(hr))
+                    BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
+
+                offset -= totalSize;
+                ULONG codeRVA = 0;
+                hr = pCeeFileGen->GetMethodRVA(ceeFile, offset, &codeRVA);
+                if (FAILED(hr))
+                    BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
+                
+                hr = pEmtMSCorLibPrig->SetMethodProps(mdmdNowGetInitializeget_Body, -1, codeRVA, 0);
+                if (FAILED(hr))
+                    BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
+
+                pBuffer += COR_ILMETHOD::Emit(headerSize, &fatHeader, false, pBuffer);
+                ::memcpy_s(pBuffer, totalSize - headerSize, mbNowGetInitializeget_Body.Ptr(), 
+                           mbNowGetInitializeget_Body.Size());
             }
 
             

@@ -19,8 +19,8 @@
 // TODO: プログラムに必要な追加ヘッダーをここで参照してください。
 #import "libid:362E2FA5-C7CC-4EFE-B94F-7AA45BBCCCE8" version("1.0") no_namespace // ProfilingApiSample03 1.0 タイプ ライブラリ
 
-#ifndef URASANDESU_NANONYM_NANONYMDEPENDSON_H
-#include <Urasandesu/NAnonym/NAnonymDependsOn.h>
+#ifndef URASANDESU_CPPANONYM_CPPANONYMDEPENDSON_H
+#include <Urasandesu/CppAnonym/CppAnonymDependsOn.h>
 #endif
 
 //#include <corprof.h>

@@ -203,30 +203,30 @@
 				Name="Urasandesu"
 				>
 				<Filter
-					Name="NAnonym"
+					Name="CppAnonym"
 					>
 					<File
-						RelativePath="..\ProfilingApiSample03\Urasandesu\NAnonym\Environment.cpp"
+						RelativePath="..\ProfilingApiSample03\Urasandesu\CppAnonym\CppAnonymCOMException.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\ProfilingApiSample03\Urasandesu\NAnonym\NAnonymCOMException.cpp"
+						RelativePath="..\ProfilingApiSample03\Urasandesu\CppAnonym\CppAnonymException.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\ProfilingApiSample03\Urasandesu\NAnonym\NAnonymException.cpp"
+						RelativePath="..\ProfilingApiSample03\Urasandesu\CppAnonym\CppAnonymSystemException.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\ProfilingApiSample03\Urasandesu\NAnonym\NAnonymSystemException.cpp"
+						RelativePath="..\ProfilingApiSample03\Urasandesu\CppAnonym\Environment.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\ProfilingApiSample03\Urasandesu\NAnonym\StackFrame.cpp"
+						RelativePath="..\ProfilingApiSample03\Urasandesu\CppAnonym\StackFrame.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\ProfilingApiSample03\Urasandesu\NAnonym\StackTrace.cpp"
+						RelativePath="..\ProfilingApiSample03\Urasandesu\CppAnonym\StackTrace.cpp"
 						>
 					</File>
 				</Filter>
