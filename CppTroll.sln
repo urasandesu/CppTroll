@@ -109,6 +109,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfilingApiSample03Patch",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProfilingApiSample03Stubber", "ProfilingApiSample03Stubber\ProfilingApiSample03Stubber.vcproj", "{18352291-C24E-4B29-BC1B-8C272D67A8B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfilingApiSample03TargetTest", "ProfilingApiSample03TargetTest\ProfilingApiSample03TargetTest.csproj", "{793240E1-3FD1-4ECA-9792-1599B0AEB9E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -419,6 +421,16 @@ Global
 		{18352291-C24E-4B29-BC1B-8C272D67A8B0}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{18352291-C24E-4B29-BC1B-8C272D67A8B0}.Release|Win32.ActiveCfg = Release|Win32
 		{18352291-C24E-4B29-BC1B-8C272D67A8B0}.Release|Win32.Build.0 = Release|Win32
+		{793240E1-3FD1-4ECA-9792-1599B0AEB9E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{793240E1-3FD1-4ECA-9792-1599B0AEB9E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{793240E1-3FD1-4ECA-9792-1599B0AEB9E2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{793240E1-3FD1-4ECA-9792-1599B0AEB9E2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{793240E1-3FD1-4ECA-9792-1599B0AEB9E2}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{793240E1-3FD1-4ECA-9792-1599B0AEB9E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{793240E1-3FD1-4ECA-9792-1599B0AEB9E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{793240E1-3FD1-4ECA-9792-1599B0AEB9E2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{793240E1-3FD1-4ECA-9792-1599B0AEB9E2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{793240E1-3FD1-4ECA-9792-1599B0AEB9E2}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

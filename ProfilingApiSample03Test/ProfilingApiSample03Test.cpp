@@ -15,6 +15,8 @@ namespace {
     // ildasm /out=ProfilingApiSample03Patch.dll.dasm /all /metadata ProfilingApiSample03Patch.dll
     // 
     // ProfilingApiSample03Stubber.exe
+    // 
+    // "C:\Program Files\xunit-1.8\xunit.console.exe" ProfilingApiSample03TargetTest.dll /noshadow
     TEST(ProfilingApiSample03TestSuite, ProfilingApiSample03Test)
     {
         using namespace std;
