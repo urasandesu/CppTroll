@@ -299,6 +299,8 @@ namespace MyLibraryTest
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
+                // Replace the content of DateTime.Now with a mock which always returns fixed value.
+                // NOTE: This idea does not work.
                 DateTime.Now = () => new DateTime(2011, 12, 13, 12, 00, 00);
                 LifeInfo.LunchBreak();
                 Assert.Equal("時刻: 12\tお昼休みなう！" + sw.NewLine, sw.ToString());
@@ -312,6 +314,8 @@ namespace MyLibraryTest
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
+                // Replace the content of DateTime.Now with a mock which always returns fixed value.
+                // NOTE: This idea does not work.
                 DateTime.Now = () => new DateTime(2011, 12, 13, 13, 00, 00);
                 LifeInfo.LunchBreak();
                 Assert.Equal("時刻: 13\tお仕事なう・・・" + sw.NewLine, sw.ToString());
@@ -325,6 +329,8 @@ namespace MyLibraryTest
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
+                // Replace the content of DateTime.Now with a mock which always returns fixed value.
+                // NOTE: This idea does not work.
                 DateTime.Now = () => new DateTime(2011, 12, 18, 00, 00, 00);
                 LifeInfo.Holiday();
                 Assert.Equal("曜日: Sunday\t休日なう！" + sw.NewLine, sw.ToString());
@@ -338,6 +344,8 @@ namespace MyLibraryTest
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
+                // Replace the content of DateTime.Now with a mock which always returns fixed value.
+                // NOTE: This idea does not work.
                 DateTime.Now = () => new DateTime(2011, 12, 19, 00, 00, 00);
                 LifeInfo.Holiday();
                 Assert.Equal("曜日: Monday\tお仕事なう・・・" + sw.NewLine, sw.ToString());
