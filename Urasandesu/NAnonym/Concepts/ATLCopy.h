@@ -14,9 +14,9 @@ namespace Urasandesu { namespace NAnonym { namespace Concepts {
         {
             HRESULT hr;
 
-            X::init(addressof(to));
-            hr = X::copy(addressof(to), addressof(from));
-            X::destroy(addressof(to));
+            X::init(boost::addressof(to));
+            hr = X::copy(boost::addressof(to), boost::addressof(from));
+            X::destroy(boost::addressof(to));
         }
         
     private:

@@ -83,7 +83,7 @@ namespace Urasandesu { namespace NAnonym { namespace Collections {
             for (ItemType* pelt = rgelt; m_i != m_i_end && celtFetched < celt; ++m_i, ++celtFetched, ++pelt)
             {
                 range_value_type& _i = *m_i;
-                HRESULT hr = copy_item_from_range::copy(pelt, addressof(_i));
+                HRESULT hr = copy_item_from_range::copy(pelt, boost::addressof(_i));
                 if (FAILED(hr))
                 {
                     if (pceltFetched != NULL)
