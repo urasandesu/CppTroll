@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu">
+      <UniqueIdentifier>{a692bb26-ecb4-480c-bf24-b544315f4a8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\NAnonym">
+      <UniqueIdentifier>{18aeaa49-ff56-4712-9af8-31735bbcb056}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\NAnonym\MetaData">
+      <UniqueIdentifier>{6b68af04-6ffc-404b-8428-a0317e429e26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="生成されたファイル">
+      <UniqueIdentifier>{1dc67acf-0e02-40f6-9ac9-59bbbd105c82}</UniqueIdentifier>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ExeCreator.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MetaDataApiSample01.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MetaDataApiSample01_i.c">
+      <Filter>生成されたファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MetaDataApiSample01.def">
+      <Filter>ソース ファイル</Filter>
+    </None>
+    <None Include="ExeCreator.rgs">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="MetaDataApiSample01.rgs">
+      <Filter>リソース ファイル</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="MetaDataApiSample01.idl">
+      <Filter>ソース ファイル</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dllmain.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ExeCreator.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym.h">
+      <Filter>ヘッダー ファイル\Urasandesu</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\NAnonymDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\SimpleBlob.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\SystemError.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\MetaDataDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\OpCodes.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="MetaDataApiSample01_i.h">
+      <Filter>生成されたファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MetaDataApiSample01.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

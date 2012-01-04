@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\Urasandesu">
+      <UniqueIdentifier>{3188076a-e7f5-4320-922e-df1612b1f3b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Urasandesu\CppAnonym">
+      <UniqueIdentifier>{1225a06e-f261-42d7-bf2a-b68bd83c8383}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Urasandesu\CppAnonym\MetaData">
+      <UniqueIdentifier>{3ba87c9b-d3c3-4851-844d-90cb4338ae0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Urasandesu\CppAnonym\Profiling">
+      <UniqueIdentifier>{9ecec73e-1235-46dc-9a1b-8a3a79bb346f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu">
+      <UniqueIdentifier>{4b2dbee0-b65c-4e3f-ae6e-523010505c33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\CppAnonym">
+      <UniqueIdentifier>{5ead675c-227e-4479-a925-f666de2186f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\CppAnonym\MetaData">
+      <UniqueIdentifier>{eb544ea9-d46d-4f62-90dd-7241d6394291}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\CppAnonym\Profiling">
+      <UniqueIdentifier>{73a09098-6c47-487a-9001-3cb278c78a46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\CppAnonym\Traits">
+      <UniqueIdentifier>{6e11d652-2622-4011-94ac-8ec6a1468934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\CppAnonym\Utilities">
+      <UniqueIdentifier>{fd547ee1-ff52-4068-8b5a-2110c20f2ccd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="生成されたファイル">
+      <UniqueIdentifier>{349fcfc8-c959-4868-b22b-a29a0e88d686}</UniqueIdentifier>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ExeWeaver3.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ProfilingApiSample03.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\CppAnonym\CppAnonymCOMException.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\CppAnonym\CppAnonymException.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\CppAnonym\CppAnonymSystemException.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\CppAnonym\Environment.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\CppAnonym\StackFrame.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\CppAnonym\StackTrace.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\CppAnonym\MetaData\DefaultAssemblyMetaDataApi.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\CppAnonym\MetaData\DefaultInfoMetaDataApi.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\CppAnonym\Profiling\DefaultInfoProfilingApi.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym\Profiling</Filter>
+    </ClCompile>
+    <ClCompile Include="ProfilingApiSample03_i.c">
+      <Filter>生成されたファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ProfilingApiSample03.def">
+      <Filter>ソース ファイル</Filter>
+    </None>
+    <None Include="ExeWeaver3.rgs">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="ProfilingApiSample03.rgs">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="ProfilingApiSample03.idl">
+      <Filter>ソース ファイル</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dllmain.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ExeWeaver3.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym.h">
+      <Filter>ヘッダー ファイル\Urasandesu</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\CppAnonymCOMException.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\CppAnonymDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\CppAnonymException.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\CppAnonymSystemException.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\DefaultSTDMETHODWrapper.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Environment.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\HeapProvider.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\IApiOperable.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\IHeapContent.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\RapidVector.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\SimpleBlob.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\SimpleHeap.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\StackFrame.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\StackTrace.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\SystemError.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Traits.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Utilities.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseAssemblyMetaData.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseMetaDataInfo.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseMethodBodyMetaData.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseMethodMetaData.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseModuleMetaData.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseTypeMetaData.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\DefaultAssemblyMetaDataApi.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\DefaultInfoMetaDataApi.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\IMetaDataApiOperable.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\MetaDataDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\OpCodes.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseAppDomainProfile.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseAssemblyProfile.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseMethodBodyProfile.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseMethodProfile.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseModuleProfile.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseProcessProfile.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseProfilingInfo.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseTypeProfile.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\DefaultInfoProfilingApi.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\ICorProfilerCallback2Impl.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\IProfilingApiOperable.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\ProfilingDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Traits\HasConst.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Traits\Replace.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Traits\TraitsDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Utilities\UtilitiesDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Utilities\ValueConverter.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ProfilingApiSample03_i.h">
+      <Filter>生成されたファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ProfilingApiSample03.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

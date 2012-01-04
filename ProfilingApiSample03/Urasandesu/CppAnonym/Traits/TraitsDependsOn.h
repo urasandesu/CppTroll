@@ -3,6 +3,7 @@
 #define URASANDESU_CPPANONYM_TRAITS_TRAITSDEPENDSON_H
 
 #include <boost/call_traits.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/preprocessor.hpp>
 
 namespace Urasandesu { namespace CppAnonym { namespace Traits {

@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\Urasandesu">
+      <UniqueIdentifier>{cffa1dac-7b30-4467-9d0b-488059f1b547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Urasandesu\NAnonym">
+      <UniqueIdentifier>{f48501a9-6431-43b1-a6cd-433e4c93d3ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Urasandesu\NAnonym\MetaData">
+      <UniqueIdentifier>{df680c20-e43c-4679-afc1-3216f70ed2e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu">
+      <UniqueIdentifier>{11eb110f-68d5-40c3-9ff2-967fb78975a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\NAnonym">
+      <UniqueIdentifier>{a5f783a4-7d6e-48b5-8cd8-6a85d70587e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\NAnonym\MetaData">
+      <UniqueIdentifier>{80f19200-b364-4e36-ba21-c9ec174c1457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\NAnonym\Traits">
+      <UniqueIdentifier>{c8a3c5e5-d5d5-44cc-b0a1-16f574240225}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="生成されたファイル">
+      <UniqueIdentifier>{092514fd-52a6-438b-aa18-01f6a8a23caa}</UniqueIdentifier>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MetaDataApiSample02.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MetaDataInfo.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\NAnonym\NAnonymCOMException.cpp">
+      <Filter>ソース ファイル\Urasandesu\NAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\NAnonym\NAnonymException.cpp">
+      <Filter>ソース ファイル\Urasandesu\NAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\NAnonym\StackFrame.cpp">
+      <Filter>ソース ファイル\Urasandesu\NAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\NAnonym\StackTrace.cpp">
+      <Filter>ソース ファイル\Urasandesu\NAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\NAnonym\MetaData\DefaultMetaDataApi.cpp">
+      <Filter>ソース ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="MetaDataApiSample02_i.c">
+      <Filter>生成されたファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MetaDataApiSample02.def">
+      <Filter>ソース ファイル</Filter>
+    </None>
+    <None Include="MetaDataApiSample02.rgs">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="MetaDataInfo.rgs">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="MetaDataApiSample02.idl">
+      <Filter>ソース ファイル</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dllmain.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="MetaDataInfo.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym.h">
+      <Filter>ヘッダー ファイル\Urasandesu</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\HeapProvider.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\NAnonymCOMException.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\NAnonymDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\NAnonymException.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\SimpleBlob.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\SimpleHeap.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\StackFrame.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\StackTrace.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\SystemError.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\Traits.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\Assembly.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\CustomAttribute.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\CustomAttributeEnumerator.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\CustomAttributeSignature.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\DefaultMetaDataApi.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\ElemSignature.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\ElemSignatureTrait.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\FixedArgArraySignature.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\FixedArgElemSignature.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\FixedArgSignature.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\IMetaDataOperable.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\ITokenizable.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\MetaDataDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\Method.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\MethodDefSignature.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\MethodEnumerator.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\Module.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\NamedArgSignature.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\OpCodes.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\Runtime.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\SimpleOrEnumElemSignature.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\StringOrTypeElemSignature.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\Type.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\TypeEnumerator.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\TypeSignature.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\UseDefaultMetaDataApiIfNecessary.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\Traits\Replace.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\Traits\TraitsDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="MetaDataApiSample02_i.h">
+      <Filter>生成されたファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MetaDataApiSample02.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

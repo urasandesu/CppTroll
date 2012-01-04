@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{d913966c-21e3-4f11-9c9c-3f2496bc1e03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="生成されたファイル">
+      <UniqueIdentifier>{0e60a17f-a2c8-4d44-845c-1bf55820a900}</UniqueIdentifier>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dlldata.c">
+      <Filter>生成されたファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample03_i.c">
+      <Filter>生成されたファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample03_p.c">
+      <Filter>生成されたファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sample03ps.def" />
+  </ItemGroup>
+</Project>

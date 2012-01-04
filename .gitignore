@@ -39,3 +39,6 @@
 *.gif
 *.log
 *.patch
+*.lastbuildstate
+*.sdf
+*.tlog

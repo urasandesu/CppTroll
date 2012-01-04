@@ -2,6 +2,10 @@
 #ifndef URASANDESU_CPPANONYM_SIMPLEHEAP_H
 #define URASANDESU_CPPANONYM_SIMPLEHEAP_H
 
+#ifndef URASANDESU_CPPANONYM_RAPIDVECTOR_H
+#include <Urasandesu/CppAnonym/RapidVector.h>
+#endif
+
 namespace Urasandesu { namespace CppAnonym {
     
     struct DefaultHeap;
@@ -17,22 +21,19 @@ namespace Urasandesu { namespace CppAnonym {
         class SimpleHeapImpl<T, ALotOfAllocAndFreeHeap>
         {
         public:
-            typedef CQuickArray<T> TArray;        
+            typedef RapidVector<T> TArray;
             
-            SimpleHeapImpl() : m_pCurrent(m_array.Ptr()), m_lastMaxSize(m_array.MaxSize()) { }
+            SimpleHeapImpl() : m_pCurrent(&m_array[0]), m_lastMaxSize(m_array.max_size()) { }
 
             T *New()
             {
-                HRESULT hr = E_FAIL;
                 T *pObj = NULL;
-                hr = m_array.ReSizeNoThrow(m_array.Size() + 1);
-                if (m_lastMaxSize < m_array.MaxSize())
+                m_array.resize(m_array.size() + 1);
+                if (m_lastMaxSize < m_array.max_size())
                 {
-                    m_lastMaxSize = m_array.MaxSize();
-                    m_pCurrent = m_array.Ptr() + m_array.Size() - 1;
+                    m_lastMaxSize = m_array.max_size();
+                    m_pCurrent = &m_array[0] + m_array.size() - 1;
                 }
-                if (FAILED(hr))
-                    BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
                 pObj = m_pCurrent;
                 ++m_pCurrent;
                 new(pObj)T();
@@ -41,7 +42,7 @@ namespace Urasandesu { namespace CppAnonym {
 
             SIZE_T Size()
             {
-                return m_array.Size();
+                return m_array.size();
             }
             
             T *operator[] (SIZE_T ix)
@@ -51,7 +52,7 @@ namespace Urasandesu { namespace CppAnonym {
             
             ~SimpleHeapImpl()
             {
-                for (T const *i = m_array.Ptr(), *i_end = i + m_array.Size(); i != i_end; ++i)
+                for (T const *i = &m_array[0], *i_end = i + m_array.size(); i != i_end; ++i)
                     (*i).~T();
             }
         
@@ -85,7 +86,7 @@ namespace Urasandesu { namespace CppAnonym {
         private:
             boost::ptr_vector<T> m_array;
         };
-    }
+    }   // namespace Detail
     
     template<
         class T, 

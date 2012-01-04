@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{452E6B85-3B8A-4AE4-8AD2-41FF2BD93AC9}</ProjectGuid>
+    <RootNamespace>Sample03Test2</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\boost_1_47_0;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_RAND_S;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <MinimalRebuild>true</MinimalRebuild>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>C:\boost_1_47_0;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_RAND_S;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AddImplicitConversionTest.cpp" />
+    <ClCompile Include="ATLCopyTest.cpp" />
+    <ClCompile Include="ATLEqualityComparerTest.cpp" />
+    <ClCompile Include="CComCollectionTest.cpp" />
+    <ClCompile Include="CComEnumerableTest.cpp" />
+    <ClCompile Include="CComEnumeratorTest.cpp" />
+    <ClCompile Include="CComListTest.cpp" />
+    <ClCompile Include="ComDictionaryTest.cpp" />
+    <ClCompile Include="ComListTest.cpp" />
+    <ClCompile Include="GenericCopyTest.cpp" />
+    <ClCompile Include="HasConstTest.cpp" />
+    <ClCompile Include="ICollectionImplTest.cpp" />
+    <ClCompile Include="IDictionaryImplTest.cpp" />
+    <ClCompile Include="IEnumerableImplTest.cpp" />
+    <ClCompile Include="IEnumeratorImplTest.cpp" />
+    <ClCompile Include="IListImplTest.cpp" />
+    <ClCompile Include="InsertConstTest.cpp" />
+    <ClCompile Include="Sample03Test2.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="UtilitiesTest.cpp" />
+    <ClCompile Include="VariantTraitsTest.cpp" />
+    <ClCompile Include="WithoutAdaptTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\NAnonym.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\NAnonymDependsOn.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\CComCollection.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\CComEnumerable.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\CComEnumerator.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\CComEqualityComparer.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\CComList.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\CollectionsDependsOn.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\ICollectionImpl.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\IDictionaryImpl.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\IEnumerableImpl.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\IEnumeratorImpl.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\IEqualityComparerImpl.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\IListImpl.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\SinglePassAnyRangeGenerator.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\SinglePassCopyAnyRangeGenerator.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ATLCopy.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ATLEqualityComparer.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComCollection.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComDictionary.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComEnumerable.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComEnumerator.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComEqualityComparer.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComList.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComObjectWithInstantiation.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComPair.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ConceptsDependsOn.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\AddImplicitConversion.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\HasConst.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\InsertConst.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\Replace.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\TraitsDependsOn.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\VariantTraits.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\WithoutAdapt.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\CComObjectSlim.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\CComPair.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\GenericCopy.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\GenericEqualityComparer.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\IPairImpl.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\MapCopy.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\MapCopy2nd.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\Utilities.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\UtilitiesDependsOn.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\VariantEqualityComparison.h" />
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\VariantHashCode.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

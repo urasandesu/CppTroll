@@ -2,20 +2,22 @@
 #ifndef URASANDESU_CPPANONYM_SIMPLEBLOB_H
 #define URASANDESU_CPPANONYM_SIMPLEBLOB_H
 
+#ifndef URASANDESU_CPPANONYM_RAPIDVECTOR_H
+#include <Urasandesu/CppAnonym/RapidVector.h>
+#endif
+
 namespace Urasandesu { namespace CppAnonym {
     
     class SimpleBlob
     {
-        typedef CQuickArray<BYTE> ByteArray;        
-
-        ByteArray m_buffer;
-        BYTE *m_pCurrent;
+        typedef RapidVector<BYTE> ByteVector;        
+        ByteVector m_buffer;
 
     public:
-        SimpleBlob() : m_pCurrent(m_buffer.Ptr()) { }
+        SimpleBlob() { }
 
         template<class T>
-        HRESULT Put(T val)
+        HRESULT Put(typename boost::call_traits<T>::param_type val)
         {
             using namespace boost;            
             using namespace boost::mpl;
@@ -28,32 +30,30 @@ namespace Urasandesu { namespace CppAnonym {
         HRESULT Put(void const *p, SIZE_T size)
         {
             _ASSERT(0 <= size);
-            HRESULT hr = m_buffer.ReSizeNoThrow(m_buffer.Size() + size);
-            if (FAILED(hr))
-                return hr;
-            ::memcpy_s(m_pCurrent, size, p, size);
-            m_pCurrent += size;
+            size_t lastSize = m_buffer.size();
+            m_buffer.resize(lastSize + size);
+            ::memcpy_s(&m_buffer[0] + lastSize, size, p, size);
             return S_OK;
         }
         
         BYTE *Ptr()
         {
-            return m_buffer.Ptr();
+            return &m_buffer[0];
         }
         
         BYTE const *Ptr() const
         {
-            return m_buffer.Ptr();
+            return &m_buffer[0];
         }
         
         SIZE_T Size() const
         { 
-            return m_buffer.Size();
+            return m_buffer.size();
         }
 
         SIZE_T MaxSize() const
         { 
-            return m_buffer.MaxSize();
+            return m_buffer.max_size();
         }
 
         BYTE& operator[] (SIZE_T ix)

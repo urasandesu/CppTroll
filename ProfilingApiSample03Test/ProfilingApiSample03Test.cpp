@@ -16,7 +16,7 @@ namespace {
     // 
     // ProfilingApiSample03Stubber.exe
     // 
-    // "C:\Program Files\xunit-1.8\xunit.console.exe" ProfilingApiSample03TargetTest.dll /noshadow
+    // "C:\Program Files\xunit-1.8\xunit.console.x86.exe" ProfilingApiSample03TargetTest.dll /noshadow
     TEST(ProfilingApiSample03TestSuite, ProfilingApiSample03Test)
     {
         using namespace std;

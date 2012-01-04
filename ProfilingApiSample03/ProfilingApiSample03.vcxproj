@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{03245094-1339-491F-89AC-C20E55BE7DD5}</ProjectGuid>
+    <Keyword>AtlProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfAtl>Dynamic</UseOfAtl>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfAtl>Dynamic</UseOfAtl>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <GenerateStublessProxies>true</GenerateStublessProxies>
+      <TypeLibraryName>$(IntDir)ProfilingApiSample03.tlb</TypeLibraryName>
+      <HeaderFileName>ProfilingApiSample03_i.h</HeaderFileName>
+      <DllDataFileName>
+      </DllDataFileName>
+      <InterfaceIdentifierFileName>ProfilingApiSample03_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>ProfilingApiSample03_p.c</ProxyFileName>
+      <ValidateAllParameters>true</ValidateAllParameters>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\boost_1_48_0;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0411</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <RegisterOutput>true</RegisterOutput>
+      <AdditionalDependencies>Dbghelp.lib;corguids.lib;mscoree.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\boost_1_48_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>.\ProfilingApiSample03.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <GenerateStublessProxies>true</GenerateStublessProxies>
+      <TypeLibraryName>$(IntDir)ProfilingApiSample03.tlb</TypeLibraryName>
+      <HeaderFileName>ProfilingApiSample03_i.h</HeaderFileName>
+      <DllDataFileName>
+      </DllDataFileName>
+      <InterfaceIdentifierFileName>ProfilingApiSample03_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>ProfilingApiSample03_p.c</ProxyFileName>
+      <ValidateAllParameters>true</ValidateAllParameters>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <AdditionalIncludeDirectories>C:\boost_1_47_0;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0411</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <RegisterOutput>true</RegisterOutput>
+      <AdditionalDependencies>Dbghelp.lib;corguids.lib;mscoree.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\boost_1_47_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>.\ProfilingApiSample03.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+    </ClCompile>
+    <ClCompile Include="ExeWeaver3.cpp" />
+    <ClCompile Include="ProfilingApiSample03.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\CppAnonym\CppAnonymCOMException.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\CppAnonymException.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\CppAnonymSystemException.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\Environment.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\StackFrame.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\StackTrace.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\MetaData\DefaultAssemblyMetaDataApi.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\MetaData\DefaultInfoMetaDataApi.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\Profiling\DefaultInfoProfilingApi.cpp" />
+    <ClCompile Include="ProfilingApiSample03_i.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ProfilingApiSample03.def" />
+    <None Include="ExeWeaver3.rgs" />
+    <None Include="ProfilingApiSample03.rgs" />
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="ProfilingApiSample03.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dllmain.h" />
+    <ClInclude Include="ExeWeaver3.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Urasandesu\CppAnonym.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\CppAnonymCOMException.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\CppAnonymDependsOn.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\CppAnonymException.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\CppAnonymSystemException.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\DefaultSTDMETHODWrapper.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Environment.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\HeapProvider.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\IApiOperable.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\IHeapContent.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\RapidVector.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\SimpleBlob.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\SimpleHeap.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\StackFrame.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\StackTrace.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\SystemError.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Traits.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Utilities.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseAssemblyMetaData.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseMetaDataInfo.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseMethodBodyMetaData.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseMethodMetaData.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseModuleMetaData.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseTypeMetaData.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\DefaultAssemblyMetaDataApi.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\DefaultInfoMetaDataApi.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\IMetaDataApiOperable.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\MetaDataDependsOn.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\OpCodes.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseAppDomainProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseAssemblyProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseMethodBodyProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseMethodProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseModuleProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseProcessProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseProfilingInfo.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseTypeProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\DefaultInfoProfilingApi.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\ICorProfilerCallback2Impl.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\IProfilingApiOperable.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\ProfilingDependsOn.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Traits\HasConst.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Traits\Replace.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Traits\TraitsDependsOn.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Utilities\UtilitiesDependsOn.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Utilities\ValueConverter.h" />
+    <ClInclude Include="ProfilingApiSample03_i.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ProfilingApiSample03.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

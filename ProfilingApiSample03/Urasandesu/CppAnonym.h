@@ -42,6 +42,10 @@
 #include <Urasandesu/CppAnonym/IHeapContent.h>
 #endif
 
+#ifndef URASANDESU_CPPANONYM_RAPIDVECTOR_H
+#include <Urasandesu/CppAnonym/RapidVector.h>
+#endif
+
 #ifndef URASANDESU_CPPANONYM_SIMPLEBLOB_H
 #include <Urasandesu/CppAnonym/SimpleBlob.h>
 #endif

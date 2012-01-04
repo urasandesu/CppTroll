@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\Test">
+      <UniqueIdentifier>{abe96e2b-1da8-445b-a0f3-325033223f37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Test\Urasandesu">
+      <UniqueIdentifier>{d0248da3-ba15-4b66-8885-d9768d29e766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Test\Urasandesu\NAnonym">
+      <UniqueIdentifier>{c4c6fa94-b844-4cda-90f1-84c5051d311b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Test\Urasandesu\NAnonym\MetaData">
+      <UniqueIdentifier>{1d835b09-3fe4-43c9-a851-4fafcc634c29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Urasandesu">
+      <UniqueIdentifier>{53ba10f6-b602-4030-a680-584809db5ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Urasandesu\NAnonym">
+      <UniqueIdentifier>{5cbc8546-8715-4f42-a5cd-0b934eba64cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Urasandesu\NAnonym\MetaData">
+      <UniqueIdentifier>{618447f8-7533-4a22-b0b4-32e28c21a2f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MetaDataApiSample02Test.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\Urasandesu\NAnonym\NAnonymExceptionTest.cpp">
+      <Filter>ソース ファイル\Test\Urasandesu\NAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\Urasandesu\NAnonym\StackTraceTest.cpp">
+      <Filter>ソース ファイル\Test\Urasandesu\NAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\Urasandesu\NAnonym\MetaData\CustomAttributeTest.cpp">
+      <Filter>ソース ファイル\Test\Urasandesu\NAnonym\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MetaDataApiSample02\Urasandesu\NAnonym\NAnonymCOMException.cpp">
+      <Filter>ソース ファイル\Urasandesu\NAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MetaDataApiSample02\Urasandesu\NAnonym\NAnonymException.cpp">
+      <Filter>ソース ファイル\Urasandesu\NAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MetaDataApiSample02\Urasandesu\NAnonym\StackFrame.cpp">
+      <Filter>ソース ファイル\Urasandesu\NAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MetaDataApiSample02\Urasandesu\NAnonym\StackTrace.cpp">
+      <Filter>ソース ファイル\Urasandesu\NAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MetaDataApiSample02\Urasandesu\NAnonym\MetaData\DefaultMetaDataApi.cpp">
+      <Filter>ソース ファイル\Urasandesu\NAnonym\MetaData</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

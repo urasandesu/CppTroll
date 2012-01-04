@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu">
+      <UniqueIdentifier>{d7c45ceb-f302-4930-82cc-971cec0695ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\NAnonym">
+      <UniqueIdentifier>{562bbfb9-89f4-4763-a7f0-bcfc1a345418}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\NAnonym\Collections">
+      <UniqueIdentifier>{0277cbc0-848a-4c80-8dba-c86e995d8046}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\NAnonym\Concepts">
+      <UniqueIdentifier>{9e9d8b58-554f-4404-9916-090d68c47415}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\NAnonym\Traits">
+      <UniqueIdentifier>{f9728241-8849-45ea-84bf-366c8e55dd41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\NAnonym\Utilities">
+      <UniqueIdentifier>{d182b792-a283-4b70-9be6-b1f920ac3e78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AddImplicitConversionTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ATLCopyTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ATLEqualityComparerTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CComCollectionTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CComEnumerableTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CComEnumeratorTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CComListTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ComDictionaryTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ComListTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GenericCopyTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="HasConstTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ICollectionImplTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="IDictionaryImplTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="IEnumerableImplTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="IEnumeratorImplTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="IListImplTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertConstTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample03Test2.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="UtilitiesTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="VariantTraitsTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="WithoutAdaptTest.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\NAnonym.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\NAnonymDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\CComCollection.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\CComEnumerable.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\CComEnumerator.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\CComEqualityComparer.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\CComList.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\CollectionsDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\ICollectionImpl.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\IDictionaryImpl.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\IEnumerableImpl.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\IEnumeratorImpl.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\IEqualityComparerImpl.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\IListImpl.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\SinglePassAnyRangeGenerator.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Collections\SinglePassCopyAnyRangeGenerator.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ATLCopy.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ATLEqualityComparer.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComCollection.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComDictionary.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComEnumerable.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComEnumerator.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComEqualityComparer.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComList.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComObjectWithInstantiation.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ComPair.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Concepts\ConceptsDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\AddImplicitConversion.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\HasConst.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\InsertConst.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\Replace.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\TraitsDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\VariantTraits.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Traits\WithoutAdapt.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\CComObjectSlim.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\CComPair.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\GenericCopy.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\GenericEqualityComparer.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\IPairImpl.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\MapCopy.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\MapCopy2nd.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\Utilities.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\UtilitiesDependsOn.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\VariantEqualityComparison.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Urasandesu\NAnonym\Utilities\VariantHashCode.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

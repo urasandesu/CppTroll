@@ -23,5 +23,6 @@
 #include <Urasandesu/CppAnonym/CppAnonymDependsOn.h>
 #endif
 
-//#include <corprof.h>
 #include <gtest/gtest.h>
+#include <boost/timer.hpp>
+#include <boost/foreach.hpp>

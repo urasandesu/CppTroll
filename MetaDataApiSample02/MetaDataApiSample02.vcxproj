@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8E2BD71A-4724-4635-928A-F1A55D60580E}</ProjectGuid>
+    <Keyword>AtlProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfAtl>Dynamic</UseOfAtl>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfAtl>Dynamic</UseOfAtl>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <GenerateStublessProxies>true</GenerateStublessProxies>
+      <TypeLibraryName>$(IntDir)MetaDataApiSample02.tlb</TypeLibraryName>
+      <HeaderFileName>MetaDataApiSample02_i.h</HeaderFileName>
+      <DllDataFileName>
+      </DllDataFileName>
+      <InterfaceIdentifierFileName>MetaDataApiSample02_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>MetaDataApiSample02_p.c</ProxyFileName>
+      <ValidateAllParameters>true</ValidateAllParameters>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\boost_1_47_0;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0411</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <RegisterOutput>true</RegisterOutput>
+      <AdditionalDependencies>imagehlp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\boost_1_47_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>.\MetaDataApiSample02.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <GenerateStublessProxies>true</GenerateStublessProxies>
+      <TypeLibraryName>$(IntDir)MetaDataApiSample02.tlb</TypeLibraryName>
+      <HeaderFileName>MetaDataApiSample02_i.h</HeaderFileName>
+      <DllDataFileName>
+      </DllDataFileName>
+      <InterfaceIdentifierFileName>MetaDataApiSample02_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>MetaDataApiSample02_p.c</ProxyFileName>
+      <ValidateAllParameters>true</ValidateAllParameters>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0411</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <RegisterOutput>true</RegisterOutput>
+      <ModuleDefinitionFile>.\MetaDataApiSample02.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+    </ClCompile>
+    <ClCompile Include="MetaDataApiSample02.cpp" />
+    <ClCompile Include="MetaDataInfo.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Urasandesu\NAnonym\NAnonymCOMException.cpp" />
+    <ClCompile Include="Urasandesu\NAnonym\NAnonymException.cpp" />
+    <ClCompile Include="Urasandesu\NAnonym\StackFrame.cpp" />
+    <ClCompile Include="Urasandesu\NAnonym\StackTrace.cpp" />
+    <ClCompile Include="Urasandesu\NAnonym\MetaData\DefaultMetaDataApi.cpp" />
+    <ClCompile Include="MetaDataApiSample02_i.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MetaDataApiSample02.def" />
+    <None Include="MetaDataApiSample02.rgs" />
+    <None Include="MetaDataInfo.rgs" />
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="MetaDataApiSample02.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dllmain.h" />
+    <ClInclude Include="MetaDataInfo.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Urasandesu\NAnonym.h" />
+    <ClInclude Include="Urasandesu\NAnonym\HeapProvider.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData.h" />
+    <ClInclude Include="Urasandesu\NAnonym\NAnonymCOMException.h" />
+    <ClInclude Include="Urasandesu\NAnonym\NAnonymDependsOn.h" />
+    <ClInclude Include="Urasandesu\NAnonym\NAnonymException.h" />
+    <ClInclude Include="Urasandesu\NAnonym\SimpleBlob.h" />
+    <ClInclude Include="Urasandesu\NAnonym\SimpleHeap.h" />
+    <ClInclude Include="Urasandesu\NAnonym\StackFrame.h" />
+    <ClInclude Include="Urasandesu\NAnonym\StackTrace.h" />
+    <ClInclude Include="Urasandesu\NAnonym\SystemError.h" />
+    <ClInclude Include="Urasandesu\NAnonym\Traits.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\Assembly.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\CustomAttribute.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\CustomAttributeEnumerator.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\CustomAttributeSignature.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\DefaultMetaDataApi.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\ElemSignature.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\ElemSignatureTrait.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\FixedArgArraySignature.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\FixedArgElemSignature.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\FixedArgSignature.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\IMetaDataOperable.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\ITokenizable.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\MetaDataDependsOn.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\Method.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\MethodDefSignature.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\MethodEnumerator.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\Module.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\NamedArgSignature.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\OpCodes.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\Runtime.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\SimpleOrEnumElemSignature.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\StringOrTypeElemSignature.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\Type.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\TypeEnumerator.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\TypeSignature.h" />
+    <ClInclude Include="Urasandesu\NAnonym\MetaData\UseDefaultMetaDataApiIfNecessary.h" />
+    <ClInclude Include="Urasandesu\NAnonym\Traits\Replace.h" />
+    <ClInclude Include="Urasandesu\NAnonym\Traits\TraitsDependsOn.h" />
+    <ClInclude Include="MetaDataApiSample02_i.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MetaDataApiSample02.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

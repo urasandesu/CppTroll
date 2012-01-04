@@ -1267,7 +1267,7 @@ int _tmain(int argc, _TCHAR* argv[])
     }
     catch (...)
     {
-        cout << diagnostic_information(current_exception()) << endl;
+        cout << diagnostic_information(boost::current_exception()) << endl;
     }
 
     return 0;
