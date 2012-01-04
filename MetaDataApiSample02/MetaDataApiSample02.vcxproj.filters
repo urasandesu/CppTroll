@@ -46,9 +46,6 @@
     <ClCompile Include="MetaDataApiSample02.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="MetaDataInfo.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -70,6 +67,9 @@
     <ClCompile Include="MetaDataApiSample02_i.c">
       <Filter>生成されたファイル</Filter>
     </ClCompile>
+    <ClCompile Include="MetaDataObject.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MetaDataApiSample02.def">
@@ -78,10 +78,10 @@
     <None Include="MetaDataApiSample02.rgs">
       <Filter>リソース ファイル</Filter>
     </None>
-    <None Include="MetaDataInfo.rgs">
+    <None Include="ReadMe.txt" />
+    <None Include="MetaDataObject.rgs">
       <Filter>リソース ファイル</Filter>
     </None>
-    <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MetaDataApiSample02.idl">
@@ -90,9 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllmain.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MetaDataInfo.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
@@ -226,6 +223,15 @@
     </ClInclude>
     <ClInclude Include="MetaDataApiSample02_i.h">
       <Filter>生成されたファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\RapidVector.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\Traits\HasConst.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="MetaDataObject.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

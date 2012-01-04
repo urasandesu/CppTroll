@@ -1,16 +1,16 @@
-﻿// MetaDataInfo.cpp : CMetaDataInfo の実装
+﻿// MetaDataObject.cpp : CMetaDataObject の実装
 
 #include "stdafx.h"
-#include "MetaDataInfo.h"
+#include "MetaDataObject.h"
 
 
-// CMetaDataInfo
+// CMetaDataObject
 
-STDMETHODIMP CMetaDataInfo::InterfaceSupportsErrorInfo(REFIID riid)
+STDMETHODIMP CMetaDataObject::InterfaceSupportsErrorInfo(REFIID riid)
 {
 	static const IID *arr[] = 
 	{
-		&IID_IMetaDataInfo
+		&IID_IMetaDataObject
 	};
 
 	for (int i=0; i < sizeof(arr) / sizeof(arr[0]); i++)
@@ -21,7 +21,7 @@ STDMETHODIMP CMetaDataInfo::InterfaceSupportsErrorInfo(REFIID riid)
 	return S_FALSE;
 }
 
-STDMETHODIMP CMetaDataInfo::Get(BSTR fileName)
+STDMETHODIMP CMetaDataObject::Get(BSTR fileName)
 {
     using namespace std;
     using boost::format;

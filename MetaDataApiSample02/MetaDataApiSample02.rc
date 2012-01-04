@@ -98,7 +98,7 @@ END
 //
 
 IDR_METADATAAPISAMPLE02 REGISTRY                "MetaDataApiSample02.rgs"
-IDR_METADATAINFO        REGISTRY                "MetaDataInfo.rgs"
+IDR_METADATAINFO        REGISTRY                "MetaDataObject.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //

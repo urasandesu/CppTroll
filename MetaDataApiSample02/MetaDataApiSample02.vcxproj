@@ -62,7 +62,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\boost_1_47_0;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\boost_1_48_0;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -79,7 +79,7 @@
     <Link>
       <RegisterOutput>true</RegisterOutput>
       <AdditionalDependencies>imagehlp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\boost_1_47_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\boost_1_48_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>.\MetaDataApiSample02.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -133,7 +133,7 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
     </ClCompile>
     <ClCompile Include="MetaDataApiSample02.cpp" />
-    <ClCompile Include="MetaDataInfo.cpp" />
+    <ClCompile Include="MetaDataObject.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -155,7 +155,7 @@
   <ItemGroup>
     <None Include="MetaDataApiSample02.def" />
     <None Include="MetaDataApiSample02.rgs" />
-    <None Include="MetaDataInfo.rgs" />
+    <None Include="MetaDataObject.rgs" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -163,7 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllmain.h" />
-    <ClInclude Include="MetaDataInfo.h" />
+    <ClInclude Include="MetaDataObject.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -173,6 +173,7 @@
     <ClInclude Include="Urasandesu\NAnonym\NAnonymCOMException.h" />
     <ClInclude Include="Urasandesu\NAnonym\NAnonymDependsOn.h" />
     <ClInclude Include="Urasandesu\NAnonym\NAnonymException.h" />
+    <ClInclude Include="Urasandesu\NAnonym\RapidVector.h" />
     <ClInclude Include="Urasandesu\NAnonym\SimpleBlob.h" />
     <ClInclude Include="Urasandesu\NAnonym\SimpleHeap.h" />
     <ClInclude Include="Urasandesu\NAnonym\StackFrame.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Urasandesu\NAnonym\MetaData\TypeEnumerator.h" />
     <ClInclude Include="Urasandesu\NAnonym\MetaData\TypeSignature.h" />
     <ClInclude Include="Urasandesu\NAnonym\MetaData\UseDefaultMetaDataApiIfNecessary.h" />
+    <ClInclude Include="Urasandesu\NAnonym\Traits\HasConst.h" />
     <ClInclude Include="Urasandesu\NAnonym\Traits\Replace.h" />
     <ClInclude Include="Urasandesu\NAnonym\Traits\TraitsDependsOn.h" />
     <ClInclude Include="MetaDataApiSample02_i.h" />

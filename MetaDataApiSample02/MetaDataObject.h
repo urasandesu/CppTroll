@@ -1,4 +1,4 @@
-﻿// MetaDataInfo.h : CMetaDataInfo の宣言
+﻿// MetaDataObject.h : CMetaDataObject の宣言
 
 #pragma once
 #include "resource.h"       // メイン シンボル
@@ -12,23 +12,23 @@
 
 
 
-// CMetaDataInfo
-class ATL_NO_VTABLE CMetaDataInfo :
+// CMetaDataObject
+class ATL_NO_VTABLE CMetaDataObject :
 	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CMetaDataInfo, &CLSID_MetaDataInfo>,
+	public CComCoClass<CMetaDataObject, &CLSID_MetaDataObject>,
 	public ISupportErrorInfo,
-	public IDispatchImpl<IMetaDataInfo, &IID_IMetaDataInfo, &LIBID_MetaDataApiSample02Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+	public IDispatchImpl<IMetaDataObject, &IID_IMetaDataObject, &LIBID_MetaDataApiSample02Lib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
-	CMetaDataInfo()
+	CMetaDataObject()
 	{
 	}
 
 DECLARE_REGISTRY_RESOURCEID(IDR_METADATAINFO)
 
 
-BEGIN_COM_MAP(CMetaDataInfo)
-	COM_INTERFACE_ENTRY(IMetaDataInfo)
+BEGIN_COM_MAP(CMetaDataObject)
+	COM_INTERFACE_ENTRY(IMetaDataObject)
 	COM_INTERFACE_ENTRY(IDispatch)
 	COM_INTERFACE_ENTRY(ISupportErrorInfo)
 END_COM_MAP()
@@ -52,4 +52,4 @@ public:
     STDMETHOD(Get)(BSTR fileName);
 };
 
-OBJECT_ENTRY_AUTO(__uuidof(MetaDataInfo), CMetaDataInfo)
+OBJECT_ENTRY_AUTO(__uuidof(MetaDataObject), CMetaDataObject)

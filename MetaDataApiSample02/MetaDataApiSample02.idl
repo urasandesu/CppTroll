@@ -12,10 +12,10 @@ import "ocidl.idl";
 	uuid(D54D3D63-DF11-4075-80D7-502C9627A741),
 	dual,
 	nonextensible,
-	helpstring("IMetaDataInfo インターフェイス"),
+	helpstring("IMetaDataObject インターフェイス"),
 	pointer_default(unique)
 ]
-interface IMetaDataInfo : IDispatch{
+interface IMetaDataObject : IDispatch{
     [id(1), helpstring("メソッド Get")] HRESULT Get([in] BSTR fileName);
 };
 [
@@ -28,10 +28,10 @@ library MetaDataApiSample02Lib
 	importlib("stdole2.tlb");
 	[
 		uuid(3CF0D5CC-7C06-410E-B235-EFBEA32B8497),
-		helpstring("MetaDataInfo Class")
+		helpstring("MetaDataObject Class")
 	]
-	coclass MetaDataInfo
+	coclass MetaDataObject
 	{
-		[default] interface IMetaDataInfo;
+		[default] interface IMetaDataObject;
 	};
 };
