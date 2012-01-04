@@ -60,8 +60,8 @@ int _tmain(int argc, _TCHAR* argv[])
     struct Piyo { } piyo;
     //Hoge(piyo);   // コンパイルエラー
     BOOST_CONCEPT_ASSERT((Convertible<vector<int>, vector<any>>));
-    BOOST_STATIC_ASSERT((is_convertible<vector<int>, vector<any>>::value));
-    BOOST_STATIC_ASSERT((!is_convertible<vector<int>, vector<double>>::value));
+    BOOST_STATIC_ASSERT((boost::is_convertible<vector<int>, vector<any>>::value));
+    BOOST_STATIC_ASSERT((!boost::is_convertible<vector<int>, vector<double>>::value));
 
     void* pObj = NULL;
     HogeHoge<int>(&pObj);
