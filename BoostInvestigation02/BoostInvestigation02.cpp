@@ -61,15 +61,15 @@ int _tmain(int argc, _TCHAR* argv[])
     using namespace boost;
 
 
-    BOOST_MPL_ASSERT((is_convertible<dummy_has_param1<int>, to_convertible_from_any<scrape_param1<dummy_has_param1>>>));
-    //BOOST_MPL_ASSERT((is_convertible<int, to_convertible_from_any<scrape_param1<dummy_has_param1>>>));  // compile error
+    BOOST_MPL_ASSERT((boost::is_convertible<dummy_has_param1<int>, to_convertible_from_any<scrape_param1<dummy_has_param1>>>));
+    //BOOST_MPL_ASSERT((boost::is_convertible<int, to_convertible_from_any<scrape_param1<dummy_has_param1>>>));  // compile error
 
-    BOOST_MPL_ASSERT((is_convertible<dummy_has_param2<int, int>, to_convertible_from_any<scrape_param2<dummy_has_param2>>>));
-    //BOOST_MPL_ASSERT((is_convertible<int, to_convertible_from_any<scrape_param2<dummy_has_param2>>>));  // compile error
+    BOOST_MPL_ASSERT((boost::is_convertible<dummy_has_param2<int, int>, to_convertible_from_any<scrape_param2<dummy_has_param2>>>));
+    //BOOST_MPL_ASSERT((boost::is_convertible<int, to_convertible_from_any<scrape_param2<dummy_has_param2>>>));  // compile error
 
     using namespace std;
-    BOOST_MPL_ASSERT((is_convertible<vector<int>, to_convertible_from_any<scrape_param2<vector>>>));
-    //BOOST_MPL_ASSERT((is_convertible<int, to_convertible_from_any<scrape_param2<vector>>>));  // compile error
+    BOOST_MPL_ASSERT((boost::is_convertible<vector<int>, to_convertible_from_any<scrape_param2<vector>>>));
+    //BOOST_MPL_ASSERT((boost::is_convertible<int, to_convertible_from_any<scrape_param2<vector>>>));  // compile error
 
     return 0;
 }
