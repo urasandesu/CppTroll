@@ -26,6 +26,9 @@
       <UniqueIdentifier>{1dc67acf-0e02-40f6-9ac9-59bbbd105c82}</UniqueIdentifier>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Urasandesu\NAnonym\Traits">
+      <UniqueIdentifier>{51a3fc6b-3a97-4a8a-8dbf-05d30b0dac30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -99,6 +102,15 @@
     </ClInclude>
     <ClInclude Include="MetaDataApiSample01_i.h">
       <Filter>生成されたファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\RapidVector.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\Traits\HasConst.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\Traits.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -62,7 +62,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\boost_1_47_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\boost_1_48_0;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -78,8 +78,8 @@
     </ResourceCompile>
     <Link>
       <RegisterOutput>true</RegisterOutput>
-      <AdditionalDependencies>C:\Program Files\Microsoft SDKs\Windows\v6.0A\Lib\mscoree.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\boost_1_47_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>mscoree.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\boost_1_48_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>.\MetaDataApiSample01.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -164,11 +164,14 @@
     <ClInclude Include="Urasandesu\NAnonym.h" />
     <ClInclude Include="Urasandesu\NAnonym\MetaData.h" />
     <ClInclude Include="Urasandesu\NAnonym\NAnonymDependsOn.h" />
+    <ClInclude Include="Urasandesu\NAnonym\RapidVector.h" />
     <ClInclude Include="Urasandesu\NAnonym\SimpleBlob.h" />
     <ClInclude Include="Urasandesu\NAnonym\SystemError.h" />
     <ClInclude Include="Urasandesu\NAnonym\MetaData\MetaDataDependsOn.h" />
     <ClInclude Include="Urasandesu\NAnonym\MetaData\OpCodes.h" />
     <ClInclude Include="MetaDataApiSample01_i.h" />
+    <ClInclude Include="Urasandesu\NAnonym\Traits.h" />
+    <ClInclude Include="Urasandesu\NAnonym\Traits\HasConst.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MetaDataApiSample01.rc" />
