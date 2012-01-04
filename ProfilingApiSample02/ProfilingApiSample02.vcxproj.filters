@@ -266,6 +266,12 @@
     <ClInclude Include="ProfilingApiSample02_i.h">
       <Filter>生成されたファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\Traits\HasConst.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\NAnonym\RapidVector.h">
+      <Filter>ヘッダー ファイル\Urasandesu\NAnonym</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ProfilingApiSample02.rc">

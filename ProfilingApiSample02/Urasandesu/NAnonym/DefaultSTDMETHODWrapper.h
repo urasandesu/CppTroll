@@ -32,7 +32,7 @@ namespace Urasandesu { namespace NAnonym {
             } \
             catch (...) \
             { \
-                cout << diagnostic_information(current_exception()) << endl; \
+                cout << diagnostic_information(boost::current_exception()) << endl; \
             } \
              \
             return S_OK; \

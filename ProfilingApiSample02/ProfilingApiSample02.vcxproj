@@ -62,7 +62,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\boost_1_47_0;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\boost_1_48_0;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -79,7 +79,7 @@
     <Link>
       <RegisterOutput>true</RegisterOutput>
       <AdditionalDependencies>Dbghelp.lib;corguids.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\boost_1_47_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\boost_1_48_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>.\ProfilingApiSample02.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -184,12 +184,14 @@
     <ClInclude Include="Urasandesu\NAnonym\NAnonymException.h" />
     <ClInclude Include="Urasandesu\NAnonym\NAnonymSystemException.h" />
     <ClInclude Include="Urasandesu\NAnonym\Profiling.h" />
+    <ClInclude Include="Urasandesu\NAnonym\RapidVector.h" />
     <ClInclude Include="Urasandesu\NAnonym\SimpleBlob.h" />
     <ClInclude Include="Urasandesu\NAnonym\SimpleHeap.h" />
     <ClInclude Include="Urasandesu\NAnonym\StackFrame.h" />
     <ClInclude Include="Urasandesu\NAnonym\StackTrace.h" />
     <ClInclude Include="Urasandesu\NAnonym\SystemError.h" />
     <ClInclude Include="Urasandesu\NAnonym\Traits.h" />
+    <ClInclude Include="Urasandesu\NAnonym\Traits\HasConst.h" />
     <ClInclude Include="Urasandesu\NAnonym\Utilities.h" />
     <ClInclude Include="Urasandesu\NAnonym\MetaData\BaseAssemblyMetaData.h" />
     <ClInclude Include="Urasandesu\NAnonym\MetaData\BaseMetaDataInfo.h" />
