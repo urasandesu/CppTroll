@@ -51,6 +51,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\boost_1_48_0;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -75,6 +76,8 @@
       <ModuleDefinitionFile>.\ProfilingApiSample04.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <RegisterOutput>true</RegisterOutput>
+      <AdditionalLibraryDirectories>C:\boost_1_48_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dbghelp.lib;corguids.lib;mscoree.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -134,6 +137,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Urasandesu\CppAnonym\CppAnonymCOMException.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\CppAnonymException.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\CppAnonymSystemException.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\Environment.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\MetaData\DefaultAssemblyMetaDataApi.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\MetaData\DefaultInfoMetaDataApi.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\Profiling\DefaultInfoProfilingApi.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\StackFrame.cpp" />
+    <ClCompile Include="Urasandesu\CppAnonym\StackTrace.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllmain.h" />
@@ -142,6 +154,54 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Urasandesu\CppAnonym.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\CppAnonymCOMException.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\CppAnonymDependsOn.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\CppAnonymException.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\CppAnonymSystemException.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\DefaultSTDMETHODWrapper.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Environment.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\HeapProvider.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\IApiOperable.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\IHeapContent.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseAssemblyMetaData.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseMetaDataInfo.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseMethodBodyMetaData.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseMethodMetaData.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseModuleMetaData.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\BaseTypeMetaData.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\DefaultAssemblyMetaDataApi.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\DefaultInfoMetaDataApi.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\IMetaDataApiOperable.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\MetaDataDependsOn.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\MetaData\OpCodes.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseAppDomainProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseAssemblyProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseMethodBodyProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseMethodProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseModuleProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseProcessProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseProfilingInfo.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\BaseTypeProfile.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\DefaultInfoProfilingApi.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\ICorProfilerCallback2Impl.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\IProfilingApiOperable.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Profiling\ProfilingDependsOn.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\RapidVector.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\SimpleBlob.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\SimpleHeap.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\StackFrame.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\StackTrace.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\SystemError.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Traits.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Traits\HasConst.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Traits\Replace.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Traits\TraitsDependsOn.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Utilities.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Utilities\UtilitiesDependsOn.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Utilities\ValueConverter.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ProfilingApiSample04.rc" />
