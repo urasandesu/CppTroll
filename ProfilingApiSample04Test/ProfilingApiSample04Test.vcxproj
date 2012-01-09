@@ -51,10 +51,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\boost_1_48_0;..\ProfilingApiSample04;C:\gtest-1.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\boost_1_48_0\stage\lib;C:\gtest-1.6.0\msvc\gtest\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>gtestd.lib;gtest_maind.lib;corguids.lib;Dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -81,6 +85,15 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\CppAnonymCOMException.cpp" />
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\CppAnonymException.cpp" />
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\CppAnonymSystemException.cpp" />
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\Environment.cpp" />
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\MetaData\DefaultAssemblyMetaDataApi.cpp" />
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\MetaData\DefaultInfoMetaDataApi.cpp" />
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\Profiling\DefaultInfoProfilingApi.cpp" />
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\StackFrame.cpp" />
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\StackTrace.cpp" />
     <ClCompile Include="ProfilingApiSample04Test.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

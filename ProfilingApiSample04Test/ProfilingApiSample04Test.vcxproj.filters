@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\Urasandesu">
+      <UniqueIdentifier>{2cf81c63-f288-47a7-98e0-df1a97b0f8b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Urasandesu\CppAnonym">
+      <UniqueIdentifier>{90abf040-8879-41c7-92aa-60454c6d56e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Urasandesu\CppAnonym\MetaData">
+      <UniqueIdentifier>{5c5e3149-c0b3-49fd-9c6b-3dbb8cd951f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Urasandesu\CppAnonym\Profiling">
+      <UniqueIdentifier>{37b1eee3-9ff6-4ec0-904b-2881c57be154}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -31,6 +43,33 @@
     </ClCompile>
     <ClCompile Include="ProfilingApiSample04Test.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\CppAnonymCOMException.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\CppAnonymException.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\CppAnonymSystemException.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\Environment.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\StackFrame.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\StackTrace.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\MetaData\DefaultAssemblyMetaDataApi.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\MetaData\DefaultInfoMetaDataApi.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\Profiling\DefaultInfoProfilingApi.cpp">
+      <Filter>ソース ファイル\Urasandesu\CppAnonym\Profiling</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
