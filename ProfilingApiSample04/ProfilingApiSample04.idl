@@ -1,0 +1,34 @@
+// ProfilingApiSample04.idl : ProfilingApiSample04 の IDL ソース
+//
+
+// このファイルは、タイプ ライブラリ (ProfilingApiSample04.tlb) およびマーシャリング コードを
+// 作成するために MIDL ツールによって処理されます。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(057A7567-83A1-4C98-BE0E-790ACAE10408),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IExeWeaver4 : IDispatch{
+};
+[
+	uuid(F2D8B64B-6C50-4484-A3A3-F8351ADB6C42),
+	version(1.0),
+]
+library ProfilingApiSample04Lib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(98B5B08A-C625-4CA2-B1C8-157477A58945)		
+	]
+	coclass ExeWeaver4
+	{
+		[default] interface IExeWeaver4;
+	};
+};
+
