@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("ProfilingApiSample04Framework")]
+[assembly: AssemblyTitle("ProfilingApiSample04FrameworkTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Toshiba")]
-[assembly: AssemblyProduct("ProfilingApiSample04Framework")]
+[assembly: AssemblyProduct("ProfilingApiSample04FrameworkTest")]
 [assembly: AssemblyCopyright("Copyright © Toshiba 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 次の GUID は、このプロジェクトが COM に公開される場合の、typelib の ID です
-[assembly: Guid("02ebb507-9f21-4c0b-b86e-d30097e60fa0")]
+[assembly: Guid("3974811f-d7e6-46b2-9c40-71a4d9895197")]
 
 // アセンブリのバージョン情報は、以下の 4 つの値で構成されています:
 //

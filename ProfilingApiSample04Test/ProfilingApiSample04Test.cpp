@@ -8,6 +8,7 @@ namespace {
 
     // SET COR_ENABLE_PROFILING=1
     // SET COR_PROFILER={98B5B08A-C625-4CA2-B1C8-157477A58945}
+    // SET COMPLUS_ProfAPI_ProfilerCompatibilitySetting=EnableV2Profiler
     // ProfilingApiSample04Target.exe
     // 
     // ProfilingApiSample04Test.exe --gtest_filter=ProfilingApiSample04TestSuite.ProfilingApiSample04Test

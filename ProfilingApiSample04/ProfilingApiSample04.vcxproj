@@ -50,7 +50,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;URASANDESU_PRIG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\boost_1_48_0;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
@@ -124,6 +124,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ExeWeaver4.cpp" />
+    <ClCompile Include="IndiretionInterfaces.cpp" />
     <ClCompile Include="ProfilingApiSample04.cpp" />
     <ClCompile Include="ProfilingApiSample04_i.c">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -150,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="ExeWeaver4.h" />
+    <ClInclude Include="IndiretionInterfaces.h" />
     <ClInclude Include="ProfilingApiSample04_i.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -199,6 +201,7 @@
     <ClInclude Include="Urasandesu\CppAnonym\Traits\HasConst.h" />
     <ClInclude Include="Urasandesu\CppAnonym\Traits\Replace.h" />
     <ClInclude Include="Urasandesu\CppAnonym\Traits\TraitsDependsOn.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Traits\Unique.h" />
     <ClInclude Include="Urasandesu\CppAnonym\Utilities.h" />
     <ClInclude Include="Urasandesu\CppAnonym\Utilities\UtilitiesDependsOn.h" />
     <ClInclude Include="Urasandesu\CppAnonym\Utilities\ValueConverter.h" />

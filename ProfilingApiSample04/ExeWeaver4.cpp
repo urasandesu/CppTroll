@@ -47,5 +47,7 @@ HRESULT CExeWeaver4::ShutdownCore(void)
     using namespace std;
     using namespace boost;
 
+    cout << "Shutdown now !!" << endl;
+
     return S_OK; 
 }

@@ -23,4 +23,5 @@
 #include <Urasandesu/CppAnonym/CppAnonymDependsOn.h>
 #endif
 
+#include <boost/mpl/vector.hpp>
 #include <gtest/gtest.h>
