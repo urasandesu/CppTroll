@@ -28,3 +28,4 @@
 #include <Urasandesu/CppAnonym.h>
 #endif
 
+#include <boost/mpl/vector.hpp>

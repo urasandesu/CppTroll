@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#import "libid:F2D8B64B-6C50-4484-A3A3-F8351ADB6C42" version("1.0") no_namespace // ProfilingApiSample04 1.0 タイプ ライブラリ
 
 
 namespace {

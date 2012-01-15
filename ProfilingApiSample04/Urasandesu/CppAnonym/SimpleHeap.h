@@ -40,12 +40,12 @@ namespace Urasandesu { namespace CppAnonym {
                 return pObj;
             }
 
-            SIZE_T Size()
+            inline SIZE_T Size()
             {
                 return m_array.size();
             }
             
-            T *operator[] (SIZE_T ix)
+            inline T *operator[] (SIZE_T ix)
             {
                 return &m_array[ix];
             }
@@ -66,19 +66,19 @@ namespace Urasandesu { namespace CppAnonym {
         class SimpleHeapImpl<T, DefaultHeap>
         {
         public:
-            T *New()
+            inline T *New()
             {
                 T *pObj = new T();
                 m_array.push_back(pObj);
                 return pObj;
             }
             
-            SIZE_T Size()
+            inline SIZE_T Size()
             {
                 return m_array.size();
             }
             
-            T *operator[] (SIZE_T ix)
+            inline T *operator[] (SIZE_T ix)
             {
                 return &m_array[ix];
             }
@@ -97,17 +97,17 @@ namespace Urasandesu { namespace CppAnonym {
         Detail::SimpleHeapImpl<T, Tag> m_impl;
         
     public:
-        T *New()
+        inline T *New()
         {
             return m_impl.New();
         }
         
-        SIZE_T Size()
+        inline SIZE_T Size()
         {
             return m_impl.Size();
         }
 
-        T *operator[] (SIZE_T ix)
+        inline T *operator[] (SIZE_T ix)
         {
             return m_impl[ix];
         }

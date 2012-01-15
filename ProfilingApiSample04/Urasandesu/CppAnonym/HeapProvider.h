@@ -15,114 +15,91 @@ namespace Urasandesu { namespace CppAnonym {
     namespace Detail {
 
         template<class Key, class Sequence, class I, class IEnd>
-        class HeapProviderImpl : 
+        class ATL_NO_VTABLE HeapProviderImpl : 
             public HeapProviderImpl<Key, Sequence, typename boost::mpl::next<I>::type, IEnd>
         {
         private:
             typedef typename boost::mpl::deref<I>::type obj_type;
             BOOST_MPL_ASSERT((boost::is_base_of<IHeapContent<Key>, obj_type>));
+            typedef typename boost::call_traits<Key>::param_type key_param_type;
 
             boost::shared_ptr<SimpleHeap<obj_type>> mutable m_objFactory;
             boost::unordered_map<Key, SIZE_T> mutable m_objIndexes;
             
-            SimpleHeap<obj_type> *GetHeap() const
+            inline SimpleHeap<obj_type> *GetHeap() const
             {
                 if (!m_objFactory.get())
-                {
                     m_objFactory = boost::make_shared<SimpleHeap<obj_type>>();
-                }
                 return m_objFactory.get();
             }
 
         public:
-            SIZE_T Size() const
+            inline SIZE_T Size() const
             {
                 return GetHeap()->Size();
             }
             
-            bool Exists(Key key) const
+            inline bool Exists(key_param_type key) const
             {
                 return m_objIndexes.find(key) != m_objIndexes.end();
             }
             
-            obj_type *Get(Key key)
+            inline obj_type *Get(key_param_type key)
             {
                 return (*GetHeap())[m_objIndexes[key]];
             }
             
-            obj_type const *Get(Key key) const
+            inline obj_type const *Get(key_param_type key) const
             {
                 return (*GetHeap())[m_objIndexes[key]];
             }
             
-            void Set(Key key, SIZE_T index)
+            inline void Set(key_param_type key, SIZE_T index)
             {
                 m_objIndexes[key] = index;
                 Get(key)->SetKey(key);
             }
             
-            void SetToLast(Key key)
+            inline void SetToLast(key_param_type key)
             {
                 Set(key, Size() - 1);
             }
             
-            obj_type *NewPseudo()
+            inline obj_type *NewPseudo()
             {
                 obj_type *pObj = GetHeap()->New();
                 return pObj;
             }
 
-            obj_type *New(Key key)
+            inline obj_type *New(key_param_type key)
             {
                 if (Exists(key))
-                {
                     Get(key)->SetKey(Key());
-                }
                 obj_type *pObj = GetHeap()->New();
                 SetToLast(key);
                 return pObj;
             }
             
-            obj_type *Peek() const
+            inline obj_type *Peek() const
             {
-                if (GetHeap()->Size() == 0)
-                {
-                    return NULL;
-                }
-                else
-                {
-                    return (*GetHeap())[GetHeap()->Size() - 1];
-                }
+                return GetHeap()->Size() == 0 ? NULL : (*GetHeap())[GetHeap()->Size() - 1];
             }
         };
 
         template<class Key, class Sequence>
-        class HeapProviderImpl<Key, 
-                               Sequence, 
-                               typename Traits::UniqueEnd<Sequence>::type, 
-                               typename Traits::UniqueEnd<Sequence>::type>
+        class ATL_NO_VTABLE HeapProviderImpl<Key, 
+                                             Sequence, 
+                                             typename Traits::UniqueEnd<Sequence>::type, 
+                                             typename Traits::UniqueEnd<Sequence>::type> : 
+            boost::noncopyable
         {
         };
 
     }   // namespace Detail
 
 
-#ifdef PROVIDER_TYPE_DECIDED_BY_TYPE
-#error This .h temporarily reserves the word "PROVIDER_TYPE_DECIDED_BY_TYPE".
-#else
-#define PROVIDER_TYPE_DECIDED_BY_TYPE(t, key, sequence) \
-    Detail::HeapProviderImpl< \
-        key, \
-        sequence, \
-        typename boost::mpl::find< \
-            typename Traits::Unique<sequence>::type, \
-            t \
-        >::type, \
-        typename Traits::UniqueEnd<sequence>::type \
-    >
-
     template<class Key, class Sequence>
-    class HeapProvider : 
+    class ATL_NO_VTABLE HeapProvider : 
         Detail::HeapProviderImpl<Key, 
                                  Sequence, 
                                  typename Traits::UniqueBegin<Sequence>::type, 
@@ -130,20 +107,31 @@ namespace Urasandesu { namespace CppAnonym {
     {
     public:
         template<class T>
-        PROVIDER_TYPE_DECIDED_BY_TYPE(T, Key, Sequence) &Of()
+        struct type_decided_by
         {
-            return static_cast<PROVIDER_TYPE_DECIDED_BY_TYPE(T, Key, Sequence) &>(*this);
+            typedef Detail::HeapProviderImpl<
+                Key,
+                Sequence,
+                typename boost::mpl::find<
+                    typename Traits::Unique<Sequence>::type,
+                    T
+                >::type,
+                typename Traits::UniqueEnd<Sequence>::type
+            > type;
+        };
+
+        template<class T>
+        inline typename type_decided_by<T>::type &Of()
+        {
+            return static_cast<typename type_decided_by<T>::type &>(*this);
         }
 
         template<class T>
-        PROVIDER_TYPE_DECIDED_BY_TYPE(T, Key, Sequence) const &Of() const
+        inline typename type_decided_by<T>::type const &Of() const
         {
-            return static_cast<PROVIDER_TYPE_DECIDED_BY_TYPE(T, Key, Sequence) const &>(*this);
+            return const_cast<HeapProvider<Key, Sequence> *>(this)->Of<T>();
         }
     };
-
-#undef PROVIDER_TYPE_DECIDED_BY_TYPE
-#endif
 
 
 
