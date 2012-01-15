@@ -3,7 +3,6 @@ using System.IO;
 using System.Prig;
 using MyLibrary;
 using MyLibraryTest.Helper;
-using MyLibraryTest.Helper.System.Prig;
 using NUnit.Framework;
 
 namespace MyLibraryTest
@@ -64,73 +63,6 @@ namespace MyLibraryTest
                 PDateTime.NowGet.Body = () => new DateTime(2011, 12, 19, 00, 00, 00);
                 LifeInfo.Holiday();
                 Assert.AreEqual("曜日: Monday\tお仕事なう・・・" + sw.NewLine, sw.ToString());
-            }
-        }
-    }
-}
-
-namespace MyLibraryTest.Helper.System.Prig
-{
-    public class PDateTimeContext : IDisposable
-    {
-        bool m_disposed;
-
-        public PDateTimeContext()
-        {
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!m_disposed)
-            {
-                if (disposing)
-                {
-                }
-            }
-            m_disposed = true;
-        }
-
-        ~PDateTimeContext()
-        {
-            Dispose(false);
-        }
-
-        public class NowGet : IDisposable
-        {
-            bool m_disposed;
-
-            public NowGet()
-            {
-            }
-
-            public void Dispose()
-            {
-                Dispose(true);
-                GC.SuppressFinalize(this);
-            }
-
-            protected virtual void Dispose(bool disposing)
-            {
-                if (!m_disposed)
-                {
-                    if (disposing)
-                    {
-                        //Indirection
-                        PDateTime.NowGet.Body = m_lastBody;
-                    }
-                }
-                m_disposed = true;
-            }
-
-            ~NowGet()
-            {
-                Dispose(false);
             }
         }
     }

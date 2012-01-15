@@ -56,8 +56,21 @@ protected:
 
     STDMETHOD(ShutdownCore)(void);
 
+    STDMETHOD(ModuleLoadStartedCore)( 
+        /* [in] */ ModuleID moduleId);
+
+    STDMETHOD(JITCompilationStartedCore)( 
+        /* [in] */ FunctionID functionId,
+        /* [in] */ BOOL fIsSafeToBlock);
+
 private:
+    boost::timer m_timer;
+
     ATL::CComPtr<ICorProfilerInfo2> m_pInfo;
+    ATL::CComPtr<IMetaDataEmit2> m_pEmtMSCorLib;
+
+    static std::wstring const MODULE_NAME_OF_MS_COR_LIB;
+    static std::wstring const TYPE_NAME_OF_SYSTEM_DATE_TIME_GET_NOW;
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(ExeWeaver4), CExeWeaver4)

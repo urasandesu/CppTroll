@@ -28,4 +28,10 @@
 #include <Urasandesu/CppAnonym.h>
 #endif
 
+
 #include <boost/mpl/vector.hpp>
+#include <boost/timer.hpp>
+#include <fusion.h>
+#include <iostream>
+#include <mscoree.h>
+#include <StrongName.h>
