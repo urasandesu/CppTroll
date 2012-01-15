@@ -10,24 +10,24 @@ using ProfilingApiSample04FrameworkTest;
 namespace ProfilingApiSample04FrameworkTest
 {
     [TestFixture]
-    public class IndiretionInterfacesTest
+    public class IndirectionInterfacesTest
     {
         [Test]
-        public void IndiretionTest01()
+        public void IndirectionTest01()
         {
-            var info = new IndiretionInfo();
+            var info = new IndirectionInfo();
             info.m_assemblyName = "mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=x86";
             info.m_typeFullName = "System.DateTime";
             info.m_methodName = "get_Now";
             var curFuncPtr = MethodBase.GetCurrentMethod().MethodHandle.GetFunctionPointer();
 
             {
-                Assert.IsTrue(Indiretion.SetFunctionPointer(ref info, curFuncPtr));
+                Assert.IsTrue(Indirection.SetFunctionPointer(ref info, curFuncPtr));
             }
 
             {
                 var funcPtr = IntPtr.Zero;
-                Assert.IsTrue(Indiretion.GetFunctionPointer(ref info, ref funcPtr));
+                Assert.IsTrue(Indirection.GetFunctionPointer(ref info, ref funcPtr));
                 Assert.AreEqual(curFuncPtr, funcPtr);
             }
         }

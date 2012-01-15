@@ -80,11 +80,11 @@
     <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\Profiling\DefaultInfoProfilingApi.cpp">
       <Filter>ソース ファイル\Urasandesu\CppAnonym\Profiling</Filter>
     </ClCompile>
-    <ClCompile Include="IndiretionInterfacesTest.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Test\Urasandesu\CppAnonym\HeapProviderTest.cpp">
       <Filter>ソース ファイル\Test\Urasandesu\CppAnonym</Filter>
+    </ClCompile>
+    <ClCompile Include="IndirectionInterfacesTest.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

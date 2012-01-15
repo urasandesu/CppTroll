@@ -124,7 +124,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ExeWeaver4.cpp" />
-    <ClCompile Include="IndiretionInterfaces.cpp" />
+    <ClCompile Include="IndirectionInterfaces.cpp" />
     <ClCompile Include="ProfilingApiSample04.cpp" />
     <ClCompile Include="ProfilingApiSample04_i.c">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -151,7 +151,7 @@
   <ItemGroup>
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="ExeWeaver4.h" />
-    <ClInclude Include="IndiretionInterfaces.h" />
+    <ClInclude Include="IndirectionInterfaces.h" />
     <ClInclude Include="ProfilingApiSample04_i.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />

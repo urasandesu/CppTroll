@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-#include "IndiretionInterfaces.h"
+#include "IndirectionInterfaces.h"
 
 #ifndef URASANDESU_CPPANONYM_HEAPPROVIDER_H
 #include <Urasandesu/CppAnonym/HeapProvider.h>
@@ -55,7 +55,7 @@ public:
     }
 };
 
-EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndiretionGetFunctionPointer(IndiretionInfo *pInfo, void const **ppFuncPtr)
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionGetFunctionPointer(IndirectionInfo *pInfo, void const **ppFuncPtr)
 {
     using namespace boost;
     using namespace std;
@@ -91,7 +91,7 @@ EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndiretionGetFunctionPointer(In
     return TRUE;
 }
 
-EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndiretionSetFunctionPointer(IndiretionInfo *pInfo, void const *pFuncPtr)
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionSetFunctionPointer(IndirectionInfo *pInfo, void const *pFuncPtr)
 {
     using namespace boost;
     using namespace std;

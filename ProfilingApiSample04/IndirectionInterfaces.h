@@ -9,14 +9,14 @@
 #define URASANDESU_PRIG_API __declspec(dllimport)
 #endif
 
-struct IndiretionInfo
+struct IndirectionInfo
 {
     LPCWSTR m_assemblyName;
     LPCWSTR m_typeFullName;
     LPCWSTR m_methodName;
 };
 
-EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndiretionGetFunctionPointer(IndiretionInfo *pInfo, void const **ppFuncPtr);
-EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndiretionSetFunctionPointer(IndiretionInfo *pInfo, void const *pFuncPtr);
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionGetFunctionPointer(IndirectionInfo *pInfo, void const **ppFuncPtr);
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionSetFunctionPointer(IndirectionInfo *pInfo, void const *pFuncPtr);
 
 #endif  // #ifndef INDIRETIONINTERFACES_H
