@@ -18,10 +18,10 @@ namespace ProfilingApiSample04Framework
     {
         [DllImport("ProfilingApiSample04.dll", EntryPoint = "IndiretionGetFunctionPointer")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetFunctionPointer(ref IndiretionInfo pInfo, ref int pFuncPtr);
+        public static extern bool GetFunctionPointer(ref IndiretionInfo pInfo, ref IntPtr ppFuncPtr);
 
         [DllImport("ProfilingApiSample04.dll", EntryPoint = "IndiretionSetFunctionPointer")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetFunctionPointer(ref IndiretionInfo pInfo, int funcPtr);
+        public static extern bool SetFunctionPointer(ref IndiretionInfo pInfo, IntPtr pFuncPtr);
     }
 }

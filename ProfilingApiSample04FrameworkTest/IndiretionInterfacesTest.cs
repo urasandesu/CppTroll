@@ -19,17 +19,16 @@ namespace ProfilingApiSample04FrameworkTest
             info.m_assemblyName = "mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=x86";
             info.m_typeFullName = "System.DateTime";
             info.m_methodName = "get_Now";
-            var funcPtr = MethodBase.GetCurrentMethod().MethodHandle.GetFunctionPointer();
+            var curFuncPtr = MethodBase.GetCurrentMethod().MethodHandle.GetFunctionPointer();
 
             {
-                var funcPtrValue = funcPtr.ToValue();
-                Assert.IsTrue(Indiretion.SetFunctionPointer(ref info, funcPtrValue));
+                Assert.IsTrue(Indiretion.SetFunctionPointer(ref info, curFuncPtr));
             }
 
             {
-                var funcPtrValue = IntPtr.Zero.ToValue();
-                Assert.IsTrue(Indiretion.GetFunctionPointer(ref info, ref funcPtrValue));
-                Assert.AreEqual(funcPtr.ToValue(), funcPtrValue);
+                var funcPtr = IntPtr.Zero;
+                Assert.IsTrue(Indiretion.GetFunctionPointer(ref info, ref funcPtr));
+                Assert.AreEqual(curFuncPtr, funcPtr);
             }
         }
     }

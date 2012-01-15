@@ -10,20 +10,20 @@ class IndirectionMethodInfo :
     boost::noncopyable
 {
 public:
-    IndirectionMethodInfo() : m_funcPtr(0) { }
+    IndirectionMethodInfo() : m_pFuncPtr(NULL) { }
 
-    INT GetFunctionPointer() const
+    void const *GetFunctionPointer() const
     {
-        return m_funcPtr;
+        return m_pFuncPtr;
     }
 
-    void SetFunctionPointer(INT funcPtr)
+    void SetFunctionPointer(void const *pFuncPtr)
     {
-        m_funcPtr = funcPtr;
+        m_pFuncPtr = pFuncPtr;
     }
 
 private:
-    INT m_funcPtr;
+    void const *m_pFuncPtr;
 };
 
 class IndirectionTypeInfo : 
@@ -55,13 +55,13 @@ public:
     }
 };
 
-EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndiretionGetFunctionPointer(IndiretionInfo *pInfo, INT *pFuncPtr)
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndiretionGetFunctionPointer(IndiretionInfo *pInfo, void const **ppFuncPtr)
 {
     using namespace boost;
     using namespace std;
     using namespace Urasandesu::CppAnonym;
 
-    *pFuncPtr = NULL;
+    *ppFuncPtr = NULL;
 
     IndirectionManager const &indMngr = IndirectionManager::GetInstance();
 
@@ -86,12 +86,12 @@ EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndiretionGetFunctionPointer(In
         return TRUE;
     pIndMethodInfo = indMethodHeap.Get(methodName);
 
-    *pFuncPtr = pIndMethodInfo->GetFunctionPointer();
+    *ppFuncPtr = pIndMethodInfo->GetFunctionPointer();
 
     return TRUE;
 }
 
-EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndiretionSetFunctionPointer(IndiretionInfo *pInfo, INT funcPtr)
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndiretionSetFunctionPointer(IndiretionInfo *pInfo, void const *pFuncPtr)
 {
     using namespace boost;
     using namespace std;
@@ -114,7 +114,7 @@ EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndiretionSetFunctionPointer(In
     IndirectionMethodInfo *pIndMethodInfo = NULL;
     pIndMethodInfo = indMethodHeap.Exists(methodName) ? indMethodHeap.Get(methodName) : indMethodHeap.New(methodName);
 
-    pIndMethodInfo->SetFunctionPointer(funcPtr);
+    pIndMethodInfo->SetFunctionPointer(pFuncPtr);
 
     return TRUE;
 }

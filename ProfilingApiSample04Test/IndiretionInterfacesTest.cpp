@@ -17,7 +17,6 @@ namespace {
         using namespace boost;
 
         typedef void (*HogePtr)();
-        HogePtr pfnHoge = Hoge;
 
         IndiretionInfo indInfo;
         indInfo.m_assemblyName = L"mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=x86";
@@ -25,14 +24,14 @@ namespace {
         indInfo.m_methodName = L"get_Now";
 
         {
-            INT funcPtr = reinterpret_cast<INT>(pfnHoge);
-            ASSERT_TRUE(IndiretionSetFunctionPointer(&indInfo, funcPtr) == TRUE);
+            HogePtr pfnHoge = Hoge;
+            ASSERT_TRUE(IndiretionSetFunctionPointer(&indInfo, pfnHoge) == TRUE);
         }
 
         {
-            INT funcPtr = 0;
-            ASSERT_TRUE(IndiretionGetFunctionPointer(&indInfo, &funcPtr) == TRUE);
-            ASSERT_EQ(pfnHoge, reinterpret_cast<HogePtr>(funcPtr));
+            void const *pFuncPtr = NULL;
+            ASSERT_TRUE(IndiretionGetFunctionPointer(&indInfo, &pFuncPtr) == TRUE);
+            ASSERT_EQ(static_cast<HogePtr>(Hoge), pFuncPtr);
         }
     }
 
@@ -43,15 +42,14 @@ namespace {
         using namespace boost;
 
         typedef void (*HogePtr)();
-        HogePtr pfnHoge = Hoge;
 
         {
             IndiretionInfo indInfo;
             indInfo.m_assemblyName = L"mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=x86";
             indInfo.m_typeFullName = L"System.DateTime";
             indInfo.m_methodName = L"get_Now";
-            INT funcPtr = reinterpret_cast<INT>(pfnHoge);
-            ASSERT_TRUE(IndiretionSetFunctionPointer(&indInfo, funcPtr) == TRUE);
+            HogePtr pfnHoge = Hoge;
+            ASSERT_TRUE(IndiretionSetFunctionPointer(&indInfo, pfnHoge) == TRUE);
         }
 
         {
@@ -59,9 +57,9 @@ namespace {
             indInfo.m_assemblyName = L"System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL";
             indInfo.m_typeFullName = L"System.DateTime";
             indInfo.m_methodName = L"get_Now";
-            INT funcPtr = 0;
-            ASSERT_TRUE(IndiretionGetFunctionPointer(&indInfo, &funcPtr) == TRUE);
-            ASSERT_EQ(NULL, reinterpret_cast<HogePtr>(funcPtr));
+            void const *pFuncPtr = NULL;
+            ASSERT_TRUE(IndiretionGetFunctionPointer(&indInfo, &pFuncPtr) == TRUE);
+            ASSERT_EQ(static_cast<HogePtr>(NULL), pFuncPtr);
         }
     }
 
@@ -72,15 +70,14 @@ namespace {
         using namespace boost;
 
         typedef void (*HogePtr)();
-        HogePtr pfnHoge = Hoge;
 
         {
             IndiretionInfo indInfo;
             indInfo.m_assemblyName = L"mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=x86";
             indInfo.m_typeFullName = L"System.DateTime";
             indInfo.m_methodName = L"get_Now";
-            INT funcPtr = reinterpret_cast<INT>(pfnHoge);
-            ASSERT_TRUE(IndiretionSetFunctionPointer(&indInfo, funcPtr) == TRUE);
+            HogePtr pfnHoge = Hoge;
+            ASSERT_TRUE(IndiretionSetFunctionPointer(&indInfo, pfnHoge) == TRUE);
         }
 
         {
@@ -88,9 +85,9 @@ namespace {
             indInfo.m_assemblyName = L"mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=x86";
             indInfo.m_typeFullName = L"System.Int32";
             indInfo.m_methodName = L"get_Now";
-            INT funcPtr = 0;
-            ASSERT_TRUE(IndiretionGetFunctionPointer(&indInfo, &funcPtr) == TRUE);
-            ASSERT_EQ(NULL, reinterpret_cast<HogePtr>(funcPtr));
+            void const *pFuncPtr = NULL;
+            ASSERT_TRUE(IndiretionGetFunctionPointer(&indInfo, &pFuncPtr) == TRUE);
+            ASSERT_EQ(static_cast<HogePtr>(NULL), pFuncPtr);
         }
     }
 
@@ -101,15 +98,14 @@ namespace {
         using namespace boost;
 
         typedef void (*HogePtr)();
-        HogePtr pfnHoge = Hoge;
 
         {
             IndiretionInfo indInfo;
             indInfo.m_assemblyName = L"mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=x86";
             indInfo.m_typeFullName = L"System.DateTime";
             indInfo.m_methodName = L"get_Now";
-            INT funcPtr = reinterpret_cast<INT>(pfnHoge);
-            ASSERT_TRUE(IndiretionSetFunctionPointer(&indInfo, funcPtr) == TRUE);
+            HogePtr pfnHoge = Hoge;
+            ASSERT_TRUE(IndiretionSetFunctionPointer(&indInfo, pfnHoge) == TRUE);
         }
 
         {
@@ -117,9 +113,9 @@ namespace {
             indInfo.m_assemblyName = L"mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=x86";
             indInfo.m_typeFullName = L"System.DateTime";
             indInfo.m_methodName = L"get_UtcNow";
-            INT funcPtr = 0;
-            ASSERT_TRUE(IndiretionGetFunctionPointer(&indInfo, &funcPtr) == TRUE);
-            ASSERT_EQ(NULL, reinterpret_cast<HogePtr>(funcPtr));
+            void const *pFuncPtr = NULL;
+            ASSERT_TRUE(IndiretionGetFunctionPointer(&indInfo, &pFuncPtr) == TRUE);
+            ASSERT_EQ(static_cast<HogePtr>(NULL), pFuncPtr);
         }
     }
 }
