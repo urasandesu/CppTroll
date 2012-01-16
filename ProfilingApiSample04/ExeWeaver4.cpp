@@ -4,7 +4,7 @@
 #include "ExeWeaver4.h"
 
 //#define OUTPUT_VERBOSE
-//#define OUTPUT_DEBUG
+#define OUTPUT_DEBUG
 
 #ifdef OUTPUT_VERBOSE
 #define V_WCOUT(s) std::wcout << s << std::endl
@@ -189,7 +189,7 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
 
         // Prepare the 1st source assembly mscorlib.Prig that is delegated an actual process.
         // Get IMetaDataImport to manipulate the assembly.
-        path msCorLibPrigPath(L"..\\Debug\\mscorlib.Prig.dll");
+        path msCorLibPrigPath(L".\\ProfilingApiSample04mscorlib.Prig.dll");
         
         CComPtr<IMetaDataDispenserEx> pDispMSCorLibPrig;
         hr = ::CoCreateInstance(CLSID_CorMetaDataDispenser, NULL, CLSCTX_INPROC_SERVER, 

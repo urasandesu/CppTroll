@@ -201,7 +201,7 @@
     <ClInclude Include="Urasandesu\CppAnonym\Traits\HasConst.h" />
     <ClInclude Include="Urasandesu\CppAnonym\Traits\Replace.h" />
     <ClInclude Include="Urasandesu\CppAnonym\Traits\TraitsDependsOn.h" />
-    <ClInclude Include="Urasandesu\CppAnonym\Traits\Unique.h" />
+    <ClInclude Include="Urasandesu\CppAnonym\Traits\Distinct.h" />
     <ClInclude Include="Urasandesu\CppAnonym\Utilities.h" />
     <ClInclude Include="Urasandesu\CppAnonym\Utilities\UtilitiesDependsOn.h" />
     <ClInclude Include="Urasandesu\CppAnonym\Utilities\ValueConverter.h" />

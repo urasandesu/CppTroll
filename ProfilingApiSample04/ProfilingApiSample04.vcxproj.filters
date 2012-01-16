@@ -258,11 +258,11 @@
     <ClInclude Include="Urasandesu\CppAnonym\Profiling\ProfilingDependsOn.h">
       <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Profiling</Filter>
     </ClInclude>
-    <ClInclude Include="Urasandesu\CppAnonym\Traits\Unique.h">
-      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Traits</Filter>
-    </ClInclude>
     <ClInclude Include="IndirectionInterfaces.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Urasandesu\CppAnonym\Traits\Distinct.h">
+      <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Traits</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

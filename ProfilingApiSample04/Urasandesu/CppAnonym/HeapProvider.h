@@ -6,8 +6,8 @@
 #include <Urasandesu/CppAnonym/SimpleHeap.h>
 #endif
 
-#ifndef URASANDESU_CPPANONYM_TRAITS_UNIQUE_H
-#include <Urasandesu/CppAnonym/Traits/Unique.h>
+#ifndef URASANDESU_CPPANONYM_TRAITS_DISTINCT_H
+#include <Urasandesu/CppAnonym/Traits/Distinct.h>
 #endif
 
 namespace Urasandesu { namespace CppAnonym {
@@ -89,8 +89,8 @@ namespace Urasandesu { namespace CppAnonym {
         template<class Key, class Sequence>
         class ATL_NO_VTABLE HeapProviderImpl<Key, 
                                              Sequence, 
-                                             typename Traits::UniqueEnd<Sequence>::type, 
-                                             typename Traits::UniqueEnd<Sequence>::type> : 
+                                             typename Traits::DistinctEnd<Sequence>::type, 
+                                             typename Traits::DistinctEnd<Sequence>::type> : 
             boost::noncopyable
         {
         };
@@ -102,8 +102,8 @@ namespace Urasandesu { namespace CppAnonym {
     class ATL_NO_VTABLE HeapProvider : 
         Detail::HeapProviderImpl<Key, 
                                  Sequence, 
-                                 typename Traits::UniqueBegin<Sequence>::type, 
-                                 typename Traits::UniqueEnd<Sequence>::type>
+                                 typename Traits::DistinctBegin<Sequence>::type, 
+                                 typename Traits::DistinctEnd<Sequence>::type>
     {
     public:
         template<class T>
@@ -113,10 +113,10 @@ namespace Urasandesu { namespace CppAnonym {
                 Key,
                 Sequence,
                 typename boost::mpl::find<
-                    typename Traits::Unique<Sequence>::type,
+                    typename Traits::Distinct<Sequence>::type,
                     T
                 >::type,
-                typename Traits::UniqueEnd<Sequence>::type
+                typename Traits::DistinctEnd<Sequence>::type
             > type;
         };
 
