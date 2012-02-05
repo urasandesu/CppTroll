@@ -15,6 +15,16 @@ namespace ProfilingApiSample04Framework
         {
             throw new NotImplementedException();
         }
+
+        public bool TryRemove(IndirectionInfo2 info, out TDelegate method)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TDelegate AddOrUpdate(IndirectionInfo2 info, TDelegate method)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public struct IndirectionInfo2

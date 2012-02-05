@@ -23,6 +23,17 @@ namespace ProfilingApiSample04Framework
             return LooseDomain<T>.Instance;
         }
 
+        public static T GetOrRegister<T>(Func<T> instanceGetter) where T : class
+        {
+            var instance = default(T);
+            if ((instance = LooseDomain<T>.InstanceOrDefault) == null)
+            {
+                LooseDomain<T>.Register(instanceGetter);
+                instance = LooseDomain<T>.Instance;
+            }
+            return instance;
+        }
+
         public static bool TryGet<T>(out T instance) where T : class
         {
             instance = LooseDomain<T>.InstanceOrDefault;

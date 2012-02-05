@@ -71,6 +71,9 @@ private:
 
     static std::wstring const MODULE_NAME_OF_MS_COR_LIB;
     static std::wstring const TYPE_NAME_OF_SYSTEM_DATE_TIME_GET_NOW;
+    static std::wstring const TYPE_NAME_OF_SYSTEM_DATE_TIME_GET_NOW_;
+
+    std::auto_ptr<BYTE> m_pDateTimeget_NowBody;
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(ExeWeaver4), CExeWeaver4)

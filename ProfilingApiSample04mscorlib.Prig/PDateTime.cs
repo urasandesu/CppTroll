@@ -15,17 +15,23 @@ namespace System.Prig
                 set
                 {
                     var t = typeof(DateTime);
-                    var info = new IndirectionInfo();
-                    info.m_assemblyName = t.Assembly.FullName;
-                    info.m_typeFullName = t.FullName;
-                    info.m_methodName = "get_Now";
+                    var info = new IndirectionInfo2();
+                    info.AssemblyName = t.Assembly.FullName;
+                    info.TypeFullName = t.FullName;
+                    info.MethodName = "get_Now";
                     if (value == null)
                     {
-                        Indirection.SetFunctionPointer(ref info, IntPtr.Zero);
+                        var holder = default(IndirectionHolder<Func<DateTime>>);
+                        if (LooseDomain.TryGet(out holder))
+                        {
+                            var method = default(Func<DateTime>);
+                            holder.TryRemove(info, out method);
+                        }
                     }
                     else
                     {
-                        Indirection.SetFunctionPointer(ref info, value.Method.MethodHandle.GetFunctionPointer());
+                        var holder = LooseDomain.GetOrRegister(() => IndirectionHolder<Func<DateTime>>.Instance);
+                        holder.AddOrUpdate(info, value);
                     }
                 }
             }
@@ -91,6 +97,43 @@ namespace System.Prig
             ~NowGet()
             {
                 Dispose(false);
+            }
+        }
+    }
+}
+
+namespace System_
+{
+    public struct DateTime
+    {
+        public static System.DateTime Now
+        {
+            get
+            {
+                var holder = default(IndirectionHolder<Func<System.DateTime>>);
+                if (LooseDomain.TryGet(out holder))
+                {
+                    var info = new IndirectionInfo2();
+                    info.AssemblyName = "mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
+                    info.TypeFullName = "System.DateTime";
+                    info.MethodName = "get_Now";
+
+                    var method = default(Func<System.DateTime>);
+                    if (holder.TryGet(info, out method))
+                    {
+                        return method();
+                    }
+                }
+
+                return Now_;
+            }
+        }
+
+        public static System.DateTime Now_
+        {
+            get
+            {
+                return System.DateTime.UtcNow.ToLocalTime();
             }
         }
     }
