@@ -48,10 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppDomainMixin.cs" />
     <Compile Include="CrossDomainDictionary.cs" />
     <Compile Include="IndirectionHolder.cs" />
     <Compile Include="IndirectionInterfaces.cs" />
     <Compile Include="LooseDomain.cs" />
+    <Compile Include="MarshalByRefRunners.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

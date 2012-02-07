@@ -43,6 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IndirectionInterfacesTest.cs" />
+    <Compile Include="MyConsole.cs" />
+    <Compile Include="MyStopwatch.cs" />
+    <Compile Include="MyTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -53,6 +53,50 @@ public:
         static IndirectionManager im;
         return im;
     }
+
+    BOOL TryAdd(LPCWSTR key, void const *pFuncPtr)
+    {
+        using namespace std;
+
+        wstring wkey(key);
+        if (m_funcPtrMap.find(wkey) == m_funcPtrMap.end())
+        {
+            m_funcPtrMap[wkey] = pFuncPtr;
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
+    BOOL TryGet(LPCWSTR key, void const **ppFuncPtr)
+    {
+        using namespace std;
+
+        _ASSERTE(ppFuncPtr != NULL);
+
+        wstring wkey(key);
+        if (m_funcPtrMap.find(wkey) == m_funcPtrMap.end())
+        {
+            *ppFuncPtr = NULL;
+            return FALSE;
+        }
+        else
+        {
+            *ppFuncPtr = m_funcPtrMap[wkey];
+            return TRUE;
+        }
+    }
+
+    void Unload()
+    {
+        m_funcPtrMap.clear();
+    }
+
+private:
+    // Ç±Ç±Ç… boost::unordered_map<std::wstring, void const *> ÇÃÉÅÉìÉoÇ
+    boost::unordered_map<std::wstring, void const *> m_funcPtrMap;
 };
 
 EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionGetFunctionPointer(IndirectionInfo *pInfo, void const **ppFuncPtr)
@@ -117,4 +161,22 @@ EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionSetFunctionPointer(I
     pIndMethodInfo->SetFunctionPointer(pFuncPtr);
 
     return TRUE;
+}
+
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionTryAdd(LPCWSTR key, void const *pFuncPtr)
+{
+    IndirectionManager &ingMngr = IndirectionManager::GetInstance();
+    return ingMngr.TryAdd(key, pFuncPtr);
+}
+
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionTryGet(LPCWSTR key, void const **ppFuncPtr)
+{
+    IndirectionManager &ingMngr = IndirectionManager::GetInstance();
+    return ingMngr.TryGet(key, ppFuncPtr);
+}
+
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(VOID) IndirectionUnload()
+{
+    IndirectionManager &ingMngr = IndirectionManager::GetInstance();
+    ingMngr.Unload();
 }

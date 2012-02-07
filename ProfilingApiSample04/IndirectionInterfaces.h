@@ -19,4 +19,8 @@ struct IndirectionInfo
 EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionGetFunctionPointer(IndirectionInfo *pInfo, void const **ppFuncPtr);
 EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionSetFunctionPointer(IndirectionInfo *pInfo, void const *pFuncPtr);
 
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionTryAdd(LPCWSTR key, void const *pFuncPtr);
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionTryGet(LPCWSTR key, void const **ppFuncPtr);
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(VOID) IndirectionUnload();
+
 #endif  // #ifndef INDIRETIONINTERFACES_H

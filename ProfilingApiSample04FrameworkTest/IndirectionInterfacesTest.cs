@@ -12,6 +12,18 @@ namespace ProfilingApiSample04FrameworkTest
     [TestFixture]
     public class IndirectionInterfacesTest
     {
+        [TestFixtureSetUp]
+        public void FixtureSetUp()
+        {
+            Indirection.Unload();
+        }
+
+        [TestFixtureTearDown]
+        public void FixtureTearDown()
+        {
+            Indirection.Unload();
+        }
+
         [Test]
         public void IndirectionTest01()
         {
@@ -28,6 +40,24 @@ namespace ProfilingApiSample04FrameworkTest
             {
                 var funcPtr = IntPtr.Zero;
                 Assert.IsTrue(Indirection.GetFunctionPointer(ref info, ref funcPtr));
+                Assert.AreEqual(curFuncPtr, funcPtr);
+            }
+        }
+
+
+        [Test]
+        public void IndirectionTest02()
+        {
+            var assemblyQualifiedName = "System.DateTime, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
+            var curFuncPtr = MethodBase.GetCurrentMethod().MethodHandle.GetFunctionPointer();
+
+            {
+                Assert.IsTrue(Indirection.TryAdd(assemblyQualifiedName, curFuncPtr));
+            }
+
+            {
+                var funcPtr = IntPtr.Zero;
+                Assert.IsTrue(Indirection.TryGet(assemblyQualifiedName, out funcPtr));
                 Assert.AreEqual(curFuncPtr, funcPtr);
             }
         }

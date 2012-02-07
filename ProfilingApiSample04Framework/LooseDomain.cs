@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
-using InstanceGetters = ProfilingApiSample04Framework.CrossDomainDictionary<System.Type, System.IntPtr>;
 
 namespace ProfilingApiSample04Framework
 {
@@ -61,13 +60,13 @@ namespace ProfilingApiSample04Framework
                                             "static method.");
 
             var funcPtr = method.MethodHandle.GetFunctionPointer();
-            InstanceGetters.Instance.AddIfNotExist(typeof(T), funcPtr);
+            Indirection.TryAdd(typeof(T).AssemblyQualifiedName, funcPtr);
         }
 
         static T GetInstance()
         {
-            var funcPtr = InstanceGetters.Instance.GetIfExist(typeof(T));
-            if (funcPtr == default(IntPtr))
+            var funcPtr = default(IntPtr);
+            if (!Indirection.TryGet(typeof(T).AssemblyQualifiedName, out funcPtr))
                 throw new InvalidOperationException("The instance getter of T has not been " +
                             "registered yet. Please call the method Register and give a " +
                             "instance getter to it.");
@@ -77,8 +76,8 @@ namespace ProfilingApiSample04Framework
 
         static bool TryGetInstance(out T instance)
         {
-            var funcPtr = InstanceGetters.Instance.GetIfExist(typeof(T));
-            if (funcPtr == default(IntPtr))
+            var funcPtr = default(IntPtr);
+            if (!Indirection.TryGet(typeof(T).AssemblyQualifiedName, out funcPtr))
             {
                 instance = null;
                 return false;
@@ -164,7 +163,7 @@ namespace ProfilingApiSample04Framework
                 {
                     if (ms_ready)
                     {
-                        InstanceGetters.Unload();
+                        Indirection.Unload();
                         ms_instance = null;
                         Thread.MemoryBarrier();
                         ms_ready = false;
