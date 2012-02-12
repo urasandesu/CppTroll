@@ -94,7 +94,7 @@
     <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\Profiling\DefaultInfoProfilingApi.cpp" />
     <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\StackFrame.cpp" />
     <ClCompile Include="..\ProfilingApiSample04\Urasandesu\CppAnonym\StackTrace.cpp" />
-    <ClCompile Include="IndirectionInterfacesTest.cpp" />
+    <ClCompile Include="InstanceGettersTest.cpp" />
     <ClCompile Include="ProfilingApiSample04Test.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

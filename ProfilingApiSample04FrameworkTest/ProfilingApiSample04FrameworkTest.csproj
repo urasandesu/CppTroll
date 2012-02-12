@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IndirectionInterfacesTest.cs" />
+    <Compile Include="InstanceGettersTest.cs" />
     <Compile Include="MyConsole.cs" />
     <Compile Include="MyStopwatch.cs" />
     <Compile Include="MyTestFixture.cs" />

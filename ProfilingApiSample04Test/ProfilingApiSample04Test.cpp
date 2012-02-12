@@ -21,7 +21,7 @@ namespace {
         using namespace boost;
 
 #if 1        
-        mdToken mdt = 0x0200000A;
+        mdToken mdt = 0x02000009;
         BYTE pData[4] = { 0 };
         ULONG dataSize = 0;
         

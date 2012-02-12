@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-#include "IndirectionInterfaces.h"
+#include "InstanceGetters.h"
 #include "GlobalSafeDictionary.h"
 
 typedef GlobalSafeDictionary<std::wstring, void const *> InstanceGetters;

@@ -4,7 +4,7 @@
 #include "ExeWeaver4.h"
 
 //#define OUTPUT_VERBOSE
-#define OUTPUT_DEBUG
+//#define OUTPUT_DEBUG
 
 #ifdef OUTPUT_VERBOSE
 #define V_WCOUT(s) std::wcout << s << std::endl
@@ -313,7 +313,7 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
                 2,                              // ParamCount: 2
                 ELEMENT_TYPE_BOOLEAN,           // RetType: bool
                 ELEMENT_TYPE_VALUETYPE,         // Param: VALUETYPE
-                0x28,                           //        TypeDef: 0x0200000A(ProfilingApiSample04Framework.IndirectionInfo)
+                0x24,                           //        TypeDef: 0x02000009(ProfilingApiSample04Framework.IndirectionInfo)
                 ELEMENT_TYPE_BYREF,             //        BYREF
                 ELEMENT_TYPE_VAR,               //        VAR
                 0                               //        Generic Parameter Index: 0

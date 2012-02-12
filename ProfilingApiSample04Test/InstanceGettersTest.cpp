@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
-#ifndef INDIRETIONINTERFACES_H
-#include <IndirectionInterfaces.h>
+#ifndef INSTANCEGETTERS_H
+#include <InstanceGetters.h>
 #endif
 
 namespace {
