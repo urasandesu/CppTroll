@@ -8,5 +8,6 @@ EXPORTS
 	DllRegisterServer	PRIVATE
 	DllUnregisterServer	PRIVATE
 	DllInstall		PRIVATE
-	IndirectionGetFunctionPointer
-	IndirectionSetFunctionPointer
+	InstanceGettersTryAdd
+	InstanceGettersTryGet
+	InstanceGettersUnload

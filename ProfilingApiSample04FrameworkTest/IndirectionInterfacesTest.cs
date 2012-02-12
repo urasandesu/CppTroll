@@ -15,34 +15,36 @@ namespace ProfilingApiSample04FrameworkTest
         [TestFixtureSetUp]
         public void FixtureSetUp()
         {
-            Indirection.Unload();
+            InstanceGetters.Unload();
+            //Indirection.Unload();
         }
 
         [TestFixtureTearDown]
         public void FixtureTearDown()
         {
-            Indirection.Unload();
+            InstanceGetters.Unload();
+            //Indirection.Unload();
         }
 
-        [Test]
-        public void IndirectionTest01()
-        {
-            var info = new IndirectionInfo();
-            info.m_assemblyName = "mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=x86";
-            info.m_typeFullName = "System.DateTime";
-            info.m_methodName = "get_Now";
-            var curFuncPtr = MethodBase.GetCurrentMethod().MethodHandle.GetFunctionPointer();
+        //[Test]
+        //public void IndirectionTest01()
+        //{
+        //    var info = new IndirectionInfo();
+        //    info.m_assemblyName = "mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=x86";
+        //    info.m_typeFullName = "System.DateTime";
+        //    info.m_methodName = "get_Now";
+        //    var curFuncPtr = MethodBase.GetCurrentMethod().MethodHandle.GetFunctionPointer();
 
-            {
-                Assert.IsTrue(Indirection.SetFunctionPointer(ref info, curFuncPtr));
-            }
+        //    {
+        //        Assert.IsTrue(Indirection.SetFunctionPointer(ref info, curFuncPtr));
+        //    }
 
-            {
-                var funcPtr = IntPtr.Zero;
-                Assert.IsTrue(Indirection.GetFunctionPointer(ref info, ref funcPtr));
-                Assert.AreEqual(curFuncPtr, funcPtr);
-            }
-        }
+        //    {
+        //        var funcPtr = IntPtr.Zero;
+        //        Assert.IsTrue(Indirection.GetFunctionPointer(ref info, ref funcPtr));
+        //        Assert.AreEqual(curFuncPtr, funcPtr);
+        //    }
+        //}
 
 
         [Test]
@@ -52,12 +54,12 @@ namespace ProfilingApiSample04FrameworkTest
             var curFuncPtr = MethodBase.GetCurrentMethod().MethodHandle.GetFunctionPointer();
 
             {
-                Assert.IsTrue(Indirection.TryAdd(assemblyQualifiedName, curFuncPtr));
+                Assert.IsTrue(InstanceGetters.TryAdd(assemblyQualifiedName, curFuncPtr));
             }
 
             {
                 var funcPtr = IntPtr.Zero;
-                Assert.IsTrue(Indirection.TryGet(assemblyQualifiedName, out funcPtr));
+                Assert.IsTrue(InstanceGetters.TryGet(assemblyQualifiedName, out funcPtr));
                 Assert.AreEqual(curFuncPtr, funcPtr);
             }
         }

@@ -60,13 +60,13 @@ namespace ProfilingApiSample04Framework
                                             "static method.");
 
             var funcPtr = method.MethodHandle.GetFunctionPointer();
-            Indirection.TryAdd(typeof(T).AssemblyQualifiedName, funcPtr);
+            InstanceGetters.TryAdd(typeof(T).AssemblyQualifiedName, funcPtr);
         }
 
         static T GetInstance()
         {
             var funcPtr = default(IntPtr);
-            if (!Indirection.TryGet(typeof(T).AssemblyQualifiedName, out funcPtr))
+            if (!InstanceGetters.TryGet(typeof(T).AssemblyQualifiedName, out funcPtr))
                 throw new InvalidOperationException("The instance getter of T has not been " +
                             "registered yet. Please call the method Register and give a " +
                             "instance getter to it.");
@@ -77,7 +77,7 @@ namespace ProfilingApiSample04Framework
         static bool TryGetInstance(out T instance)
         {
             var funcPtr = default(IntPtr);
-            if (!Indirection.TryGet(typeof(T).AssemblyQualifiedName, out funcPtr))
+            if (!InstanceGetters.TryGet(typeof(T).AssemblyQualifiedName, out funcPtr))
             {
                 instance = null;
                 return false;
@@ -163,7 +163,7 @@ namespace ProfilingApiSample04Framework
                 {
                     if (ms_ready)
                     {
-                        Indirection.Unload();
+                        InstanceGetters.Unload();
                         ms_instance = null;
                         Thread.MemoryBarrier();
                         ms_ready = false;

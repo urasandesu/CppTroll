@@ -14,15 +14,14 @@ namespace {
     // 
     // ProfilingApiSample04Test.exe --gtest_filter=ProfilingApiSample04TestSuite.ProfilingApiSample04Test
     // 
-    // "C:\Program Files (x86)\NUnit 2.5.10\bin\net-2.0\nunit-console-x86.exe" "C:\Users\Akira\CppTroll\ProfilingApiSample04FrameworkTest.nunit"
-    // "C:\Program Files (x86)\NUnit 2.5.10\bin\net-2.0\nunit-console-x86.exe" "C:\Users\Akira\CppTroll\Debug\ProfilingApiSample04TargetTest.dll"
+    // "C:\Program Files (x86)\NUnit 2.5.10\bin\net-2.0\nunit-console-x86.exe" ProfilingApiSample04TargetTest.dll /domain=None
     TEST(ProfilingApiSample04TestSuite, ProfilingApiSample04Test)
     {
         using namespace std;
         using namespace boost;
 
 #if 1        
-        mdToken mdt = 0x02000009;
+        mdToken mdt = 0x0200000A;
         BYTE pData[4] = { 0 };
         ULONG dataSize = 0;
         

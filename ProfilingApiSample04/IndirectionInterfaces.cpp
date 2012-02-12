@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "IndirectionInterfaces.h"
 
+#if 0
 #ifndef URASANDESU_CPPANONYM_HEAPPROVIDER_H
 #include <Urasandesu/CppAnonym/HeapProvider.h>
 #endif
@@ -41,6 +42,7 @@ class IndirectionAssemblyInfo :
 public:
     typedef type_decided_by<IndirectionTypeInfo>::type indirection_type_heap;
 };
+
 
 class IndirectionManager :
     public Urasandesu::CppAnonym::HeapProvider<std::wstring, boost::mpl::vector<IndirectionAssemblyInfo> >
@@ -98,7 +100,90 @@ private:
     // Ç±Ç±Ç… boost::unordered_map<std::wstring, void const *> ÇÃÉÅÉìÉoÇ
     boost::unordered_map<std::wstring, void const *> m_funcPtrMap;
 };
+#endif
 
+template<
+    typename Key, 
+    typename Value, 
+    typename Hash = boost::hash<Key>, 
+    typename Pred = std::equal_to<Key>, 
+    typename Alloc = std::allocator<std::pair<Key const, Value>> 
+> 
+class GlobalSafeDictionary : boost::noncopyable
+{
+public:
+    typedef typename boost::call_traits<Key>::param_type in_key_type;
+    typedef typename boost::call_traits<Value>::param_type in_value_type;
+    typedef typename boost::call_traits<Value>::reference out_value_type;
+
+    static GlobalSafeDictionary &GetInstance()
+    {
+        static GlobalSafeDictionary im;
+        return im;
+    }
+
+    BOOL TryAdd(in_key_type key, in_value_type value)
+    {
+        m_lock.Lock();
+        BOOST_SCOPE_EXIT((&m_lock))
+        {
+            m_lock.Unlock();
+        }
+        BOOST_SCOPE_EXIT_END
+
+
+        if (m_map.find(key) == m_map.end())
+        {
+            m_map[key] = value;
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
+    BOOL TryGet(in_key_type key, out_value_type rValue)
+    {
+        m_lock.Lock();
+        BOOST_SCOPE_EXIT((&m_lock))
+        {
+            m_lock.Unlock();
+        }
+        BOOST_SCOPE_EXIT_END
+
+
+        if (m_map.find(key) == m_map.end())
+        {
+            return FALSE;
+        }
+        else
+        {
+            rValue = m_map[key];
+            return TRUE;
+        }
+    }
+
+    void Unload()
+    {
+        m_lock.Lock();
+        BOOST_SCOPE_EXIT((&m_lock))
+        {
+            m_lock.Unlock();
+        }
+        BOOST_SCOPE_EXIT_END
+
+        
+        m_map.clear();
+    }
+
+private:
+    GlobalSafeDictionary() { }
+    ATL::CComAutoCriticalSection m_lock;
+    boost::unordered_map<Key, Value, Hash, Pred, Alloc> m_map;
+};
+
+#if 0
 EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionGetFunctionPointer(IndirectionInfo *pInfo, void const **ppFuncPtr)
 {
     using namespace boost;
@@ -162,21 +247,25 @@ EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionSetFunctionPointer(I
 
     return TRUE;
 }
+#endif
 
-EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionTryAdd(LPCWSTR key, void const *pFuncPtr)
+typedef GlobalSafeDictionary<std::wstring, void const *> InstanceGetters;
+
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) InstanceGettersTryAdd(LPCWSTR key, void const *pFuncPtr)
 {
-    IndirectionManager &ingMngr = IndirectionManager::GetInstance();
-    return ingMngr.TryAdd(key, pFuncPtr);
+    InstanceGetters &ing = InstanceGetters::GetInstance();
+    return ing.TryAdd(std::wstring(key), pFuncPtr);
 }
 
-EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) IndirectionTryGet(LPCWSTR key, void const **ppFuncPtr)
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) InstanceGettersTryGet(LPCWSTR key, void const **ppFuncPtr)
 {
-    IndirectionManager &ingMngr = IndirectionManager::GetInstance();
-    return ingMngr.TryGet(key, ppFuncPtr);
+    _ASSERTE(ppFuncPtr != NULL);
+    InstanceGetters &ing = InstanceGetters::GetInstance();
+    return ing.TryGet(std::wstring(key), *ppFuncPtr);
 }
 
-EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(VOID) IndirectionUnload()
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(VOID) InstanceGettersUnload()
 {
-    IndirectionManager &ingMngr = IndirectionManager::GetInstance();
-    ingMngr.Unload();
+    InstanceGetters &ing = InstanceGetters::GetInstance();
+    ing.Unload();
 }

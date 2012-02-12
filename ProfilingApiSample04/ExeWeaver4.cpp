@@ -32,7 +32,6 @@
 
 std::wstring const CExeWeaver4::MODULE_NAME_OF_MS_COR_LIB = L"mscorlib.dll";
 std::wstring const CExeWeaver4::TYPE_NAME_OF_SYSTEM_DATE_TIME_GET_NOW = L"System.DateTime.get_Now";
-std::wstring const CExeWeaver4::TYPE_NAME_OF_SYSTEM_DATE_TIME_GET_NOW_ = L"System.DateTime.get_Now_";
 
 // CExeWeaver4
 HRESULT CExeWeaver4::FinalConstruct()
@@ -315,7 +314,7 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
                 2,                              // ParamCount: 2
                 ELEMENT_TYPE_BOOLEAN,           // RetType: bool
                 ELEMENT_TYPE_VALUETYPE,         // Param: VALUETYPE
-                0x24,                           //        TypeDef: 0x02000009(ProfilingApiSample04Framework.IndirectionInfo2)
+                0x28,                           //        TypeDef: 0x0200000A(ProfilingApiSample04Framework.IndirectionInfo2)
                 ELEMENT_TYPE_BYREF,             //        BYREF
                 ELEMENT_TYPE_VAR,               //        VAR
                 0                               //        Generic Parameter Index: 0
@@ -772,30 +771,8 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
         D_COUT1("Token of MethodSpec for ProfilingApiSample04Framework.LooseDomain.TryGet<ProfilingApiSample04Framework.IndirectionHolder<System.Func<System.DateTime>>>: 0x%|1$08X|", mdmsLooseDomainTryGetIndirectionHolder1Func1DateTime);
 
 
-        //// Add a new record to MethodDef table to perform original action.
-        //mdMethodDef mdmdDateTimeget_Now_ = mdMethodDefNil;
-        //{
-        //    COR_SIGNATURE pSigBlob[] = {
-        //        IMAGE_CEE_CS_CALLCONV_DEFAULT,  // DEFAULT   
-        //        0,                              // ParamCount: 0
-        //        ELEMENT_TYPE_VALUETYPE,         // RetType: VALUETYPE
-        //        0x80,                           //          TypeDef: 0x02000032(System.DateTime)
-        //        0xC8                            // 
-        //    };                                  
-        //    ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
-        //    hr = m_pEmtMSCorLib->DefineMethod(mdtd, L"get_Now_", 
-        //                                 fdPublic | mdHideBySig | mdSpecialName | mdStatic, 
-        //                                 pSigBlob, sigBlobSize, 
-        //                                 0, 0, &mdmdDateTimeget_Now_);
-        //    if (FAILED(hr))
-        //        BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
-        //}
-        //    
-        //D_COUT1("Token of MethodDef for System.DateTime.getNow_: 0x%|1$08X|", mdmdDateTimeget_Now_);
-
-
         
-        // Copy the original method body to MethodDef which is added in the above.
+        // Copy the original method body to add behind indirection process.
         {
             ClassID classId = 0;
             ModuleID modId = 0;
@@ -846,11 +823,13 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
         // Create StandAloneSig records.
         mdSignature mdsDateTimeget_NowLocals = mdSignatureNil;
         {
-#if 1
             COR_SIGNATURE pSigBlob[] = {
                 IMAGE_CEE_CS_CALLCONV_LOCAL_SIG,// LOCAL_SIG   
-                0x03,                           // Count: 3
-                ELEMENT_TYPE_GENERICINST,       // Type[0]: GENERICINST
+                0x04,                           // Count: 4
+                ELEMENT_TYPE_VALUETYPE,         // Type[0]: VALUETYPE
+                0x80,                           //          TypeDef: 0x02000032(System.DateTime)
+                0xC8,
+                ELEMENT_TYPE_GENERICINST,       // Type[1]: GENERICINST
                 ELEMENT_TYPE_CLASS,             //          CLASS
                 0x0D,                           //          TypeRef: 0x01000003(ProfilingApiSample04Framework.IndirectionHolder`1)
                 1,                              //          Generics Arguments Count: 1
@@ -861,9 +840,9 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
                 ELEMENT_TYPE_VALUETYPE,         //          VALUETYPE
                 0x80,                           //          TypeDef: 0x02000032(System.DateTime)
                 0xC8,                           // 
-                ELEMENT_TYPE_VALUETYPE,         // Type[1]: VALUETYPE
+                ELEMENT_TYPE_VALUETYPE,         // Type[2]: VALUETYPE
                 0x11,                           //          TypeRef: 0x01000004(ProfilingApiSample04Framework.IndirectionInfo2)
-                ELEMENT_TYPE_GENERICINST,       // TYPE[2]: GENERICINST
+                ELEMENT_TYPE_GENERICINST,       // TYPE[3]: GENERICINST
                 ELEMENT_TYPE_CLASS,             //          CLASS
                 0x05,                           //          TypeRef: 0x01000001(System.Func`1)
                 1,                              //          Generics Arguments Count: 1
@@ -871,25 +850,6 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
                 0x80,                           //          TypeDef: 0x02000032(System.DateTime)
                 0xC8                            // 
             };                                  
-#endif
-
-#if 0
-            COR_SIGNATURE pSigBlob[] = {
-                IMAGE_CEE_CS_CALLCONV_LOCAL_SIG,// LOCAL_SIG   
-                0x01,                           // Count: 1
-                ELEMENT_TYPE_GENERICINST,       // Type[0]: GENERICINST
-                ELEMENT_TYPE_CLASS,             //          CLASS
-                0x0D,                           //          TypeRef: 0x01000003(ProfilingApiSample04Framework.IndirectionHolder`1)
-                1,                              //          Generics Arguments Count: 1
-                ELEMENT_TYPE_GENERICINST,       //          GENERICINST
-                ELEMENT_TYPE_CLASS,             //          CLASS
-                0x05,                           //          TypeRef: 0x01000001(System.Func`1)
-                1,                              //          Generics Arguments Count: 1
-                ELEMENT_TYPE_VALUETYPE,         //          VALUETYPE
-                0x80,                           //          TypeDef: 0x02000032(System.DateTime)
-                0xC8                            // 
-            };                                  
-#endif
 
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
             hr = m_pEmtMSCorLib->GetTokenFromSig(pSigBlob, sigBlobSize, 
@@ -936,7 +896,6 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
 
 
 
-#if 1
         // Get IMethodMalloc to allocate new method body area.
         {
             ClassID classId = 0;
@@ -955,103 +914,108 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
 
             // Emit the new method body to replace to a delegated process.
             SimpleBlob mbDateTimeget_Body;
-#if 0
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDNULL].byte2);
-            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_STLOC_0].byte2);
+            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_STLOC_1].byte2);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOCA_S].byte2);
-            mbDateTimeget_Body.Put<BYTE>(0x00);
-            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALL].byte2);
-            mbDateTimeget_Body.Put<DWORD>(mdmsLooseDomainTryGetIndirectionHolder1Func1DateTime);
-            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_POP].byte2);
-
-            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALL].byte2);
-            mbDateTimeget_Body.Put<DWORD>(0x060002D3);
-            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_RET].byte2);
-#endif
-#if 1
-            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDNULL].byte2);
-            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_STLOC_0].byte2);
-            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOCA_S].byte2);
-            mbDateTimeget_Body.Put<BYTE>(0x00);
+            mbDateTimeget_Body.Put<BYTE>(0x01);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALL].byte2);
             mbDateTimeget_Body.Put<DWORD>(mdmsLooseDomainTryGetIndirectionHolder1Func1DateTime);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_BRFALSE_S].byte2);
             mbDateTimeget_Body.Put<BYTE>(0x40);
 
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOCA_S].byte2);
-            mbDateTimeget_Body.Put<BYTE>(0x01);
+            mbDateTimeget_Body.Put<BYTE>(0x02);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_INITOBJ].byte1);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_INITOBJ].byte2);
             mbDateTimeget_Body.Put<DWORD>(mdtrIndirectionInfo2);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOCA_S].byte2);
-            mbDateTimeget_Body.Put<BYTE>(0x01);
+            mbDateTimeget_Body.Put<BYTE>(0x02);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDSTR].byte2);
             mbDateTimeget_Body.Put<DWORD>(mdsAssemblyName);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALL].byte2);
             mbDateTimeget_Body.Put<DWORD>(mdmrIndirectionInfo2set_AssemblyName);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOCA_S].byte2);
-            mbDateTimeget_Body.Put<BYTE>(0x01);
+            mbDateTimeget_Body.Put<BYTE>(0x02);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDSTR].byte2);
             mbDateTimeget_Body.Put<DWORD>(mdsTypeFullName);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALL].byte2);
             mbDateTimeget_Body.Put<DWORD>(mdmrIndirectionInfo2set_TypeFullName);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOCA_S].byte2);
-            mbDateTimeget_Body.Put<BYTE>(0x01);
+            mbDateTimeget_Body.Put<BYTE>(0x02);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDSTR].byte2);
             mbDateTimeget_Body.Put<DWORD>(mdsMethodName);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALL].byte2);
             mbDateTimeget_Body.Put<DWORD>(mdmrIndirectionInfo2set_MethodName);
 
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDNULL].byte2);
-            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_STLOC_2].byte2);
-            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOC_0].byte2);
+            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_STLOC_3].byte2);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOC_1].byte2);
+            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOC_2].byte2);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOCA_S].byte2);
-            mbDateTimeget_Body.Put<BYTE>(0x02);
+            mbDateTimeget_Body.Put<BYTE>(0x03);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALLVIRT].byte2);
             mbDateTimeget_Body.Put<DWORD>(mdmrIndirectionHolder1TryGet);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_BRFALSE_S].byte2);
             mbDateTimeget_Body.Put<BYTE>(0x07);
 
-            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOC_2].byte2);
+            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOC_3].byte2);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALLVIRT].byte2);
             mbDateTimeget_Body.Put<DWORD>(mdmrFunc1DateTimeInvoke);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_RET].byte2);
 
-            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALL].byte2);
-            //mbDateTimeget_Body.Put<DWORD>(mdmdDateTimeget_Now_);
-            mbDateTimeget_Body.Put<DWORD>(0x060002D3);
-            mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_RET].byte2);
-#endif
-
-
-            COR_ILMETHOD_FAT fatHeader;
-            ::ZeroMemory(&fatHeader, sizeof(COR_ILMETHOD_FAT));
-            fatHeader.SetMaxStack(3);
-            fatHeader.SetCodeSize(mbDateTimeget_Body.Size());
-            fatHeader.SetLocalVarSigTok(mdsDateTimeget_NowLocals);
-            fatHeader.SetFlags(CorILMethod_InitLocals);
-            //fatHeader.SetLocalVarSigTok(mdTokenNil);
-            //fatHeader.SetFlags(0);
-                
-            unsigned headerSize = COR_ILMETHOD::Size(&fatHeader, false);
-            unsigned totalSize = headerSize + mbDateTimeget_Body.Size();
-
-            BYTE *pNewILFunctionBody = reinterpret_cast<BYTE*>(pMethodMalloc->Alloc(totalSize));
-            BYTE *pBuffer = pNewILFunctionBody;
-
-            pBuffer += COR_ILMETHOD::Emit(headerSize, &fatHeader, false, pBuffer);
-            ::memcpy_s(pBuffer, totalSize - headerSize, mbDateTimeget_Body.Ptr(), 
-                       mbDateTimeget_Body.Size());
-#ifdef OUTPUT_DEBUG
+            // Add the original method body behind indirection process.
             {
-                cout << "New Method Body: ";
-                for (BYTE *i = mbDateTimeget_Body.Ptr(), *i_end = i + mbDateTimeget_Body.Size(); i != i_end; ++i)
-                    cout << format("%|1$02X| ") % static_cast<INT>(*i);
+                COR_ILMETHOD *pILMethod = reinterpret_cast<COR_ILMETHOD *>(m_pDateTimeget_NowBody.get());
+                unsigned headerSize = 0;
+                BYTE *pCode = NULL;
+                unsigned codeSize = 0;
+                if (pILMethod->Fat.IsFat())
+                {
+                    headerSize = sizeof(COR_ILMETHOD_FAT);
+                    pCode = pILMethod->Fat.GetCode();
+                    codeSize = pILMethod->Fat.GetCodeSize();
+                }
+                else
+                {
+                    headerSize = sizeof(COR_ILMETHOD_TINY);
+                    pCode = pILMethod->Tiny.GetCode();
+                    codeSize = pILMethod->Tiny.GetCodeSize();
+                }
 
-                cout << endl;
+                for (BYTE *i = pCode, *i_end = i + codeSize; i != i_end; ++i)
+                    mbDateTimeget_Body.Put<BYTE>(*i);        
             }
+
+
+
+            BYTE *pNewILFunctionBody = NULL;
+            {
+                COR_ILMETHOD_FAT fatHeader;
+                ::ZeroMemory(&fatHeader, sizeof(COR_ILMETHOD_FAT));
+                fatHeader.SetMaxStack(3);
+                fatHeader.SetCodeSize(mbDateTimeget_Body.Size());
+                fatHeader.SetLocalVarSigTok(mdsDateTimeget_NowLocals);
+                fatHeader.SetFlags(CorILMethod_InitLocals);
+                
+                unsigned headerSize = COR_ILMETHOD::Size(&fatHeader, false);
+                unsigned totalSize = headerSize + mbDateTimeget_Body.Size();
+
+                pNewILFunctionBody = reinterpret_cast<BYTE*>(pMethodMalloc->Alloc(totalSize));
+                BYTE *pBuffer = pNewILFunctionBody;
+
+                pBuffer += COR_ILMETHOD::Emit(headerSize, &fatHeader, false, pBuffer);
+                ::memcpy_s(pBuffer, totalSize - headerSize, mbDateTimeget_Body.Ptr(), 
+                           mbDateTimeget_Body.Size());
+#ifdef OUTPUT_DEBUG
+                {
+                    cout << "New Method Body: ";
+                    for (BYTE *i = mbDateTimeget_Body.Ptr(), *i_end = i + mbDateTimeget_Body.Size(); i != i_end; ++i)
+                        cout << format("%|1$02X| ") % static_cast<INT>(*i);
+
+                    cout << endl;
+                }
 #endif
+            }
 
 
 
@@ -1060,11 +1024,6 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
-#endif
-    }
-    else if (methodFullName == TYPE_NAME_OF_SYSTEM_DATE_TIME_GET_NOW_)
-    {
-        BOOST_THROW_EXCEPTION(CppAnonymCOMException(E_FAIL));
     }
 
 

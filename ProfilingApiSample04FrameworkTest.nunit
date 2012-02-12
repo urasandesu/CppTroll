@@ -1,7 +1,7 @@
 ﻿<NUnitProject>
   <Settings activeconfig="Debug" />
-  <Config name="Debug" binpathtype="Auto">
-    <assembly path="Debug\ProfilingApiSample04FrameworkTest.dll" />
+  <Config name="Debug" appbase="Debug" binpathtype="Auto">
+    <assembly path="ProfilingApiSample04FrameworkTest.dll" />
   </Config>
   <Config name="Release" binpathtype="Auto" />
 </NUnitProject>
