@@ -264,6 +264,9 @@
     <ClInclude Include="Urasandesu\CppAnonym\Traits\Distinct.h">
       <Filter>ヘッダー ファイル\Urasandesu\CppAnonym\Traits</Filter>
     </ClInclude>
+    <ClInclude Include="GlobalSafeDictionary.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ProfilingApiSample04.rc">

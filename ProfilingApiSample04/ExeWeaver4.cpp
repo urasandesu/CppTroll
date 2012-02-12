@@ -4,7 +4,7 @@
 #include "ExeWeaver4.h"
 
 //#define OUTPUT_VERBOSE
-//#define OUTPUT_DEBUG
+#define OUTPUT_DEBUG
 
 #ifdef OUTPUT_VERBOSE
 #define V_WCOUT(s) std::wcout << s << std::endl
@@ -50,7 +50,6 @@ HRESULT CExeWeaver4::InitializeCore(
     using namespace Urasandesu::CppAnonym;
     HRESULT hr = E_FAIL;
 
-    //::_CrtDbgBreak();
 
     // Reset the timer.
     m_timer.restart();
@@ -222,12 +221,12 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
         
         D_COUT1("Token of TypeDef for ProfilingApiSample04Framework.IndirectionHolder`1: 0x%|1$08X|", mdtdIndirectionHolder1);
 
-        mdTypeDef mdtdIndirectionInfo2 = mdTypeDefNil;
-        hr = pImpFramework->FindTypeDefByName(L"ProfilingApiSample04Framework.IndirectionInfo2", NULL, &mdtdIndirectionInfo2);
+        mdTypeDef mdtdIndirectionInfo = mdTypeDefNil;
+        hr = pImpFramework->FindTypeDefByName(L"ProfilingApiSample04Framework.IndirectionInfo", NULL, &mdtdIndirectionInfo);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        D_COUT1("Token of TypeDef for ProfilingApiSample04Framework.IndirectionInfo2: 0x%|1$08X|", mdtdIndirectionInfo2);
+        D_COUT1("Token of TypeDef for ProfilingApiSample04Framework.IndirectionInfo: 0x%|1$08X|", mdtdIndirectionInfo);
         
 
 
@@ -253,7 +252,7 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
         
         D_COUT1("Token of MethodDef for ProfilingApiSample04Framework.LooseDomain.TryGet<T>: 0x%|1$08X|", mdmdLooseDomainTryGet);
         
-        mdMethodDef mdmdIndirectionInfo2set_AssemblyName = mdMethodDefNil;
+        mdMethodDef mdmdIndirectionInfoset_AssemblyName = mdMethodDefNil;
         {
             COR_SIGNATURE pSigBlob[] = { 
                 IMAGE_CEE_CS_CALLCONV_HASTHIS,  // HASTHIS
@@ -262,16 +261,16 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
                 ELEMENT_TYPE_STRING             // Param: string
             };
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
-            hr = pImpFramework->FindMethod(mdtdIndirectionInfo2, L"set_AssemblyName", 
-                                              pSigBlob, sigBlobSize, &mdmdIndirectionInfo2set_AssemblyName);            
+            hr = pImpFramework->FindMethod(mdtdIndirectionInfo, L"set_AssemblyName", 
+                                              pSigBlob, sigBlobSize, &mdmdIndirectionInfoset_AssemblyName);            
             
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
         
-        D_COUT1("Token of MethodDef for ProfilingApiSample04Framework.IndirectionInfo2.set_AssemblyName: 0x%|1$08X|", mdmdIndirectionInfo2set_AssemblyName);
+        D_COUT1("Token of MethodDef for ProfilingApiSample04Framework.IndirectionInfo.set_AssemblyName: 0x%|1$08X|", mdmdIndirectionInfoset_AssemblyName);
         
-        mdMethodDef mdmdIndirectionInfo2set_TypeFullName = mdMethodDefNil;
+        mdMethodDef mdmdIndirectionInfoset_TypeFullName = mdMethodDefNil;
         {
             COR_SIGNATURE pSigBlob[] = { 
                 IMAGE_CEE_CS_CALLCONV_HASTHIS,  // HASTHIS
@@ -280,16 +279,16 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
                 ELEMENT_TYPE_STRING             // Param: string
             };
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
-            hr = pImpFramework->FindMethod(mdtdIndirectionInfo2, L"set_TypeFullName", 
-                                              pSigBlob, sigBlobSize, &mdmdIndirectionInfo2set_TypeFullName);            
+            hr = pImpFramework->FindMethod(mdtdIndirectionInfo, L"set_TypeFullName", 
+                                              pSigBlob, sigBlobSize, &mdmdIndirectionInfoset_TypeFullName);            
             
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
         
-        D_COUT1("Token of MethodDef for ProfilingApiSample04Framework.IndirectionInfo2.set_TypeFullName: 0x%|1$08X|", mdmdIndirectionInfo2set_TypeFullName);
+        D_COUT1("Token of MethodDef for ProfilingApiSample04Framework.IndirectionInfo.set_TypeFullName: 0x%|1$08X|", mdmdIndirectionInfoset_TypeFullName);
         
-        mdMethodDef mdmdIndirectionInfo2set_MethodName = mdMethodDefNil;
+        mdMethodDef mdmdIndirectionInfoset_MethodName = mdMethodDefNil;
         {
             COR_SIGNATURE pSigBlob[] = { 
                 IMAGE_CEE_CS_CALLCONV_HASTHIS,  // HASTHIS
@@ -298,14 +297,14 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
                 ELEMENT_TYPE_STRING             // Param: string
             };
             ULONG sigBlobSize = sizeof(pSigBlob) / sizeof(COR_SIGNATURE);
-            hr = pImpFramework->FindMethod(mdtdIndirectionInfo2, L"set_MethodName", 
-                                              pSigBlob, sigBlobSize, &mdmdIndirectionInfo2set_MethodName);            
+            hr = pImpFramework->FindMethod(mdtdIndirectionInfo, L"set_MethodName", 
+                                              pSigBlob, sigBlobSize, &mdmdIndirectionInfoset_MethodName);            
             
             if (FAILED(hr))
                 BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         }
         
-        D_COUT1("Token of MethodDef for ProfilingApiSample04Framework.IndirectionInfo2.set_MethodName: 0x%|1$08X|", mdmdIndirectionInfo2set_MethodName);
+        D_COUT1("Token of MethodDef for ProfilingApiSample04Framework.IndirectionInfo.set_MethodName: 0x%|1$08X|", mdmdIndirectionInfoset_MethodName);
         
         mdMethodDef mdmdIndirectionHolder1TryGet = mdMethodDefNil;
         {
@@ -314,7 +313,7 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
                 2,                              // ParamCount: 2
                 ELEMENT_TYPE_BOOLEAN,           // RetType: bool
                 ELEMENT_TYPE_VALUETYPE,         // Param: VALUETYPE
-                0x28,                           //        TypeDef: 0x0200000A(ProfilingApiSample04Framework.IndirectionInfo2)
+                0x28,                           //        TypeDef: 0x0200000A(ProfilingApiSample04Framework.IndirectionInfo)
                 ELEMENT_TYPE_BYREF,             //        BYREF
                 ELEMENT_TYPE_VAR,               //        VAR
                 0                               //        Generic Parameter Index: 0
@@ -619,12 +618,12 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
         
         D_COUT1("Token of TypeRef for ProfilingApiSample04Framework.IndirectionHolder`1: 0x%|1$08X|", mdtrIndirectionHolder1);
 
-        mdTypeRef mdtrIndirectionInfo2 = mdTypeRefNil;
-        hr = m_pEmtMSCorLib->DefineTypeRefByName(mdarFramework, L"ProfilingApiSample04Framework.IndirectionInfo2", &mdtrIndirectionInfo2);
+        mdTypeRef mdtrIndirectionInfo = mdTypeRefNil;
+        hr = m_pEmtMSCorLib->DefineTypeRefByName(mdarFramework, L"ProfilingApiSample04Framework.IndirectionInfo", &mdtrIndirectionInfo);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        D_COUT1("Token of TypeRef for ProfilingApiSample04Framework.IndirectionInfo2: 0x%|1$08X|", mdtrIndirectionInfo2);
+        D_COUT1("Token of TypeRef for ProfilingApiSample04Framework.IndirectionInfo: 0x%|1$08X|", mdtrIndirectionInfo);
 
 
 
@@ -686,38 +685,38 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
         
         D_COUT1("Token of MemberRef for ProfilingApiSample04Framework.LooseDomain.TryGet<T>: 0x%|1$08X|", mdmrLooseDomainTryGet);
 
-        mdMemberRef mdmrIndirectionInfo2set_AssemblyName = mdMemberRefNil;
+        mdMemberRef mdmrIndirectionInfoset_AssemblyName = mdMemberRefNil;
         hr = m_pEmtMSCorLib->DefineImportMember(pAsmImpFramework, NULL, 0, pImpFramework, 
-                                                mdmdIndirectionInfo2set_AssemblyName, 
+                                                mdmdIndirectionInfoset_AssemblyName, 
                                                 pAsmEmtMSCorLib, 
-                                                mdtrIndirectionInfo2, 
-                                                &mdmrIndirectionInfo2set_AssemblyName);
+                                                mdtrIndirectionInfo, 
+                                                &mdmrIndirectionInfoset_AssemblyName);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        D_COUT1("Token of MemberRef for ProfilingApiSample04Framework.IndirectionInfo2.set_AssemblyName: 0x%|1$08X|", mdmrIndirectionInfo2set_AssemblyName);
+        D_COUT1("Token of MemberRef for ProfilingApiSample04Framework.IndirectionInfo.set_AssemblyName: 0x%|1$08X|", mdmrIndirectionInfoset_AssemblyName);
 
-        mdMemberRef mdmrIndirectionInfo2set_TypeFullName = mdMemberRefNil;
+        mdMemberRef mdmrIndirectionInfoset_TypeFullName = mdMemberRefNil;
         hr = m_pEmtMSCorLib->DefineImportMember(pAsmImpFramework, NULL, 0, pImpFramework, 
-                                                mdmdIndirectionInfo2set_TypeFullName, 
+                                                mdmdIndirectionInfoset_TypeFullName, 
                                                 pAsmEmtMSCorLib, 
-                                                mdtrIndirectionInfo2, 
-                                                &mdmrIndirectionInfo2set_TypeFullName);
+                                                mdtrIndirectionInfo, 
+                                                &mdmrIndirectionInfoset_TypeFullName);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        D_COUT1("Token of MemberRef for ProfilingApiSample04Framework.IndirectionInfo2.set_TypeFullName: 0x%|1$08X|", mdmrIndirectionInfo2set_TypeFullName);
+        D_COUT1("Token of MemberRef for ProfilingApiSample04Framework.IndirectionInfo.set_TypeFullName: 0x%|1$08X|", mdmrIndirectionInfoset_TypeFullName);
 
-        mdMemberRef mdmrIndirectionInfo2set_MethodName = mdMemberRefNil;
+        mdMemberRef mdmrIndirectionInfoset_MethodName = mdMemberRefNil;
         hr = m_pEmtMSCorLib->DefineImportMember(pAsmImpFramework, NULL, 0, pImpFramework, 
-                                                mdmdIndirectionInfo2set_MethodName, 
+                                                mdmdIndirectionInfoset_MethodName, 
                                                 pAsmEmtMSCorLib, 
-                                                mdtrIndirectionInfo2, 
-                                                &mdmrIndirectionInfo2set_MethodName);
+                                                mdtrIndirectionInfo, 
+                                                &mdmrIndirectionInfoset_MethodName);
         if (FAILED(hr))
             BOOST_THROW_EXCEPTION(CppAnonymCOMException(hr));
         
-        D_COUT1("Token of MemberRef for ProfilingApiSample04Framework.IndirectionInfo2.set_MethodName: 0x%|1$08X|", mdmrIndirectionInfo2set_MethodName);
+        D_COUT1("Token of MemberRef for ProfilingApiSample04Framework.IndirectionInfo.set_MethodName: 0x%|1$08X|", mdmrIndirectionInfoset_MethodName);
 
         mdMemberRef mdmrIndirectionHolder1TryGet = mdMemberRefNil;
         hr = m_pEmtMSCorLib->DefineImportMember(pAsmImpFramework, NULL, 0, pImpFramework, 
@@ -841,7 +840,7 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
                 0x80,                           //          TypeDef: 0x02000032(System.DateTime)
                 0xC8,                           // 
                 ELEMENT_TYPE_VALUETYPE,         // Type[2]: VALUETYPE
-                0x11,                           //          TypeRef: 0x01000004(ProfilingApiSample04Framework.IndirectionInfo2)
+                0x11,                           //          TypeRef: 0x01000004(ProfilingApiSample04Framework.IndirectionInfo)
                 ELEMENT_TYPE_GENERICINST,       // TYPE[3]: GENERICINST
                 ELEMENT_TYPE_CLASS,             //          CLASS
                 0x05,                           //          TypeRef: 0x01000001(System.Func`1)
@@ -927,25 +926,25 @@ HRESULT CExeWeaver4::JITCompilationStartedCore(
             mbDateTimeget_Body.Put<BYTE>(0x02);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_INITOBJ].byte1);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_INITOBJ].byte2);
-            mbDateTimeget_Body.Put<DWORD>(mdtrIndirectionInfo2);
+            mbDateTimeget_Body.Put<DWORD>(mdtrIndirectionInfo);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOCA_S].byte2);
             mbDateTimeget_Body.Put<BYTE>(0x02);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDSTR].byte2);
             mbDateTimeget_Body.Put<DWORD>(mdsAssemblyName);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALL].byte2);
-            mbDateTimeget_Body.Put<DWORD>(mdmrIndirectionInfo2set_AssemblyName);
+            mbDateTimeget_Body.Put<DWORD>(mdmrIndirectionInfoset_AssemblyName);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOCA_S].byte2);
             mbDateTimeget_Body.Put<BYTE>(0x02);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDSTR].byte2);
             mbDateTimeget_Body.Put<DWORD>(mdsTypeFullName);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALL].byte2);
-            mbDateTimeget_Body.Put<DWORD>(mdmrIndirectionInfo2set_TypeFullName);
+            mbDateTimeget_Body.Put<DWORD>(mdmrIndirectionInfoset_TypeFullName);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDLOCA_S].byte2);
             mbDateTimeget_Body.Put<BYTE>(0x02);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDSTR].byte2);
             mbDateTimeget_Body.Put<DWORD>(mdsMethodName);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_CALL].byte2);
-            mbDateTimeget_Body.Put<DWORD>(mdmrIndirectionInfo2set_MethodName);
+            mbDateTimeget_Body.Put<DWORD>(mdmrIndirectionInfoset_MethodName);
 
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_LDNULL].byte2);
             mbDateTimeget_Body.Put<BYTE>(OpCodes::Encodings[OpCodes::CEE_STLOC_3].byte2);

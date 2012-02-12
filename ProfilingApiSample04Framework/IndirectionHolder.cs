@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ProfilingApiSample04Framework
 {
@@ -13,7 +10,7 @@ namespace ProfilingApiSample04Framework
 
         Dictionary<string, TDelegate> m_dict = new Dictionary<string, TDelegate>();
 
-        public bool TryGet(IndirectionInfo2 info, out TDelegate method)
+        public bool TryGet(IndirectionInfo info, out TDelegate method)
         {
             var key = info.AssemblyName + ", " + info.TypeFullName + ", " + info.MethodName;
             if (m_dict.ContainsKey(key))
@@ -28,7 +25,7 @@ namespace ProfilingApiSample04Framework
             }
         }
 
-        public bool TryRemove(IndirectionInfo2 info, out TDelegate method)
+        public bool TryRemove(IndirectionInfo info, out TDelegate method)
         {
             var key = info.AssemblyName + ", " + info.TypeFullName + ", " + info.MethodName;
             if (m_dict.ContainsKey(key))
@@ -44,7 +41,7 @@ namespace ProfilingApiSample04Framework
             }
         }
 
-        public TDelegate AddOrUpdate(IndirectionInfo2 info, TDelegate method)
+        public TDelegate AddOrUpdate(IndirectionInfo info, TDelegate method)
         {
             var key = info.AssemblyName + ", " + info.TypeFullName + ", " + info.MethodName;
             if (m_dict.ContainsKey(key))
@@ -57,12 +54,5 @@ namespace ProfilingApiSample04Framework
             }
             return method;
         }
-    }
-
-    public struct IndirectionInfo2
-    {
-        public string AssemblyName { get; set; }
-        public string TypeFullName { get; set; }
-        public string MethodName { get; set; }
     }
 }

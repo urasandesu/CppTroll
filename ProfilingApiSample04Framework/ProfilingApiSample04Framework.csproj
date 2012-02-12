@@ -51,6 +51,7 @@
     <Compile Include="AppDomainMixin.cs" />
     <Compile Include="CrossDomainDictionary.cs" />
     <Compile Include="IndirectionHolder.cs" />
+    <Compile Include="IndirectionInfo.cs" />
     <Compile Include="IndirectionInterfaces.cs" />
     <Compile Include="LooseDomain.cs" />
     <Compile Include="MarshalByRefRunners.cs" />

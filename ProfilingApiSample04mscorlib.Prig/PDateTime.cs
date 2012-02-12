@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ProfilingApiSample04Framework;
+﻿using ProfilingApiSample04Framework;
 
 namespace System.Prig
 {
@@ -15,7 +11,7 @@ namespace System.Prig
                 set
                 {
                     var t = typeof(DateTime);
-                    var info = new IndirectionInfo2();
+                    var info = new IndirectionInfo();
                     info.AssemblyName = t.Assembly.FullName;
                     info.TypeFullName = t.FullName;
                     info.MethodName = "get_Now";
@@ -97,43 +93,6 @@ namespace System.Prig
             ~NowGet()
             {
                 Dispose(false);
-            }
-        }
-    }
-}
-
-namespace System_
-{
-    public struct DateTime
-    {
-        public static System.DateTime Now
-        {
-            get
-            {
-                var holder = default(IndirectionHolder<Func<System.DateTime>>);
-                if (LooseDomain.TryGet(out holder))
-                {
-                    var info = new IndirectionInfo2();
-                    info.AssemblyName = "mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
-                    info.TypeFullName = "System.DateTime";
-                    info.MethodName = "get_Now";
-
-                    var method = default(Func<System.DateTime>);
-                    if (holder.TryGet(info, out method))
-                    {
-                        return method();
-                    }
-                }
-
-                return Now_;
-            }
-        }
-
-        public static System.DateTime Now_
-        {
-            get
-            {
-                return System.DateTime.UtcNow.ToLocalTime();
             }
         }
     }

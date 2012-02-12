@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="ExeWeaver4.h" />
+    <ClInclude Include="GlobalSafeDictionary.h" />
     <ClInclude Include="IndirectionInterfaces.h" />
     <ClInclude Include="ProfilingApiSample04_i.h" />
     <ClInclude Include="Resource.h" />
