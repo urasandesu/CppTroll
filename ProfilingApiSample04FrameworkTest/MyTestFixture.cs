@@ -33,10 +33,6 @@ namespace ProfilingApiSample04FrameworkTest
         [Test]
         public void Test()
         {
-            // ラムダ式の例・・・
-            // 前回出てきた AppDomainMixin.RunAtIsolatedDomain シリーズですが、
-            // わざわざ渡されたデリゲートについて、static メソッドかどうかチェックしています。
-            // ・・・みたいな形で話つなげたほうがいいか。
             using (var sw = new StringWriter())
             {
                 LooseStopwatch.Instance.Source().Restart();
@@ -47,6 +43,11 @@ namespace ProfilingApiSample04FrameworkTest
                 {
                     sw_.WriteLine("Elapsed: {0} ms", LooseStopwatch.Instance.Source().ElapsedMilliseconds);
                 }, sw);
+
+                AppDomain.CurrentDomain.RunAtIsolatedDomain<StringWriter, Stopwatch>((sw_, s) =>
+                {
+                    sw_.WriteLine("Elapsed: {0} ms", s.ElapsedMilliseconds);
+                }, sw, new Stopwatch());
 
                 sw.WriteLine("Elapsed: {0} ms", LooseStopwatch.Instance.Source().ElapsedMilliseconds);
 
@@ -104,57 +105,4 @@ namespace ProfilingApiSample04FrameworkTest
             LooseConsole.Instance.Source().WriteLine("AppDomain: {0}", AppDomain.CurrentDomain.FriendlyName);
         }
     }
-
-    //[TestFixture]
-    //public class MyTestFixture
-    //{
-    //    [TestFixtureSetUp]
-    //    public void MyTestFixtureSetUp()
-    //    {
-    //        MyConsole.Unload();
-    //        LooseDomain<MyStopwatch>.Unload();
-    //        LooseDomain<MyStopwatch>.Register(() => MyStopwatch.Instance);
-    //    }
-
-    //    [TestFixtureTearDown]
-    //    public void MyTestFixtureTearDown()
-    //    {
-    //        MyConsole.Unload();
-    //        LooseDomain<MyStopwatch>.Unload();
-    //    }
-
-    //    [Test]
-    //    public void MyTest()
-    //    {
-    //        MyConsole.Out.WriteLine("Hello, World!!");
-    //        MyConsole.Out.WriteLine("Hello, World!!");
-    //        //MyConsole.Out.WriteLine("AppDomain: {0}", AppDomain.CurrentDomain.FriendlyName);
-
-    //        //LooseDomain<MyStopwatch>.Instance.Restart();
-    //        //MyConsole.Out.WriteLine("Elapsed: {0} ms", LooseDomain<MyStopwatch>.Instance.ElapsedMilliseconds);
-    //        AppDomain.CurrentDomain.RunAtIsolatedDomain(() =>
-    //        {
-    //            MyConsole.Out.WriteLine("Hello, World!!");
-    //            //MyConsole.Out.WriteLine("AppDomain: {0}", AppDomain.CurrentDomain.FriendlyName);
-    //            //MyConsole.Out.WriteLine("Elapsed: {0} ms", LooseDomain<MyStopwatch>.Instance.ElapsedMilliseconds);
-
-    //            //LooseDomain<MyStopwatch>.Instance.Restart();
-    //        });
-    //        //MyConsole.Out.WriteLine("AppDomain: {0}", AppDomain.CurrentDomain.FriendlyName);
-    //        //MyConsole.Out.WriteLine("Elapsed: {0} ms", LooseDomain<MyStopwatch>.Instance.ElapsedMilliseconds);
-
-    //        //LooseDomain<MyStopwatch>.Instance.Restart();
-    //        MyConsole.Out.WriteLine("Hello, World!!");
-    //        //MyConsole.Out.WriteLine("Elapsed: {0} ms", LooseDomain<MyStopwatch>.Instance.ElapsedMilliseconds);
-
-    //        // ***** Test.Urasandesu.NTroll.DomainFree.MyTestFixture.MyTest
-    //        // AppDomain: test-domain-Test.Urasandesu.NTroll.DomainFree.nunit
-    //        // Elapsed: 0 ms
-    //        // AppDomain: Domain Void <MyTest>b__2()
-    //        // Elapsed: 78 ms
-    //        // AppDomain: test-domain-Test.Urasandesu.NTroll.DomainFree.nunit
-    //        // Elapsed: 1 ms
-    //        // Elapsed: 0 ms
-    //    }
-    //}
 }
