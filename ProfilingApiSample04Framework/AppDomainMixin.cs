@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Policy;
 
 namespace ProfilingApiSample04Framework
@@ -9,6 +10,7 @@ namespace ProfilingApiSample04Framework
         {
             if (source == null)
                 throw new ArgumentNullException("source");
+            
             RunAtIsolatedDomain(source.Evidence, source.SetupInformation, action);
         }
 
@@ -16,6 +18,7 @@ namespace ProfilingApiSample04Framework
         {
             if (source == null)
                 throw new ArgumentNullException("source");
+            
             RunAtIsolatedDomain(securityInfo, source.SetupInformation, action);
         }
 
@@ -23,27 +26,66 @@ namespace ProfilingApiSample04Framework
         {
             if (source == null)
                 throw new ArgumentNullException("source");
+            
             RunAtIsolatedDomain(source.Evidence, info, action);
         }
 
         public static void RunAtIsolatedDomain(Evidence securityInfo, AppDomainSetup info, Action action)
         {
+            RunAtIsolatedDomain(securityInfo, info, (Delegate)action);
+        }
+
+        public static void RunAtIsolatedDomain<T>(this AppDomain source, Action<T> action, T arg)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+            
+            RunAtIsolatedDomain<T>(source.Evidence, source.SetupInformation, action, arg);
+        }
+
+        public static void RunAtIsolatedDomain<T>(this AppDomain source, Evidence securityInfo, Action<T> action, T arg)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+            
+            RunAtIsolatedDomain<T>(securityInfo, source.SetupInformation, action, arg);
+        }
+
+        public static void RunAtIsolatedDomain<T>(this AppDomain source, AppDomainSetup info, Action<T> action, T arg)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+            
+            RunAtIsolatedDomain<T>(source.Evidence, info, action, arg);
+        }
+
+        public static void RunAtIsolatedDomain<T>(Evidence securityInfo, AppDomainSetup info, Action<T> action, T arg)
+        {
+            RunAtIsolatedDomain(securityInfo, info, (Delegate)action, arg);
+        }
+
+        static void RunAtIsolatedDomain(Evidence securityInfo, AppDomainSetup info, Delegate action, params object[] args)
+        {
             if (action == null)
                 throw new ArgumentNullException("action");
+            
             if (!action.Method.IsStatic)
-                throw new ArgumentException("The parameter must be the reference of a " +
-                                            "static method.", "action");
+                throw new ArgumentException("The parameter must be designated a static method.", "action");
 
+            if (args != null && 0 < args.Length && !args.All(IsDomainCrossable))
+                throw new ArgumentException("The parameter must inherit MarshalByRefObject, or must be applied SerializableAttribute.");
+
+            
             var domain = default(AppDomain);
             try
             {
                 domain = AppDomain.CreateDomain("Domain " + action.Method.ToString(),
                                                securityInfo, info);
-                var type = typeof(MarshalByRefAction);
-                var runner = (MarshalByRefAction)domain.CreateInstanceAndUnwrap(
+                var type = typeof(MarshalByRefRunner);
+                var runner = (MarshalByRefRunner)domain.CreateInstanceAndUnwrap(
                                                   type.Assembly.FullName, type.FullName);
                 runner.Action = action;
-                runner.Run();
+                runner.Run(args);
             }
             finally
             {
@@ -55,5 +97,11 @@ namespace ProfilingApiSample04Framework
                 catch { }
             }
         }
+
+        readonly static Func<object, bool> IsDomainCrossable = 
+                                        o => o is MarshalByRefObject ||
+                                             o.GetType().
+                                               GetCustomAttributes(false).
+                                               Contains(typeof(SerializableAttribute));
     }
 }

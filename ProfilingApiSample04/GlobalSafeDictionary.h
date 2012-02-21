@@ -64,7 +64,29 @@ public:
         }
     }
 
-    void Unload()
+    BOOL TryRemove(in_key_type key, out_value_type rValue)
+    {
+        m_lock.Lock();
+        BOOST_SCOPE_EXIT((&m_lock))
+        {
+            m_lock.Unlock();
+        }
+        BOOST_SCOPE_EXIT_END
+
+
+        if (m_map.find(key) == m_map.end())
+        {
+            return FALSE;
+        }
+        else
+        {
+            rValue = m_map[key];
+            m_map.erase(key);
+            return TRUE;
+        }
+    }
+
+    void Clear()
     {
         m_lock.Lock();
         BOOST_SCOPE_EXIT((&m_lock))

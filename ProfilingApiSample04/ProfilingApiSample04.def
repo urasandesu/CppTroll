@@ -10,4 +10,5 @@ EXPORTS
 	DllInstall		PRIVATE
 	InstanceGettersTryAdd
 	InstanceGettersTryGet
-	InstanceGettersUnload
+	InstanceGettersTryRemove
+	InstanceGettersClear

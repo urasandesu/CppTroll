@@ -50,14 +50,12 @@ namespace ProfilingApiSample04Framework
 
         public static void Register(Func<T> instanceGetter)
         {
-            Register(instanceGetter.Method);
-        }
+            if (instanceGetter == null)
+                throw new ArgumentNullException("instanceGetter");
 
-        public static void Register(MethodInfo method)
-        {
+            var method = instanceGetter.Method;
             if (!method.IsStatic)
-                throw new ArgumentException("The parameter must be the reference of a " +
-                                            "static method.");
+                throw new ArgumentException("The parameter must be designated a static method.");
 
             var funcPtr = method.MethodHandle.GetFunctionPointer();
             InstanceGetters.TryAdd(typeof(T).AssemblyQualifiedName, funcPtr);
@@ -68,7 +66,7 @@ namespace ProfilingApiSample04Framework
             var funcPtr = default(IntPtr);
             if (!InstanceGetters.TryGet(typeof(T).AssemblyQualifiedName, out funcPtr))
                 throw new InvalidOperationException("The instance getter of T has not been " +
-                            "registered yet. Please call the method Register and give a " +
+                            "registered yet. Please call the Register method and give a " +
                             "instance getter to it.");
 
             return GetInstanceCore(funcPtr);
@@ -91,7 +89,7 @@ namespace ProfilingApiSample04Framework
 
         static T GetInstanceCore(IntPtr funcPtr)
         {
-            var instanceGetter = new DynamicMethod("Instantiator", typeof(T), null, typeof(T).Module);
+            var instanceGetter = new DynamicMethod("InstanceGetter", typeof(T), null, typeof(T).Module);
             var gen = instanceGetter.GetILGenerator();
             if (IntPtr.Size == 4)
             {
@@ -126,7 +124,6 @@ namespace ProfilingApiSample04Framework
                         }
                     }
                 }
-                // !! Type is not checked by CLR if a opcode castclass does not exist !!
                 return ms_instance;
             }
         }
@@ -163,7 +160,8 @@ namespace ProfilingApiSample04Framework
                 {
                     if (ms_ready)
                     {
-                        InstanceGetters.Unload();
+                        var funcPtr = default(IntPtr);
+                        InstanceGetters.TryRemove(typeof(T).AssemblyQualifiedName, out funcPtr);
                         ms_instance = null;
                         Thread.MemoryBarrier();
                         ms_ready = false;

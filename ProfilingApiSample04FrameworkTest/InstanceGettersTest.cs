@@ -11,13 +11,13 @@ namespace ProfilingApiSample04FrameworkTest
         [TestFixtureSetUp]
         public void FixtureSetUp()
         {
-            InstanceGetters.Unload();
+            InstanceGetters.Clear();
         }
 
         [TestFixtureTearDown]
         public void FixtureTearDown()
         {
-            InstanceGetters.Unload();
+            InstanceGetters.Clear();
         }
 
         [Test]

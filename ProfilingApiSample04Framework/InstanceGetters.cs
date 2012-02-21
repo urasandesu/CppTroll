@@ -13,7 +13,11 @@ namespace ProfilingApiSample04Framework
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool TryGet([MarshalAs(UnmanagedType.LPWStr)] string key, out IntPtr ppFuncPtr);
 
-        [DllImport("ProfilingApiSample04.dll", EntryPoint = "InstanceGettersUnload")]
-        public static extern void Unload();
+        [DllImport("ProfilingApiSample04.dll", EntryPoint = "InstanceGettersTryRemove")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool TryRemove([MarshalAs(UnmanagedType.LPWStr)] string key, out IntPtr ppFuncPtr);
+
+        [DllImport("ProfilingApiSample04.dll", EntryPoint = "InstanceGettersClear")]
+        public static extern void Clear();
     }
 }

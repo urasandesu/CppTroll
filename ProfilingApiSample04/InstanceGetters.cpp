@@ -17,8 +17,15 @@ EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) InstanceGettersTryGet(LPCWSTR k
     return ing.TryGet(std::wstring(key), *ppFuncPtr);
 }
 
-EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(VOID) InstanceGettersUnload()
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(BOOL) InstanceGettersTryRemove(LPCWSTR key, void const **ppFuncPtr)
+{
+    _ASSERTE(ppFuncPtr != NULL);
+    InstanceGetters &ing = InstanceGetters::GetInstance();
+    return ing.TryRemove(std::wstring(key), *ppFuncPtr);
+}
+
+EXTERN_C URASANDESU_PRIG_API STDMETHODIMP_(VOID) InstanceGettersClear()
 {
     InstanceGetters &ing = InstanceGetters::GetInstance();
-    ing.Unload();
+    ing.Clear();
 }
