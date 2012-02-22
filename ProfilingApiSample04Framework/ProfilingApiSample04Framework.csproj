@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDomainMixin.cs" />
-    <Compile Include="CrossDomainDictionary.cs" />
+    <Compile Include="SingletonHolder.cs" />
     <Compile Include="IndirectionHolder.cs" />
     <Compile Include="IndirectionInfo.cs" />
     <Compile Include="InstanceGetters.cs" />
