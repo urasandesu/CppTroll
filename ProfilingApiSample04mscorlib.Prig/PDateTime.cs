@@ -18,7 +18,7 @@ namespace System.Prig
                     if (value == null)
                     {
                         var holder = default(IndirectionHolder<Func<DateTime>>);
-                        if (LooseDomain.TryGet(out holder))
+                        if (LooseCrossDomainAccessor.TryGet(out holder))
                         {
                             var method = default(Func<DateTime>);
                             holder.TryRemove(info, out method);
@@ -26,7 +26,7 @@ namespace System.Prig
                     }
                     else
                     {
-                        var holder = LooseDomain.GetOrRegister(() => IndirectionHolder<Func<DateTime>>.Instance);
+                        var holder = LooseCrossDomainAccessor.GetOrRegister<IndirectionHolder<Func<DateTime>>>();
                         holder.AddOrUpdate(info, value);
                     }
                 }

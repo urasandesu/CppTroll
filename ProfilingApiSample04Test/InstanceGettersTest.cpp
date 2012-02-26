@@ -16,12 +16,12 @@ namespace {
     protected:
         virtual void SetUp() 
         {
-            InstanceGettersUnload();
+            InstanceGettersClear();
         }
         
         virtual void TearDown()
         {
-            InstanceGettersUnload();
+            InstanceGettersClear();
         }
     };
 
@@ -36,6 +36,7 @@ namespace {
 
         {
             HogePtr pfnHoge = Hoge;
+            void (*pfnHoge2)() = NULL;
             ASSERT_TRUE(InstanceGettersTryAdd(key, pfnHoge) == TRUE);
         }
 

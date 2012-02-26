@@ -1,10 +1,16 @@
-﻿using System;
+﻿//#define SOLUTION
+#define ISSUE
+
+#if _
+#elif SOLUTION
+using System;
 using System.Diagnostics;
 using System.IO;
 using NUnit.Framework;
-using ProfilingApiSample04Framework;
-using LooseStopwatch = ProfilingApiSample04Framework.LooseDomain<ProfilingApiSample04Framework.SingletonHolder<System.Func<System.Diagnostics.Stopwatch>>>;
-using StopwatchHolder = ProfilingApiSample04Framework.SingletonHolder<System.Func<System.Diagnostics.Stopwatch>>;
+using ProfilingApiSample04Framework.Mixin.System;
+using LooseStopwatch = 
+    ProfilingApiSample04Framework.LooseCrossDomainAccessor<
+        ProfilingApiSample04Framework.GenericHolder<System.Diagnostics.Stopwatch>>;
 
 namespace ProfilingApiSample04FrameworkTest
 {
@@ -15,15 +21,14 @@ namespace ProfilingApiSample04FrameworkTest
         public void FixtureSetUp()
         {
             LooseStopwatch.Unload();
-            LooseStopwatch.Register(() => StopwatchHolder.Instance);
-            var s = new Stopwatch();
-            LooseStopwatch.Instance.Source = () => s;
+            LooseStopwatch.Register();
+            LooseStopwatch.Holder.Source = new Stopwatch();
         }
 
         [TestFixtureTearDown]
         public void FixtureTearDown()
         {
-            LooseStopwatch.Instance.Source = null;
+            LooseStopwatch.Holder.Source = null;
             LooseStopwatch.Unload();
         }
 
@@ -32,22 +37,60 @@ namespace ProfilingApiSample04FrameworkTest
         {
             using (var sw = new StringWriter())
             {
-                LooseStopwatch.Instance.Source().Restart();
+                LooseStopwatch.Holder.Source.Restart();
 
-                sw.WriteLine("Elapsed: {0} ms", LooseStopwatch.Instance.Source().ElapsedMilliseconds);
+                sw.WriteLine("Elapsed: {0} ms", LooseStopwatch.Holder.Source.ElapsedMilliseconds);
 
                 AppDomain.CurrentDomain.RunAtIsolatedDomain<StringWriter>(sw_ =>
                 {
-                    sw_.WriteLine("Elapsed: {0} ms", LooseStopwatch.Instance.Source().ElapsedMilliseconds);
+                    sw_.WriteLine("Elapsed: {0} ms", LooseStopwatch.Holder.Source.ElapsedMilliseconds);
                 }, sw);
 
-                sw.WriteLine("Elapsed: {0} ms", LooseStopwatch.Instance.Source().ElapsedMilliseconds);
+                sw.WriteLine("Elapsed: {0} ms", LooseStopwatch.Holder.Source.ElapsedMilliseconds);
 
                 Console.WriteLine(sw.ToString());
             }
         }
     }
+}
+#elif ISSUE
+using System;
+using System.Diagnostics;
+using System.IO;
+using NUnit.Framework;
+using ProfilingApiSample04Framework.Mixin.System;
 
+namespace ProfilingApiSample04FrameworkTest
+{
+    [TestFixture]
+    public class StopwatchTest
+    {
+        [Test]
+        public void Test()
+        {
+            using (var sw = new StringWriter())
+            {
+                var stopwatch = new Stopwatch();
+                stopwatch.Restart();
+
+                sw.WriteLine("Elapsed: {0} ms", stopwatch.ElapsedMilliseconds);
+
+                AppDomain.CurrentDomain.RunAtIsolatedDomain<StringWriter, Stopwatch>((sw_, stopwatch_) =>
+                {
+                    sw_.WriteLine("Elapsed: {0} ms", stopwatch_.ElapsedMilliseconds);
+                }, sw, stopwatch);
+
+                sw.WriteLine("Elapsed: {0} ms", stopwatch.ElapsedMilliseconds);
+
+                Console.WriteLine(sw.ToString());
+            }
+        }
+    }
+}
+#endif
+
+namespace ProfilingApiSample04FrameworkTest
+{
     public static class StopwatchMixin
     {
         public static void Restart(this Stopwatch s)

@@ -2,11 +2,9 @@
 
 namespace ProfilingApiSample04Framework
 {
-    public class IndirectionHolder<TDelegate>
+    public class IndirectionHolder<TDelegate> : InstanceHolder<IndirectionHolder<TDelegate>>
     {
         IndirectionHolder() { }
-        static IndirectionHolder<TDelegate> ms_instance = new IndirectionHolder<TDelegate>();
-        public static IndirectionHolder<TDelegate> Instance { get { return ms_instance; } }
 
         Dictionary<string, TDelegate> m_dict = new Dictionary<string, TDelegate>();
 

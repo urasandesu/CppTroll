@@ -1,8 +1,15 @@
-﻿using System;
+﻿//#define SOLUTION
+//#define ISSUE_2
+#define ISSUE_1
+
+#if _
+#elif SOLUTION
+using System;
 using NUnit.Framework;
-using ProfilingApiSample04Framework;
-using ConsoleHolder = ProfilingApiSample04Framework.SingletonHolder<System.Func<System.IO.TextWriter>>;
-using LooseConsole = ProfilingApiSample04Framework.LooseDomain<ProfilingApiSample04Framework.SingletonHolder<System.Func<System.IO.TextWriter>>>;
+using ProfilingApiSample04Framework.Mixin.System;
+using LooseConsole = 
+    ProfilingApiSample04Framework.LooseCrossDomainAccessor<
+        ProfilingApiSample04Framework.GenericHolder<System.IO.TextWriter>>;
 
 namespace ProfilingApiSample04FrameworkTest
 {
@@ -12,15 +19,14 @@ namespace ProfilingApiSample04FrameworkTest
         [TestFixtureSetUp]
         public void FixtureSetUp()
         {
-            // 境界があいまいな Domain アクセッサに、持ち運ぶ情報を登録。
             LooseConsole.Unload();
-            LooseConsole.Register(() => ConsoleHolder.Instance);
-            var @out = Console.Out;
-            LooseConsole.Instance.Source = () => @out;
+            LooseConsole.Register();
+            LooseConsole.Holder.Source = Console.Out;
 
-            // NUnit GUI が管理するイベントループは書き込み処理毎に別スレッドで回る。
-            // こちら側の AppDomain で登録した処理が AppDomain を越えてから 
-            // JIT されないようにするための事前呼び出し。
+            // Pre-call to run the action that was registered in this AppDomain, 
+            // not in other AppDomain but in this AppDomain.
+            // Because the event loop that is managed by NUnit GUI - contains calling 
+            // Write or WriteLine method - runs in other thread. 
             Console.Write(string.Empty);
             Console.Out.Flush();
         }
@@ -28,22 +34,65 @@ namespace ProfilingApiSample04FrameworkTest
         [TestFixtureTearDown]
         public void FixtureTearDown()
         {
-            // 境界があいまいな Domain アクセッサから持ち運ぶ情報削除。
-            LooseConsole.Instance.Source = null;
+            LooseConsole.Holder.Source = null;
             LooseConsole.Unload();
         }
 
         [Test]
         public void Test()
         {
-            LooseConsole.Instance.Source().WriteLine("AppDomain: {0}", AppDomain.CurrentDomain.FriendlyName);
+            LooseConsole.Holder.Source.WriteLine("AppDomain: {0}", 
+                                                   AppDomain.CurrentDomain.FriendlyName);
 
             AppDomain.CurrentDomain.RunAtIsolatedDomain(() =>
             {
-                LooseConsole.Instance.Source().WriteLine("AppDomain: {0}", AppDomain.CurrentDomain.FriendlyName);
+                LooseConsole.Holder.Source.WriteLine("AppDomain: {0}", 
+                                                   AppDomain.CurrentDomain.FriendlyName);
             });
 
-            LooseConsole.Instance.Source().WriteLine("AppDomain: {0}", AppDomain.CurrentDomain.FriendlyName);
+            LooseConsole.Holder.Source.WriteLine("AppDomain: {0}", 
+                                                   AppDomain.CurrentDomain.FriendlyName);
         }
     }
 }
+#elif ISSUE_2
+using System;
+using NUnit.Framework;
+using ProfilingApiSample04Framework.Mixin.System;
+
+namespace ProfilingApiSample04FrameworkTest
+{
+    [TestFixture]
+    public class ConsoleTest
+    {
+        [Test]
+        public void Test()
+        {
+            Console.WriteLine("AppDomain: {0}", AppDomain.CurrentDomain.FriendlyName);
+
+            AppDomain.CurrentDomain.RunAtIsolatedDomain(() =>
+            {
+                Console.WriteLine("AppDomain: {0}", AppDomain.CurrentDomain.FriendlyName);
+            });
+
+            Console.WriteLine("AppDomain: {0}", AppDomain.CurrentDomain.FriendlyName);
+        }
+    }
+}
+#elif ISSUE_1
+using System;
+using NUnit.Framework;
+
+namespace ProfilingApiSample04FrameworkTest
+{
+    [TestFixture]
+    public class ConsoleTest
+    {
+        [Test]
+        public void Test()
+        {
+            Console.WriteLine("AppDomain: {0}", AppDomain.CurrentDomain.FriendlyName);
+        }
+    }
+}
+#endif

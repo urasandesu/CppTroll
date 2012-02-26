@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Policy;
+using System.Runtime.Serialization;
 
-namespace ProfilingApiSample04Framework
+namespace ProfilingApiSample04Framework.Mixin.System
 {
     public static class AppDomainMixin
     {
@@ -112,11 +113,7 @@ namespace ProfilingApiSample04Framework
             
             if (!action.Method.IsStatic)
                 throw new ArgumentException(
-                    "The parameter must be designated a static method.", "action");
-
-            if (args != null && 0 < args.Length && !args.All(IsDomainCrossable))
-                throw new ArgumentException("The parameter must inherit " + 
-                    "MarshalByRefObject, or must be applied SerializableAttribute.");
+                          "The parameter must be designated a static method.", "action");
 
             
             var domain = default(AppDomain);
@@ -130,6 +127,12 @@ namespace ProfilingApiSample04Framework
                 runner.Action = action;
                 runner.Run(args);
             }
+            catch (SerializationException e)
+            {
+                throw new ArgumentException("The parameter must be domain crossable. " +
+                          "Please confirm that the type inherits MarshalByRefObject, " +
+                          "or it is applied SerializableAttribute.", e);
+            }
             finally
             {
                 try
@@ -140,11 +143,5 @@ namespace ProfilingApiSample04Framework
                 catch { }
             }
         }
-
-        readonly static Func<object, bool> IsDomainCrossable = 
-                                        o => o is MarshalByRefObject ||
-                                             o.GetType().
-                                               GetCustomAttributes(false).
-                                               Contains(typeof(SerializableAttribute));
     }
 }
